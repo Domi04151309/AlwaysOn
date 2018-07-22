@@ -1,0 +1,69 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/pref_general">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_alwayson"
+            android:key="always_on"
+            android:title="@string/pref_alwaysOn" />
+        <Preference
+            android:icon="@drawable/ic_alwayson"
+            android:key="pref_ao"
+            android:summary="@string/pref_ao_style_summary"
+            android:title="@string/pref_ao_style" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_edge"
+            android:key="edge_swipe"
+            android:title="@string/pref_edgeSwipe" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_headset"
+            android:key="headphone_animation"
+            android:title="@string/pref_headphones" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_charging"
+            android:key="charging_animation"
+            android:title="@string/pref_charging" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_permissions">
+
+        <Preference
+            android:summary="@string/pref_root_summary"
+            android:title="@string/pref_root">
+            <intent
+                android:targetClass="io.github.domi04151309.alwayson.RequestRoot"
+                android:targetPackage="io.github.domi04151309.alwayson" />
+        </Preference>
+        <Preference
+            android:summary="@string/pref_notification_summary"
+            android:title="@string/pref_notification">
+            <intent
+                android:targetClass="com.android.settings.Settings$NotificationAccessSettingsActivity"
+                android:targetPackage="com.android.settings" />
+        </Preference>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_demo">
+
+        <Preference
+            android:title="@string/pref_demo_ao">
+            <intent
+                android:targetClass="io.github.domi04151309.alwayson.AlwaysOnDemo"
+                android:targetPackage="io.github.domi04151309.alwayson" />
+        </Preference>
+
+        <Preference
+        android:title="@string/pref_demo_edge">
+        <intent
+            android:targetClass="io.github.domi04151309.alwayson.EdgeDemo"
+            android:targetPackage="io.github.domi04151309.alwayson" />
+    </Preference>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

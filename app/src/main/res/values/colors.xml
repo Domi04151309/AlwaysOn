@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#ff000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="white128">#80ffffff</color>
+    <color name="colorPrimary">@color/black</color>
+    <color name="colorPrimaryDark">@color/black</color>
+    <color name="colorAccent">#ff1369BF</color>
+    <color name="windowBackground">@color/black</color>
+    <color name="textColor">@color/white</color>
+    <color name="textColor128">@color/white128</color>
+    <color name="charging">#8055D769</color>
+</resources>

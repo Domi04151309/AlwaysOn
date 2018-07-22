@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">AlwaysOn</string>
+    <string name="app_by">AlwaysOn by Domi04151309</string>
+    <string name="description">AlwaysOn is an app for every device with an AMOLED or OLED display. It keeps your screen on while the clock and battery percentage are displayed but it does not drain your battery.\nAlso, icons appear when you plug in your headphones or start charging your device.</string>
+
+    <string name="AlwaysOn">Always on display</string>
+    <string name="Edge">Edge display</string>
+    <string name="Headset">Headphone animation</string>
+    <string name="Charging">Charging animation</string>
+
+    <string name="date">Unable to display date</string>
+    <string name="time">Unable to display time</string>
+    <string name="battery">Unable to display battery percentage</string>
+    <string name="chargingState">Unable to display charging state</string>
+    <string name="battery2">\??%</string>
+    <string name="clock">HH:mm</string>
+    <string name="clock2">HH\nMM</string>
+    <string name="date2">EEEE, MMM d</string>
+    <string name="feature">-</string>
+    <string name="error">ERROR</string>
+
+    <string name="demoClock">07:00</string>
+    <string name="demoClock2">07\n00</string>
+    <string name="demoDate">Monday, Jan 1</string>
+    <string name="demoBattery">100%</string>
+    <string name="demoFeature">-</string>
+
+    <string name="shortcutDisabled">Disabled</string>
+
+    <string name="root">Requesting root access&#8230;</string>
+    <string name="appwidget_text">Loading</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref">Settings</string>
+    <string name="pref_general">General settings</string>
+    <string name="pref_alwaysOn">Enable always on display</string>
+    <string name="pref_ao_style">Always on look</string>
+    <string name="pref_ao_style_summary">Changes the look of the always on display</string>
+    <string-array name="pref_ao_style_array_display">
+        <item>Google like style</item>
+        <item>Samsung like style</item>
+    </string-array>
+    <string-array name="pref_ao_style_array">
+        <item>google</item>
+        <item>samsung</item>
+    </string-array>
+    <string name="pref_showClock">Display a clock</string>
+    <string name="pref_showBatteryIcn">Display a battery icon</string>
+    <string name="pref_showBattery">Display the battery percentage</string>
+    <string name="pref_vibration">Vibration duration</string>
+    <string name="pref_vibration_summary">Duration the phone vibrates when you double-tap the screen</string>
+    <string name="pref_vibration_unit">Seconds</string>
+    <string name="pref_edgeSwipe">Enable edge display</string>
+    <string name="pref_headphones">Enable headphone animation</string>
+    <string name="pref_charging">Enable charging animation</string>
+    <string name="pref_permissions">Permissions</string>
+    <string name="pref_root">Request root access</string>
+    <string name="pref_root_summary">Enable root access for this app to work properly</string>
+    <string name="pref_notification">Notification listener service</string>
+    <string name="pref_notification_summary">Enable or disable the notification listener service</string>
+    <string name="pref_demo">Demo mode</string>
+    <string name="pref_demo_ao">Always on display demo mode</string>
+    <string name="pref_demo_edge">Edge display demo mode</string>
+
+    <string name="notification_listener_service">"Notification Listener Service"</string>
+    <string name="notification_listener_service_explanation">"You need to enable the notification listener service for the app to work"</string>
+    <string name="ok">OK</string>
+</resources>

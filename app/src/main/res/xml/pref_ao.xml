@@ -1,0 +1,32 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:defaultValue="google"
+        android:entries="@array/pref_ao_style_array_display"
+        android:entryValues="@array/pref_ao_style_array"
+        android:key="ao_style"
+        android:summary="@string/pref_ao_style_summary"
+        android:title="@string/pref_ao_style" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="ao_clock"
+        android:title="@string/pref_showClock" />
+    <SwitchPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:defaultValue="true"
+        android:key="ao_batteryIcn"
+        android:title="@string/pref_showBatteryIcn" />
+    <SwitchPreference
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:defaultValue="true"
+        android:key="ao_battery"
+        android:title="@string/pref_showBattery" />
+    <io.github.domi04151309.alwayson.EditIntegerPreference
+        android:defaultValue="64"
+        android:key="ao_vibration"
+        android:summary="@string/pref_vibration_summary"
+        android:title="@string/pref_vibration" />
+
+</PreferenceScreen>

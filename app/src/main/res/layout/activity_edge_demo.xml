@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fullscreen_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.github.domi04151309.alwayson.Edge">
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/dTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/samsung_sans"
+            android:gravity="start"
+            android:text="@string/demoDate"
+            android:layout_weight="1"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/hTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/samsung_sans"
+            android:gravity="center"
+            android:text="@string/demoClock"
+            android:layout_weight="1"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/batteryTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/samsung_sans"
+            android:gravity="end"
+            android:text="@string/demoBattery"
+            android:textSize="25sp" />
+
+    </LinearLayout>
+</RelativeLayout>

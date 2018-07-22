@@ -1,0 +1,49 @@
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="actionBarStyle">@style/ActionBar</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColorSecondary">@color/textColor128</item>
+        <item name="buttonStyle">@style/Button</item>
+        <item name="homeAsUpIndicator">@drawable/ic_back</item>
+        <item name="android:navigationIcon">@drawable/ic_back</item>
+        <item name="android:colorBackground">@color/windowBackground</item>
+        <item name="android:alertDialogTheme">@style/DialogTheme</item>
+    </style>
+
+    <style name="ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="background">@color/actionbar_bg</item>
+        <item name="titleTextStyle">@style/ActionBarTitle</item>
+    </style>
+
+    <style name="ActionBarTitle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="Button" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_bg</item>
+    </style>
+
+    <style name="AppTheme.ScreenOff" parent="AppTheme">
+        <item name="actionBarStyle">@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse</item>
+        <item name="android:textColor">@color/textColor128</item>
+    </style>
+
+    <style name="Widget.Button" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/product_sans</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/windowBackground</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColorPrimary">@color/textColor</item>
+        <item name="android:textColorAlertDialogListItem">@color/textColor</item>
+        <item name="android:windowBackground">@color/actionbar_bg</item>
+    </style>
+</resources>

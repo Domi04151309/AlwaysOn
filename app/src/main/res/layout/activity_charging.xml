@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chargingLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="io.github.domi04151309.alwayson.Charging">
+
+    <ImageView
+        android:id="@+id/chargingImage"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="109dp"
+        android:layout_marginStart="110dp"
+        android:contentDescription="@string/Charging"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_charging" />
+</android.support.constraint.ConstraintLayout>

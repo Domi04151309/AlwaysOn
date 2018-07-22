@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.github.domi04151309.alwayson">
+
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="io.github.domi04151309.alwayson.AlwaysOn"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:launchMode="singleInstance"
+            android:screenOrientation="sensorPortrait"
+            android:showOnLockScreen="true"
+            android:taskAffinity=""
+            android:theme="@style/AppTheme.ScreenOff" />
+
+        <service
+            android:name="io.github.domi04151309.alwayson.AlwaysOnQS"
+            android:icon="@drawable/ic_alwayson_unavailable"
+            android:label="@string/AlwaysOn"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="io.github.domi04151309.alwayson.AlwaysOnDemo"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:taskAffinity=""
+            android:theme="@style/AppTheme.ScreenOff" />
+
+        <receiver
+            android:name="io.github.domi04151309.alwayson.Autostart"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="io.github.domi04151309.alwayson.ChargeInfoReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="io.github.domi04151309.alwayson.Charging"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:launchMode="singleInstance"
+            android:screenOrientation="sensorPortrait"
+            android:showOnLockScreen="true"
+            android:taskAffinity=""
+            android:theme="@style/AppTheme.ScreenOff" />
+        <activity
+            android:name="io.github.domi04151309.alwayson.Edge"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"
+            android:showOnLockScreen="true"
+            android:taskAffinity=""
+            android:theme="@style/AppTheme.ScreenOff" />
+        <activity
+            android:name="io.github.domi04151309.alwayson.EdgeDemo"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:launchMode="singleInstance"
+            android:screenOrientation="landscape"
+            android:taskAffinity=""
+            android:theme="@style/AppTheme.ScreenOff" />
+
+        <service
+            android:name="io.github.domi04151309.alwayson.EdgeQS"
+            android:icon="@drawable/ic_edge_unavailable"
+            android:label="@string/Edge"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="io.github.domi04151309.alwayson.Headset"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:launchMode="singleInstance"
+            android:screenOrientation="sensorPortrait"
+            android:showOnLockScreen="true"
+            android:taskAffinity=""
+            android:theme="@style/AppTheme.ScreenOff" />
+
+        <receiver
+            android:name="io.github.domi04151309.alwayson.HeadsetInfoReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_HEADSET_PLUG" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name="io.github.domi04151309.alwayson.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
+
+        <service
+            android:name="io.github.domi04151309.alwayson.MainService"
+            android:enabled="true"
+            android:exported="true"
+            android:launchMode="singleTop" />
+        <service
+            android:name="io.github.domi04151309.alwayson.NotificationService"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <activity android:name="io.github.domi04151309.alwayson.NlsAlertDialog"
+            android:label="@string/notification_listener_service"
+            android:excludeFromRecents="true"
+            android:theme="@style/DialogTheme"/>
+
+        <receiver android:name="io.github.domi04151309.alwayson.Pixel2">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/pixel2_info" />
+        </receiver>
+
+        <activity
+            android:name="io.github.domi04151309.alwayson.Preferences"
+            android:label="@string/pref"
+            android:parentActivityName="io.github.domi04151309.alwayson.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.MainActivity" />
+        </activity>
+        <activity
+            android:name="io.github.domi04151309.alwayson.RequestRoot"
+            android:label=""
+            android:parentActivityName="io.github.domi04151309.alwayson.Preferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.Preferences" />
+        </activity>
+
+        <receiver
+            android:name="io.github.domi04151309.alwayson.ScreenStateReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SCREEN_ON" />
+                <action android:name="android.intent.action.ACTION_SCREEN_OFF" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

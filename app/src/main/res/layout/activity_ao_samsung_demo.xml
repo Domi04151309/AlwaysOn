@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fullscreen_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:keepScreenOn="true"
+    tools:context="io.github.domi04151309.alwayson.AlwaysOn">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="96dp" />
+
+    <TextView
+        android:id="@+id/hTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/samsung_sans"
+        android:gravity="center"
+        android:lineSpacingMultiplier="0.72"
+        android:text="@string/demoClock2"
+        android:textSize="75sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="32dp" />
+
+    <ImageView
+        android:id="@+id/batteryIcn"
+        android:layout_width="match_parent"
+        android:layout_height="25sp"
+        android:contentDescription="@string/feature"
+        app:srcCompat="@drawable/ic_battery_100" />
+
+    <TextView
+        android:id="@+id/batteryTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/samsung_sans"
+        android:gravity="center"
+        android:text="@string/demoBattery"
+        android:textSize="25sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="32dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/samsung_sans"
+        android:gravity="center"
+        android:text="@string/demoFeature"
+        android:textSize="25sp" />
+
+</LinearLayout>
