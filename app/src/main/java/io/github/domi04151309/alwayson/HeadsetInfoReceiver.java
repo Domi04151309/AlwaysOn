@@ -24,7 +24,7 @@ public class HeadsetInfoReceiver extends BroadcastReceiver {
                         toast.show();
                     } else if (!ScreenStateReceiver.screenStateOn) {
                         Intent i = new Intent();
-                        i.setClassName("alwayson.test.alwayson", "alwayson.test.alwayson.Headphones");
+                        i.setClassName(context, "io.github.domi04151309.alwayson.Headphones");
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(i);
                     }

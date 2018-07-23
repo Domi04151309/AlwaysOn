@@ -17,7 +17,7 @@ public class ScreenStateReceiver extends BroadcastReceiver {
             screenStateOn=true;
             if(preferences.getBoolean("edge_swipe", false) && !Edge.running) {
                 Intent i = new Intent();
-                i.setClassName("alwayson.test.alwayson", "alwayson.test.alwayson.Edge");
+                i.setClassName(context, "io.github.domi04151309.alwayson.Edge");
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
             }
@@ -25,7 +25,7 @@ public class ScreenStateReceiver extends BroadcastReceiver {
             screenStateOn=false;
             if(preferences.getBoolean("always_on", false)) {
                 Intent i = new Intent();
-                i.setClassName("alwayson.test.alwayson", "alwayson.test.alwayson.AlwaysOn");
+                i.setClassName(context, "io.github.domi04151309.alwayson.AlwaysOn");
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(i);
             }
