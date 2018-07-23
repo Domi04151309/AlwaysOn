@@ -17,7 +17,6 @@
     <string name="clock2">HH\nMM</string>
     <string name="date2">EEEE, MMM d</string>
     <string name="feature">-</string>
-    <string name="error">ERROR</string>
 
     <string name="demoClock">07:00</string>
     <string name="demoClock2">07\n00</string>
@@ -49,7 +48,6 @@
     <string name="pref_showBattery">Display the battery percentage</string>
     <string name="pref_vibration">Vibration duration</string>
     <string name="pref_vibration_summary">Duration the phone vibrates when you double-tap the screen</string>
-    <string name="pref_vibration_unit">Seconds</string>
     <string name="pref_edgeSwipe">Enable edge display</string>
     <string name="pref_headphones">Enable headphone animation</string>
     <string name="pref_charging">Enable charging animation</string>

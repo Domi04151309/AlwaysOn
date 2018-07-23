@@ -8,13 +8,11 @@ import android.service.notification.StatusBarNotification;
 
 public class NotificationService extends NotificationListenerService {
 
-    private Context context;
-
     @Override
 
     public void onCreate() {
         super.onCreate();
-        context = getApplicationContext();
+        Context context = getApplicationContext();
     }
 
     @Override
@@ -25,15 +23,5 @@ public class NotificationService extends NotificationListenerService {
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
 
-    }
-
-    @Override
-    public IBinder onBind(Intent mIntent) {
-        return super.onBind(mIntent);
-    }
-
-    @Override
-    public boolean onUnbind(Intent mIntent) {
-        return super.onUnbind(mIntent);
     }
 }

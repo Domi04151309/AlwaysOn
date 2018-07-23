@@ -86,6 +86,7 @@ public class Edge extends AppCompatActivity {
                     Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
                     int duration = preferences.getInt("ao_vibration", 64);
+                    assert v != null;
                     v.vibrate(duration);
                     Edge.this.finish();
                     return super.onDoubleTap(e);

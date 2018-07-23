@@ -155,6 +155,7 @@ public class AlwaysOn extends AppCompatActivity {
                 public boolean onDoubleTap(MotionEvent e) {
                     Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     int duration = preferences.getInt("ao_vibration", 64);
+                    assert v != null;
                     v.vibrate(duration);
                     AlwaysOn.this.finish();
                     return super.onDoubleTap(e);
@@ -256,6 +257,7 @@ public class AlwaysOn extends AppCompatActivity {
     private void displayState(){
         DisplayManager dm = (DisplayManager) this
                 .getSystemService(Context.DISPLAY_SERVICE);
+        assert dm != null;
         for (final Display display : dm.getDisplays()) {
             Thread t = new Thread() {
                 @Override

@@ -15,7 +15,7 @@
     </style>
 
     <style name="ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="background">@color/actionbar_bg</item>
+        <item name="background">@drawable/actionbar_bg</item>
         <item name="titleTextStyle">@style/ActionBarTitle</item>
     </style>
 
@@ -44,6 +44,6 @@
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textColorPrimary">@color/textColor</item>
         <item name="android:textColorAlertDialogListItem">@color/textColor</item>
-        <item name="android:windowBackground">@color/actionbar_bg</item>
+        <item name="android:windowBackground">@drawable/actionbar_bg</item>
     </style>
 </resources>
