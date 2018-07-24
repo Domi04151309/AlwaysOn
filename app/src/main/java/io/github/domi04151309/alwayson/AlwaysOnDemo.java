@@ -26,15 +26,15 @@ public class AlwaysOnDemo extends AppCompatActivity {
         Boolean showClock = preferences.getBoolean("ao_clock", true);
         TextView view = findViewById(R.id.hTxt);
         if(!showClock)
-            view.setVisibility(View.INVISIBLE);
+            view.setVisibility(View.GONE);
         Boolean showBatteryIcn = preferences.getBoolean("ao_batteryIcn", true);
         ImageView view2 = findViewById(R.id.batteryIcn);
         if(!showBatteryIcn)
-            view2.setVisibility(View.INVISIBLE);
+            view2.setVisibility(View.GONE);
         Boolean showBattery = preferences.getBoolean("ao_battery", true);
         TextView view3 = findViewById(R.id.batteryTxt);
         if(!showBattery)
-            view3.setVisibility(View.INVISIBLE);
+            view3.setVisibility(View.GONE);
 
         //Hide UI
         View mContentView = findViewById(R.id.fullscreen_content);
