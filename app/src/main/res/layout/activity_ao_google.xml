@@ -8,26 +8,20 @@
     android:keepScreenOn="true"
     tools:context="io.github.domi04151309.alwayson.AlwaysOn">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="148dp" />
-
     <TextView
         android:id="@+id/hTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="148dp"
         android:gravity="center"
         android:lineSpacingMultiplier="0.72"
         android:text="@string/clock"
         android:textSize="75sp" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="32dp" />
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:layout_gravity="center"
         android:orientation="horizontal">
 
@@ -51,13 +45,10 @@
             android:textSize="25sp" />
     </LinearLayout>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="32dp" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="@string/feature"
         android:textSize="25sp" />
