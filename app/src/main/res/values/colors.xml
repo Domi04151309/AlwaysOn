@@ -3,6 +3,7 @@
     <color name="black">#ff000000</color>
     <color name="white">#ffffffff</color>
     <color name="white128">#80ffffff</color>
+    <color name="orange128">#80ff2902</color>
     <color name="colorPrimary">@color/black</color>
     <color name="colorPrimaryDark">@color/black</color>
     <color name="colorAccent">#ff1369BF</color>
