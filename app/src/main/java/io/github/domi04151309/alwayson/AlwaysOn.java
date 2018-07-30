@@ -73,6 +73,8 @@ public class AlwaysOn extends AppCompatActivity {
                     batteryIcn.setImageResource(R.drawable.ic_battery_30);
                 else if (level >= 20)
                     batteryIcn.setImageResource(R.drawable.ic_battery_20);
+                else if (level >= 10)
+                    batteryIcn.setImageResource(R.drawable.ic_battery_20_orange);
                 else if (level >= 0)
                     batteryIcn.setImageResource(R.drawable.ic_battery_0);
                 else

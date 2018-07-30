@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="io.github.domi04151309.alwayson.AlwaysOn"
+            android:name=".AlwaysOn"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
             android:label=""
@@ -25,7 +25,7 @@
             android:theme="@style/AppTheme.ScreenOff" />
 
         <service
-            android:name="io.github.domi04151309.alwayson.AlwaysOnQS"
+            android:name=".AlwaysOnQS"
             android:icon="@drawable/ic_alwayson_unavailable"
             android:label="@string/AlwaysOn"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -35,14 +35,14 @@
         </service>
 
         <activity
-            android:name="io.github.domi04151309.alwayson.AlwaysOnDemo"
+            android:name=".AlwaysOnDemo"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:taskAffinity=""
             android:theme="@style/AppTheme.ScreenOff" />
 
         <receiver
-            android:name="io.github.domi04151309.alwayson.Autostart"
+            android:name=".Autostart"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -50,7 +50,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name="io.github.domi04151309.alwayson.ChargeInfoReceiver"
+            android:name=".ChargeInfoReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -59,7 +59,7 @@
         </receiver>
 
         <activity
-            android:name="io.github.domi04151309.alwayson.Charging"
+            android:name=".Charging"
             android:excludeFromRecents="true"
             android:label=""
             android:launchMode="singleInstance"
@@ -68,7 +68,7 @@
             android:taskAffinity=""
             android:theme="@style/AppTheme.ScreenOff" />
         <activity
-            android:name="io.github.domi04151309.alwayson.Edge"
+            android:name=".Edge"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
@@ -77,7 +77,7 @@
             android:taskAffinity=""
             android:theme="@style/AppTheme.ScreenOff" />
         <activity
-            android:name="io.github.domi04151309.alwayson.EdgeDemo"
+            android:name=".EdgeDemo"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
             android:label=""
@@ -87,7 +87,7 @@
             android:theme="@style/AppTheme.ScreenOff" />
 
         <service
-            android:name="io.github.domi04151309.alwayson.EdgeQS"
+            android:name=".EdgeQS"
             android:icon="@drawable/ic_edge_unavailable"
             android:label="@string/Edge"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -97,7 +97,7 @@
         </service>
 
         <activity
-            android:name="io.github.domi04151309.alwayson.Headset"
+            android:name=".Headset"
             android:excludeFromRecents="true"
             android:label=""
             android:launchMode="singleInstance"
@@ -107,7 +107,7 @@
             android:theme="@style/AppTheme.ScreenOff" />
 
         <receiver
-            android:name="io.github.domi04151309.alwayson.HeadsetInfoReceiver"
+            android:name=".HeadsetInfoReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -115,25 +115,15 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="io.github.domi04151309.alwayson.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.shortcuts"
-                android:resource="@xml/shortcuts" />
-        </activity>
+        <activity android:name=".MainActivity" />
 
         <service
-            android:name="io.github.domi04151309.alwayson.MainService"
+            android:name=".MainService"
             android:enabled="true"
             android:exported="true"
             android:launchMode="singleTop" />
         <service
-            android:name="io.github.domi04151309.alwayson.NotificationService"
+            android:name=".NotificationService"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
@@ -141,12 +131,13 @@
             </intent-filter>
         </service>
 
-        <activity android:name="io.github.domi04151309.alwayson.NlsAlertDialog"
-            android:label="@string/notification_listener_service"
+        <activity
+            android:name=".NlsAlertDialog"
             android:excludeFromRecents="true"
-            android:theme="@style/DialogTheme"/>
+            android:label="@string/notification_listener_service"
+            android:theme="@style/DialogTheme" />
 
-        <receiver android:name="io.github.domi04151309.alwayson.Pixel2">
+        <receiver android:name=".Pixel2">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -157,24 +148,24 @@
         </receiver>
 
         <activity
-            android:name="io.github.domi04151309.alwayson.Preferences"
+            android:name=".Preferences"
             android:label="@string/pref"
-            android:parentActivityName="io.github.domi04151309.alwayson.MainActivity">
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.domi04151309.alwayson.MainActivity" />
         </activity>
         <activity
-            android:name="io.github.domi04151309.alwayson.RequestRoot"
+            android:name=".RequestRoot"
             android:label=""
-            android:parentActivityName="io.github.domi04151309.alwayson.Preferences">
+            android:parentActivityName=".Preferences">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.domi04151309.alwayson.Preferences" />
         </activity>
 
         <receiver
-            android:name="io.github.domi04151309.alwayson.ScreenStateReceiver"
+            android:name=".ScreenStateReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -182,6 +173,20 @@
                 <action android:name="android.intent.action.ACTION_SCREEN_OFF" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
     </application>
 
 </manifest>
