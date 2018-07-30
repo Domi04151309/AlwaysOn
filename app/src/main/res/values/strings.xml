@@ -52,15 +52,21 @@
     <string name="pref_headphones">Enable headphone animation</string>
     <string name="pref_charging">Enable charging animation</string>
     <string name="pref_permissions">Permissions</string>
-    <string name="pref_root">Request root access</string>
-    <string name="pref_root_summary">Enable root access for this app to work properly</string>
     <string name="pref_notification">Notification listener service</string>
     <string name="pref_notification_summary">Enable or disable the notification listener service</string>
+    <string name="pref_admin">Device admin</string>
+    <string name="pref_admin_summary">Activate this device admin for normal mode</string>
+    <string name="pref_root">Request root access</string>
+    <string name="pref_root_summary">Enable root access for root mode</string>
+    <string name="pref_root_mode">Root mode</string>
+    <string name="pref_root_mode_summary">Enables unlocking with fingerprint scanner</string>
     <string name="pref_demo">Demo mode</string>
     <string name="pref_demo_ao">Always on display demo mode</string>
     <string name="pref_demo_edge">Edge display demo mode</string>
 
     <string name="notification_listener_service">"Notification Listener Service"</string>
     <string name="notification_listener_service_explanation">"You need to enable the notification listener service for the app to work"</string>
+    <string name="device_admin">"Device Admin"</string>
+    <string name="device_admin_explanation">"You need to activate this device admin or switch to root mode for the app to work"</string>
     <string name="ok">OK</string>
 </resources>

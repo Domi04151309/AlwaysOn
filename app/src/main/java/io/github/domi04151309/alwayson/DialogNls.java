@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class NlsAlertDialog extends AppCompatActivity {
+public class DialogNls extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nls_alert_dialog);
+        setContentView(R.layout.dialog_nls);
 
         Button close_button = findViewById(R.id.okay_btn);
         close_button.setOnClickListener(new View.OnClickListener() {

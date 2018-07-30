@@ -1,13 +1,16 @@
 package io.github.domi04151309.alwayson;
 
+import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.BatteryManager;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //if(!isNotificationServiceEnabled()) startActivity(new Intent(MainActivity.this, NlsAlertDialog.class));
+        //if(!isNotificationServiceEnabled()) startActivity(new Intent(MainActivity.this, DialogNls.class));
+        if(!isDeviceAdminOrRoot()) startActivity(new Intent(MainActivity.this, DialogAdmin.class));
 
         startService(new Intent(this, MainService.class));
 
@@ -149,6 +153,21 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    private boolean isDeviceAdminOrRoot(){
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean mode = preferences.getBoolean("root_mode",false);
+        if(mode){
+            return true;
+        }else {
+            DevicePolicyManager policyManager = (DevicePolicyManager) this
+                    .getSystemService(Context.DEVICE_POLICY_SERVICE);
+            ComponentName adminReceiver = new ComponentName(this,
+                    AdminReceiver.class);
+            assert policyManager != null;
+            return policyManager.isAdminActive(adminReceiver);
+        }
     }
 
     @Override

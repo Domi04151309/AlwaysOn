@@ -1,11 +1,18 @@
 package io.github.domi04151309.alwayson;
 
+import android.app.admin.DevicePolicyManager;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class Headset extends AppCompatActivity {
 
@@ -49,12 +56,33 @@ public class Headset extends AppCompatActivity {
     }
 
     private void close() {
-        try {
-            Process proc = Runtime.getRuntime()
-                    .exec(new String[]{ "su", "-c", "input keyevent KEYCODE_POWER" });
-            proc.waitFor();
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean mode = preferences.getBoolean("root_mode",false);
+        if(mode){
+            try {
+                Process proc = Runtime.getRuntime()
+                        .exec(new String[]{ "su", "-c", "input keyevent KEYCODE_POWER" });
+                proc.waitFor();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }else if(!mode){
+            DevicePolicyManager policyManager = (DevicePolicyManager) this
+                    .getSystemService(Context.DEVICE_POLICY_SERVICE);
+            ComponentName adminReceiver = new ComponentName(this,
+                    AdminReceiver.class);
+            assert policyManager != null;
+            boolean admin = policyManager.isAdminActive(adminReceiver);
+            if (admin) {
+                policyManager.lockNow();
+            }else {
+                this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(Headset.this, R.string.pref_admin_summary, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                startActivity(new Intent(this, Preferences.class));
+            }
         }
         Headset.this.finish();
     }

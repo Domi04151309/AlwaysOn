@@ -4,14 +4,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="io.github.domi04151309.alwayson.NlsAlertDialog">
+    tools:context="io.github.domi04151309.alwayson.DialogNls">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="24dp"
         android:layout_weight="1"
-        android:text="@string/notification_listener_service_explanation" />
+        android:text="@string/device_admin_explanation" />
 
     <Button
         android:id="@+id/okay_btn"

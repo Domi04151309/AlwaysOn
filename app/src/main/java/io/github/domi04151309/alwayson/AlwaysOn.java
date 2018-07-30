@@ -9,6 +9,7 @@ import android.hardware.display.DisplayManager;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.BatteryManager;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -281,13 +282,11 @@ public class AlwaysOn extends AppCompatActivity {
     }
 
     private void toggleDisplayState(){
-        try {
-            Process proc = Runtime.getRuntime()
-                    .exec(new String[]{ "su", "-c", "input keyevent KEYCODE_POWER" });
-            proc.waitFor();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        assert pm != null;
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
+                | PowerManager.ACQUIRE_CAUSES_WAKEUP, "AlwaysOn");
+        wl.acquire();
     }
 
     @Override
