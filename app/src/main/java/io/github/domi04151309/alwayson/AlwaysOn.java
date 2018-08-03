@@ -86,7 +86,6 @@ public class AlwaysOn extends AppCompatActivity {
 
     //Move
     private final int delay = 60000;
-    private final int delayTest = delay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,7 +224,8 @@ public class AlwaysOn extends AppCompatActivity {
         tAnimate = new Thread() {
             @Override
             public void run() {
-                while (delay == delayTest) {
+                //noinspection InfiniteLoopStatement
+                while (true) {
                     try {
                         Thread.sleep(delay);
                     } catch (InterruptedException e) {

@@ -66,7 +66,7 @@ public class Charging extends AppCompatActivity {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        }else if(!mode){
+        }else {
             DevicePolicyManager policyManager = (DevicePolicyManager) this
                     .getSystemService(Context.DEVICE_POLICY_SERVICE);
             ComponentName adminReceiver = new ComponentName(this,

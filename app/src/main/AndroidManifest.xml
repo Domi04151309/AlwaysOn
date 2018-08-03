@@ -151,7 +151,8 @@
             android:name=".MainService"
             android:enabled="true"
             android:exported="true"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTop"
+            android:permission="" />
 
         <service
             android:name=".NotificationService"
