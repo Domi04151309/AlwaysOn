@@ -1,5 +1,6 @@
 package io.github.domi04151309.alwayson;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -26,7 +28,6 @@ import android.widget.TextView;
 public class AlwaysOn extends AppCompatActivity {
 
     private View mContentView;
-    private boolean running = true;
 
     //Battery
     private ImageView batteryIcn;
@@ -86,6 +87,10 @@ public class AlwaysOn extends AppCompatActivity {
 
     //Move
     private final int delay = 60000;
+
+    //Keep screen on
+    public PowerManager pm;
+    public PowerManager.WakeLock wl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,6 +175,12 @@ public class AlwaysOn extends AppCompatActivity {
                 return true;
             }
         });
+
+        //Keep screen on
+        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        assert pm != null;
+        wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
+                | PowerManager.ACQUIRE_CAUSES_WAKEUP, "AlwaysOn");
     }
 
     //Hide UI
@@ -224,8 +235,7 @@ public class AlwaysOn extends AppCompatActivity {
         tAnimate = new Thread() {
             @Override
             public void run() {
-                //noinspection InfiniteLoopStatement
-                while (true) {
+                while (!isInterrupted()) {
                     try {
                         Thread.sleep(delay);
                     } catch (InterruptedException e) {
@@ -265,28 +275,20 @@ public class AlwaysOn extends AppCompatActivity {
             Thread t = new Thread() {
                 @Override
                 public void run() {
-                        while (!isInterrupted()) {
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            if (display.getState() == Display.STATE_OFF && running) {
-                                        toggleDisplayState();
-                                    }
+                    while (!isInterrupted()) {
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
                         }
+                        if (display.getState() == Display.STATE_OFF) {
+                            wl.acquire(24*60*60*1000L);
+                        }
+                    }
                 }
             };
             t.start();
         }
-    }
-
-    private void toggleDisplayState(){
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        assert pm != null;
-        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
-                | PowerManager.ACQUIRE_CAUSES_WAKEUP, "AlwaysOn");
-        wl.acquire();
     }
 
     @Override
@@ -294,29 +296,37 @@ public class AlwaysOn extends AppCompatActivity {
         return true;
     }
 
-    /* Causes bugs when charging
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ActivityManager activityManager = (ActivityManager) getApplicationContext()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        assert activityManager != null;
+        activityManager.moveTaskToFront(getTaskId(), 0);
+    }
+
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
-        running=false;
-        try {
-            Process proc = Runtime.getRuntime()
-                    .exec(new String[]{ "su", "-c", "input swipe 500 1000 500 10" });
-            proc.waitFor();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }*/
+        Log.d("AppTracker","App Event: user leave hint");
+        wl.release();
+    }
+
     @Override
     public void onStart() {
         super.onStart();
-        running=true;
+        wl.acquire(24*60*60*1000L);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         this.unregisterReceiver(mBatInfoReceiver);
-        running = false;
+        wl.release();
     }
 }

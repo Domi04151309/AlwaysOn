@@ -1,5 +1,6 @@
 package io.github.domi04151309.alwayson;
 
+import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -142,6 +143,15 @@ public class Edge extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         return true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        ActivityManager activityManager = (ActivityManager) getApplicationContext()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        assert activityManager != null;
+        activityManager.moveTaskToFront(getTaskId(), 0);
     }
 
     @Override
