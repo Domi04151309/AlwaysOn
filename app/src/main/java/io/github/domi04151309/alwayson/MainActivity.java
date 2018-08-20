@@ -6,7 +6,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.BatteryManager;

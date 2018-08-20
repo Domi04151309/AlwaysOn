@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.hardware.display.DisplayManager;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.BatteryManager;
@@ -16,7 +15,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -89,10 +87,10 @@ public class AlwaysOn extends AppCompatActivity {
     private final int delay = 60000;
 
     //Keep screen on
-    public PowerManager pm;
-    public PowerManager.WakeLock wl;
+    private PowerManager pm;
+    private PowerManager.WakeLock wl;
 
-    //Preferences
+    //Pref
     private SharedPreferences prefs;
 
     @Override
@@ -118,9 +116,6 @@ public class AlwaysOn extends AppCompatActivity {
         TextView view3 = findViewById(R.id.batteryTxt);
         if(!showBattery)
             view3.setVisibility(View.GONE);
-
-        //Keep screen on
-        displayState();
 
         //Show on lockscreen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|
@@ -269,31 +264,6 @@ public class AlwaysOn extends AppCompatActivity {
         tAnimate.start();
     }
 
-    //Keep screen on
-    private void displayState(){
-        DisplayManager dm = (DisplayManager) this
-                .getSystemService(Context.DISPLAY_SERVICE);
-        assert dm != null;
-        for (final Display display : dm.getDisplays()) {
-            Thread t = new Thread() {
-                @Override
-                public void run() {
-                    while (!isInterrupted()) {
-                        try {
-                            Thread.sleep(5000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        if (display.getState() == Display.STATE_OFF) {
-                            wl.acquire(24*60*60*1000L);
-                        }
-                    }
-                }
-            };
-            t.start();
-        }
-    }
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         return true;
@@ -319,11 +289,6 @@ public class AlwaysOn extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         wl.acquire(24*60*60*1000L);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 
     @Override
