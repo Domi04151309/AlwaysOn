@@ -1,5 +1,5 @@
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat">
         <item name="actionBarStyle">@style/ActionBar</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -14,13 +14,14 @@
         <item name="android:alertDialogTheme">@style/DialogTheme</item>
     </style>
 
-    <style name="AppTheme.NoActionBar" parent="AppTheme">
+    <style name="AppTheme.Splash" parent="Theme.AppCompat">
+        <item name="android:windowBackground">@drawable/splash</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="ActionBar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+    <style name="ActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
         <item name="background">@drawable/actionbar_bg</item>
         <item name="titleTextStyle">@style/ActionBarTitle</item>
     </style>
@@ -45,7 +46,7 @@
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+    <style name="DialogTheme" parent="Theme.AppCompat.Dialog.Alert">
         <item name="colorAccent">@color/windowBackground</item>
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textColorPrimary">@color/textColor</item>

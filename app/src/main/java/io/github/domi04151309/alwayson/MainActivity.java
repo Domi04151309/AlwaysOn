@@ -156,8 +156,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isDeviceAdminOrRoot(){
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Boolean mode = preferences.getBoolean("root_mode",false);
+        Boolean mode = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode",false);
         if(mode){
             return true;
         }else {

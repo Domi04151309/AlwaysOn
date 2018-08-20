@@ -12,8 +12,7 @@ public class HeadsetInfoReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if(preferences.getBoolean("headphone_animation", false)) {
+        if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("headphone_animation", false)) {
             if (intent.hasExtra("state")) {
                 if (headsetConnected && intent.getIntExtra("state", 0) == 0) {
                     headsetConnected = false;

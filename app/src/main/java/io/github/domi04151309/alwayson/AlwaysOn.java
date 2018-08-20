@@ -92,26 +92,29 @@ public class AlwaysOn extends AppCompatActivity {
     public PowerManager pm;
     public PowerManager.WakeLock wl;
 
+    //Preferences
+    private SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Check preferences
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String userTheme = preferences.getString("ao_style", "google");
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String userTheme = prefs.getString("ao_style", "google");
         if (userTheme.equals("google"))
             setContentView(R.layout.activity_ao_google);
         else if (userTheme.equals("samsung"))
             setContentView(R.layout.activity_ao_samsung);
-        Boolean showClock = preferences.getBoolean("ao_clock", true);
+        Boolean showClock = prefs.getBoolean("ao_clock", true);
         TextView view = findViewById(R.id.hTxt);
         if(!showClock)
             view.setVisibility(View.GONE);
-        Boolean showBatteryIcn = preferences.getBoolean("ao_batteryIcn", true);
+        Boolean showBatteryIcn = prefs.getBoolean("ao_batteryIcn", true);
         ImageView view2 = findViewById(R.id.batteryIcn);
         if(!showBatteryIcn)
             view2.setVisibility(View.GONE);
-        Boolean showBattery = preferences.getBoolean("ao_battery", true);
+        Boolean showBattery = prefs.getBoolean("ao_battery", true);
         TextView view3 = findViewById(R.id.batteryTxt);
         if(!showBattery)
             view3.setVisibility(View.GONE);
@@ -161,7 +164,7 @@ public class AlwaysOn extends AppCompatActivity {
                 @Override
                 public boolean onDoubleTap(MotionEvent e) {
                     Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                    int duration = preferences.getInt("ao_vibration", 64);
+                    int duration = prefs.getInt("ao_vibration", 64);
                     assert v != null;
                     v.vibrate(duration);
                     AlwaysOn.this.finish();
@@ -220,8 +223,8 @@ public class AlwaysOn extends AppCompatActivity {
 
     private String getTime(){
         String hour = null;
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String userTheme = preferences.getString("ao_style", "google");
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String userTheme = prefs.getString("ao_style", "google");
         if (userTheme.equals("google"))
             hour = new SimpleDateFormat("HH:mm").format(Calendar.getInstance());
         else if (userTheme.equals("samsung"))

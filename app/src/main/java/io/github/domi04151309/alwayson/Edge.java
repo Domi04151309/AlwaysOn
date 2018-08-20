@@ -23,7 +23,6 @@ import android.widget.TextView;
 public class Edge extends AppCompatActivity {
 
     private View mContentView;
-    public static boolean running;
 
     //Battery
     private TextView batteryTxt;
@@ -40,7 +39,6 @@ public class Edge extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        running=true;
         setContentView(R.layout.activity_edge);
 
         //Show on lockscreen
@@ -79,14 +77,14 @@ public class Edge extends AppCompatActivity {
         time();
 
         //DoubleTap
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mContentView.setOnTouchListener(new View.OnTouchListener() {
             private final GestureDetector gestureDetector = new GestureDetector(Edge.this, new GestureDetector.SimpleOnGestureListener() {
                 @Override
                 public boolean onDoubleTap(MotionEvent e) {
                     Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-                    int duration = preferences.getInt("ao_vibration", 64);
+                    int duration = prefs.getInt("ao_vibration", 64);
                     assert v != null;
                     v.vibrate(duration);
                     Edge.this.finish();
@@ -158,6 +156,5 @@ public class Edge extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         this.unregisterReceiver(mBatInfoReceiver);
-        running=false;
     }
 }

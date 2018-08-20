@@ -11,8 +11,7 @@ public class ChargeInfoReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if(preferences.getBoolean("charging_animation", false)) {
+        if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("charging_animation", false)) {
             if (ScreenStateReceiver.screenStateOn) {
                 Toast toast = Toast.makeText(context, "Power connected", Toast.LENGTH_LONG);
                 toast.show();

@@ -57,8 +57,7 @@ public class Charging extends AppCompatActivity {
     }
 
     private void close() {
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Boolean mode = preferences.getBoolean("root_mode",false);
+        Boolean mode = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode",false);
         if(mode){
             try {
                 Process proc = Runtime.getRuntime()
