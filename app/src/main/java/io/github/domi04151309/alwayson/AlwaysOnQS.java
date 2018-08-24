@@ -24,11 +24,11 @@ public class AlwaysOnQS extends TileService{
         int newState;
 
         if (isActive) {
-            newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.ic_alwayson);
+            newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.ic_qs_alwayson);
             newState = Tile.STATE_ACTIVE;
             this.startService(new Intent(this,MainService.class));
         } else {
-            newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.ic_alwayson);
+            newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.ic_qs_alwayson);
             newState = Tile.STATE_INACTIVE;
         }
         tile.setIcon(newIcon);

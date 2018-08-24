@@ -8,9 +8,27 @@
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textColorSecondary">@color/textColor128</item>
         <item name="buttonStyle">@style/Button</item>
+        <item name="imageButtonStyle">@style/ImageButton</item>
         <item name="homeAsUpIndicator">@drawable/ic_back</item>
         <item name="android:navigationIcon">@drawable/ic_back</item>
         <item name="android:colorBackground">@color/windowBackground</item>
+        <item name="android:alertDialogTheme">@style/DialogTheme</item>
+    </style>
+
+    <style name="AppTheme.Light" parent="Theme.AppCompat.Light">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="actionBarStyle">@style/ActionBar</item>
+        <item name="colorPrimary">@color/lightColorPrimary</item>
+        <item name="colorPrimaryDark">@color/lightColorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/lightWindowBackground</item>
+        <item name="android:textColor">@color/lightTextColor</item>
+        <item name="android:textColorSecondary">@color/lightTextColor128</item>
+        <item name="buttonStyle">@style/Button</item>
+        <item name="imageButtonStyle">@style/ImageButton</item>
+        <item name="homeAsUpIndicator">@drawable/ic_back</item>
+        <item name="android:navigationIcon">@drawable/ic_back</item>
+        <item name="android:colorBackground">@color/lightWindowBackground</item>
         <item name="android:alertDialogTheme">@style/DialogTheme</item>
     </style>
 
@@ -32,11 +50,23 @@
 
     <style name="Button" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/button_bg</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@null</item>
+        <item name="android:tint">@color/white</item>
     </style>
 
     <style name="AppTheme.ScreenOff" parent="AppTheme">
-        <item name="actionBarStyle">@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:textColor">@color/textColor128</item>
+    </style>
+
+    <style name="AppTheme.ScreenOff.Bright" parent="AppTheme.ScreenOff">
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
     <style name="Widget.Button" parent="TextAppearance.AppCompat">

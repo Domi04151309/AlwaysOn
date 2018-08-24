@@ -51,6 +51,12 @@
     <string name="pref_edgeSwipe">Enable edge display</string>
     <string name="pref_headphones">Enable headphone animation</string>
     <string name="pref_charging">Enable charging animation</string>
+    <string name="pref_display">Display settings</string>
+    <string name="pref_hour">Use 12-hour clock</string>
+    <string name="pref_hour_summary_on">Currently used: 12-hour clock</string>
+    <string name="pref_hour_summary_off">Currently used: 24-hour clock</string>
+    <string name="pref_light">Light mode</string>
+    <string name="pref_light_summary">Changes the look of the app to a light style</string>
     <string name="pref_permissions">Permissions</string>
     <string name="pref_notification">Notification listener service</string>
     <string name="pref_notification_summary">Enable or disable the notification listener service</string>

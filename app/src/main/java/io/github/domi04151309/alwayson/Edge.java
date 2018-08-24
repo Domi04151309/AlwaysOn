@@ -36,6 +36,9 @@ public class Edge extends AppCompatActivity {
         }
     };
 
+    //Preferences
+    private SharedPreferences prefs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +72,7 @@ public class Edge extends AppCompatActivity {
         String date = new SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance());
         TextView dtTxt = this.findViewById(R.id.dTxt);
         dtTxt.setText(date);
-        String hour = new SimpleDateFormat("HH:mm").format(Calendar.getInstance());
+        String hour = getTime();
         TextView htTxt = this.findViewById(R.id.hTxt);
         htTxt.setText(hour);
 
@@ -77,7 +80,7 @@ public class Edge extends AppCompatActivity {
         time();
 
         //DoubleTap
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mContentView.setOnTouchListener(new View.OnTouchListener() {
             private final GestureDetector gestureDetector = new GestureDetector(Edge.this, new GestureDetector.SimpleOnGestureListener() {
                 @Override
@@ -124,7 +127,7 @@ public class Edge extends AppCompatActivity {
                                 String date = new SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance());
                                 TextView dtTxt = findViewById(R.id.dTxt);
                                 dtTxt.setText(date);
-                                String hour = new SimpleDateFormat("HH:mm").format(Calendar.getInstance());
+                                String hour = getTime();
                                 TextView htTxt = findViewById(R.id.hTxt);
                                 htTxt.setText(hour);
                             }
@@ -136,6 +139,17 @@ public class Edge extends AppCompatActivity {
             }
         };
         t.start();
+    }
+
+    private String getTime(){
+        String hour;
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean clock = prefs.getBoolean("hour", false);
+        if (clock)
+            hour = new SimpleDateFormat("hh:mm").format(Calendar.getInstance());
+        else
+            hour = new SimpleDateFormat("HH:mm").format(Calendar.getInstance());
+        return hour;
     }
 
     @Override

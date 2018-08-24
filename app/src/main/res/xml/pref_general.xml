@@ -29,8 +29,20 @@
             android:title="@string/pref_charging" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_permissions">
-
+    <PreferenceCategory android:title="@string/pref_display" >
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="hour"
+            android:summaryOff="@string/pref_hour_summary_off"
+            android:summaryOn="@string/pref_hour_summary_on"
+            android:title="@string/pref_hour" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="light_mode"
+            android:summary="@string/pref_light_summary"
+            android:title="@string/pref_light" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_permissions">>
         <Preference
             android:summary="@string/pref_notification_summary"
             android:title="@string/pref_notification">
@@ -39,25 +51,24 @@
                 android:targetPackage="com.android.settings" />
         </Preference>
         <Preference
-            android:summary="@string/pref_admin_summary"
-            android:title="@string/pref_admin">
-            <intent
-                android:targetClass="com.android.settings.Settings$DeviceAdminSettingsActivity"
-                android:targetPackage="com.android.settings" />
-        </Preference>
+                android:summary="@string/pref_admin_summary"
+                android:title="@string/pref_admin">
+                <intent
+                    android:targetClass="com.android.settings.Settings$DeviceAdminSettingsActivity"
+                    android:targetPackage="com.android.settings" />
+            </Preference>
         <Preference
-            android:summary="@string/pref_root_summary"
-            android:title="@string/pref_root">
-            <intent
-                android:targetClass="io.github.domi04151309.alwayson.RequestRoot"
-                android:targetPackage="io.github.domi04151309.alwayson" />
-        </Preference>
+                android:summary="@string/pref_root_summary"
+                android:title="@string/pref_root">
+                <intent
+                    android:targetClass="io.github.domi04151309.alwayson.RequestRoot"
+                    android:targetPackage="io.github.domi04151309.alwayson" />
+            </Preference>
         <SwitchPreference
-            android:defaultValue="false"
-            android:key="root_mode"
-            android:summary="@string/pref_root_mode_summary"
-            android:title="@string/pref_root_mode" />
-
+                android:defaultValue="false"
+                android:key="root_mode"
+                android:summary="@string/pref_root_mode_summary"
+                android:title="@string/pref_root_mode" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_demo">

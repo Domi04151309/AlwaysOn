@@ -13,6 +13,7 @@ public class Preferences extends AppCompatPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Theme.set(this);
         super.onCreate(savedInstanceState);
         setupActionBar();
         getFragmentManager().beginTransaction()
@@ -37,6 +38,12 @@ public class Preferences extends AppCompatPreferenceActivity {
             findPreference( "pref_ao" ).setOnPreferenceClickListener( new Preference.OnPreferenceClickListener() {
                 @Override public boolean onPreferenceClick( Preference preference ) {
                     getFragmentManager().beginTransaction().replace( android.R.id.content, new PreferenceAlwaysOn() ).addToBackStack( PreferenceAlwaysOn.class.getSimpleName() ).commit();
+                    return true;
+                }
+            } );
+            findPreference( "light_mode" ).setOnPreferenceClickListener( new Preference.OnPreferenceClickListener() {
+                @Override public boolean onPreferenceClick( Preference preference ) {
+                    startActivity(new Intent(getContext(), MainActivity.class));
                     return true;
                 }
             } );

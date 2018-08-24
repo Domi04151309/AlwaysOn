@@ -87,10 +87,9 @@ public class AlwaysOn extends AppCompatActivity {
     private final int delay = 60000;
 
     //Keep screen on
-    private PowerManager pm;
     private PowerManager.WakeLock wl;
 
-    //Pref
+    //Prefs
     private SharedPreferences prefs;
 
     @Override
@@ -175,7 +174,7 @@ public class AlwaysOn extends AppCompatActivity {
         });
 
         //Keep screen on
-        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         assert pm != null;
         wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
                 | PowerManager.ACQUIRE_CAUSES_WAKEUP, "AlwaysOn");
@@ -220,10 +219,18 @@ public class AlwaysOn extends AppCompatActivity {
         String hour = null;
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String userTheme = prefs.getString("ao_style", "google");
-        if (userTheme.equals("google"))
-            hour = new SimpleDateFormat("HH:mm").format(Calendar.getInstance());
-        else if (userTheme.equals("samsung"))
-            hour = new SimpleDateFormat("HH\nmm").format(Calendar.getInstance());
+        boolean clock = prefs.getBoolean("hour", false);
+        if (userTheme.equals("google")) {
+            if (clock)
+                hour = new SimpleDateFormat("hh:mm").format(Calendar.getInstance());
+            else
+                hour = new SimpleDateFormat("HH:mm").format(Calendar.getInstance());
+        }else if (userTheme.equals("samsung")){
+            if (clock)
+                hour = new SimpleDateFormat("hh\nmm").format(Calendar.getInstance());
+            else
+                hour = new SimpleDateFormat("HH\nmm").format(Calendar.getInstance());
+        }
         return hour;
     }
 

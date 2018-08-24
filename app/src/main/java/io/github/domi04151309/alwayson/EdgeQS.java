@@ -24,11 +24,11 @@ public class EdgeQS extends TileService{
         int newState;
 
         if (isActive) {
-            newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.ic_edge);
+            newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.ic_qs_edge);
             newState = Tile.STATE_ACTIVE;
             this.startService(new Intent(this,MainService.class));
         } else {
-            newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.ic_edge);
+            newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.ic_qs_edge);
             newState = Tile.STATE_INACTIVE;
         }
         tile.setIcon(newIcon);
