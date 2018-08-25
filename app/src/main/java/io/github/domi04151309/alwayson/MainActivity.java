@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //if(!isNotificationServiceEnabled()) startActivity(new Intent(MainActivity.this, DialogNls.class));
+        if(!isNotificationServiceEnabled()) startActivity(new Intent(MainActivity.this, DialogNls.class));
         if(!isDeviceAdminOrRoot()) startActivity(new Intent(MainActivity.this, DialogAdmin.class));
 
         startService(new Intent(this, MainService.class));
@@ -93,18 +93,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //Battery
-        batteryTxt = this.findViewById(R.id.batteryPercentage);
-        this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        chargingState = this.findViewById(R.id.chargingState);
+        batteryTxt = findViewById(R.id.batteryPercentage);
+        registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        chargingState = findViewById(R.id.chargingState);
 
         //Time
         String time = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance());
-        TextView timeTxt = this.findViewById(R.id.time);
+        TextView timeTxt = findViewById(R.id.time);
         timeTxt.setText("Time: " + time);
 
         //Date
         String date = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance());
-        TextView dateTxt = this.findViewById(R.id.date);
+        TextView dateTxt = findViewById(R.id.date);
         dateTxt.setText("Date: " + date);
 
         //Date and time updates
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        this.unregisterReceiver(mBatInfoReceiver);
+        unregisterReceiver(mBatInfoReceiver);
     }
 
 }

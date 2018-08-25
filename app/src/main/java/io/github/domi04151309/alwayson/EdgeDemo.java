@@ -28,7 +28,7 @@ public class EdgeDemo extends AppCompatActivity {
             private final GestureDetector gestureDetector = new GestureDetector(EdgeDemo.this, new GestureDetector.SimpleOnGestureListener() {
                 @Override
                 public boolean onDoubleTap(MotionEvent e) {
-                    EdgeDemo.this.finish();
+                    finish();
                     return super.onDoubleTap(e);
                 }
             });

@@ -38,7 +38,7 @@ public class Pixel2 extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         String text = new SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance());
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.pixel2);
-        views.setOnClickPendingIntent(R.id.appwidget_text, this.getPendingSelfIntent(context));
+        views.setOnClickPendingIntent(R.id.appwidget_text, getPendingSelfIntent(context));
         views.setTextViewText(R.id.appwidget_text, text);
 
         appWidgetManager.updateAppWidget(new ComponentName(context, Pixel2.class), views);

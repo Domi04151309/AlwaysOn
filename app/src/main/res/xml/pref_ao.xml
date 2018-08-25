@@ -10,23 +10,27 @@
     <SwitchPreference
         android:defaultValue="true"
         android:key="ao_clock"
-        android:title="@string/pref_showClock" />
+        android:title="@string/pref_ao_showClock" />
     <SwitchPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:defaultValue="true"
         android:key="ao_batteryIcn"
-        android:title="@string/pref_showBatteryIcn" />
+        android:title="@string/pref_ao_showBatteryIcn" />
     <SwitchPreference
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:defaultValue="true"
         android:key="ao_battery"
-        android:title="@string/pref_showBattery" />
+        android:title="@string/pref_ao_showBattery" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="ao_notifications"
+        android:title="@string/pref_ao_showNotifications" />
     <io.github.domi04151309.alwayson.EditIntegerPreference
         android:defaultValue="64"
         android:key="ao_vibration"
-        android:summary="@string/pref_vibration_summary"
-        android:title="@string/pref_vibration" />
+        android:summary="@string/pref_ao_vibration_summary"
+        android:title="@string/pref_ao_vibration" />
 
 </PreferenceScreen>

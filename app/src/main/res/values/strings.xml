@@ -43,11 +43,12 @@
         <item>google</item>
         <item>samsung</item>
     </string-array>
-    <string name="pref_showClock">Display a clock</string>
-    <string name="pref_showBatteryIcn">Display a battery icon</string>
-    <string name="pref_showBattery">Display the battery percentage</string>
-    <string name="pref_vibration">Vibration duration</string>
-    <string name="pref_vibration_summary">Duration the phone vibrates when you double-tap the screen</string>
+    <string name="pref_ao_showClock">Display a clock</string>
+    <string name="pref_ao_showBatteryIcn">Display a battery icon</string>
+    <string name="pref_ao_showBattery">Display the battery percentage</string>
+    <string name="pref_ao_showNotifications">Display a notification count</string>
+    <string name="pref_ao_vibration">Vibration duration</string>
+    <string name="pref_ao_vibration_summary">Duration the phone vibrates when you double-tap the screen</string>
     <string name="pref_edgeSwipe">Enable edge display</string>
     <string name="pref_headphones">Enable headphone animation</string>
     <string name="pref_charging">Enable charging animation</string>

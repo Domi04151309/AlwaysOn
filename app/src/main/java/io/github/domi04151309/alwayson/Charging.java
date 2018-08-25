@@ -75,7 +75,7 @@ public class Charging extends AppCompatActivity {
             if (admin) {
                 policyManager.lockNow();
             }else {
-                this.runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     public void run() {
                         Toast.makeText(Charging.this, R.string.pref_admin_summary, Toast.LENGTH_SHORT).show();
                     }
@@ -83,7 +83,7 @@ public class Charging extends AppCompatActivity {
                 startActivity(new Intent(this, Preferences.class));
             }
         }
-        Charging.this.finish();
+        finish();
     }
 
     @Override

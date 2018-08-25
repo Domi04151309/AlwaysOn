@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class AlwaysOnDemo extends AppCompatActivity {
 
@@ -16,25 +14,21 @@ public class AlwaysOnDemo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Check preferences
+        //Check prefs
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String userTheme = prefs.getString("ao_style", "google");
         if (userTheme.equals("google"))
             setContentView(R.layout.activity_ao_google_demo);
         else if (userTheme.equals("samsung"))
             setContentView(R.layout.activity_ao_samsung_demo);
-        Boolean showClock = prefs.getBoolean("ao_clock", true);
-        TextView view = findViewById(R.id.hTxt);
-        if(!showClock)
-            view.setVisibility(View.GONE);
-        Boolean showBatteryIcn = prefs.getBoolean("ao_batteryIcn", true);
-        ImageView view2 = findViewById(R.id.batteryIcn);
-        if(!showBatteryIcn)
-            view2.setVisibility(View.GONE);
-        Boolean showBattery = prefs.getBoolean("ao_battery", true);
-        TextView view3 = findViewById(R.id.batteryTxt);
-        if(!showBattery)
-            view3.setVisibility(View.GONE);
+        if(!prefs.getBoolean("ao_clock", true))
+            findViewById(R.id.hTxt).setVisibility(View.GONE);
+        if(!prefs.getBoolean("ao_batteryIcn", true))
+            findViewById(R.id.batteryIcn).setVisibility(View.GONE);
+        if(!prefs.getBoolean("ao_battery", true))
+            findViewById(R.id.batteryTxt).setVisibility(View.GONE);
+        if(!prefs.getBoolean("ao_notifications", true))
+            findViewById(R.id.notifications).setVisibility(View.GONE);
 
         //Hide UI
         View mContentView = findViewById(R.id.fullscreen_content);
@@ -50,7 +44,7 @@ public class AlwaysOnDemo extends AppCompatActivity {
             private final GestureDetector gestureDetector = new GestureDetector(AlwaysOnDemo.this, new GestureDetector.SimpleOnGestureListener() {
                 @Override
                 public boolean onDoubleTap(MotionEvent e) {
-                    AlwaysOnDemo.this.finish();
+                    finish();
                     return super.onDoubleTap(e);
                 }
             });

@@ -47,6 +47,7 @@
         android:layout_height="32dp" />
 
     <TextView
+        android:id="@+id/notifications"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/samsung_sans"

@@ -28,6 +28,6 @@ public class RequestRoot extends AppCompatActivity {
         View view = toast.getView();
         view.setBackgroundResource(R.drawable.toast_bg);
         toast.show();
-        this.finish();
+        finish();
     }
 }

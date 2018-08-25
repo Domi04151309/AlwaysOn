@@ -29,7 +29,7 @@ public class Edge extends AppCompatActivity {
     private final BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
 
         @Override
-        public void onReceive(Context ctxt, Intent intent) {
+        public void onReceive(Context c, Intent intent) {
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
             batteryTxt.setText(String.valueOf(level) + "%");
 
@@ -65,15 +65,15 @@ public class Edge extends AppCompatActivity {
                 });
 
         //Battery
-        batteryTxt = this.findViewById(R.id.batteryTxt);
-        this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        batteryTxt = findViewById(R.id.batteryTxt);
+        registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         //Time
         String date = new SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance());
-        TextView dtTxt = this.findViewById(R.id.dTxt);
+        TextView dtTxt = findViewById(R.id.dTxt);
         dtTxt.setText(date);
         String hour = getTime();
-        TextView htTxt = this.findViewById(R.id.hTxt);
+        TextView htTxt = findViewById(R.id.hTxt);
         htTxt.setText(hour);
 
         //Time updates
@@ -90,7 +90,7 @@ public class Edge extends AppCompatActivity {
                     int duration = prefs.getInt("ao_vibration", 64);
                     assert v != null;
                     v.vibrate(duration);
-                    Edge.this.finish();
+                    finish();
                     return super.onDoubleTap(e);
                 }
             });
@@ -169,6 +169,6 @@ public class Edge extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        this.unregisterReceiver(mBatInfoReceiver);
+        unregisterReceiver(mBatInfoReceiver);
     }
 }

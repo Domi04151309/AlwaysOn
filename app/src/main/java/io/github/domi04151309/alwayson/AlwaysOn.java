@@ -33,7 +33,7 @@ public class AlwaysOn extends AppCompatActivity {
     private final BroadcastReceiver mBatInfoReceiver = new BroadcastReceiver(){
 
         @Override
-        public void onReceive(Context ctxt, Intent intent) {
+        public void onReceive(Context c, Intent intent) {
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
             batteryTxt.setText(String.valueOf(level) + "%");
             int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
@@ -83,6 +83,21 @@ public class AlwaysOn extends AppCompatActivity {
         }
     };
 
+    //Notifications
+    private TextView notifications;
+    private final BroadcastReceiver mNotificationReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context c, Intent intent) {
+            int count = intent.getIntExtra("count", 0);
+            if(count != 0){
+                notifications.setText(String.valueOf(count));
+            } else {
+                notifications.setText("");
+            }
+        }
+    };
+
     //Move
     private final int delay = 60000;
 
@@ -96,25 +111,30 @@ public class AlwaysOn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Check preferences
+        //Check prefs
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String userTheme = prefs.getString("ao_style", "google");
         if (userTheme.equals("google"))
             setContentView(R.layout.activity_ao_google);
         else if (userTheme.equals("samsung"))
             setContentView(R.layout.activity_ao_samsung);
-        Boolean showClock = prefs.getBoolean("ao_clock", true);
-        TextView view = findViewById(R.id.hTxt);
-        if(!showClock)
-            view.setVisibility(View.GONE);
-        Boolean showBatteryIcn = prefs.getBoolean("ao_batteryIcn", true);
-        ImageView view2 = findViewById(R.id.batteryIcn);
-        if(!showBatteryIcn)
-            view2.setVisibility(View.GONE);
-        Boolean showBattery = prefs.getBoolean("ao_battery", true);
-        TextView view3 = findViewById(R.id.batteryTxt);
-        if(!showBattery)
-            view3.setVisibility(View.GONE);
+
+        //Variables
+        mContentView = findViewById(R.id.fullscreen_content);
+        batteryIcn = findViewById(R.id.batteryIcn);
+        batteryTxt = findViewById(R.id.batteryTxt);
+        notifications = findViewById(R.id.notifications);
+        TextView htTxt = findViewById(R.id.hTxt);
+
+        //Check prefs
+        if(!prefs.getBoolean("ao_clock", true))
+            htTxt.setVisibility(View.GONE);
+        if(!prefs.getBoolean("ao_batteryIcn", true))
+            batteryIcn.setVisibility(View.GONE);
+        if(!prefs.getBoolean("ao_battery", true))
+            batteryTxt.setVisibility(View.GONE);
+        if(!prefs.getBoolean("ao_notifications", true))
+            notifications.setVisibility(View.GONE);
 
         //Show on lockscreen
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON|
@@ -123,7 +143,6 @@ public class AlwaysOn extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
         //Hide UI
-        mContentView = findViewById(R.id.fullscreen_content);
         hide();
         View decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener
@@ -137,13 +156,14 @@ public class AlwaysOn extends AppCompatActivity {
                 });
 
         //Battery
-        batteryIcn = this.findViewById(R.id.batteryIcn);
-        batteryTxt = this.findViewById(R.id.batteryTxt);
-        this.registerReceiver(this.mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
+        //Notifications
+        sendBroadcast(new Intent("io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"));
+        registerReceiver(mNotificationReceiver, new IntentFilter("io.github.domi04151309.alwayson.NOTIFICATION"));
 
         //Time
         String hour = getTime();
-        TextView htTxt = this.findViewById(R.id.hTxt);
         htTxt.setText(hour);
 
         //Time updates
@@ -161,7 +181,7 @@ public class AlwaysOn extends AppCompatActivity {
                     int duration = prefs.getInt("ao_vibration", 64);
                     assert v != null;
                     v.vibrate(duration);
-                    AlwaysOn.this.finish();
+                    finish();
                     return super.onDoubleTap(e);
                 }
             });
@@ -289,7 +309,11 @@ public class AlwaysOn extends AppCompatActivity {
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         Log.d("AppTracker","App Event: user leave hint");
-        wl.release();
+        try {
+            wl.release();
+        } catch (Throwable th) {
+            Log.w("AndroidRuntime", "WakeLock under-locked");
+        }
     }
 
     @Override
@@ -301,7 +325,12 @@ public class AlwaysOn extends AppCompatActivity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        this.unregisterReceiver(mBatInfoReceiver);
-        wl.release();
+        unregisterReceiver(mBatInfoReceiver);
+        unregisterReceiver(mNotificationReceiver);
+        try {
+            wl.release();
+        } catch (Throwable th) {
+            Log.w("AndroidRuntime", "WakeLock under-locked");
+        }
     }
 }
