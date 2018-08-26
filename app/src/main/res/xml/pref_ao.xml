@@ -27,6 +27,16 @@
         android:defaultValue="true"
         android:key="ao_notifications"
         android:title="@string/pref_ao_showNotifications" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="ao_edgeGlow"
+        android:summary="@string/pref_ao_edgeGlow_summary"
+        android:title="@string/pref_ao_edgeGlow" />
+    <io.github.domi04151309.alwayson.EditIntegerPreference
+        android:defaultValue="2000"
+        android:key="ao_glowDuration"
+        android:summary="@string/pref_ao_glowDuration_summary"
+        android:title="@string/pref_ao_glowDuration" />
     <io.github.domi04151309.alwayson.EditIntegerPreference
         android:defaultValue="64"
         android:key="ao_vibration"

@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.drawable.TransitionDrawable;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.BatteryManager;
 import android.os.PowerManager;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -84,6 +86,9 @@ public class AlwaysOn extends AppCompatActivity {
     };
 
     //Notifications
+    private TransitionDrawable transition;
+    private boolean notificationAvailable = false;
+    private int transitionTime;
     private TextView notifications;
     private final BroadcastReceiver mNotificationReceiver = new BroadcastReceiver() {
 
@@ -92,8 +97,10 @@ public class AlwaysOn extends AppCompatActivity {
             int count = intent.getIntExtra("count", 0);
             if(count != 0){
                 notifications.setText(String.valueOf(count));
+                notificationAvailable = true;
             } else {
                 notifications.setText("");
+                notificationAvailable = false;
             }
         }
     };
@@ -159,6 +166,29 @@ public class AlwaysOn extends AppCompatActivity {
         registerReceiver(mBatInfoReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         //Notifications
+        if(prefs.getBoolean("ao_edgeGlow", true)){
+            transitionTime = prefs.getInt("ao_glowDuration", 2000);
+            mContentView.setBackground(ContextCompat.getDrawable(this, R.drawable.edge_glow));
+            transition = (TransitionDrawable) mContentView.getBackground();
+            Thread edgeT = new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        while (!isInterrupted()) {
+                            if(notificationAvailable){
+                                transition.startTransition(transitionTime);
+                                Thread.sleep(transitionTime);
+                                transition.reverseTransition(transitionTime);
+                                Thread.sleep(transitionTime);
+                            }
+                        }
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+            edgeT.start();
+        }
         sendBroadcast(new Intent("io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"));
         registerReceiver(mNotificationReceiver, new IntentFilter("io.github.domi04151309.alwayson.NOTIFICATION"));
 
