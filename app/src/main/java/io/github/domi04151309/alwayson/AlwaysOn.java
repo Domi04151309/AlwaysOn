@@ -27,7 +27,6 @@ import android.widget.TextView;
 
 public class AlwaysOn extends AppCompatActivity {
 
-    private View mFrameView;
     private View mContentView;
 
     //Battery
@@ -128,7 +127,7 @@ public class AlwaysOn extends AppCompatActivity {
             setContentView(R.layout.activity_ao_samsung);
 
         //Variables
-        mFrameView = findViewById(R.id.frame);
+        View mFrameView = findViewById(R.id.frame);
         mContentView = findViewById(R.id.fullscreen_content);
         batteryIcn = findViewById(R.id.batteryIcn);
         batteryTxt = findViewById(R.id.batteryTxt);
