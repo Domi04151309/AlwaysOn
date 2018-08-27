@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 public class AlwaysOn extends AppCompatActivity {
 
+    private View mFrameView;
     private View mContentView;
 
     //Battery
@@ -127,6 +128,7 @@ public class AlwaysOn extends AppCompatActivity {
             setContentView(R.layout.activity_ao_samsung);
 
         //Variables
+        mFrameView = findViewById(R.id.frame);
         mContentView = findViewById(R.id.fullscreen_content);
         batteryIcn = findViewById(R.id.batteryIcn);
         batteryTxt = findViewById(R.id.batteryTxt);
@@ -168,8 +170,8 @@ public class AlwaysOn extends AppCompatActivity {
         //Notifications
         if(prefs.getBoolean("ao_edgeGlow", true)){
             transitionTime = prefs.getInt("ao_glowDuration", 2000);
-            mContentView.setBackground(ContextCompat.getDrawable(this, R.drawable.edge_glow));
-            transition = (TransitionDrawable) mContentView.getBackground();
+            mFrameView.setBackground(ContextCompat.getDrawable(this, R.drawable.edge_glow));
+            transition = (TransitionDrawable) mFrameView.getBackground();
             Thread edgeT = new Thread() {
                 @Override
                 public void run() {
@@ -180,6 +182,8 @@ public class AlwaysOn extends AppCompatActivity {
                                 Thread.sleep(transitionTime);
                                 transition.reverseTransition(transitionTime);
                                 Thread.sleep(transitionTime);
+                            } else{
+                                Thread.sleep(1000);
                             }
                         }
                     } catch (InterruptedException e) {
