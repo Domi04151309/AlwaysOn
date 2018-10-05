@@ -42,5 +42,10 @@
         android:key="ao_vibration"
         android:summary="@string/pref_ao_vibration_summary"
         android:title="@string/pref_ao_vibration" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="ao_power_saving"
+        android:summary="@string/pref_ao_power_saving_summary"
+        android:title="@string/pref_ao_power_saving" />
 
 </PreferenceScreen>

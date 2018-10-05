@@ -28,6 +28,8 @@ import android.widget.TextView;
 public class AlwaysOn extends AppCompatActivity {
 
     private View mContentView;
+    private Boolean root;
+    private Boolean power_saving;
 
     //Battery
     private ImageView batteryIcn;
@@ -120,6 +122,8 @@ public class AlwaysOn extends AppCompatActivity {
 
         //Check prefs
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        root = prefs.getBoolean("root_mode",false);
+        power_saving = prefs.getBoolean("ao_power_saving",false);
         String userTheme = prefs.getString("ao_style", "google");
         if (userTheme.equals("google"))
             setContentView(R.layout.activity_ao_google);
@@ -227,10 +231,12 @@ public class AlwaysOn extends AppCompatActivity {
         });
 
         //Keep screen on
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        assert pm != null;
-        wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
-                | PowerManager.ACQUIRE_CAUSES_WAKEUP, "AlwaysOn");
+        if (!power_saving){
+            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            assert pm != null;
+            wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
+                    | PowerManager.ACQUIRE_CAUSES_WAKEUP, "AlwaysOn");
+        }
     }
 
     //Hide UI
@@ -342,17 +348,29 @@ public class AlwaysOn extends AppCompatActivity {
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         Log.d("AppTracker","App Event: user leave hint");
-        try {
-            wl.release();
-        } catch (Throwable th) {
-            Log.w("AndroidRuntime", "WakeLock under-locked");
+        if(root) {
+            if(power_saving) {
+                Root.shell("settings put global low_power 0");
+            }
+        } else {
+            try {
+                wl.release();
+            } catch (Throwable th) {
+                Log.w("AndroidRuntime", "WakeLock under-locked");
+            }
         }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        wl.acquire(24*60*60*1000L);
+        if(root) {
+            if(power_saving) {
+                Root.shell("settings put global low_power 1");
+            }
+        } else {
+            wl.acquire(24*60*60*1000L);
+        }
     }
 
     @Override
@@ -360,10 +378,16 @@ public class AlwaysOn extends AppCompatActivity {
         super.onDestroy();
         unregisterReceiver(mBatInfoReceiver);
         unregisterReceiver(mNotificationReceiver);
-        try {
-            wl.release();
-        } catch (Throwable th) {
-            Log.w("AndroidRuntime", "WakeLock under-locked");
+        if(root) {
+            if(power_saving) {
+                Root.shell("settings put global low_power 0");
+            }
+        } else {
+            try {
+                wl.release();
+            } catch (Throwable th) {
+                Log.w("AndroidRuntime", "WakeLock under-locked");
+            }
         }
     }
 }

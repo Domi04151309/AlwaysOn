@@ -58,13 +58,7 @@ public class Headset extends AppCompatActivity {
     private void close() {
         Boolean mode = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode",false);
         if(mode){
-            try {
-                Process proc = Runtime.getRuntime()
-                        .exec(new String[]{ "su", "-c", "input keyevent KEYCODE_POWER" });
-                proc.waitFor();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+            Root.shell("input keyevent KEYCODE_POWER");
         }else {
             DevicePolicyManager policyManager = (DevicePolicyManager) this
                     .getSystemService(Context.DEVICE_POLICY_SERVICE);

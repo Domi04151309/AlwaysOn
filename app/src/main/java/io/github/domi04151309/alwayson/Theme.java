@@ -9,7 +9,7 @@ import android.support.v4.content.ContextCompat;
 
 class Theme {
 
-    static void set(Context context){
+    public static void set(Context context){
         if(PreferenceManager.getDefaultSharedPreferences(context).getBoolean("light_mode", false)){
             context.setTheme(R.style.AppTheme_Light);
             ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(

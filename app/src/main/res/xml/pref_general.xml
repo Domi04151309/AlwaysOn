@@ -10,8 +10,8 @@
         <Preference
             android:icon="@drawable/ic_alwayson"
             android:key="pref_ao"
-            android:summary="@string/pref_ao_style_summary"
-            android:title="@string/pref_ao_style" />
+            android:summary="@string/pref_ao_settings_summary"
+            android:title="@string/pref_ao_settings" />
         <SwitchPreference
             android:defaultValue="false"
             android:icon="@drawable/ic_edge"
