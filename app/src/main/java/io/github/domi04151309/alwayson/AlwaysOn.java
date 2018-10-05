@@ -206,7 +206,7 @@ public class AlwaysOn extends AppCompatActivity {
         animation();
 
         //DoubleTap
-        mContentView.setOnTouchListener(new View.OnTouchListener() {
+        mFrameView.setOnTouchListener(new View.OnTouchListener() {
             private final GestureDetector gestureDetector = new GestureDetector(AlwaysOn.this, new GestureDetector.SimpleOnGestureListener() {
                 @Override
                 public boolean onDoubleTap(MotionEvent e) {
