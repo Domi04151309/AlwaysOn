@@ -28,8 +28,10 @@ import android.widget.TextView;
 public class AlwaysOn extends AppCompatActivity {
 
     private View mContentView;
+    private PowerManager pm;
     private Boolean root;
     private Boolean power_saving;
+    private Boolean user_power_saving;
 
     //Battery
     private ImageView batteryIcn;
@@ -133,6 +135,8 @@ public class AlwaysOn extends AppCompatActivity {
         //Variables
         View mFrameView = findViewById(R.id.frame);
         mContentView = findViewById(R.id.fullscreen_content);
+        pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        assert pm != null;
         batteryIcn = findViewById(R.id.batteryIcn);
         batteryTxt = findViewById(R.id.batteryTxt);
         notifications = findViewById(R.id.notifications);
@@ -232,8 +236,6 @@ public class AlwaysOn extends AppCompatActivity {
 
         //Keep screen on
         if (!power_saving){
-            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-            assert pm != null;
             wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
                     | PowerManager.ACQUIRE_CAUSES_WAKEUP, "AlwaysOn");
         }
@@ -366,6 +368,7 @@ public class AlwaysOn extends AppCompatActivity {
         super.onStart();
         if(root) {
             if(power_saving) {
+                user_power_saving = pm.isPowerSaveMode();
                 Root.shell("settings put global low_power 1");
             }
         } else {
@@ -379,7 +382,7 @@ public class AlwaysOn extends AppCompatActivity {
         unregisterReceiver(mBatInfoReceiver);
         unregisterReceiver(mNotificationReceiver);
         if(root) {
-            if(power_saving) {
+            if(power_saving && !user_power_saving) {
                 Root.shell("settings put global low_power 0");
             }
         } else {
