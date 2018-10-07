@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.TransitionDrawable;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
+import android.media.AudioManager;
 import android.os.BatteryManager;
 import android.os.PowerManager;
 import android.os.Vibrator;
@@ -29,6 +30,7 @@ public class AlwaysOn extends AppCompatActivity {
 
     private View mContentView;
     private PowerManager pm;
+    private int countCache = -1;
     private Boolean root;
     private Boolean power_saving;
     private Boolean user_power_saving;
@@ -102,9 +104,21 @@ public class AlwaysOn extends AppCompatActivity {
             if(count != 0){
                 notifications.setText(String.valueOf(count));
                 notificationAvailable = true;
+                AudioManager am = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+                assert am != null;
+                if((am.getRingerMode() == AudioManager.RINGER_MODE_NORMAL || am.getRingerMode() == AudioManager.RINGER_MODE_VIBRATE)
+                        && prefs.getBoolean("root_mode",false)
+                        && prefs.getBoolean("ao_power_saving",false)
+                        && !user_power_saving
+                        && count > countCache
+                        && countCache != -1){
+                    Root.vibrate(250);
+                }
+                countCache = count;
             } else {
                 notifications.setText("");
                 notificationAvailable = false;
+                countCache = count;
             }
         }
     };
@@ -218,10 +232,14 @@ public class AlwaysOn extends AppCompatActivity {
             private final GestureDetector gestureDetector = new GestureDetector(AlwaysOn.this, new GestureDetector.SimpleOnGestureListener() {
                 @Override
                 public boolean onDoubleTap(MotionEvent e) {
-                    Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                     int duration = prefs.getInt("ao_vibration", 64);
-                    assert v != null;
-                    v.vibrate(duration);
+                    if(power_saving && root && !user_power_saving) {
+                        Root.vibrate(duration);
+                    } else {
+                        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        assert v != null;
+                        v.vibrate(duration);
+                    }
                     finish();
                     return super.onDoubleTap(e);
                 }

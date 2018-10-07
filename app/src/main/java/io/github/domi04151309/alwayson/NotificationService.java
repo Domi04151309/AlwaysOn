@@ -4,16 +4,22 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.preference.PreferenceManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
+import android.util.Log;
 
 public class NotificationService extends NotificationListenerService {
+
+    private int cache = -1;
 
     private final BroadcastReceiver mActionReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context c, Intent intent) {
-            sendCount();
+            sendCount(true);
         }
     };
 
@@ -31,15 +37,15 @@ public class NotificationService extends NotificationListenerService {
 
     @Override
     public void onNotificationPosted(StatusBarNotification sbn) {
-        sendCount();
+        sendCount(false);
     }
 
     @Override
     public void onNotificationRemoved(StatusBarNotification sbn) {
-        sendCount();
+        sendCount(false);
     }
 
-    private void sendCount(){
+    private void sendCount(boolean force){
         StatusBarNotification[] notifications = getActiveNotifications();
         int count = 0;
         for (StatusBarNotification notification : notifications) {
@@ -47,6 +53,9 @@ public class NotificationService extends NotificationListenerService {
                 count++;
             }
         }
-        sendBroadcast(new Intent("io.github.domi04151309.alwayson.NOTIFICATION").putExtra("count",count));
+        if(cache != count || force){
+            cache = count;
+            sendBroadcast(new Intent("io.github.domi04151309.alwayson.NOTIFICATION").putExtra("count",count));
+        }
     }
 }

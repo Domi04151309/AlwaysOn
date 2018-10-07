@@ -13,4 +13,8 @@ class Root {
             Log.e("Superuser", String.valueOf(ex));
         }
     }
+
+    static void vibrate(long duration) {
+        shell("echo " + String.valueOf(duration) + " > /sys/devices/virtual/timed_output/vibrator/enable");
+    }
 }
