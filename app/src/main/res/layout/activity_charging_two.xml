@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="io.github.domi04151309.alwayson.ChargingTwo"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:id="@+id/batteryIcn"
+        android:layout_width="match_parent"
+        android:layout_height="192dp"
+        android:layout_marginTop="48dp"
+        android:contentDescription="@string/Charging"
+        android:rotation="90"
+        app:srcCompat="@drawable/ic_battery_unknown_charging" />
+
+    <TextView
+        android:id="@+id/batteryTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/chargingState"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+</LinearLayout>

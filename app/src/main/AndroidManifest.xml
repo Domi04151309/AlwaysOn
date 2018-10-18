@@ -24,6 +24,7 @@
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/device_admin" />
+
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
@@ -65,7 +66,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".ChargeInfoReceiver"
             android:enabled="true"
@@ -84,19 +84,16 @@
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppTheme.ScreenOff.Bright" />
-
         <activity
             android:name=".DialogNls"
             android:excludeFromRecents="true"
             android:label="@string/notification_listener_service"
             android:theme="@style/DialogTheme" />
-
         <activity
             android:name=".DialogAdmin"
             android:excludeFromRecents="true"
             android:label="@string/device_admin"
             android:theme="@style/DialogTheme" />
-
         <activity
             android:name=".Edge"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -106,7 +103,6 @@
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppTheme.ScreenOff" />
-
         <activity
             android:name=".EdgeDemo"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -154,7 +150,6 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:permission="" />
-
         <service
             android:name=".NotificationService"
             android:label="@string/app_name"
@@ -168,6 +163,7 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/pixel2_info" />
@@ -181,7 +177,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.domi04151309.alwayson.MainActivity" />
         </activity>
-
         <activity
             android:name=".RequestRoot"
             android:label=""
@@ -206,11 +201,23 @@
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
+        <activity
+            android:name=".ChargingTwo"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:launchMode="singleInstance"
+            android:screenOrientation="sensorPortrait"
+            android:showOnLockScreen="true"
+            android:taskAffinity=""
+            android:theme="@style/AppTheme.Transparent" />
     </application>
+
 </manifest>

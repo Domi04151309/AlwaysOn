@@ -80,7 +80,10 @@ public class MainActivity extends AppCompatActivity {
         pc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Charging.class));
+                if(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("charging_style", "black").equals("apple"))
+                    startActivity(new Intent(MainActivity.this, ChargingTwo.class));
+                else
+                    startActivity(new Intent(MainActivity.this, Charging.class));
             }
         });
 

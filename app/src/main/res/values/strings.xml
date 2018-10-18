@@ -60,6 +60,16 @@
     <string name="pref_edgeSwipe">Enable edge display</string>
     <string name="pref_headphones">Enable headphone animation</string>
     <string name="pref_charging">Enable charging animation</string>
+    <string name="pref_charging_style">Charging animation look</string>
+    <string name="pref_charging_style_summary">Changes the look of the charging animation</string>
+    <string-array name="pref_charging_style_array_display">
+        <item>Screen off like style</item>
+        <item>Apple like style</item>
+    </string-array>
+    <string-array name="pref_charging_style_array">
+        <item>black</item>
+        <item>apple</item>
+    </string-array>
     <string name="pref_display">Display settings</string>
     <string name="pref_hour">Use 12-hour clock</string>
     <string name="pref_hour_summary_on">Currently used: 12-hour clock</string>

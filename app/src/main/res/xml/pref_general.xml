@@ -27,6 +27,14 @@
             android:icon="@drawable/ic_charging"
             android:key="charging_animation"
             android:title="@string/pref_charging" />
+        <ListPreference
+            android:defaultValue="black"
+            android:entries="@array/pref_charging_style_array_display"
+            android:entryValues="@array/pref_charging_style_array"
+            android:icon="@drawable/ic_charging"
+            android:key="charging_style"
+            android:summary="@string/pref_charging_style_summary"
+            android:title="@string/pref_charging_style" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_display" >
