@@ -301,7 +301,7 @@ public class AlwaysOn extends AppCompatActivity {
         boolean clock = prefs.getBoolean("hour", false);
         if (userTheme.equals("google")) {
             if (clock)
-                hour = new SimpleDateFormat("hh:mm").format(Calendar.getInstance());
+                hour = new SimpleDateFormat("h:mm").format(Calendar.getInstance());
             else
                 hour = new SimpleDateFormat("HH:mm").format(Calendar.getInstance());
         }else if (userTheme.equals("samsung")){

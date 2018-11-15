@@ -51,6 +51,7 @@
     <style name="ActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
         <item name="background">@drawable/actionbar_bg</item>
         <item name="titleTextStyle">@style/ActionBarTitle</item>
+        <item name="elevation">0dp</item>
     </style>
 
     <style name="ActionBarTitle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
@@ -60,6 +61,7 @@
     <style name="Button" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/button_bg</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:stateListAnimator">@null</item>
     </style>
 
     <style name="ImageButton" parent="Widget.AppCompat.ImageButton">
