@@ -30,14 +30,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context ctxt, Intent intent) {
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-            batteryTxt.setText("Battery Percentage: " + String.valueOf(level) + "%");
+            batteryTxt.setText(getResources().getString(R.string.main_battery, level));
             int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                     status == BatteryManager.BATTERY_STATUS_FULL;
             int chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
             boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
             boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
-            chargingState.setText("Currently Charging: " + String.valueOf(isCharging) + " (USB: " + String.valueOf(usbCharge) + ", AC:  " + String.valueOf(acCharge) + ")");
+            chargingState.setText(getResources().getString(R.string.main_chargingState, isCharging, usbCharge, acCharge));
         }
     };
 
@@ -103,12 +103,12 @@ public class MainActivity extends AppCompatActivity {
         //Time
         String time = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance());
         TextView timeTxt = findViewById(R.id.time);
-        timeTxt.setText("Time: " + time);
+        timeTxt.setText(getResources().getString(R.string.main_time, time));
 
         //Date
         String date = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance());
         TextView dateTxt = findViewById(R.id.date);
-        dateTxt.setText("Date: " + date);
+        dateTxt.setText(getResources().getString(R.string.main_date, date));
 
         //Date and time updates
         date();
@@ -128,8 +128,8 @@ public class MainActivity extends AppCompatActivity {
                                 TextView ttime = findViewById(R.id.time);
                                 String stime = new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance());
                                 String sdate = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance());
-                                tdate.setText("Date: " + sdate);
-                                ttime.setText("Time: " + stime);
+                                tdate.setText(getResources().getString(R.string.main_date, sdate));
+                                ttime.setText(getResources().getString(R.string.main_time, stime));
                             }
                         });
                     }

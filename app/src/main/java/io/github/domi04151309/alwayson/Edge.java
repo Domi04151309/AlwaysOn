@@ -31,7 +31,7 @@ public class Edge extends AppCompatActivity {
         @Override
         public void onReceive(Context c, Intent intent) {
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-            batteryTxt.setText(String.valueOf(level) + "%");
+            batteryTxt.setText(getResources().getString(R.string.percent, level));
 
         }
     };

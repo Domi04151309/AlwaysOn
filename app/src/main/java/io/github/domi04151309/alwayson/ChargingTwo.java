@@ -23,7 +23,7 @@ public class ChargingTwo extends AppCompatActivity {
         @Override
         public void onReceive(Context c, Intent intent) {
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-            batteryTxt.setText(String.valueOf(level) + "% Charged");
+            batteryTxt.setText(getResources().getString(R.string.charged, level));
             int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                     status == BatteryManager.BATTERY_STATUS_FULL;

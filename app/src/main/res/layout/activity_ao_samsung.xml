@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/samsung_sans"
             android:gravity="center"
-            android:text="@string/battery2"
+            android:text="@string/battery"
             android:textSize="25sp" />
 
         <Space

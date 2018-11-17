@@ -42,7 +42,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/samsung_sans"
             android:gravity="end"
-            android:text="@string/battery2"
+            android:text="@string/battery"
             android:textSize="25sp" />
 
     </LinearLayout>

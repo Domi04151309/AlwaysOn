@@ -42,7 +42,7 @@ public class AlwaysOn extends AppCompatActivity {
         @Override
         public void onReceive(Context c, Intent intent) {
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-            batteryTxt.setText(String.valueOf(level) + "%");
+            batteryTxt.setText(getResources().getString(R.string.percent, level));
             int status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             boolean isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
                     status == BatteryManager.BATTERY_STATUS_FULL;
@@ -124,9 +124,6 @@ public class AlwaysOn extends AppCompatActivity {
 
     //Move
     private final int delay = 60000;
-
-    //Keep screen on
-    private PowerManager.WakeLock wl;
 
     //Prefs
     private SharedPreferences prefs;
@@ -251,12 +248,6 @@ public class AlwaysOn extends AppCompatActivity {
                 return true;
             }
         });
-
-        //Keep screen on
-        if (!power_saving){
-            wl = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK
-                    | PowerManager.ACQUIRE_CAUSES_WAKEUP, "AlwaysOn");
-        }
     }
 
     //Hide UI
@@ -368,28 +359,16 @@ public class AlwaysOn extends AppCompatActivity {
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
         Log.d("AppTracker","App Event: user leave hint");
-        if(root) {
-            if(power_saving) {
-                Root.shell("settings put global low_power 0");
-            }
-        } else {
-            try {
-                wl.release();
-            } catch (Throwable th) {
-                Log.w("AndroidRuntime", "WakeLock under-locked");
-            }
+        if(root && power_saving) {
+            Root.shell("settings put global low_power 0");
         }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if(root) {
-            if(power_saving) {
-                Root.shell("settings put global low_power 1");
-            }
-        } else if(!power_saving){
-            wl.acquire(24*60*60*1000L);
+        if(root && power_saving) {
+            Root.shell("settings put global low_power 1");
         }
     }
 
@@ -398,16 +377,8 @@ public class AlwaysOn extends AppCompatActivity {
         super.onDestroy();
         unregisterReceiver(mBatInfoReceiver);
         unregisterReceiver(mNotificationReceiver);
-        if(root) {
-            if(power_saving && !user_power_saving) {
-                Root.shell("settings put global low_power 0");
-            }
-        } else {
-            try {
-                wl.release();
-            } catch (Throwable th) {
-                Log.w("AndroidRuntime", "WakeLock under-locked");
-            }
+        if(root && power_saving && !user_power_saving) {
+            Root.shell("settings put global low_power 0");
         }
     }
 }

@@ -74,7 +74,7 @@
         android:paddingLeft="8dp"
         android:paddingTop="8dp"
         android:paddingRight="8dp"
-        android:text="@string/date" />
+        android:text="@string/date_error" />
 
     <TextView
         android:id="@+id/time"
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:text="@string/time" />
+        android:text="@string/time_error" />
 
     <TextView
         android:id="@+id/batteryPercentage"
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:text="@string/battery" />
+        android:text="@string/battery_error" />
 
     <TextView
         android:id="@+id/chargingState"
@@ -98,6 +98,6 @@
         android:layout_height="wrap_content"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:text="@string/chargingState" />
+        android:text="@string/chargingState_error" />
 
 </LinearLayout>
