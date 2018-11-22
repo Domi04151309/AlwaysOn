@@ -13,6 +13,7 @@
         <item name="android:navigationIcon">@drawable/ic_back</item>
         <item name="android:colorBackground">@color/windowBackground</item>
         <item name="android:alertDialogTheme">@style/DialogTheme</item>
+        <item name="android:navigationBarColor">@color/navigationBarColor</item>
     </style>
 
     <style name="AppTheme.Light" parent="Theme.AppCompat.Light">
@@ -36,6 +37,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/navigationBarColor</item>
     </style>
 
     <style name="AppTheme.Splash" parent="AppTheme.NoActionbar">

@@ -11,6 +11,7 @@
     <color name="windowBackground">@color/black</color>
     <color name="textColor">@color/white</color>
     <color name="textColor128">@color/white128</color>
+    <color name="navigationBarColor">#ff000001</color>
     <color name="charging">#8055D769</color>
 
     <color name="lightColorPrimary">@color/white</color>
