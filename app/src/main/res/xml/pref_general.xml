@@ -66,12 +66,9 @@
                     android:targetPackage="com.android.settings" />
             </Preference>
         <Preference
+                android:key="request_root"
                 android:summary="@string/pref_root_summary"
-                android:title="@string/pref_root">
-                <intent
-                    android:targetClass="io.github.domi04151309.alwayson.RequestRoot"
-                    android:targetPackage="io.github.domi04151309.alwayson" />
-            </Preference>
+                android:title="@string/pref_root" />
         <SwitchPreference
                 android:defaultValue="false"
                 android:key="root_mode"

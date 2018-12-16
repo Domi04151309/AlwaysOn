@@ -176,14 +176,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.domi04151309.alwayson.MainActivity" />
         </activity>
-        <activity
-            android:name=".RequestRoot"
-            android:label=""
-            android:parentActivityName=".Preferences">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.Preferences" />
-        </activity>
 
         <receiver
             android:name=".ScreenStateReceiver"

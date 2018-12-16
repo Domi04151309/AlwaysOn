@@ -8,6 +8,10 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 public class Preferences extends AppCompatPreferenceActivity {
 
@@ -44,6 +48,23 @@ public class Preferences extends AppCompatPreferenceActivity {
             findPreference( "light_mode" ).setOnPreferenceClickListener( new Preference.OnPreferenceClickListener() {
                 @Override public boolean onPreferenceClick( Preference preference ) {
                     startActivity(new Intent(getContext(), MainActivity.class));
+                    return true;
+                }
+            } );
+            findPreference( "request_root" ).setOnPreferenceClickListener( new Preference.OnPreferenceClickListener() {
+                @Override public boolean onPreferenceClick( Preference preference ) {
+                    Process p;
+                    try {
+                        p = Runtime.getRuntime().exec("su");
+                        DataOutputStream os = new DataOutputStream(p.getOutputStream());
+                        os.writeBytes("echo access granted\n");
+                        os.writeBytes("exit\n");
+                        os.flush();
+                        Toast.makeText(getContext(), "Success!", Toast.LENGTH_LONG).show();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getContext(), "Request failed!", Toast.LENGTH_LONG).show();
+                    }
                     return true;
                 }
             } );
