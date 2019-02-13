@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true"
-    tools:context="io.github.domi04151309.alwayson.AlwaysOn"
+    tools:context="io.github.domi04151309.alwayson.alwayson.AlwaysOn"
     tools:ignore="MergeRootFrame">
 
     <LinearLayout

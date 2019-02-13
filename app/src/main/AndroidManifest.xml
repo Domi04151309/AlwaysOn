@@ -30,7 +30,7 @@
         </receiver>
 
         <activity
-            android:name=".AlwaysOn"
+            android:name=".alwayson.AlwaysOn"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
             android:label=""
@@ -41,7 +41,7 @@
             android:theme="@style/AppTheme.ScreenOff" />
 
         <service
-            android:name=".AlwaysOnQS"
+            android:name=".alwayson.AlwaysOnQS"
             android:icon="@drawable/ic_qs_alwayson_unavailable"
             android:label="@string/AlwaysOn"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -51,14 +51,14 @@
         </service>
 
         <activity
-            android:name=".AlwaysOnDemo"
+            android:name=".alwayson.AlwaysOnDemo"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:taskAffinity=""
             android:theme="@style/AppTheme.ScreenOff" />
 
         <receiver
-            android:name=".Autostart"
+            android:name=".AutoStart"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -94,7 +94,7 @@
             android:label="@string/device_admin"
             android:theme="@style/DialogTheme" />
         <activity
-            android:name=".Edge"
+            android:name=".edge.Edge"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
@@ -103,7 +103,7 @@
             android:taskAffinity=""
             android:theme="@style/AppTheme.ScreenOff" />
         <activity
-            android:name=".EdgeDemo"
+            android:name=".edge.EdgeDemo"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
             android:label=""
@@ -113,7 +113,7 @@
             android:theme="@style/AppTheme.ScreenOff" />
 
         <service
-            android:name=".EdgeQS"
+            android:name=".edge.EdgeQS"
             android:icon="@drawable/ic_qs_edge_unavailable"
             android:label="@string/Edge"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -146,7 +146,7 @@
         <service
             android:name=".MainService"
             android:enabled="true"
-            android:exported="true"
+            android:exported="false"
             android:launchMode="singleTop"
             android:permission="" />
         <service
