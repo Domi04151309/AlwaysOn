@@ -118,16 +118,19 @@ class AlwaysOn : AppCompatActivity() {
             prefs = PreferenceManager.getDefaultSharedPreferences(this)
             val userTheme = prefs!!.getString("ao_style", "google")
             val clock = prefs!!.getBoolean("hour", false)
+            val amPm = prefs!!.getBoolean("am_pm", false)
             if (userTheme == "google") {
-                hour = if (clock)
-                    SimpleDateFormat("h:mm").format(Calendar.getInstance())
-                else
-                    SimpleDateFormat("H:mm").format(Calendar.getInstance())
+                hour = if (clock) {
+                    if (amPm) SimpleDateFormat("h:mm a").format(Calendar.getInstance())
+                    else SimpleDateFormat("h:mm").format(Calendar.getInstance())
+                }
+                else SimpleDateFormat("H:mm").format(Calendar.getInstance())
             } else if (userTheme == "samsung") {
-                hour = if (clock)
-                    SimpleDateFormat("hh\nmm").format(Calendar.getInstance())
-                else
-                    SimpleDateFormat("HH\nmm").format(Calendar.getInstance())
+                hour = if (clock) {
+                    if (amPm) SimpleDateFormat("hh\nmm\na").format(Calendar.getInstance())
+                    else SimpleDateFormat("hh\nmm").format(Calendar.getInstance())
+                }
+                else SimpleDateFormat("HH\nmm").format(Calendar.getInstance())
             }
             return hour
         }
@@ -285,32 +288,16 @@ class AlwaysOn : AppCompatActivity() {
                 while (!isInterrupted) {
                     try {
                         Thread.sleep(delay.toLong())
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
-
-                    mContentView!!.animate().translationY(384f).duration = 10000
-                    try {
+                        mContentView!!.animate().translationY(384f).duration = 10000
                         Thread.sleep(delay.toLong())
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
-
-                    mContentView!!.animate().translationY(768f).duration = 10000
-                    try {
+                        mContentView!!.animate().translationY(768f).duration = 10000
                         Thread.sleep(delay.toLong())
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
-
-                    mContentView!!.animate().translationY(384f).duration = 10000
-                    try {
+                        mContentView!!.animate().translationY(384f).duration = 10000
                         Thread.sleep(delay.toLong())
+                        mContentView!!.animate().translationY(0f).duration = 10000
                     } catch (e: InterruptedException) {
                         e.printStackTrace()
                     }
-
-                    mContentView!!.animate().translationY(0f).duration = 10000
                 }
             }
         }

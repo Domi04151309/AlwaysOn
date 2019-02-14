@@ -53,16 +53,4 @@
             android:textSize="25sp" />
     </LinearLayout>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="32dp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/product_sans"
-        android:gravity="center"
-        android:text="@string/feature"
-        android:textSize="25sp" />
-
 </LinearLayout>

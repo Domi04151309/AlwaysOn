@@ -6,92 +6,48 @@
             android:defaultValue="false"
             android:icon="@drawable/ic_alwayson"
             android:key="always_on"
-            android:title="@string/pref_alwaysOn" />
-        <Preference
-            android:icon="@drawable/ic_alwayson"
-            android:key="pref_ao"
-            android:summary="@string/pref_ao_settings_summary"
-            android:title="@string/pref_ao_settings" />
+            android:summaryOff="@string/pref_disabled"
+            android:summaryOn="@string/pref_enabled"
+            android:title="@string/pref_always_on" />
         <SwitchPreference
             android:defaultValue="false"
             android:icon="@drawable/ic_edge"
-            android:key="edge_swipe"
-            android:title="@string/pref_edgeSwipe" />
+            android:key="edge_display"
+            android:summaryOff="@string/pref_disabled"
+            android:summaryOn="@string/pref_enabled"
+            android:title="@string/pref_edge_display" />
         <SwitchPreference
             android:defaultValue="false"
             android:icon="@drawable/ic_headset"
             android:key="headphone_animation"
+            android:summaryOff="@string/pref_disabled"
+            android:summaryOn="@string/pref_enabled"
             android:title="@string/pref_headphones" />
         <SwitchPreference
             android:defaultValue="false"
             android:icon="@drawable/ic_charging"
             android:key="charging_animation"
+            android:summaryOff="@string/pref_disabled"
+            android:summaryOn="@string/pref_enabled"
             android:title="@string/pref_charging" />
-        <ListPreference
-            android:defaultValue="black"
-            android:entries="@array/pref_charging_style_array_display"
-            android:entryValues="@array/pref_charging_style_array"
-            android:icon="@drawable/ic_charging"
-            android:key="charging_style"
-            android:summary="@string/pref_charging_style_summary"
-            android:title="@string/pref_charging_style" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_display" >
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="hour"
-            android:summaryOff="@string/pref_hour_summary_off"
-            android:summaryOn="@string/pref_hour_summary_on"
-            android:title="@string/pref_hour" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="light_mode"
-            android:summary="@string/pref_light_summary"
-            android:title="@string/pref_light" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/pref_permissions">>
+    <PreferenceCategory android:title="@string/pref_categories" >
         <Preference
-            android:summary="@string/pref_notification_summary"
-            android:title="@string/pref_notification">
-            <intent
-                android:targetClass="com.android.settings.Settings$NotificationAccessSettingsActivity"
-                android:targetPackage="com.android.settings" />
-        </Preference>
+            android:icon="@drawable/ic_palette"
+            android:key="pref_look_and_feel"
+            android:summary="@string/pref_look_and_feel_summary"
+            android:title="@string/pref_look_and_feel" />
         <Preference
-                android:summary="@string/pref_admin_summary"
-                android:title="@string/pref_admin">
-                <intent
-                    android:targetClass="com.android.settings.Settings$DeviceAdminSettingsActivity"
-                    android:targetPackage="com.android.settings" />
-            </Preference>
+            android:icon="@drawable/ic_security"
+            android:key="pref_permissions"
+            android:summary="@string/pref_permissions_summary"
+            android:title="@string/pref_permissions" />
         <Preference
-                android:key="request_root"
-                android:summary="@string/pref_root_summary"
-                android:title="@string/pref_root" />
-        <SwitchPreference
-                android:defaultValue="false"
-                android:key="root_mode"
-                android:summary="@string/pref_root_mode_summary"
-                android:title="@string/pref_root_mode" />
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/pref_demo">
-
-        <Preference
-            android:title="@string/pref_demo_ao">
-            <intent
-                android:targetClass="io.github.domi04151309.alwayson.AlwaysOnDemo"
-                android:targetPackage="io.github.domi04151309.alwayson" />
-        </Preference>
-
-        <Preference
-        android:title="@string/pref_demo_edge">
-        <intent
-            android:targetClass="io.github.domi04151309.alwayson.EdgeDemo"
-            android:targetPackage="io.github.domi04151309.alwayson" />
-    </Preference>
-
+            android:icon="@drawable/ic_android"
+            android:key="pref_demo_modes"
+            android:summary="@string/pref_demo_modes_summary"
+            android:title="@string/pref_demo_modes" />
     </PreferenceCategory>
 
 </PreferenceScreen>

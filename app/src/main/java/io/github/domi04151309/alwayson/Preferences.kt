@@ -27,20 +27,64 @@ class Preferences : AppCompatPreferenceActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    fun setActionBarTitle(title: String) {
+        supportActionBar!!.title = title
+    }
+
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     class GeneralPreferenceFragment : PreferenceFragment() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             addPreferencesFromResource(R.xml.pref_general)
-            setHasOptionsMenu(true)
-            findPreference("pref_ao").onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                fragmentManager.beginTransaction().replace(android.R.id.content, PreferenceAlwaysOn()).addToBackStack(PreferenceAlwaysOn::class.java.simpleName).commit()
+            findPreference("pref_look_and_feel").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                fragmentManager.beginTransaction().replace(android.R.id.content, PreferenceLookAndFeel()).addToBackStack(PreferenceAlwaysOn::class.java.simpleName).commit()
                 true
             }
+            findPreference("pref_permissions").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                fragmentManager.beginTransaction().replace(android.R.id.content, PreferencePermissions()).addToBackStack(PreferenceAlwaysOn::class.java.simpleName).commit()
+                true
+            }
+            findPreference("pref_demo_modes").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                fragmentManager.beginTransaction().replace(android.R.id.content, PreferenceDemoModes()).addToBackStack(PreferenceAlwaysOn::class.java.simpleName).commit()
+                true
+            }
+        }
+
+        override fun onResume() {
+            super.onResume()
+            (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref))
+        }
+    }
+
+    class PreferenceLookAndFeel : PreferenceFragment() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            addPreferencesFromResource(R.xml.pref_look_and_feel)
+            (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref_look_and_feel))
             findPreference("light_mode").onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 startActivity(Intent(context, MainActivity::class.java))
                 true
             }
+            findPreference("pref_ao").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                fragmentManager.beginTransaction().replace(android.R.id.content, PreferenceAlwaysOn()).addToBackStack(PreferenceAlwaysOn::class.java.simpleName).commit()
+                true
+            }
+        }
+    }
+
+    class PreferenceAlwaysOn : PreferenceFragment() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            addPreferencesFromResource(R.xml.pref_ao)
+            (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref_ao_settings))
+        }
+    }
+
+    class PreferencePermissions : PreferenceFragment() {
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            addPreferencesFromResource(R.xml.pref_permissions)
+            (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref_permissions))
             findPreference("request_root").onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 val p: Process
                 try {
@@ -54,17 +98,16 @@ class Preferences : AppCompatPreferenceActivity() {
                     e.printStackTrace()
                     Toast.makeText(context, "Request failed!", Toast.LENGTH_LONG).show()
                 }
-
                 true
             }
         }
     }
 
-    class PreferenceAlwaysOn : PreferenceFragment() {
+    class PreferenceDemoModes : PreferenceFragment() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            addPreferencesFromResource(R.xml.pref_ao)
-            setHasOptionsMenu(true)
+            addPreferencesFromResource(R.xml.pref_demo_modes)
+            (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref_demo_modes))
         }
     }
 }

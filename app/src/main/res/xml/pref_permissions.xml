@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:summary="@string/pref_notification_summary"
+        android:title="@string/pref_notification">
+        <intent
+            android:targetClass="com.android.settings.Settings$NotificationAccessSettingsActivity"
+            android:targetPackage="com.android.settings" />
+    </Preference>
+    <Preference
+        android:summary="@string/pref_admin_summary"
+        android:title="@string/pref_admin">
+        <intent
+            android:targetClass="com.android.settings.Settings$DeviceAdminSettingsActivity"
+            android:targetPackage="com.android.settings" />
+    </Preference>
+    <Preference
+        android:key="request_root"
+        android:summary="@string/pref_root_summary"
+        android:title="@string/pref_root" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="root_mode"
+        android:summary="@string/pref_root_mode_summary"
+        android:title="@string/pref_root_mode" />
+</PreferenceScreen>
