@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
+import android.graphics.Point
 import android.graphics.drawable.TransitionDrawable
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
@@ -18,11 +19,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.GestureDetector
-import android.view.KeyEvent
-import android.view.MotionEvent
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 
@@ -33,7 +30,7 @@ class AlwaysOn : AppCompatActivity() {
 
     private var mContentView: View? = null
     private var countCache = -1
-    private var root: Boolean? = null
+    private var rootMode: Boolean? = null
     private var powerSaving: Boolean? = null
     private var userPowerSaving: Boolean? = null
 
@@ -106,9 +103,6 @@ class AlwaysOn : AppCompatActivity() {
         }
     }
 
-    //Move
-    private val delay = 60000
-
     //Prefs
     private var prefs: SharedPreferences? = null
 
@@ -140,7 +134,7 @@ class AlwaysOn : AppCompatActivity() {
 
         //Check prefs
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        root = prefs!!.getBoolean("root_mode", false)
+        rootMode = prefs!!.getBoolean("root_mode", false)
         powerSaving = prefs!!.getBoolean("ao_power_saving", false)
         val userTheme = prefs!!.getString("ao_style", "google")
         if (userTheme == "google")
@@ -189,7 +183,7 @@ class AlwaysOn : AppCompatActivity() {
         //Notifications
         if (prefs!!.getBoolean("ao_edgeGlow", true)) {
             transitionTime = prefs!!.getInt("ao_glowDuration", 2000)
-            mFrameView.background = ContextCompat.getDrawable(this, R.drawable.edge_glow)
+            mFrameView!!.background = ContextCompat.getDrawable(this, R.drawable.edge_glow)
             transition = mFrameView.background as TransitionDrawable
             val edgeT = object : Thread() {
                 override fun run() {
@@ -226,11 +220,11 @@ class AlwaysOn : AppCompatActivity() {
         animation()
 
         //DoubleTap
-        mFrameView.setOnTouchListener(object : View.OnTouchListener {
+        mFrameView!!.setOnTouchListener(object : View.OnTouchListener {
             private val gestureDetector = GestureDetector(this@AlwaysOn, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
                     val duration = prefs!!.getInt("ao_vibration", 64)
-                    if (powerSaving!! && root!! && !userPowerSaving!!) {
+                    if (powerSaving!! && rootMode!! && !userPowerSaving!!) {
                         Root.vibrate(duration.toLong())
                     } else {
                         val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
@@ -281,23 +275,30 @@ class AlwaysOn : AppCompatActivity() {
     }
 
     //Animation
+    private val animationDuration = 10000L
+    private val delay = 60000
     private fun animation() {
         val tAnimate: Thread
         tAnimate = object : Thread() {
             override fun run() {
-                while (!isInterrupted) {
-                    try {
+                try {
+                    while (mContentView!!.height == 0) Thread.sleep(10)
+                    val size = Point()
+                    windowManager.defaultDisplay.getSize(size)
+                    val result = size.y - mContentView!!.height
+                    mContentView!!.animate().translationY(result.toFloat() / 4).duration = 0
+                    while (!isInterrupted) {
                         Thread.sleep(delay.toLong())
-                        mContentView!!.animate().translationY(384f).duration = 10000
+                        mContentView!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
                         Thread.sleep(delay.toLong())
-                        mContentView!!.animate().translationY(768f).duration = 10000
+                        mContentView!!.animate().translationY(result.toFloat() / 4 * 3).duration = animationDuration
                         Thread.sleep(delay.toLong())
-                        mContentView!!.animate().translationY(384f).duration = 10000
+                        mContentView!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
                         Thread.sleep(delay.toLong())
-                        mContentView!!.animate().translationY(0f).duration = 10000
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
+                        mContentView!!.animate().translationY(result.toFloat() / 4).duration = animationDuration
                     }
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
                 }
             }
         }
@@ -318,14 +319,14 @@ class AlwaysOn : AppCompatActivity() {
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
         Log.d("AppTracker", "App Event: user leave hint")
-        if (root!! && powerSaving!!) {
+        if (rootMode!! && powerSaving!!) {
             Root.shell("settings put global low_power 0")
         }
     }
 
     public override fun onStart() {
         super.onStart()
-        if (root!! && powerSaving!!) {
+        if (rootMode!! && powerSaving!!) {
             Root.shell("settings put global low_power 1")
         }
     }
@@ -334,7 +335,7 @@ class AlwaysOn : AppCompatActivity() {
         super.onDestroy()
         unregisterReceiver(mBatInfoReceiver)
         unregisterReceiver(mNotificationReceiver)
-        if (root!! && powerSaving!! && !userPowerSaving!!) {
+        if (rootMode!! && powerSaving!! && !userPowerSaving!!) {
             Root.shell("settings put global low_power 0")
         }
     }

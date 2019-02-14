@@ -11,13 +11,9 @@
     <LinearLayout
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:ignore="UselessParent">
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="148dp" />
 
         <TextView
             android:id="@+id/hTxt"

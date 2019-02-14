@@ -70,6 +70,11 @@ class Preferences : AppCompatPreferenceActivity() {
                 true
             }
         }
+
+        override fun onResume() {
+            super.onResume()
+            (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref_look_and_feel))
+        }
     }
 
     class PreferenceAlwaysOn : PreferenceFragment() {

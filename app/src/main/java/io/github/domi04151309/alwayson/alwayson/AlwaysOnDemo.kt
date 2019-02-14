@@ -27,8 +27,6 @@ class AlwaysOnDemo : AppCompatActivity() {
             findViewById<View>(R.id.batteryIcn).visibility = View.GONE
         if (!prefs.getBoolean("ao_battery", true))
             findViewById<View>(R.id.batteryTxt).visibility = View.GONE
-        if (!prefs.getBoolean("ao_notifications", true))
-            findViewById<View>(R.id.notifications).visibility = View.GONE
 
         //Hide UI
         val mContentView = findViewById<View>(R.id.fullscreen_content)
