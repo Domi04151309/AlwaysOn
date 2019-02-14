@@ -34,6 +34,9 @@ class AlwaysOn : AppCompatActivity() {
     private var powerSaving: Boolean? = null
     private var userPowerSaving: Boolean? = null
 
+    //Time
+    private var clockTxt: TextView? = null
+
     //Battery
     private var batteryIcn: ImageView? = null
     private var batteryTxt: TextView? = null
@@ -108,25 +111,24 @@ class AlwaysOn : AppCompatActivity() {
 
     private val time: String?
         get() {
-            var hour: String? = null
-            prefs = PreferenceManager.getDefaultSharedPreferences(this)
+            var time: String? = null
             val userTheme = prefs!!.getString("ao_style", "google")
             val clock = prefs!!.getBoolean("hour", false)
             val amPm = prefs!!.getBoolean("am_pm", false)
             if (userTheme == "google") {
-                hour = if (clock) {
+                time = if (clock) {
                     if (amPm) SimpleDateFormat("h:mm a").format(Calendar.getInstance())
                     else SimpleDateFormat("h:mm").format(Calendar.getInstance())
                 }
                 else SimpleDateFormat("H:mm").format(Calendar.getInstance())
             } else if (userTheme == "samsung") {
-                hour = if (clock) {
+                time = if (clock) {
                     if (amPm) SimpleDateFormat("hh\nmm\na").format(Calendar.getInstance())
                     else SimpleDateFormat("hh\nmm").format(Calendar.getInstance())
                 }
                 else SimpleDateFormat("HH\nmm").format(Calendar.getInstance())
             }
-            return hour
+            return time
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -147,14 +149,14 @@ class AlwaysOn : AppCompatActivity() {
         mContentView = findViewById(R.id.fullscreen_content)
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
         userPowerSaving = pm.isPowerSaveMode
+        clockTxt = findViewById(R.id.clockTxt)
         batteryIcn = findViewById(R.id.batteryIcn)
         batteryTxt = findViewById(R.id.batteryTxt)
         notifications = findViewById(R.id.notifications)
-        val htTxt = findViewById<TextView>(R.id.hTxt)
 
         //Check prefs
         if (!prefs!!.getBoolean("ao_clock", true))
-            htTxt.visibility = View.GONE
+            clockTxt!!.visibility = View.GONE
         if (!prefs!!.getBoolean("ao_batteryIcn", true))
             batteryIcn!!.visibility = View.GONE
         if (!prefs!!.getBoolean("ao_battery", true))
@@ -210,10 +212,7 @@ class AlwaysOn : AppCompatActivity() {
         registerReceiver(mNotificationReceiver, IntentFilter("io.github.domi04151309.alwayson.NOTIFICATION"))
 
         //Time
-        val hour = time
-        htTxt.text = hour
-
-        //Time updates
+        clockTxt!!.text = time
         time()
 
         //Animation
@@ -261,8 +260,7 @@ class AlwaysOn : AppCompatActivity() {
                     while (!isInterrupted) {
                         Thread.sleep(1000)
                         runOnUiThread {
-                            val tHour = findViewById<TextView>(R.id.hTxt)
-                            tHour.text = time
+                            clockTxt!!.text = time
                         }
                     }
                 } catch (ex: InterruptedException) {

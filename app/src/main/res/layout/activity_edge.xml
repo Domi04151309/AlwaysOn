@@ -13,7 +13,7 @@
         tools:ignore="UselessParent">
 
         <TextView
-            android:id="@+id/dTxt"
+            android:id="@+id/dateTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/samsung_sans"
@@ -23,7 +23,7 @@
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/hTxt"
+            android:id="@+id/clockTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/samsung_sans"

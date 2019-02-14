@@ -24,7 +24,10 @@ import io.github.domi04151309.alwayson.R
 
 class Edge : AppCompatActivity() {
 
+    //Views
     private var mContentView: View? = null
+    private var dateTxt: TextView? = null
+    private var clockTxt: TextView? = null
 
     //Battery
     private var batteryTxt: TextView? = null
@@ -40,18 +43,18 @@ class Edge : AppCompatActivity() {
     //Preferences
     private var prefs: SharedPreferences? = null
 
+    //Time
     private val time: String
         get() {
-            val hour: String
-            prefs = PreferenceManager.getDefaultSharedPreferences(this)
+            val time: String
             val clock = prefs!!.getBoolean("hour", false)
             val amPm = prefs!!.getBoolean("am_pm", false)
-            hour = if (clock) {
+            time = if (clock) {
                 if (amPm) SimpleDateFormat("h:mm a").format(Calendar.getInstance())
                 else SimpleDateFormat("h:mm").format(Calendar.getInstance())
             }
             else SimpleDateFormat("H:mm").format(Calendar.getInstance())
-            return hour
+            return time
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,13 +62,18 @@ class Edge : AppCompatActivity() {
         setContentView(R.layout.activity_edge)
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
+        //Views
+        mContentView = findViewById(R.id.fullscreen_content)
+        dateTxt = findViewById(R.id.dateTxt)
+        clockTxt = findViewById(R.id.clockTxt)
+
         //Show on lock screen
-        window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
+                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
 
         //Hide UI
-        mContentView = findViewById(R.id.fullscreen_content)
         hide()
         val decorView = window.decorView
         decorView.setOnSystemUiVisibilityChangeListener { visibility ->
@@ -84,13 +92,8 @@ class Edge : AppCompatActivity() {
 
         //Time
         val date = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
-        val dtTxt = findViewById<TextView>(R.id.dTxt)
-        dtTxt.text = date
-        val hour = time
-        val htTxt = findViewById<TextView>(R.id.hTxt)
-        htTxt.text = hour
-
-        //Time updates
+        dateTxt!!.text = date
+        clockTxt!!.text = time
         time()
 
         //DoubleTap
@@ -133,11 +136,8 @@ class Edge : AppCompatActivity() {
                         Thread.sleep(1000)
                         runOnUiThread {
                             val date = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
-                            val dtTxt = findViewById<TextView>(R.id.dTxt)
-                            dtTxt.text = date
-                            val hour = time
-                            val htTxt = findViewById<TextView>(R.id.hTxt)
-                            htTxt.text = hour
+                            dateTxt!!.text = date
+                            clockTxt!!.text = time
                         }
                     }
                 } catch (ex: InterruptedException) {

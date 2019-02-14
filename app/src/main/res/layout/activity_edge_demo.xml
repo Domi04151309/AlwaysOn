@@ -13,7 +13,6 @@
         tools:ignore="UselessParent">
 
         <TextView
-            android:id="@+id/dTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/samsung_sans"
@@ -23,7 +22,6 @@
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/hTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/samsung_sans"
@@ -33,7 +31,6 @@
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/batteryTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

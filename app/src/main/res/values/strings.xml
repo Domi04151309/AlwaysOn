@@ -8,14 +8,6 @@
     <string name="Headset">Headphone animation</string>
     <string name="Charging">Charging animation</string>
 
-    <string name="main_date">Date: %1$s</string>
-    <string name="main_time">Time: %1$s</string>
-    <string name="main_battery">Battery Percentage: %1$d%%</string>
-    <string name="main_chargingState">Currently Charging: %1$b (USB: %2$b, AC:  %3$b)</string>
-
-    <string name="date_error">Unable to display date</string>
-    <string name="time_error">Unable to display time</string>
-    <string name="battery_error">Unable to display battery percentage</string>
     <string name="chargingState_error">Unable to display charging state</string>
     <string name="battery">\??%</string>
     <string name="clock">H:mm</string>

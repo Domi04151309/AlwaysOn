@@ -13,7 +13,7 @@
         android:layout_height="96dp" />
 
     <TextView
-        android:id="@+id/hTxt"
+        android:id="@+id/clockTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/samsung_sans"

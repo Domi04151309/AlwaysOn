@@ -13,54 +13,8 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/clockTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            android:lineSpacingMultiplier="0.72"
-            android:text="@string/clock"
-            android:textSize="75sp" />
-
-        <TextView
-            android:id="@+id/dateTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/date2"
-            android:textSize="25sp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/batteryIcn"
-                android:layout_width="48dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:contentDescription="@string/feature"
-                app:srcCompat="@drawable/ic_charging" />
-
-            <TextView
-                android:id="@+id/batteryTxt"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/battery"
-                android:textSize="25sp" />
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
             android:padding="8dp"
             android:text="@string/app_by"
             android:textStyle="bold" />
@@ -116,6 +70,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/pref" />
+
+        <TextView
+            android:id="@+id/clockTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/clock" />
+
+        <TextView
+            android:id="@+id/dateTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/date2" />
+
+        <TextView
+            android:id="@+id/batteryTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/battery" />
+
+        <ImageView
+            android:id="@+id/batteryIcn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/feature"
+            app:srcCompat="@drawable/ic_charging" />
 
     </LinearLayout>
 </ScrollView>

@@ -16,7 +16,7 @@
         tools:ignore="UselessParent">
 
         <TextView
-            android:id="@+id/hTxt"
+            android:id="@+id/clockTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/product_sans"

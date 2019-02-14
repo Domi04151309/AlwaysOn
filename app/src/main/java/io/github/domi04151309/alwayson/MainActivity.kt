@@ -1,11 +1,7 @@
 package io.github.domi04151309.alwayson
 
 import android.app.admin.DevicePolicyManager
-import android.content.BroadcastReceiver
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.BatteryManager
@@ -15,8 +11,10 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.KeyEvent
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 
 import io.github.domi04151309.alwayson.alwayson.AlwaysOn
@@ -24,20 +22,38 @@ import io.github.domi04151309.alwayson.edge.Edge
 
 class MainActivity : AppCompatActivity() {
 
+    private var prefs: SharedPreferences? = null
+
+    //Date and time
+    private var dateTxt: TextView? = null
+    private var clockTxt: TextView? = null
+    private val time: String
+        get() {
+            val time: String
+            prefs = PreferenceManager.getDefaultSharedPreferences(this)
+            val clock = prefs!!.getBoolean("hour", false)
+            val amPm = prefs!!.getBoolean("am_pm", false)
+            time = if (clock) {
+                if (amPm) SimpleDateFormat("h:mm a").format(Calendar.getInstance())
+                else SimpleDateFormat("h:mm").format(Calendar.getInstance())
+            }
+            else SimpleDateFormat("H:mm").format(Calendar.getInstance())
+            return time
+        }
+
+
     //Battery
     private var batteryTxt: TextView? = null
-    private var chargingState: TextView? = null
+    private var batteryIcn: ImageView? = null
     private val mBatInfoReceiver = object : BroadcastReceiver() {
 
         override fun onReceive(ctxt: Context, intent: Intent) {
             val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
-            batteryTxt!!.text = resources.getString(R.string.main_battery, level)
+            batteryTxt!!.text = resources.getString(R.string.percent, level)
             val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
             val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL
-            val chargePlug = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
-            val usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB
-            val acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC
-            chargingState!!.text = resources.getString(R.string.main_chargingState, isCharging, usbCharge, acCharge)
+            if (isCharging) batteryIcn!!.visibility = View.VISIBLE
+            else batteryIcn!!.visibility = View.GONE
         }
     }
 
@@ -78,11 +94,15 @@ class MainActivity : AppCompatActivity() {
         Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
         if (!isNotificationServiceEnabled) startActivity(Intent(this@MainActivity, DialogNls::class.java))
         if (!isDeviceAdminOrRoot) startActivity(Intent(this@MainActivity, DialogAdmin::class.java))
 
         startService(Intent(this, MainService::class.java))
+
+        clockTxt = findViewById(R.id.clockTxt)
+        dateTxt = findViewById(R.id.dateTxt)
 
         val lao = findViewById<ImageButton>(R.id.lAlwaysOn)
         lao.setOnClickListener { startActivity(Intent(this@MainActivity, AlwaysOn::class.java)) }
@@ -105,37 +125,28 @@ class MainActivity : AppCompatActivity() {
         pref.setOnClickListener { startActivity(Intent(this@MainActivity, Preferences::class.java)) }
 
         //Battery
-        batteryTxt = findViewById(R.id.batteryPercentage)
+        batteryTxt = findViewById(R.id.batteryTxt)
+        batteryIcn = findViewById(R.id.batteryIcn)
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-        chargingState = findViewById(R.id.chargingState)
-
-        //Time
-        val time = SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance())
-        val timeTxt = findViewById<TextView>(R.id.time)
-        timeTxt.text = resources.getString(R.string.main_time, time)
-
-        //Date
-        val date = SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance())
-        val dateTxt = findViewById<TextView>(R.id.date)
-        dateTxt.text = resources.getString(R.string.main_date, date)
 
         //Date and time updates
-        date()
+        val date = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
+        clockTxt!!.text = time
+        dateTxt!!.text = date
+        dateAndTime()
     }
 
-    private fun date() {
+    //Date and time
+    private fun dateAndTime() {
         val t = object : Thread() {
             override fun run() {
                 try {
                     while (!isInterrupted) {
                         Thread.sleep(1000)
                         runOnUiThread {
-                            val tDate = findViewById<TextView>(R.id.date)
-                            val tTime = findViewById<TextView>(R.id.time)
-                            val sTime = SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance())
-                            val sDate = SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance())
-                            tDate.text = resources.getString(R.string.main_date, sDate)
-                            tTime.text = resources.getString(R.string.main_time, sTime)
+                            val date = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
+                            dateTxt!!.text = date
+                            clockTxt!!.text = time
                         }
                     }
                 } catch (ex: InterruptedException) {

@@ -22,7 +22,7 @@ class AlwaysOnDemo : AppCompatActivity() {
         else if (userTheme == "samsung")
             setContentView(R.layout.activity_ao_samsung_demo)
         if (!prefs.getBoolean("ao_clock", true))
-            findViewById<View>(R.id.hTxt).visibility = View.GONE
+            findViewById<View>(R.id.clockTxt).visibility = View.GONE
         if (!prefs.getBoolean("ao_batteryIcn", true))
             findViewById<View>(R.id.batteryIcn).visibility = View.GONE
         if (!prefs.getBoolean("ao_battery", true))
