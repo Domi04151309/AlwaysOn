@@ -2,6 +2,7 @@ package io.github.domi04151309.alwayson.edge
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -22,6 +23,10 @@ class EdgeDemo : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+
+        //Corner margin
+        val cornerMargin = PreferenceManager.getDefaultSharedPreferences(this).getInt("edge_corner_margin", 0)
+        mContentView!!.setPaddingRelative(cornerMargin,0,cornerMargin,0)
 
         //DoubleTap
         mContentView.setOnTouchListener(object : View.OnTouchListener {

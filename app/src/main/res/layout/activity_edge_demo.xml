@@ -5,15 +5,12 @@
     android:layout_height="match_parent"
     tools:context="io.github.domi04151309.alwayson.edge.Edge">
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/dTxt"

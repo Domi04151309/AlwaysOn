@@ -45,20 +45,22 @@ class Edge : AppCompatActivity() {
             val hour: String
             prefs = PreferenceManager.getDefaultSharedPreferences(this)
             val clock = prefs!!.getBoolean("hour", false)
-            hour = if (clock)
-                SimpleDateFormat("h:mm").format(Calendar.getInstance())
-            else
-                SimpleDateFormat("H:mm").format(Calendar.getInstance())
+            val amPm = prefs!!.getBoolean("am_pm", false)
+            hour = if (clock) {
+                if (amPm) SimpleDateFormat("h:mm a").format(Calendar.getInstance())
+                else SimpleDateFormat("h:mm").format(Calendar.getInstance())
+            }
+            else SimpleDateFormat("H:mm").format(Calendar.getInstance())
             return hour
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edge)
+        prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
         //Show on lock screen
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
-                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+        window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
 
@@ -71,6 +73,10 @@ class Edge : AppCompatActivity() {
                 hide()
             }
         }
+
+        //Corner margin
+        val cornerMargin = prefs!!.getInt("edge_corner_margin", 0)
+        mContentView!!.setPaddingRelative(cornerMargin,0,cornerMargin,0)
 
         //Battery
         batteryTxt = findViewById(R.id.batteryTxt)
@@ -88,7 +94,6 @@ class Edge : AppCompatActivity() {
         time()
 
         //DoubleTap
-        prefs = PreferenceManager.getDefaultSharedPreferences(this)
         mContentView!!.setOnTouchListener(object : View.OnTouchListener {
             private val gestureDetector = GestureDetector(this@Edge, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
