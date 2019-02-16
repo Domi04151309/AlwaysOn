@@ -27,19 +27,16 @@ class MainActivity : AppCompatActivity() {
     //Date and time
     private var dateTxt: TextView? = null
     private var clockTxt: TextView? = null
-    private val time: String
-        get() {
-            val time: String
-            prefs = PreferenceManager.getDefaultSharedPreferences(this)
-            val clock = prefs!!.getBoolean("hour", false)
-            val amPm = prefs!!.getBoolean("am_pm", false)
-            time = if (clock) {
-                if (amPm) SimpleDateFormat("h:mm a").format(Calendar.getInstance())
-                else SimpleDateFormat("h:mm").format(Calendar.getInstance())
-            }
-            else SimpleDateFormat("H:mm").format(Calendar.getInstance())
-            return time
+    private var dateFormat: String? = null
+    private fun setDateFormat() {
+        val clock = prefs!!.getBoolean("hour", false)
+        val amPm = prefs!!.getBoolean("am_pm", false)
+        dateFormat = if (clock) {
+            if (amPm) "h:mm a"
+            else "h:mm"
         }
+        else "H:mm"
+    }
 
 
     //Battery
@@ -60,8 +57,7 @@ class MainActivity : AppCompatActivity() {
     private val isNotificationServiceEnabled: Boolean
         get() {
             val pkgName = packageName
-            val flat = Settings.Secure.getString(contentResolver,
-                    "enabled_notification_listeners")
+            val flat = Settings.Secure.getString(contentResolver, "enabled_notification_listeners")
             if (!TextUtils.isEmpty(flat)) {
                 val names = flat.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                 for (name in names) {
@@ -78,15 +74,12 @@ class MainActivity : AppCompatActivity() {
 
     private val isDeviceAdminOrRoot: Boolean
         get() {
-            val mode = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode", false)
-            return if (mode) {
+            return if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode", false)) {
                 true
             } else {
                 val policyManager = this
                         .getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-                val adminReceiver = ComponentName(this,
-                        AdminReceiver::class.java)
-                policyManager.isAdminActive(adminReceiver)
+                policyManager.isAdminActive(ComponentName(this, AdminReceiver::class.java))
             }
         }
 
@@ -104,25 +97,20 @@ class MainActivity : AppCompatActivity() {
         clockTxt = findViewById(R.id.clockTxt)
         dateTxt = findViewById(R.id.dateTxt)
 
-        val lao = findViewById<ImageButton>(R.id.lAlwaysOn)
-        lao.setOnClickListener { startActivity(Intent(this@MainActivity, AlwaysOn::class.java)) }
+        findViewById<ImageButton>(R.id.lAlwaysOn).setOnClickListener { startActivity(Intent(this@MainActivity, AlwaysOn::class.java)) }
 
-        val led = findViewById<ImageButton>(R.id.lEdge)
-        led.setOnClickListener { startActivity(Intent(this@MainActivity, Edge::class.java)) }
+        findViewById<ImageButton>(R.id.lEdge).setOnClickListener { startActivity(Intent(this@MainActivity, Edge::class.java)) }
 
-        val ph = findViewById<ImageButton>(R.id.pHeadset)
-        ph.setOnClickListener { startActivity(Intent(this@MainActivity, Headset::class.java)) }
+        findViewById<ImageButton>(R.id.pHeadset).setOnClickListener { startActivity(Intent(this@MainActivity, Headset::class.java)) }
 
-        val pc = findViewById<ImageButton>(R.id.pCharging)
-        pc.setOnClickListener {
+        findViewById<ImageButton>(R.id.pCharging).setOnClickListener {
             if (PreferenceManager.getDefaultSharedPreferences(applicationContext).getString("charging_style", "black") == "apple")
                 startActivity(Intent(this@MainActivity, ChargingTwo::class.java))
             else
                 startActivity(Intent(this@MainActivity, Charging::class.java))
         }
 
-        val pref = findViewById<Button>(R.id.pref)
-        pref.setOnClickListener { startActivity(Intent(this@MainActivity, Preferences::class.java)) }
+        findViewById<Button>(R.id.pref).setOnClickListener { startActivity(Intent(this@MainActivity, Preferences::class.java)) }
 
         //Battery
         batteryTxt = findViewById(R.id.batteryTxt)
@@ -130,9 +118,9 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
         //Date and time updates
-        val date = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
-        clockTxt!!.text = time
-        dateTxt!!.text = date
+        setDateFormat()
+        clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
+        dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
         dateAndTime()
     }
 
@@ -144,9 +132,8 @@ class MainActivity : AppCompatActivity() {
                     while (!isInterrupted) {
                         Thread.sleep(1000)
                         runOnUiThread {
-                            val date = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
-                            dateTxt!!.text = date
-                            clockTxt!!.text = time
+                            dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
+                            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
                         }
                     }
                 } catch (ex: InterruptedException) {

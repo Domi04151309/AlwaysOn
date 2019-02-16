@@ -12,19 +12,19 @@ class ScreenStateReceiver : BroadcastReceiver() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         if (Intent.ACTION_SCREEN_ON == action) {
             screenStateOn = true
-            if (prefs.getBoolean("edge_swipe", false)) {
-                val i = Intent()
-                i.setClassName(context, "io.github.domi04151309.alwayson.edge.Edge")
-                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                context.startActivity(i)
+            if (prefs.getBoolean("edge_display", false)) {
+                context.startActivity(
+                        Intent().setClassName(context, "io.github.domi04151309.alwayson.edge.Edge")
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
             }
         } else if (Intent.ACTION_SCREEN_OFF == action) {
             screenStateOn = false
             if (prefs.getBoolean("always_on", false)) {
-                val i = Intent()
-                i.setClassName(context, "io.github.domi04151309.alwayson.alwayson.AlwaysOn")
-                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                context.startActivity(i)
+                context.startActivity(
+                        Intent().setClassName(context, "io.github.domi04151309.alwayson.alwayson.AlwaysOn")
+                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                )
             }
         }
     }

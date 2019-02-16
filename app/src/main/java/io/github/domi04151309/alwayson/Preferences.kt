@@ -60,7 +60,6 @@ class Preferences : AppCompatPreferenceActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             addPreferencesFromResource(R.xml.pref_look_and_feel)
-            (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref_look_and_feel))
             findPreference("light_mode").onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 startActivity(Intent(context, MainActivity::class.java))
                 true

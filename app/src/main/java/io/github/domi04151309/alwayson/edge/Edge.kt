@@ -28,6 +28,7 @@ class Edge : AppCompatActivity() {
     private var mContentView: View? = null
     private var dateTxt: TextView? = null
     private var clockTxt: TextView? = null
+    private var dateFormat: String? = null
 
     //Battery
     private var batteryTxt: TextView? = null
@@ -44,23 +45,20 @@ class Edge : AppCompatActivity() {
     private var prefs: SharedPreferences? = null
 
     //Time
-    private val time: String
-        get() {
-            val time: String
-            val clock = prefs!!.getBoolean("hour", false)
-            val amPm = prefs!!.getBoolean("am_pm", false)
-            time = if (clock) {
-                if (amPm) SimpleDateFormat("h:mm a").format(Calendar.getInstance())
-                else SimpleDateFormat("h:mm").format(Calendar.getInstance())
-            }
-            else SimpleDateFormat("H:mm").format(Calendar.getInstance())
-            return time
-        }
+    private fun setDateFormat() {
+        val clock = prefs!!.getBoolean("hour", false)
+        val amPm = prefs!!.getBoolean("am_pm", false)
+        dateFormat = if (clock) {
+            if (amPm) "h:mm a"
+            else "h:mm"
+        } else "H:mm"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edge)
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        setDateFormat()
 
         //Views
         mContentView = findViewById(R.id.fullscreen_content)
@@ -75,8 +73,7 @@ class Edge : AppCompatActivity() {
 
         //Hide UI
         hide()
-        val decorView = window.decorView
-        decorView.setOnSystemUiVisibilityChangeListener { visibility ->
+        window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
             if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
                 hide()
             }
@@ -91,17 +88,15 @@ class Edge : AppCompatActivity() {
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
         //Time
-        val date = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
-        dateTxt!!.text = date
-        clockTxt!!.text = time
-        time()
+        dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
+        clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
+        startClock()
 
         //DoubleTap
         mContentView!!.setOnTouchListener(object : View.OnTouchListener {
             private val gestureDetector = GestureDetector(this@Edge, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
                     val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-
                     val duration = prefs!!.getInt("ao_vibration", 64)
                     v.vibrate(duration.toLong())
                     finish()
@@ -128,16 +123,15 @@ class Edge : AppCompatActivity() {
     }
 
     //Time updates
-    private fun time() {
-        val t = object : Thread() {
+    private fun startClock() {
+        val clockThread = object : Thread() {
             override fun run() {
                 try {
                     while (!isInterrupted) {
                         Thread.sleep(1000)
                         runOnUiThread {
-                            val date = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
-                            dateTxt!!.text = date
-                            clockTxt!!.text = time
+                            dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
+                            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
                         }
                     }
                 } catch (ex: InterruptedException) {
@@ -146,7 +140,7 @@ class Edge : AppCompatActivity() {
 
             }
         }
-        t.start()
+        clockThread.start()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

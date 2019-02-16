@@ -17,34 +17,38 @@ class Pixel2 : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent) {
         if (openCalendar == intent.action) {
-            val i = Intent()
-            i.component = ComponentName("com.google.android.calendar", "com.android.calendar.AllInOneActivity")
-            context.startActivity(i)
-            Log.v(TAG, "calendar")
+            context.startActivity(
+                    Intent().setComponent(ComponentName("com.google.android.calendar", "com.android.calendar.AllInOneActivity"))
+            )
+            Log.v(TAG, "Calendar")
         }
 
         val appWidgetManager = AppWidgetManager.getInstance(context.applicationContext)
-        val thisWidget = ComponentName(context.applicationContext, AppWidgetProvider::class.java)
-        val appWidgetIds = appWidgetManager.getAppWidgetIds(thisWidget)
+        val appWidgetIds = appWidgetManager.getAppWidgetIds(ComponentName(context.applicationContext, AppWidgetProvider::class.java))
         onUpdate(context, appWidgetManager, appWidgetIds)
         Log.v(TAG, "Received")
         super.onReceive(context, intent)
     }
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        val text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
         val views = RemoteViews(context.packageName, R.layout.pixel2)
         views.setOnClickPendingIntent(R.id.appwidget_text, getPendingSelfIntent(context))
-        views.setTextViewText(R.id.appwidget_text, text)
+        views.setTextViewText(
+                R.id.appwidget_text,
+                SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
+        )
 
         appWidgetManager.updateAppWidget(ComponentName(context, Pixel2::class.java), views)
         Log.v(TAG, "Updated")
     }
 
     private fun getPendingSelfIntent(context: Context): PendingIntent {
-        val intent = Intent(context, Pixel2::class.java)
-        intent.action = Pixel2.openCalendar
-        return PendingIntent.getBroadcast(context, 0, intent, 0)
+        return PendingIntent.getBroadcast(
+                context,
+                0,
+                Intent(context, Pixel2::class.java).setAction(Pixel2.openCalendar),
+                0
+        )
     }
 
     companion object {

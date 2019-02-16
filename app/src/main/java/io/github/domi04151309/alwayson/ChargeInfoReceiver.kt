@@ -14,8 +14,7 @@ class ChargeInfoReceiver : BroadcastReceiver() {
 
             if (prefs.getBoolean("charging_animation", false)) {
                 if (ScreenStateReceiver.screenStateOn) {
-                    val toast = Toast.makeText(context, "Power connected", Toast.LENGTH_LONG)
-                    toast.show()
+                    Toast.makeText(context, "Power connected", Toast.LENGTH_LONG).show()
                 } else if (!ScreenStateReceiver.screenStateOn) {
                     val i = Intent()
                     if (prefs.getString("charging_style", "black") == "apple")

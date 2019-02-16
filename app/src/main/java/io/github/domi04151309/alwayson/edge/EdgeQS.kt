@@ -18,8 +18,8 @@ class EdgeQS : TileService() {
     private val pref: Boolean
         get() {
             val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-            val isActive = !prefs.getBoolean("edge_swipe", false)
-            prefs.edit().putBoolean("edge_swipe", isActive).apply()
+            val isActive = !prefs.getBoolean("edge_display", false)
+            prefs.edit().putBoolean("edge_display", isActive).apply()
             Toast.makeText(this, isActive.toString(), Toast.LENGTH_LONG).show()
             return isActive
         }

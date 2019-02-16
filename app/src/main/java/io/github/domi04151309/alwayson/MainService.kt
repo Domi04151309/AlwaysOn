@@ -45,7 +45,6 @@ class MainService : Service() {
     }
 
     companion object {
-
         var headsetConnected: Boolean = false
     }
 }

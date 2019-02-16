@@ -36,6 +36,7 @@ class AlwaysOn : AppCompatActivity() {
 
     //Time
     private var clockTxt: TextView? = null
+    private var dateFormat: String? = null
 
     //Battery
     private var batteryIcn: ImageView? = null
@@ -108,28 +109,22 @@ class AlwaysOn : AppCompatActivity() {
 
     //Prefs
     private var prefs: SharedPreferences? = null
-
-    private val time: String?
-        get() {
-            var time: String? = null
-            val userTheme = prefs!!.getString("ao_style", "google")
-            val clock = prefs!!.getBoolean("hour", false)
-            val amPm = prefs!!.getBoolean("am_pm", false)
-            if (userTheme == "google") {
-                time = if (clock) {
-                    if (amPm) SimpleDateFormat("h:mm a").format(Calendar.getInstance())
-                    else SimpleDateFormat("h:mm").format(Calendar.getInstance())
-                }
-                else SimpleDateFormat("H:mm").format(Calendar.getInstance())
-            } else if (userTheme == "samsung") {
-                time = if (clock) {
-                    if (amPm) SimpleDateFormat("hh\nmm\na").format(Calendar.getInstance())
-                    else SimpleDateFormat("hh\nmm").format(Calendar.getInstance())
-                }
-                else SimpleDateFormat("HH\nmm").format(Calendar.getInstance())
-            }
-            return time
-        }
+    private fun setDateFormat() {
+        val userTheme = prefs!!.getString("ao_style", "google")
+        val clock = prefs!!.getBoolean("hour", false)
+        val amPm = prefs!!.getBoolean("am_pm", false)
+        dateFormat = if (userTheme == "google") {
+            if (clock) {
+                if (amPm) "h:mm a"
+                else "h:mm"
+            } else "H:mm"
+        } else if (userTheme == "samsung") {
+            if (clock) {
+                if (amPm) "hh\nmm\na"
+                else "hh\nmm"
+            } else "HH\nmm"
+        } else null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,6 +138,7 @@ class AlwaysOn : AppCompatActivity() {
             setContentView(R.layout.activity_ao_google)
         else if (userTheme == "samsung")
             setContentView(R.layout.activity_ao_samsung)
+        setDateFormat()
 
         //Variables
         val mFrameView = findViewById<View>(R.id.frame)
@@ -172,8 +168,7 @@ class AlwaysOn : AppCompatActivity() {
 
         //Hide UI
         hide()
-        val decorView = window.decorView
-        decorView.setOnSystemUiVisibilityChangeListener { visibility ->
+        window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
             if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
                 hide()
             }
@@ -207,16 +202,16 @@ class AlwaysOn : AppCompatActivity() {
                 }
             }
             edgeT.start()
+            sendBroadcast(Intent("io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"))
+            registerReceiver(mNotificationReceiver, IntentFilter("io.github.domi04151309.alwayson.NOTIFICATION"))
         }
-        sendBroadcast(Intent("io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"))
-        registerReceiver(mNotificationReceiver, IntentFilter("io.github.domi04151309.alwayson.NOTIFICATION"))
 
         //Time
-        clockTxt!!.text = time
-        time()
+        clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
+        startClock()
 
         //Animation
-        animation()
+        startAnimation()
 
         //DoubleTap
         mFrameView!!.setOnTouchListener(object : View.OnTouchListener {
@@ -253,14 +248,14 @@ class AlwaysOn : AppCompatActivity() {
     }
 
     //Time updates
-    private fun time() {
-        val t = object : Thread() {
+    private fun startClock() {
+        val clockThread = object : Thread() {
             override fun run() {
                 try {
                     while (!isInterrupted) {
                         Thread.sleep(1000)
                         runOnUiThread {
-                            clockTxt!!.text = time
+                            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
                         }
                     }
                 } catch (ex: InterruptedException) {
@@ -269,15 +264,14 @@ class AlwaysOn : AppCompatActivity() {
 
             }
         }
-        t.start()
+        clockThread.start()
     }
 
     //Animation
     private val animationDuration = 10000L
-    private val delay = 60000
-    private fun animation() {
-        val tAnimate: Thread
-        tAnimate = object : Thread() {
+    private val animationDelay = 60000
+    private fun startAnimation() {
+        val animationThread = object : Thread() {
             override fun run() {
                 try {
                     while (mContentView!!.height == 0) Thread.sleep(10)
@@ -286,13 +280,13 @@ class AlwaysOn : AppCompatActivity() {
                     val result = size.y - mContentView!!.height
                     mContentView!!.animate().translationY(result.toFloat() / 4).duration = 0
                     while (!isInterrupted) {
-                        Thread.sleep(delay.toLong())
+                        Thread.sleep(animationDelay.toLong())
                         mContentView!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
-                        Thread.sleep(delay.toLong())
+                        Thread.sleep(animationDelay.toLong())
                         mContentView!!.animate().translationY(result.toFloat() / 4 * 3).duration = animationDuration
-                        Thread.sleep(delay.toLong())
+                        Thread.sleep(animationDelay.toLong())
                         mContentView!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
-                        Thread.sleep(delay.toLong())
+                        Thread.sleep(animationDelay.toLong())
                         mContentView!!.animate().translationY(result.toFloat() / 4).duration = animationDuration
                     }
                 } catch (e: InterruptedException) {
@@ -300,7 +294,7 @@ class AlwaysOn : AppCompatActivity() {
                 }
             }
         }
-        tAnimate.start()
+        animationThread.start()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

@@ -17,13 +17,12 @@ class HeadsetInfoReceiver : BroadcastReceiver() {
                 } else if (!headsetConnected && intent.getIntExtra("state", 0) == 1) {
                     headsetConnected = true
                     if (ScreenStateReceiver.screenStateOn) {
-                        val toast = Toast.makeText(context, "Headphones connected", Toast.LENGTH_LONG)
-                        toast.show()
+                        Toast.makeText(context, "Headphones connected", Toast.LENGTH_LONG).show()
                     } else if (!ScreenStateReceiver.screenStateOn) {
-                        val i = Intent()
-                        i.setClassName(context, "io.github.domi04151309.alwayson.Headphones")
-                        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                        context.startActivity(i)
+                        context.startActivity(
+                                Intent().setClassName(context, "io.github.domi04151309.alwayson.Headphones")
+                                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
                     }
                 }
             }

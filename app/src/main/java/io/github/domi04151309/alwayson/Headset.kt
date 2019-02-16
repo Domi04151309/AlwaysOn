@@ -25,19 +25,18 @@ class Headset : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
 
-        val mContentView = findViewById<View>(R.id.headsetLayout)
-        mContentView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
+        findViewById<View>(R.id.headsetLayout).systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
 
-        animation()
+        startAnimation()
     }
 
-    private fun animation() {
-        val t = object : Thread() {
+    private fun startAnimation() {
+        val animationThread = object : Thread() {
             override fun run() {
                 try {
                     Thread.sleep(1500)
@@ -51,20 +50,16 @@ class Headset : AppCompatActivity() {
 
             }
         }
-        t.start()
+        animationThread.start()
     }
 
     private fun close() {
-        val mode = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode", false)
-        if (mode) {
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode", false)) {
             Root.shell("input keyevent KEYCODE_POWER")
         } else {
             val policyManager = this
                     .getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-            val adminReceiver = ComponentName(this,
-                    AdminReceiver::class.java)
-            val admin = policyManager.isAdminActive(adminReceiver)
-            if (admin) {
+            if (policyManager.isAdminActive(ComponentName(this, AdminReceiver::class.java))) {
                 policyManager.lockNow()
             } else {
                 runOnUiThread { Toast.makeText(this@Headset, R.string.pref_admin_summary, Toast.LENGTH_SHORT).show() }
