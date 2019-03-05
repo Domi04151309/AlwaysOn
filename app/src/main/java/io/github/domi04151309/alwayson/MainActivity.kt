@@ -9,7 +9,9 @@ import android.preference.PreferenceManager
 import android.provider.Settings
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.text.TextUtils
+import android.view.ContextThemeWrapper
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
@@ -91,8 +93,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
-        if (!isNotificationServiceEnabled) startActivity(Intent(this@MainActivity, DialogNls::class.java))
-        if (!isDeviceAdminOrRoot) startActivity(Intent(this@MainActivity, DialogAdmin::class.java))
+        if (!isNotificationServiceEnabled) buildDialog(2)
+        if (!isDeviceAdminOrRoot) buildDialog(1)
 
         startService(Intent(this, MainService::class.java))
 
@@ -124,6 +126,31 @@ class MainActivity : AppCompatActivity() {
         clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
         dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
         dateAndTime()
+    }
+
+    private fun buildDialog(case: Int) {
+        val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.DialogTheme))
+
+        when (case) {
+            1 -> {
+                builder.setTitle(resources.getString(R.string.device_admin))
+                builder.setView(R.layout.dialog_admin)
+                builder.setPositiveButton(resources.getString(android.R.string.ok), { dialog, _ ->
+                    startActivity(Intent(this@MainActivity, Preferences::class.java))
+                    dialog.cancel()
+                })
+            } 2-> {
+                builder.setTitle(resources.getString(R.string.notification_listener_service))
+                builder.setView(R.layout.dialog_nls)
+                builder.setPositiveButton(resources.getString(android.R.string.ok), { dialog, _ ->
+                    startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
+                    dialog.cancel()
+                })
+            } else -> return
+        }
+
+        builder.setNegativeButton(resources.getString(android.R.string.cancel), { dialog, _ -> dialog.cancel() })
+        builder.show()
     }
 
     //Date and time

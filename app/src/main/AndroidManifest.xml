@@ -12,7 +12,7 @@
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
@@ -83,16 +83,6 @@
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppTheme.NoActionbar" />
-        <activity
-            android:name=".DialogNls"
-            android:excludeFromRecents="true"
-            android:label="@string/notification_listener_service"
-            android:theme="@style/DialogTheme" />
-        <activity
-            android:name=".DialogAdmin"
-            android:excludeFromRecents="true"
-            android:label="@string/device_admin"
-            android:theme="@style/DialogTheme" />
         <activity
             android:name=".edge.Edge"
             android:configChanges="orientation|keyboardHidden|screenSize"

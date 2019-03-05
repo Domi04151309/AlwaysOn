@@ -2,7 +2,7 @@
     <shortcut
         android:shortcutId="settings"
         android:enabled="true"
-        android:icon="@drawable/shortcut"
+        android:icon="@mipmap/ic_shortcut"
         android:shortcutShortLabel="@string/shortcut_settings"
         android:shortcutLongLabel="@string/shortcut_settings"
         android:shortcutDisabledMessage="@string/shortcut_disabled">

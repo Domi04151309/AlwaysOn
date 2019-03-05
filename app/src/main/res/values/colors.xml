@@ -16,7 +16,6 @@
 
     <color name="lightColorPrimary">@color/white</color>
     <color name="lightColorPrimaryDark">@color/white</color>
-    <color name="lightWindowBackground">@color/white</color>
     <color name="lightTextColor">@color/black</color>
     <color name="lightTextColor128">@color/black128</color>
 </resources>
