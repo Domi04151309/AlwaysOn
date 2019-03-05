@@ -75,14 +75,14 @@
         </receiver>
 
         <activity
-            android:name=".Charging"
+            android:name=".charging.Flash"
             android:excludeFromRecents="true"
             android:label=""
             android:launchMode="singleInstance"
             android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:theme="@style/AppTheme.ScreenOff.Bright" />
+            android:theme="@style/AppTheme.NoActionbar" />
         <activity
             android:name=".DialogNls"
             android:excludeFromRecents="true"
@@ -130,7 +130,7 @@
             android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:theme="@style/AppTheme.ScreenOff.Bright" />
+            android:theme="@style/AppTheme.NoActionbar" />
 
         <receiver
             android:name=".HeadsetInfoReceiver"
@@ -158,14 +158,15 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".Pixel2">
+        <receiver android:name=".GlanceLite"
+            android:label="@string/glance_lite_title">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/pixel2_info" />
+                android:resource="@xml/glance_lite_info" />
         </receiver>
 
         <activity
@@ -201,14 +202,14 @@
                 android:resource="@xml/shortcuts" />
         </activity>
         <activity
-            android:name=".ChargingTwo"
+            android:name=".charging.IOS"
             android:excludeFromRecents="true"
             android:label=""
             android:launchMode="singleInstance"
             android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:theme="@style/AppTheme.Transparent" />
+            android:theme="@style/AppTheme.NoActionbar" />
     </application>
 
 </manifest>

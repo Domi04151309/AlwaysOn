@@ -13,7 +13,7 @@ import android.widget.RemoteViews
 
 import android.content.ContentValues.TAG
 
-class Pixel2 : AppWidgetProvider() {
+class GlanceLite : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent) {
         if (openCalendar == intent.action) {
@@ -31,14 +31,14 @@ class Pixel2 : AppWidgetProvider() {
     }
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        val views = RemoteViews(context.packageName, R.layout.pixel2)
+        val views = RemoteViews(context.packageName, R.layout.glance_lite)
         views.setOnClickPendingIntent(R.id.appwidget_text, getPendingSelfIntent(context))
         views.setTextViewText(
                 R.id.appwidget_text,
                 SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
         )
 
-        appWidgetManager.updateAppWidget(ComponentName(context, Pixel2::class.java), views)
+        appWidgetManager.updateAppWidget(ComponentName(context, GlanceLite::class.java), views)
         Log.v(TAG, "Updated")
     }
 
@@ -46,7 +46,7 @@ class Pixel2 : AppWidgetProvider() {
         return PendingIntent.getBroadcast(
                 context,
                 0,
-                Intent(context, Pixel2::class.java).setAction(Pixel2.openCalendar),
+                Intent(context, GlanceLite::class.java).setAction(GlanceLite.openCalendar),
                 0
         )
     }

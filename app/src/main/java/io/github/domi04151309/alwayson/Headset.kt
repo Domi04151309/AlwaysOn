@@ -41,8 +41,8 @@ class Headset : AppCompatActivity() {
                 try {
                     Thread.sleep(1500)
                     val image = findViewById<ImageView>(R.id.headsetImage)
-                    image.animate().alpha(0f).duration = 500
-                    Thread.sleep(500)
+                    image.animate().alpha(0f).duration = 1000
+                    Thread.sleep(1000)
                     close()
                 } catch (e: InterruptedException) {
                     e.printStackTrace()

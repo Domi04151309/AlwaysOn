@@ -26,14 +26,14 @@
         android:icon="@drawable/ic_charging"
         android:title="@string/pref_demo_charging">
         <intent
-            android:targetClass="io.github.domi04151309.alwayson.Charging"
+            android:targetClass="io.github.domi04151309.alwayson.charging.Flash"
             android:targetPackage="io.github.domi04151309.alwayson" />
     </Preference>
     <Preference
         android:icon="@drawable/ic_battery"
         android:title="@string/pref_demo_charging_two">
         <intent
-            android:targetClass="io.github.domi04151309.alwayson.ChargingTwo"
+            android:targetClass="io.github.domi04151309.alwayson.charging.IOS"
             android:targetPackage="io.github.domi04151309.alwayson" />
     </Preference>
 </PreferenceScreen>

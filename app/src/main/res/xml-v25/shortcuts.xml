@@ -1,54 +1,15 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
-        android:shortcutId="viewAlwaysOn"
+        android:shortcutId="settings"
         android:enabled="true"
         android:icon="@drawable/shortcut"
-        android:shortcutShortLabel="@string/AlwaysOn"
-        android:shortcutLongLabel="@string/AlwaysOn"
-        android:shortcutDisabledMessage="@string/shortcutDisabled">
+        android:shortcutShortLabel="@string/shortcut_settings"
+        android:shortcutLongLabel="@string/shortcut_settings"
+        android:shortcutDisabledMessage="@string/shortcut_disabled">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.io.github.AlwaysOn" />
-        <categories android:name="android.shortcut.conversation" />
-    </shortcut>
-    <shortcut
-        android:shortcutId="viewEdge"
-        android:enabled="true"
-        android:icon="@drawable/shortcut"
-        android:shortcutShortLabel="@string/Edge"
-        android:shortcutLongLabel="@string/Edge"
-        android:shortcutDisabledMessage="@string/shortcutDisabled">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.io.github.Edge" />
-        <categories android:name="android.shortcut.conversation" />
-    </shortcut>
-    <shortcut
-        android:shortcutId="viewHeadset"
-        android:enabled="true"
-        android:icon="@drawable/shortcut"
-        android:shortcutShortLabel="@string/Headset"
-        android:shortcutLongLabel="@string/Headset"
-        android:shortcutDisabledMessage="@string/shortcutDisabled">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.io.github.Headset" />
-        <categories android:name="android.shortcut.conversation" />
-    </shortcut>
-    <shortcut
-        android:shortcutId="viewCharging"
-        android:enabled="true"
-        android:icon="@drawable/shortcut"
-        android:shortcutShortLabel="@string/Charging"
-        android:shortcutLongLabel="@string/Charging"
-        android:shortcutDisabledMessage="@string/shortcutDisabled">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.io.github.Charging" />
+            android:targetClass="io.github.domi04151309.alwayson.Preferences" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 </shortcuts>

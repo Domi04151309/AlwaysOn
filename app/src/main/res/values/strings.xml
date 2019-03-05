@@ -22,9 +22,11 @@
     <string name="demoDate">Monday, Jan 1</string>
     <string name="demoBattery">100%</string>
 
-    <string name="shortcutDisabled">Disabled</string>
+    <string name="shortcut_settings">Settings</string>
+    <string name="shortcut_disabled">Disabled</string>
 
-    <string name="appwidget_text">Loading</string>
+    <string name="glance_lite_title">At a glance lite</string>
+    <string name="glance_lite_text">Loading</string>
 
     <!-- Strings related to Settings -->
     <string name="pref">Settings</string>
@@ -78,12 +80,12 @@
     <string name="pref_look_and_feel_charging">Charging animation look</string>
     <string name="pref_look_and_feel_charging_summary">Changes the look of the charging animation</string>
     <string-array name="pref_look_and_feel_charging_array_display">
-        <item>Screen off like style</item>
-        <item>Apple like style</item>
+        <item>Flash style</item>
+        <item>iOS style</item>
     </string-array>
     <string-array name="pref_look_and_feel_charging_array">
-        <item>black</item>
-        <item>apple</item>
+        <item>flash</item>
+        <item>ios</item>
     </string-array>
 
     <string name="pref_permissions">Permissions</string>

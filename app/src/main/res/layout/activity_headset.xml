@@ -5,7 +5,7 @@
     android:id="@+id/headsetLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.github.domi04151309.alwayson.Charging">
+    tools:context="io.github.domi04151309.alwayson.Headset">
 
     <ImageView
         android:id="@+id/headsetImage"

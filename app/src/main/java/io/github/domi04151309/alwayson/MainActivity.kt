@@ -18,6 +18,8 @@ import android.widget.ImageView
 import android.widget.TextView
 
 import io.github.domi04151309.alwayson.alwayson.AlwaysOn
+import io.github.domi04151309.alwayson.charging.Flash
+import io.github.domi04151309.alwayson.charging.IOS
 import io.github.domi04151309.alwayson.edge.Edge
 
 class MainActivity : AppCompatActivity() {
@@ -104,10 +106,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.pHeadset).setOnClickListener { startActivity(Intent(this@MainActivity, Headset::class.java)) }
 
         findViewById<ImageButton>(R.id.pCharging).setOnClickListener {
-            if (PreferenceManager.getDefaultSharedPreferences(applicationContext).getString("charging_style", "black") == "apple")
-                startActivity(Intent(this@MainActivity, ChargingTwo::class.java))
+            if (PreferenceManager.getDefaultSharedPreferences(applicationContext).getString("charging_style", "flash") == "ios")
+                startActivity(Intent(this@MainActivity, IOS::class.java))
             else
-                startActivity(Intent(this@MainActivity, Charging::class.java))
+                startActivity(Intent(this@MainActivity, Flash::class.java))
         }
 
         findViewById<Button>(R.id.pref).setOnClickListener { startActivity(Intent(this@MainActivity, Preferences::class.java)) }

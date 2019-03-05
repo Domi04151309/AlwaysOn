@@ -1,4 +1,4 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.charging
 
 import android.app.ActivityManager
 import android.app.admin.DevicePolicyManager
@@ -13,12 +13,16 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
+import io.github.domi04151309.alwayson.AdminReceiver
+import io.github.domi04151309.alwayson.Preferences
+import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.Root
 
-class Charging : AppCompatActivity() {
+class Flash : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_charging)
+        setContentView(R.layout.activity_charging_flash)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
                 WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
@@ -41,8 +45,8 @@ class Charging : AppCompatActivity() {
                 try {
                     Thread.sleep(1500)
                     val image = findViewById<ImageView>(R.id.chargingImage)
-                    image.animate().alpha(0f).duration = 500
-                    Thread.sleep(500)
+                    image.animate().alpha(0f).duration = 1000
+                    Thread.sleep(1000)
                     close()
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
@@ -62,7 +66,7 @@ class Charging : AppCompatActivity() {
             if (policyManager.isAdminActive(ComponentName(this, AdminReceiver::class.java))) {
                 policyManager.lockNow()
             } else {
-                runOnUiThread { Toast.makeText(this@Charging, R.string.pref_admin_summary, Toast.LENGTH_SHORT).show() }
+                runOnUiThread { Toast.makeText(this@Flash, R.string.pref_admin_summary, Toast.LENGTH_SHORT).show() }
                 startActivity(Intent(this, Preferences::class.java))
             }
         }

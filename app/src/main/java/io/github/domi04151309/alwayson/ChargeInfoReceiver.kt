@@ -17,10 +17,10 @@ class ChargeInfoReceiver : BroadcastReceiver() {
                     Toast.makeText(context, "Power connected", Toast.LENGTH_LONG).show()
                 } else if (!ScreenStateReceiver.screenStateOn) {
                     val i = Intent()
-                    if (prefs.getString("charging_style", "black") == "apple")
-                        i.setClassName(context, "io.github.domi04151309.alwayson.ChargingTwo")
+                    if (prefs.getString("charging_style", "flash") == "ios")
+                        i.setClassName(context, "io.github.domi04151309.alwayson.charging.IOS")
                     else
-                        i.setClassName(context, "io.github.domi04151309.alwayson.Charging")
+                        i.setClassName(context, "io.github.domi04151309.alwayson.charging.Flash")
                     i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     context.startActivity(i)
                 }
