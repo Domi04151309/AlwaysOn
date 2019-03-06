@@ -48,6 +48,9 @@
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
         </service>
 
         <activity
@@ -110,6 +113,9 @@
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
         </service>
 
         <activity
@@ -148,7 +154,8 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".GlanceLite"
+        <receiver
+            android:name=".GlanceLite"
             android:label="@string/glance_lite_title">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -200,6 +207,28 @@
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppTheme.NoActionbar" />
+
+        <receiver android:name=".alwayson.AlwaysOnWidget"
+            android:label="@string/AlwaysOn">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/always_on_widget_info" />
+        </receiver>
+
+        <receiver android:name=".edge.EdgeWidget"
+            android:label="@string/Edge">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/edge_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

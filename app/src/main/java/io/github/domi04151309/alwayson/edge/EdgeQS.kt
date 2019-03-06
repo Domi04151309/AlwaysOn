@@ -4,10 +4,9 @@ import android.annotation.TargetApi
 import android.content.Intent
 import android.graphics.drawable.Icon
 import android.os.Build
-import android.preference.PreferenceManager
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
-import android.widget.Toast
+import io.github.domi04151309.alwayson.Global
 
 import io.github.domi04151309.alwayson.MainService
 import io.github.domi04151309.alwayson.R
@@ -15,17 +14,13 @@ import io.github.domi04151309.alwayson.R
 @TargetApi(Build.VERSION_CODES.N)
 class EdgeQS : TileService() {
 
-    private val pref: Boolean
-        get() {
-            val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-            val isActive = !prefs.getBoolean("edge_display", false)
-            prefs.edit().putBoolean("edge_display", isActive).apply()
-            Toast.makeText(this, isActive.toString(), Toast.LENGTH_LONG).show()
-            return isActive
-        }
+    override fun onStartListening() {
+        super.onStartListening()
+        updateTile(Global.currentEdgeState(this))
+    }
 
     override fun onClick() {
-        updateTile(pref)
+        Global.changeEdgeState(this)
     }
 
     private fun updateTile(isActive: Boolean) {

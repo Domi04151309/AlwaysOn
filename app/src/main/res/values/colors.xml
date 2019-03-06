@@ -18,4 +18,7 @@
     <color name="lightColorPrimaryDark">@color/white</color>
     <color name="lightTextColor">@color/black</color>
     <color name="lightTextColor128">@color/black128</color>
+
+    <color name="on">#0f0</color>
+    <color name="off">#f00</color>
 </resources>

@@ -21,7 +21,7 @@
         android:summary="@string/pref_look_and_feel_am_pm_summary"
         android:title="@string/pref_look_and_feel_am_pm" />
     <Preference
-        android:icon="@drawable/ic_alwayson"
+        android:icon="@drawable/ic_always_on"
         android:key="pref_ao"
         android:summary="@string/pref_ao_settings_summary"
         android:title="@string/pref_ao_settings" />
@@ -32,7 +32,7 @@
         android:summary="@string/pref_look_and_feel_edge_corner_margin_summary"
         android:title="@string/pref_look_and_feel_edge_corner_margin" />
     <ListPreference
-        android:defaultValue="black"
+        android:defaultValue="flash"
         android:entries="@array/pref_look_and_feel_charging_array_display"
         android:entryValues="@array/pref_look_and_feel_charging_array"
         android:icon="@drawable/ic_charging"

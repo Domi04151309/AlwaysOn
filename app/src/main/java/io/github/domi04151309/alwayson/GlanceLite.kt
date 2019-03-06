@@ -8,25 +8,21 @@ import android.content.Context
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
-import android.util.Log
 import android.widget.RemoteViews
-
-import android.content.ContentValues.TAG
 
 class GlanceLite : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        if (openCalendar == intent.action) {
+        if (OPEN_CALENDAR == intent.action) {
             context.startActivity(
                     Intent().setComponent(ComponentName("com.google.android.calendar", "com.android.calendar.AllInOneActivity"))
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             )
-            Log.v(TAG, "Calendar")
         }
 
         val appWidgetManager = AppWidgetManager.getInstance(context.applicationContext)
         val appWidgetIds = appWidgetManager.getAppWidgetIds(ComponentName(context.applicationContext, AppWidgetProvider::class.java))
         onUpdate(context, appWidgetManager, appWidgetIds)
-        Log.v(TAG, "Received")
         super.onReceive(context, intent)
     }
 
@@ -39,20 +35,19 @@ class GlanceLite : AppWidgetProvider() {
         )
 
         appWidgetManager.updateAppWidget(ComponentName(context, GlanceLite::class.java), views)
-        Log.v(TAG, "Updated")
     }
 
     private fun getPendingSelfIntent(context: Context): PendingIntent {
         return PendingIntent.getBroadcast(
                 context,
                 0,
-                Intent(context, GlanceLite::class.java).setAction(GlanceLite.openCalendar),
+                Intent(context, GlanceLite::class.java).setAction(GlanceLite.OPEN_CALENDAR),
                 0
         )
     }
 
     companion object {
-        private const val openCalendar = "open calendar"
+        private const val OPEN_CALENDAR = "open_calendar"
     }
 }
 

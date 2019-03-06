@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
-        android:icon="@drawable/ic_alwayson"
+        android:icon="@drawable/ic_always_on"
         android:title="@string/pref_demo_ao">
         <intent
             android:targetClass="io.github.domi04151309.alwayson.alwayson.AlwaysOnDemo"

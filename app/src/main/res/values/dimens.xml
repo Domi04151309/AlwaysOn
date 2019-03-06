@@ -2,5 +2,8 @@
 <resources>
 
     <dimen name="widget_margin">0dp</dimen>
+    <dimen name="icon_size">48dp</dimen>
+    <dimen name="icon_margin">8dp</dimen>
+    <dimen name="dot_size">12dp</dimen>
 
 </resources>

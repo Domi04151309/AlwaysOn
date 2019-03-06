@@ -4,7 +4,7 @@
 
         <SwitchPreference
             android:defaultValue="false"
-            android:icon="@drawable/ic_alwayson"
+            android:icon="@drawable/ic_always_on"
             android:key="always_on"
             android:summaryOff="@string/pref_disabled"
             android:summaryOn="@string/pref_enabled"

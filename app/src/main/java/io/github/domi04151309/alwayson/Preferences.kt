@@ -1,12 +1,16 @@
 package io.github.domi04151309.alwayson
 
 import android.annotation.TargetApi
+import android.content.ComponentName
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceFragment
+import android.service.quicksettings.TileService
 import android.widget.Toast
+import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
+import io.github.domi04151309.alwayson.edge.EdgeQS
 
 import java.io.DataOutputStream
 import java.io.IOException
@@ -36,6 +40,16 @@ class Preferences : AppCompatPreferenceActivity() {
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             addPreferencesFromResource(R.xml.pref_general)
+            findPreference("always_on").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                TileService.requestListeningState(context, ComponentName(context , AlwaysOnQS::class.java))
+                context.sendBroadcast(Intent().setAction(Global.ALWAYS_ON_STAE_CHANGED))
+                true
+            }
+            findPreference("edge_display").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                TileService.requestListeningState(context, ComponentName(context , EdgeQS::class.java))
+                context.sendBroadcast(Intent().setAction(Global.EDGE_STAE_CHANGED))
+                true
+            }
             findPreference("pref_look_and_feel").onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 fragmentManager.beginTransaction().replace(android.R.id.content, PreferenceLookAndFeel()).addToBackStack(PreferenceAlwaysOn::class.java.simpleName).commit()
                 true

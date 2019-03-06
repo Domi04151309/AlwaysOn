@@ -38,7 +38,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:contentDescription="@string/AlwaysOn"
-                app:srcCompat="@drawable/ic_alwayson" />
+                app:srcCompat="@drawable/ic_always_on" />
 
             <ImageButton
                 android:id="@+id/lEdge"
