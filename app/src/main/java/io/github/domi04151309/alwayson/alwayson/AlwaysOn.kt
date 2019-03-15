@@ -42,7 +42,6 @@ class AlwaysOn : AppCompatActivity() {
     private var batteryIcn: ImageView? = null
     private var batteryTxt: TextView? = null
     private val mBatInfoReceiver = object : BroadcastReceiver() {
-
         override fun onReceive(c: Context, intent: Intent) {
             val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
             batteryTxt!!.text = resources.getString(R.string.percent, level)
@@ -208,10 +207,50 @@ class AlwaysOn : AppCompatActivity() {
 
         //Time
         clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
-        startClock()
+        val clockThread = object : Thread() {
+            override fun run() {
+                try {
+                    while (!isInterrupted) {
+                        Thread.sleep(1000)
+                        runOnUiThread {
+                            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
+                        }
+                    }
+                } catch (ex: InterruptedException) {
+                    ex.printStackTrace()
+                }
+
+            }
+        }
+        clockThread.start()
 
         //Animation
-        startAnimation()
+        val animationDuration = 10000L
+        val animationDelay = 60000
+        val animationThread = object : Thread() {
+            override fun run() {
+                try {
+                    while (mContentView!!.height == 0) Thread.sleep(10)
+                    val size = Point()
+                    windowManager.defaultDisplay.getSize(size)
+                    val result = size.y - mContentView!!.height
+                    mContentView!!.animate().translationY(result.toFloat() / 4).duration = 0
+                    while (!isInterrupted) {
+                        Thread.sleep(animationDelay.toLong())
+                        mContentView!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
+                        Thread.sleep(animationDelay.toLong())
+                        mContentView!!.animate().translationY(result.toFloat() / 4 * 3).duration = animationDuration
+                        Thread.sleep(animationDelay.toLong())
+                        mContentView!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
+                        Thread.sleep(animationDelay.toLong())
+                        mContentView!!.animate().translationY(result.toFloat() / 4).duration = animationDuration
+                    }
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+        animationThread.start()
 
         //DoubleTap
         mFrameView!!.setOnTouchListener(object : View.OnTouchListener {
@@ -245,56 +284,6 @@ class AlwaysOn : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
-    }
-
-    //Time updates
-    private fun startClock() {
-        val clockThread = object : Thread() {
-            override fun run() {
-                try {
-                    while (!isInterrupted) {
-                        Thread.sleep(1000)
-                        runOnUiThread {
-                            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
-                        }
-                    }
-                } catch (ex: InterruptedException) {
-                    ex.printStackTrace()
-                }
-
-            }
-        }
-        clockThread.start()
-    }
-
-    //Animation
-    private val animationDuration = 10000L
-    private val animationDelay = 60000
-    private fun startAnimation() {
-        val animationThread = object : Thread() {
-            override fun run() {
-                try {
-                    while (mContentView!!.height == 0) Thread.sleep(10)
-                    val size = Point()
-                    windowManager.defaultDisplay.getSize(size)
-                    val result = size.y - mContentView!!.height
-                    mContentView!!.animate().translationY(result.toFloat() / 4).duration = 0
-                    while (!isInterrupted) {
-                        Thread.sleep(animationDelay.toLong())
-                        mContentView!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
-                        Thread.sleep(animationDelay.toLong())
-                        mContentView!!.animate().translationY(result.toFloat() / 4 * 3).duration = animationDuration
-                        Thread.sleep(animationDelay.toLong())
-                        mContentView!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
-                        Thread.sleep(animationDelay.toLong())
-                        mContentView!!.animate().translationY(result.toFloat() / 4).duration = animationDuration
-                    }
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
-            }
-        }
-        animationThread.start()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

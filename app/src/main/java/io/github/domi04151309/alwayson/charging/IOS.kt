@@ -82,10 +82,6 @@ class IOS : AppCompatActivity() {
 
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
-        startAnimation()
-    }
-
-    private fun startAnimation() {
         val animationThread = object : Thread() {
             override fun run() {
                 try {

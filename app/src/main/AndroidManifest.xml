@@ -31,11 +31,9 @@
 
         <activity
             android:name=".alwayson.AlwaysOn"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
-            android:label=""
             android:launchMode="singleInstance"
-            android:screenOrientation="sensorPortrait"
+            android:screenOrientation="portrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppTheme.ScreenOff" />
@@ -58,6 +56,7 @@
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:taskAffinity=""
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.ScreenOff" />
 
         <receiver
@@ -88,7 +87,6 @@
             android:theme="@style/AppTheme.NoActionbar" />
         <activity
             android:name=".edge.Edge"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape"
@@ -97,7 +95,6 @@
             android:theme="@style/AppTheme.ScreenOff" />
         <activity
             android:name=".edge.EdgeDemo"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:excludeFromRecents="true"
             android:label=""
             android:launchMode="singleInstance"

@@ -90,7 +90,23 @@ class Edge : AppCompatActivity() {
         //Time
         dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
         clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
-        startClock()
+        val clockThread = object : Thread() {
+            override fun run() {
+                try {
+                    while (!isInterrupted) {
+                        Thread.sleep(1000)
+                        runOnUiThread {
+                            dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
+                            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
+                        }
+                    }
+                } catch (ex: InterruptedException) {
+                    ex.printStackTrace()
+                }
+
+            }
+        }
+        clockThread.start()
 
         //DoubleTap
         mContentView!!.setOnTouchListener(object : View.OnTouchListener {
@@ -120,27 +136,6 @@ class Edge : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
-    }
-
-    //Time updates
-    private fun startClock() {
-        val clockThread = object : Thread() {
-            override fun run() {
-                try {
-                    while (!isInterrupted) {
-                        Thread.sleep(1000)
-                        runOnUiThread {
-                            dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
-                            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
-                        }
-                    }
-                } catch (ex: InterruptedException) {
-                    ex.printStackTrace()
-                }
-
-            }
-        }
-        clockThread.start()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

@@ -1,5 +1,6 @@
 package io.github.domi04151309.alwayson.alwayson
 
+import android.graphics.Point
 import android.preference.PreferenceManager
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -29,8 +30,8 @@ class AlwaysOnDemo : AppCompatActivity() {
             findViewById<View>(R.id.batteryTxt).visibility = View.GONE
 
         //Hide UI
-        val mContentView = findViewById<View>(R.id.fullscreen_content)
-        mContentView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
+        val frameView = findViewById<View>(R.id.frame)
+        frameView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -38,7 +39,7 @@ class AlwaysOnDemo : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
 
         //DoubleTap
-        mContentView.setOnTouchListener(object : View.OnTouchListener {
+        frameView.setOnTouchListener(object : View.OnTouchListener {
             private val gestureDetector = GestureDetector(this@AlwaysOnDemo, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
                     finish()
@@ -52,5 +53,21 @@ class AlwaysOnDemo : AppCompatActivity() {
                 return true
             }
         })
+
+        //Correct positioning
+        val contentView = findViewById<View>(R.id.fullscreen_content)
+        val animationThread = object : Thread() {
+            override fun run() {
+                try {
+                    while (contentView.height == 0) Thread.sleep(10)
+                    val size = Point()
+                    windowManager.defaultDisplay.getSize(size)
+                    contentView.animate().translationY((size.y - contentView.height).toFloat() / 4).duration = 0
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+        animationThread.start()
     }
 }
