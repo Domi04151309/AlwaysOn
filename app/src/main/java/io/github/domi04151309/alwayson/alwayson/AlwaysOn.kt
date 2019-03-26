@@ -223,7 +223,7 @@ class AlwaysOn : AppCompatActivity() {
 
         //Animation
         val animationDuration = 10000L
-        val animationDelay = 60000
+        val animationDelay = prefs!!.getInt("ao_animation_delay",1) * 60000
         val animationThread = object : Thread() {
             override fun run() {
                 try {

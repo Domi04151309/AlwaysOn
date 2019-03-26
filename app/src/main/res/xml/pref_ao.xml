@@ -50,6 +50,11 @@
         android:key="ao_vibration"
         android:summary="@string/pref_ao_vibration_summary"
         android:title="@string/pref_ao_vibration" />
+    <io.github.domi04151309.alwayson.EditIntegerPreference
+        android:defaultValue="1"
+        android:key="ao_animation_delay"
+        android:summary="@string/pref_ao_animation_delay_summary"
+        android:title="@string/pref_ao_animation_delay" />
     <SwitchPreference
         android:defaultValue="false"
         android:key="ao_power_saving"

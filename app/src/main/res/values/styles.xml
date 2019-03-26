@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme" parent="Base.Theme.AppCompat">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -14,7 +14,7 @@
         <item name="android:listDivider">@null</item>
     </style>
 
-    <style name="AppTheme.Light" parent="Theme.AppCompat.Light">
+    <style name="AppTheme.Light" parent="Base.Theme.AppCompat.Light">
         <item name="android:windowLightStatusBar">true</item>
         <item name="colorPrimary">@color/lightColorPrimary</item>
         <item name="colorPrimaryDark">@color/lightColorPrimaryDark</item>
