@@ -29,11 +29,11 @@ class EdgeQS : TileService() {
         val newState: Int
 
         if (isActive) {
-            newIcon = Icon.createWithResource(applicationContext, R.drawable.ic_qs_edge)
+            newIcon = Icon.createWithResource(applicationContext, R.drawable.ic_edge_white)
             newState = Tile.STATE_ACTIVE
             startService(Intent(this, MainService::class.java))
         } else {
-            newIcon = Icon.createWithResource(applicationContext, R.drawable.ic_qs_edge)
+            newIcon = Icon.createWithResource(applicationContext, R.drawable.ic_edge_white)
             newState = Tile.STATE_INACTIVE
         }
         tile.icon = newIcon

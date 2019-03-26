@@ -30,11 +30,11 @@ class AlwaysOnQS : TileService() {
         val newState: Int
 
         if (isActive) {
-            newIcon = Icon.createWithResource(applicationContext, R.drawable.ic_qs_alwayson)
+            newIcon = Icon.createWithResource(applicationContext, R.drawable.ic_always_on_white)
             newState = Tile.STATE_ACTIVE
             startService(Intent(this, MainService::class.java))
         } else {
-            newIcon = Icon.createWithResource(applicationContext, R.drawable.ic_qs_alwayson)
+            newIcon = Icon.createWithResource(applicationContext, R.drawable.ic_always_on_white)
             newState = Tile.STATE_INACTIVE
         }
         tile.icon = newIcon
