@@ -8,6 +8,12 @@
         android:summary="@string/pref_look_and_feel_light_summary"
         android:title="@string/pref_look_and_feel_light" />
     <SwitchPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ic_smartphone"
+        android:key="hide_display_cutouts"
+        android:summary="@string/pref_look_and_feel_hide_display_cutouts_summary"
+        android:title="@string/pref_look_and_feel_hide_display_cutouts" />
+    <SwitchPreference
         android:defaultValue="false"
         android:icon="@drawable/ic_clock"
         android:key="hour"

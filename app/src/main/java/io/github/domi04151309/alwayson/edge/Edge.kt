@@ -42,10 +42,15 @@ class Edge : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edge)
 
-        //Variables
+        //Display cutouts
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        if (prefs!!.getBoolean("hide_display_cutouts",true))
+            setTheme(R.style.CutoutHide)
+        else
+            setTheme(R.style.CutoutIgnore)
+
+        setContentView(R.layout.activity_edge)
         content = findViewById(R.id.fullscreen_content)
 
         //Show on lock screen

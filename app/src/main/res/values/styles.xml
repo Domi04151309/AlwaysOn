@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="Base.Theme.AppCompat">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -66,5 +66,13 @@
         <item name="android:textColorPrimary">@color/textColor</item>
         <item name="android:textColorAlertDialogListItem">@color/textColor</item>
         <item name="android:background">@color/colorAccent</item>
+    </style>
+
+    <style name="CutoutHide">
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="28">never</item>
+    </style>
+
+    <style name="CutoutIgnore">
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="28">shortEdges</item>
     </style>
 </resources>

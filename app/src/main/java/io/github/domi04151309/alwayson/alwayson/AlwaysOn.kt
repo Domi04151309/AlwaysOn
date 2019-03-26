@@ -114,6 +114,10 @@ class AlwaysOn : AppCompatActivity() {
 
         //Check prefs
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        if (prefs!!.getBoolean("hide_display_cutouts",true))
+            setTheme(R.style.CutoutHide)
+        else
+            setTheme(R.style.CutoutIgnore)
         rootMode = prefs!!.getBoolean("root_mode", false)
         powerSaving = prefs!!.getBoolean("ao_power_saving", false)
 

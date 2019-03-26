@@ -13,6 +13,14 @@ class EdgeDemo : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //Display cutouts
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        if (prefs.getBoolean("hide_display_cutouts",true))
+            setTheme(R.style.CutoutHide)
+        else
+            setTheme(R.style.CutoutIgnore)
+
         setContentView(R.layout.activity_edge_demo)
 
         //Hide UI
@@ -25,7 +33,7 @@ class EdgeDemo : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
 
         //Corner margin
-        val cornerMargin = PreferenceManager.getDefaultSharedPreferences(this).getInt("edge_corner_margin", 0)
+        val cornerMargin = prefs.getInt("edge_corner_margin", 0)
         mContentView!!.setPaddingRelative(cornerMargin,0,cornerMargin,0)
 
         //DoubleTap

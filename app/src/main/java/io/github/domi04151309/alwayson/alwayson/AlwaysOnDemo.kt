@@ -17,6 +17,10 @@ class AlwaysOnDemo : AppCompatActivity() {
 
         //Check prefs
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        if (prefs.getBoolean("hide_display_cutouts",true))
+            setTheme(R.style.CutoutHide)
+        else
+            setTheme(R.style.CutoutIgnore)
         val userTheme = prefs.getString("ao_style", "google")
         if (userTheme == "google")
             setContentView(R.layout.activity_ao_google_demo)
