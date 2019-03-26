@@ -27,25 +27,12 @@ import io.github.domi04151309.alwayson.edge.Edge
 class MainActivity : AppCompatActivity() {
 
     private var prefs: SharedPreferences? = null
-
-    //Date and time
-    private var dateTxt: TextView? = null
     private var clockTxt: TextView? = null
-    private var dateFormat: String? = null
-    private fun setDateFormat() {
-        val clock = prefs!!.getBoolean("hour", false)
-        val amPm = prefs!!.getBoolean("am_pm", false)
-        dateFormat = if (clock) {
-            if (amPm) "h:mm a"
-            else "h:mm"
-        }
-        else "H:mm"
-    }
-
-
-    //Battery
-    private var batteryTxt: TextView? = null
+    private var dateTxt: TextView? = null
     private var batteryIcn: ImageView? = null
+    private var batteryTxt: TextView? = null
+    private var dateFormat: String? = null
+
     private val mBatInfoReceiver = object : BroadcastReceiver() {
 
         override fun onReceive(ctxt: Context, intent: Intent) {
@@ -98,9 +85,6 @@ class MainActivity : AppCompatActivity() {
 
         startService(Intent(this, MainService::class.java))
 
-        clockTxt = findViewById(R.id.clockTxt)
-        dateTxt = findViewById(R.id.dateTxt)
-
         findViewById<ImageButton>(R.id.lAlwaysOn).setOnClickListener { startActivity(Intent(this@MainActivity, AlwaysOn::class.java)) }
 
         findViewById<ImageButton>(R.id.lEdge).setOnClickListener { startActivity(Intent(this@MainActivity, Edge::class.java)) }
@@ -117,15 +101,41 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.pref).setOnClickListener { startActivity(Intent(this@MainActivity, Preferences::class.java)) }
 
         //Battery
-        batteryTxt = findViewById(R.id.batteryTxt)
         batteryIcn = findViewById(R.id.batteryIcn)
+        batteryTxt = findViewById(R.id.batteryTxt)
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
         //Date and time updates
-        setDateFormat()
+        val clock = prefs!!.getBoolean("hour", false)
+        val amPm = prefs!!.getBoolean("am_pm", false)
+        dateFormat = if (clock) {
+            if (amPm) "h:mm a"
+            else "h:mm"
+        }
+        else "H:mm"
+
+        clockTxt = findViewById(R.id.clockTxt)
+        dateTxt = findViewById(R.id.dateTxt)
+
         clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
         dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
-        dateAndTime()
+        val clockThread = object : Thread() {
+            override fun run() {
+                try {
+                    while (!isInterrupted) {
+                        Thread.sleep(1000)
+                        runOnUiThread {
+                            dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
+                            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
+                        }
+                    }
+                } catch (ex: InterruptedException) {
+                    ex.printStackTrace()
+                }
+
+            }
+        }
+        clockThread.start()
     }
 
     private fun buildDialog(case: Int) {
@@ -151,27 +161,6 @@ class MainActivity : AppCompatActivity() {
 
         builder.setNegativeButton(resources.getString(android.R.string.cancel), { dialog, _ -> dialog.cancel() })
         builder.show()
-    }
-
-    //Date and time
-    private fun dateAndTime() {
-        val t = object : Thread() {
-            override fun run() {
-                try {
-                    while (!isInterrupted) {
-                        Thread.sleep(1000)
-                        runOnUiThread {
-                            dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
-                            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
-                        }
-                    }
-                } catch (ex: InterruptedException) {
-                    ex.printStackTrace()
-                }
-
-            }
-        }
-        t.start()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

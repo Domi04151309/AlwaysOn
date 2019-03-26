@@ -24,14 +24,13 @@ import io.github.domi04151309.alwayson.R
 
 class Edge : AppCompatActivity() {
 
-    //Views
-    private var mContentView: View? = null
+    private var prefs: SharedPreferences? = null
+    private var content: View? = null
+    private var dateFormat: String? = null
     private var dateTxt: TextView? = null
     private var clockTxt: TextView? = null
-    private var dateFormat: String? = null
-
-    //Battery
     private var batteryTxt: TextView? = null
+
     private val mBatInfoReceiver = object : BroadcastReceiver() {
 
         override fun onReceive(c: Context, intent: Intent) {
@@ -41,29 +40,13 @@ class Edge : AppCompatActivity() {
         }
     }
 
-    //Preferences
-    private var prefs: SharedPreferences? = null
-
-    //Time
-    private fun setDateFormat() {
-        val clock = prefs!!.getBoolean("hour", false)
-        val amPm = prefs!!.getBoolean("am_pm", false)
-        dateFormat = if (clock) {
-            if (amPm) "h:mm a"
-            else "h:mm"
-        } else "H:mm"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edge)
-        prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        setDateFormat()
 
-        //Views
-        mContentView = findViewById(R.id.fullscreen_content)
-        dateTxt = findViewById(R.id.dateTxt)
-        clockTxt = findViewById(R.id.clockTxt)
+        //Variables
+        prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        content = findViewById(R.id.fullscreen_content)
 
         //Show on lock screen
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
@@ -81,15 +64,26 @@ class Edge : AppCompatActivity() {
 
         //Corner margin
         val cornerMargin = prefs!!.getInt("edge_corner_margin", 0)
-        mContentView!!.setPaddingRelative(cornerMargin,0,cornerMargin,0)
+        content!!.setPaddingRelative(cornerMargin,0,cornerMargin,0)
 
         //Battery
         batteryTxt = findViewById(R.id.batteryTxt)
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
         //Time
+        val clock = prefs!!.getBoolean("hour", false)
+        val amPm = prefs!!.getBoolean("am_pm", false)
+        dateFormat = if (clock) {
+            if (amPm) "h:mm a"
+            else "h:mm"
+        } else "H:mm"
+
+        dateTxt = findViewById(R.id.dateTxt)
+        clockTxt = findViewById(R.id.clockTxt)
+
         dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
         clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
+
         val clockThread = object : Thread() {
             override fun run() {
                 try {
@@ -103,13 +97,12 @@ class Edge : AppCompatActivity() {
                 } catch (ex: InterruptedException) {
                     ex.printStackTrace()
                 }
-
             }
         }
         clockThread.start()
 
         //DoubleTap
-        mContentView!!.setOnTouchListener(object : View.OnTouchListener {
+        content!!.setOnTouchListener(object : View.OnTouchListener {
             private val gestureDetector = GestureDetector(this@Edge, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
                     val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
@@ -130,7 +123,7 @@ class Edge : AppCompatActivity() {
 
     //Hide UI
     private fun hide() {
-        mContentView!!.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
+        content!!.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
