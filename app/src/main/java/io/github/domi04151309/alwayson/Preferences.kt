@@ -82,6 +82,8 @@ class Preferences : AppCompatPreferenceActivity() {
                 fragmentManager.beginTransaction().replace(android.R.id.content, PreferenceAlwaysOn()).addToBackStack(PreferenceAlwaysOn::class.java.simpleName).commit()
                 true
             }
+            if (Build.VERSION.SDK_INT < 28)
+                preferenceScreen.removePreference(findPreference("hide_display_cutouts"))
         }
 
         override fun onResume() {
