@@ -18,7 +18,6 @@ import android.preference.PreferenceManager
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -291,34 +290,25 @@ class AlwaysOn : AppCompatActivity() {
         return true
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (rootMode!! && powerSaving!!)
+            Root.shell("settings put global low_power 1")
+    }
+
     override fun onPause() {
         super.onPause()
         val activityManager = applicationContext
                 .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         activityManager.moveTaskToFront(taskId, 0)
-    }
 
-    override fun onUserLeaveHint() {
-        super.onUserLeaveHint()
-        Log.d("AppTracker", "App Event: user leave hint")
-        if (rootMode!! && powerSaving!!) {
+        if (rootMode!! && powerSaving!! && !userPowerSaving!!)
             Root.shell("settings put global low_power 0")
-        }
-    }
-
-    public override fun onStart() {
-        super.onStart()
-        if (rootMode!! && powerSaving!!) {
-            Root.shell("settings put global low_power 1")
-        }
     }
 
     public override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(mBatInfoReceiver)
         unregisterReceiver(mNotificationReceiver)
-        if (rootMode!! && powerSaving!! && !userPowerSaving!!) {
-            Root.shell("settings put global low_power 0")
-        }
     }
 }
