@@ -87,14 +87,13 @@ class AlwaysOn : AppCompatActivity() {
             if (count != 0) {
                 notifications!!.text = count.toString()
                 notificationAvailable = true
-                val am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-                if ((am.ringerMode == AudioManager.RINGER_MODE_NORMAL || am.ringerMode == AudioManager.RINGER_MODE_VIBRATE)
-                        && prefs!!.getBoolean("root_mode", false)
-                        && prefs!!.getBoolean("ao_power_saving", false)
-                        && !userPowerSaving!!
-                        && count > countCache
-                        && countCache != -1) {
-                    Root.vibrate(250)
+                if (rootMode!! && powerSaving!!) {
+                    val am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                    if ((am.ringerMode == AudioManager.RINGER_MODE_NORMAL || am.ringerMode == AudioManager.RINGER_MODE_VIBRATE)
+                            && !userPowerSaving!!
+                            && count > countCache
+                            && countCache != -1)
+                        Root.vibrate(250)
                 }
                 countCache = count
             } else {
@@ -113,30 +112,29 @@ class AlwaysOn : AppCompatActivity() {
 
         //Check prefs
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        rootMode = prefs!!.getBoolean("root_mode", false)
+        powerSaving = prefs!!.getBoolean("ao_power_saving", false)
+        val userTheme = prefs!!.getString("ao_style", "google")
+        val aoClock = prefs!!.getBoolean("ao_clock", true)
+        val aoBatteryIcn = prefs!!.getBoolean("ao_batteryIcn", true)
+        val aoBattery = prefs!!.getBoolean("ao_battery", true)
+        val aoNotifications = prefs!!.getBoolean("ao_notifications", true)
+        val aoEdgeGlow = prefs!!.getBoolean("ao_edgeGlow", true)
+        val clock = prefs!!.getBoolean("hour", false)
+        val amPm = prefs!!.getBoolean("am_pm", false)
+
         if (prefs!!.getBoolean("hide_display_cutouts",true))
             setTheme(R.style.CutoutHide)
         else
             setTheme(R.style.CutoutIgnore)
-        rootMode = prefs!!.getBoolean("root_mode", false)
-        powerSaving = prefs!!.getBoolean("ao_power_saving", false)
-
-        val userTheme = prefs!!.getString("ao_style", "google")
         if (userTheme == "google")
             setContentView(R.layout.activity_ao_google)
         else if (userTheme == "samsung")
             setContentView(R.layout.activity_ao_samsung)
-
-        if (!prefs!!.getBoolean("ao_clock", true))
-            clockTxt!!.visibility = View.GONE
-        if (!prefs!!.getBoolean("ao_batteryIcn", true))
-            batteryIcn!!.visibility = View.GONE
-        if (!prefs!!.getBoolean("ao_battery", true))
-            batteryTxt!!.visibility = View.GONE
-        if (!prefs!!.getBoolean("ao_notifications", true))
-            notifications!!.visibility = View.GONE
-
-        val clock = prefs!!.getBoolean("hour", false)
-        val amPm = prefs!!.getBoolean("am_pm", false)
+        if (!aoClock) clockTxt!!.visibility = View.GONE
+        if (!aoBatteryIcn) batteryIcn!!.visibility = View.GONE
+        if (!aoBattery) batteryTxt!!.visibility = View.GONE
+        if (!aoNotifications) notifications!!.visibility = View.GONE
         dateFormat = if (userTheme == "google") {
             if (clock) {
                 if (amPm) "h:mm a"
@@ -168,16 +166,20 @@ class AlwaysOn : AppCompatActivity() {
         //Hide UI
         hide()
         window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
-            if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0) {
+            if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0)
                 hide()
-            }
         }
 
         //Battery
-        registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        if (aoBatteryIcn || aoBattery)
+            registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
         //Notifications
-        if (prefs!!.getBoolean("ao_edgeGlow", true)) {
+        if (aoNotifications || aoEdgeGlow) {
+            registerReceiver(mNotificationReceiver, IntentFilter("io.github.domi04151309.alwayson.NOTIFICATION"))
+            sendBroadcast(Intent("io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"))
+        }
+        if (aoEdgeGlow) {
             transitionTime = prefs!!.getInt("ao_glowDuration", 2000)
             frame.background = ContextCompat.getDrawable(this, R.drawable.edge_glow)
             transition = frame.background as TransitionDrawable
@@ -190,9 +192,8 @@ class AlwaysOn : AppCompatActivity() {
                                 Thread.sleep(transitionTime.toLong())
                                 transition!!.reverseTransition(transitionTime)
                                 Thread.sleep(transitionTime.toLong())
-                            } else {
+                            } else
                                 Thread.sleep(1000)
-                            }
                         }
                     } catch (e: InterruptedException) {
                         e.printStackTrace()
@@ -201,32 +202,31 @@ class AlwaysOn : AppCompatActivity() {
                 }
             }
             edgeThread.start()
-            sendBroadcast(Intent("io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"))
-            registerReceiver(mNotificationReceiver, IntentFilter("io.github.domi04151309.alwayson.NOTIFICATION"))
         }
 
         //Time
-        clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
-        val clockThread = object : Thread() {
-            override fun run() {
-                try {
-                    while (!isInterrupted) {
-                        Thread.sleep(1000)
-                        runOnUiThread {
-                            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
+        if (aoClock) {
+            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
+            val clockThread = object : Thread() {
+                override fun run() {
+                    try {
+                        while (!isInterrupted) {
+                            Thread.sleep(1000)
+                            runOnUiThread {
+                                clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
+                            }
                         }
+                    } catch (ex: InterruptedException) {
+                        ex.printStackTrace()
                     }
-                } catch (ex: InterruptedException) {
-                    ex.printStackTrace()
                 }
-
             }
+            clockThread.start()
         }
-        clockThread.start()
 
         //Animation
         val animationDuration = 10000L
-        val animationDelay = prefs!!.getInt("ao_animation_delay",1) * 60000
+        val animationDelay = prefs!!.getInt("ao_animation_delay", 1) * 60000
         val animationThread = object : Thread() {
             override fun run() {
                 try {
@@ -256,13 +256,11 @@ class AlwaysOn : AppCompatActivity() {
         frame.setOnTouchListener(object : View.OnTouchListener {
             private val gestureDetector = GestureDetector(this@AlwaysOn, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
-                    val duration = prefs!!.getInt("ao_vibration", 64)
-                    if (powerSaving!! && rootMode!! && !userPowerSaving!!) {
-                        Root.vibrate(duration.toLong())
-                    } else {
-                        val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                        v.vibrate(duration.toLong())
-                    }
+                    val duration = prefs!!.getInt("ao_vibration", 64).toLong()
+                    if (powerSaving!! && rootMode!! && !userPowerSaving!!)
+                        Root.vibrate(duration)
+                    else
+                        (getSystemService(Context.VIBRATOR_SERVICE) as Vibrator).vibrate(duration)
                     finish()
                     return super.onDoubleTap(e)
                 }
