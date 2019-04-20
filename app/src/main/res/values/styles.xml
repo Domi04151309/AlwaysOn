@@ -24,6 +24,8 @@
         <item name="buttonStyle">@style/Button</item>
         <item name="imageButtonStyle">@style/ImageButton</item>
         <item name="android:alertDialogTheme">@style/DialogTheme</item>
+        <item name="android:navigationBarColor">@color/lightColorPrimaryDark</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="28">true</item>
         <item name="android:listDivider">@null</item>
     </style>
 
