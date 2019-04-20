@@ -15,6 +15,6 @@ object Root {
     }
 
     fun vibrate(duration: Long) {
-        shell("echo " + duration.toString() + " > /sys/devices/virtual/timed_output/vibrator/enable")
+        shell("echo $duration > /sys/devices/virtual/timed_output/vibrator/enable")
     }
 }

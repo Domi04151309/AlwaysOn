@@ -145,21 +145,21 @@ class MainActivity : AppCompatActivity() {
             1 -> {
                 builder.setTitle(resources.getString(R.string.device_admin))
                 builder.setView(R.layout.dialog_admin)
-                builder.setPositiveButton(resources.getString(android.R.string.ok), { dialog, _ ->
+                builder.setPositiveButton(resources.getString(android.R.string.ok)) { dialog, _ ->
                     startActivity(Intent(this@MainActivity, Preferences::class.java))
                     dialog.cancel()
-                })
+                }
             } 2-> {
                 builder.setTitle(resources.getString(R.string.notification_listener_service))
                 builder.setView(R.layout.dialog_nls)
-                builder.setPositiveButton(resources.getString(android.R.string.ok), { dialog, _ ->
+                builder.setPositiveButton(resources.getString(android.R.string.ok)) { dialog, _ ->
                     startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
                     dialog.cancel()
-                })
-            } else -> return
+                }
+        } else -> return
         }
 
-        builder.setNegativeButton(resources.getString(android.R.string.cancel), { dialog, _ -> dialog.cancel() })
+        builder.setNegativeButton(resources.getString(android.R.string.cancel)) { dialog, _ -> dialog.cancel() }
         builder.show()
     }
 
