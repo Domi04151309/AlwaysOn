@@ -1,5 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <style name="SetupTheme" parent="Base.Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="AppTheme" parent="Base.Theme.AppCompat">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -24,8 +33,8 @@
         <item name="buttonStyle">@style/Button</item>
         <item name="imageButtonStyle">@style/ImageButton</item>
         <item name="android:alertDialogTheme">@style/DialogTheme</item>
-        <item name="android:navigationBarColor">@color/lightColorPrimaryDark</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="28">true</item>
+        <item name="android:navigationBarColor">@color/lightColorPrimary</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
         <item name="android:listDivider">@null</item>
     </style>
 
@@ -33,7 +42,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@color/navigationBarColor</item>
     </style>
 
     <style name="AppTheme.Splash" parent="AppTheme.NoActionbar">
@@ -44,6 +52,7 @@
         <item name="android:background">@drawable/button_bg</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:stateListAnimator">@null</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="ImageButton" parent="Widget.AppCompat.ImageButton">

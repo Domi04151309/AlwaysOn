@@ -2,7 +2,7 @@
 <resources>
     <color name="black">#ff000000</color>
     <color name="black128">#80000000</color>
-    <color name="white">#ffffffff</color>
+    <color name="white">#fff</color>
     <color name="white128">#80ffffff</color>
     <color name="orange128">#80ff2902</color>
     <color name="colorPrimary">@color/black</color>
@@ -14,8 +14,8 @@
     <color name="navigationBarColor">#ff000001</color>
     <color name="charging">#8055D769</color>
 
-    <color name="lightColorPrimary">@color/white</color>
-    <color name="lightColorPrimaryDark">@color/white</color>
+    <color name="lightColorPrimary">#fafafa</color>
+    <color name="lightColorPrimaryDark">@color/lightColorPrimary</color>
     <color name="lightTextColor">@color/black</color>
     <color name="lightTextColor128">@color/black128</color>
 

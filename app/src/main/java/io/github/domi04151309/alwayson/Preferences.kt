@@ -12,9 +12,6 @@ import android.widget.Toast
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
 import io.github.domi04151309.alwayson.edge.EdgeQS
 
-import java.io.DataOutputStream
-import java.io.IOException
-
 class Preferences : AppCompatPreferenceActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -106,18 +103,10 @@ class Preferences : AppCompatPreferenceActivity() {
             addPreferencesFromResource(R.xml.pref_permissions)
             (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref_permissions))
             findPreference("request_root").onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                val p: Process
-                try {
-                    p = Runtime.getRuntime().exec("su")
-                    val os = DataOutputStream(p.outputStream)
-                    os.writeBytes("echo access granted\n")
-                    os.writeBytes("exit\n")
-                    os.flush()
+                if (Root.request())
                     Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
-                } catch (e: IOException) {
-                    e.printStackTrace()
+                else
                     Toast.makeText(context, "Request failed!", Toast.LENGTH_LONG).show()
-                }
                 true
             }
         }

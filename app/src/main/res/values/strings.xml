@@ -1,4 +1,14 @@
 <resources>
+    <string name="setup_header">Setup</string>
+    <string name="setup_choose_mode">Choose a mode</string>
+    <string name="setup_choose_mode_summary">You need to choose a mode for the app. If you are not sure about what you need to choose, leave this setting as is. If your device is rooted, choose root.</string>
+    <string name="setup_device_admin">Device Admin</string>
+    <string name="setup_root">Root</string>
+    <string name="setup_root_failed">Root request failed! Please try again or switch mode!</string>
+    <string name="setup_finish">Finish Setup</string>
+    <string name="setup_finish_summary">Click continue to finish the setup.</string>
+    <string name="setup_continue">Continue</string>
+
     <string name="app_name">AlwaysOn</string>
     <string name="app_by">AlwaysOn by Domi04151309</string>
     <string name="description">AlwaysOn is an app for every device with an AMOLED or OLED display. It keeps your screen on while the clock and battery percentage are displayed but it does not drain your battery.\nAlso, icons appear when you plug in your headphones or start charging your device.</string>
@@ -112,7 +122,7 @@
     <string name="pref_demo_charging_two">Second charging display</string>
 
     <string name="notification_listener_service">"Notification Listener Service"</string>
-    <string name="notification_listener_service_explanation">"You need to enable the notification listener service for the app to work"</string>
+    <string name="notification_listener_service_explanation">"You need to enable the notification listener service for the app to display a notification count on the always on display."</string>
     <string name="device_admin">"Device Admin"</string>
-    <string name="device_admin_explanation">"You need to activate this device admin or switch to root mode for the app to work"</string>
+    <string name="device_admin_explanation">"You need to activate this device admin or switch to root mode for some features."</string>
 </resources>

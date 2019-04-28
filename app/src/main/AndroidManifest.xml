@@ -3,7 +3,7 @@
     package="io.github.domi04151309.alwayson">
 
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.USES_POLICY_FORCE_LOCK" />
@@ -16,6 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".SetupActivity"
+            android:theme="@style/SetupTheme" />
+
         <receiver
             android:name=".AdminReceiver"
             android:enabled="true"
@@ -47,6 +51,7 @@
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.service.quicksettings.ACTIVE_TILE"
                 android:value="true" />
@@ -56,8 +61,8 @@
             android:name=".alwayson.AlwaysOnDemo"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:taskAffinity=""
             android:screenOrientation="portrait"
+            android:taskAffinity=""
             android:theme="@style/AppTheme.ScreenOff" />
 
         <receiver
@@ -111,6 +116,7 @@
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.service.quicksettings.ACTIVE_TILE"
                 android:value="true" />
@@ -206,7 +212,8 @@
             android:taskAffinity=""
             android:theme="@style/AppTheme.NoActionbar" />
 
-        <receiver android:name=".alwayson.AlwaysOnWidget"
+        <receiver
+            android:name=".alwayson.AlwaysOnWidget"
             android:label="@string/AlwaysOn">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -216,8 +223,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/always_on_widget_info" />
         </receiver>
-
-        <receiver android:name=".edge.EdgeWidget"
+        <receiver
+            android:name=".edge.EdgeWidget"
             android:label="@string/Edge">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

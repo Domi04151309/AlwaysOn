@@ -5,7 +5,7 @@ import android.preference.EditTextPreference;
 import android.text.InputType;
 import android.util.AttributeSet;
 
-public class EditIntegerPreference extends EditTextPreference {
+class EditIntegerPreference extends EditTextPreference {
 
     private Integer mInteger;
 
