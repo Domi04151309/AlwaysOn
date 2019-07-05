@@ -2,7 +2,7 @@ package io.github.domi04151309.alwayson.alwayson
 
 import android.graphics.Point
 import android.preference.PreferenceManager
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -63,7 +63,7 @@ class AlwaysOnDemo : AppCompatActivity() {
         val animationThread = object : Thread() {
             override fun run() {
                 try {
-                    while (contentView.height == 0) Thread.sleep(10)
+                    while (contentView.height == 0) sleep(10)
                     val size = Point()
                     windowManager.defaultDisplay.getSize(size)
                     contentView.animate().translationY((size.y - contentView.height).toFloat() / 4).duration = 0

@@ -6,7 +6,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.preference.PreferenceManager
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -35,10 +35,10 @@ class Headset : AppCompatActivity() {
         val animationThread = object : Thread() {
             override fun run() {
                 try {
-                    Thread.sleep(1500)
+                    sleep(1500)
                     val image = findViewById<ImageView>(R.id.headsetImage)
                     image.animate().alpha(0f).duration = 1000
-                    Thread.sleep(1000)
+                    sleep(1000)
                     close()
                 } catch (e: InterruptedException) {
                     e.printStackTrace()

@@ -11,7 +11,7 @@ import android.icu.util.Calendar
 import android.os.BatteryManager
 import android.os.Vibrator
 import android.preference.PreferenceManager
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.KeyEvent
@@ -93,7 +93,7 @@ class Edge : AppCompatActivity() {
             override fun run() {
                 try {
                     while (!isInterrupted) {
-                        Thread.sleep(1000)
+                        sleep(1000)
                         runOnUiThread {
                             dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
                             clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())

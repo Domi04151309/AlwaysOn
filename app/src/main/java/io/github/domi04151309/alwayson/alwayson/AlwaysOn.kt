@@ -15,8 +15,8 @@ import android.os.BatteryManager
 import android.os.PowerManager
 import android.os.Vibrator
 import android.preference.PreferenceManager
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
@@ -189,11 +189,11 @@ class AlwaysOn : AppCompatActivity() {
                         while (!isInterrupted) {
                             if (notificationAvailable) {
                                 transition!!.startTransition(transitionTime)
-                                Thread.sleep(transitionTime.toLong())
+                                sleep(transitionTime.toLong())
                                 transition!!.reverseTransition(transitionTime)
-                                Thread.sleep(transitionTime.toLong())
+                                sleep(transitionTime.toLong())
                             } else
-                                Thread.sleep(1000)
+                                sleep(1000)
                         }
                     } catch (e: InterruptedException) {
                         e.printStackTrace()
@@ -211,7 +211,7 @@ class AlwaysOn : AppCompatActivity() {
                 override fun run() {
                     try {
                         while (!isInterrupted) {
-                            Thread.sleep(1000)
+                            sleep(1000)
                             runOnUiThread {
                                 clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
                             }
@@ -230,19 +230,19 @@ class AlwaysOn : AppCompatActivity() {
         val animationThread = object : Thread() {
             override fun run() {
                 try {
-                    while (content!!.height == 0) Thread.sleep(10)
+                    while (content!!.height == 0) sleep(10)
                     val size = Point()
                     windowManager.defaultDisplay.getSize(size)
                     val result = size.y - content!!.height
                     content!!.animate().translationY(result.toFloat() / 4).duration = 0
                     while (!isInterrupted) {
-                        Thread.sleep(animationDelay.toLong())
+                        sleep(animationDelay.toLong())
                         content!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
-                        Thread.sleep(animationDelay.toLong())
+                        sleep(animationDelay.toLong())
                         content!!.animate().translationY(result.toFloat() / 4 * 3).duration = animationDuration
-                        Thread.sleep(animationDelay.toLong())
+                        sleep(animationDelay.toLong())
                         content!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
-                        Thread.sleep(animationDelay.toLong())
+                        sleep(animationDelay.toLong())
                         content!!.animate().translationY(result.toFloat() / 4).duration = animationDuration
                     }
                 } catch (e: InterruptedException) {

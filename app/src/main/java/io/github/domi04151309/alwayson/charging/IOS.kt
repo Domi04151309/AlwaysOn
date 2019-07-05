@@ -5,7 +5,7 @@ import android.app.admin.DevicePolicyManager
 import android.content.*
 import android.graphics.Point
 import android.os.BatteryManager
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.KeyEvent
@@ -85,14 +85,14 @@ class IOS : AppCompatActivity() {
         val animationThread = object : Thread() {
             override fun run() {
                 try {
-                    while (content!!.height == 0) Thread.sleep(10)
+                    while (content!!.height == 0) sleep(10)
                     val size = Point()
                     windowManager.defaultDisplay.getSize(size)
                     val result = size.y - content!!.height
                     content!!.animate().translationY(result.toFloat() / 8).duration = 0
-                    Thread.sleep(3000)
+                    sleep(3000)
                     content!!.animate().alpha(0f).duration = 1000
-                    Thread.sleep(1000)
+                    sleep(1000)
                     close()
                 } catch (e: InterruptedException) {
                     e.printStackTrace()

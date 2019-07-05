@@ -1,6 +1,6 @@
 package io.github.domi04151309.alwayson.edge
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.GestureDetector

@@ -41,7 +41,7 @@ class GlanceLite : AppWidgetProvider() {
         return PendingIntent.getBroadcast(
                 context,
                 0,
-                Intent(context, GlanceLite::class.java).setAction(GlanceLite.OPEN_CALENDAR),
+                Intent(context, GlanceLite::class.java).setAction(OPEN_CALENDAR),
                 0
         )
     }

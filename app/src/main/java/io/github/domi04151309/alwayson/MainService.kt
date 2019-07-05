@@ -19,7 +19,7 @@ class MainService : Service() {
     private val filterHeadphones = IntentFilter(Intent.ACTION_HEADSET_PLUG)
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        return Service.START_STICKY
+        return START_STICKY
     }
 
     override fun onCreate() {

@@ -7,9 +7,9 @@ import android.icu.util.Calendar
 import android.os.BatteryManager
 import android.preference.PreferenceManager
 import android.provider.Settings
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.text.TextUtils
 import android.view.ContextThemeWrapper
 import android.view.KeyEvent
@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
             override fun run() {
                 try {
                     while (!isInterrupted) {
-                        Thread.sleep(1000)
+                        sleep(1000)
                         runOnUiThread {
                             dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
                             clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
