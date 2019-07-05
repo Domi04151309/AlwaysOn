@@ -15,7 +15,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import io.github.domi04151309.alwayson.AdminReceiver
+import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import io.github.domi04151309.alwayson.Preferences
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.Root

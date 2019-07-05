@@ -23,6 +23,8 @@ import io.github.domi04151309.alwayson.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.charging.Flash
 import io.github.domi04151309.alwayson.charging.IOS
 import io.github.domi04151309.alwayson.edge.Edge
+import io.github.domi04151309.alwayson.receivers.AdminReceiver
+import io.github.domi04151309.alwayson.services.MainService
 
 class MainActivity : AppCompatActivity() {
 

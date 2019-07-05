@@ -23,7 +23,7 @@
             android:theme="@style/SetupTheme" />
 
         <receiver
-            android:name=".AdminReceiver"
+            android:name=".receivers.AdminReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
@@ -68,7 +68,7 @@
             android:theme="@style/AppTheme.ScreenOff" />
 
         <receiver
-            android:name=".AutoStart"
+            android:name=".receivers.AutoStart"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -76,7 +76,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".ChargeInfoReceiver"
+            android:name=".receivers.ChargeInfoReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -135,7 +135,7 @@
             android:theme="@style/AppTheme.NoActionbar" />
 
         <receiver
-            android:name=".HeadsetInfoReceiver"
+            android:name=".receivers.HeadsetInfoReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -146,13 +146,13 @@
         <activity android:name=".MainActivity" />
 
         <service
-            android:name=".MainService"
+            android:name=".services.MainService"
             android:enabled="true"
             android:exported="false"
             android:launchMode="singleTop"
             android:permission="" />
         <service
-            android:name=".NotificationService"
+            android:name=".services.NotificationService"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
@@ -182,7 +182,7 @@
         </activity>
 
         <receiver
-            android:name=".ScreenStateReceiver"
+            android:name=".receivers.ScreenStateReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

@@ -13,6 +13,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
+import io.github.domi04151309.alwayson.receivers.AdminReceiver
 
 class Headset : AppCompatActivity() {
 

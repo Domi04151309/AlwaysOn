@@ -73,31 +73,28 @@
 
         <TextView
             android:id="@+id/clockTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/clock" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/dateTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/date2" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/batteryTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/battery" />
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/batteryIcn"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:contentDescription="@string/feature"
-            app:srcCompat="@drawable/ic_charging" />
+            android:visibility="gone"
+            android:contentDescription="@string/feature" />
 
     </LinearLayout>
 </ScrollView>

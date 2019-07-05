@@ -1,4 +1,4 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.services
 
 import android.app.Service
 import android.content.ComponentName
@@ -8,6 +8,9 @@ import android.os.IBinder
 import android.service.quicksettings.TileService
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
 import io.github.domi04151309.alwayson.edge.EdgeQS
+import io.github.domi04151309.alwayson.receivers.ChargeInfoReceiver
+import io.github.domi04151309.alwayson.receivers.HeadsetInfoReceiver
+import io.github.domi04151309.alwayson.receivers.ScreenStateReceiver
 
 class MainService : Service() {
 

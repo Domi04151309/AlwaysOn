@@ -131,7 +131,7 @@ class AlwaysOn : AppCompatActivity() {
             setContentView(R.layout.activity_ao_google)
         else if (userTheme == "samsung")
             setContentView(R.layout.activity_ao_samsung)
-        
+
         clockTxt = findViewById(R.id.clockTxt)
         batteryIcn = findViewById(R.id.batteryIcn)
         batteryTxt = findViewById(R.id.batteryTxt)

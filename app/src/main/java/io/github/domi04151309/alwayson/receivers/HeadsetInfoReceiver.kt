@@ -1,10 +1,11 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.receivers
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.preference.PreferenceManager
 import android.widget.Toast
+import io.github.domi04151309.alwayson.services.MainService
 
 class HeadsetInfoReceiver : BroadcastReceiver() {
     private var headsetConnected = MainService.headsetConnected

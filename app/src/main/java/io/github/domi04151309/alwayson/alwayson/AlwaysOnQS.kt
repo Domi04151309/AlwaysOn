@@ -7,7 +7,7 @@ import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 
-import io.github.domi04151309.alwayson.MainService
+import io.github.domi04151309.alwayson.services.MainService
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.Global
 

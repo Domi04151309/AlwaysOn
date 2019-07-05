@@ -1,4 +1,4 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.services
 
 import android.content.BroadcastReceiver
 import android.content.Context
