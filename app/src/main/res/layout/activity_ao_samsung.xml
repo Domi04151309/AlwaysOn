@@ -19,15 +19,13 @@
             android:id="@+id/clockTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/aod_spacing"
+            android:layout_marginBottom="@dimen/aod_spacing"
             android:fontFamily="@font/samsung_sans"
             android:gravity="center"
             android:lineSpacingMultiplier="0.72"
             android:text="@string/clock2"
             android:textSize="75sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="32dp" />
 
         <ImageView
             android:id="@+id/batteryIcn"
@@ -45,14 +43,12 @@
             android:text="@string/battery"
             android:textSize="25sp" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="32dp" />
-
         <TextView
             android:id="@+id/notifications"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/aod_spacing"
+            android:layout_marginBottom="@dimen/aod_spacing"
             android:fontFamily="@font/samsung_sans"
             android:gravity="center"
             android:text="@string/feature"

@@ -131,6 +131,12 @@ class AlwaysOn : AppCompatActivity() {
             setContentView(R.layout.activity_ao_google)
         else if (userTheme == "samsung")
             setContentView(R.layout.activity_ao_samsung)
+        
+        clockTxt = findViewById(R.id.clockTxt)
+        batteryIcn = findViewById(R.id.batteryIcn)
+        batteryTxt = findViewById(R.id.batteryTxt)
+        notifications = findViewById(R.id.notifications)
+
         if (!aoClock) clockTxt!!.visibility = View.GONE
         if (!aoBatteryIcn) batteryIcn!!.visibility = View.GONE
         if (!aoBattery) batteryTxt!!.visibility = View.GONE
@@ -152,10 +158,6 @@ class AlwaysOn : AppCompatActivity() {
         content = findViewById(R.id.fullscreen_content)
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
         userPowerSaving = pm.isPowerSaveMode
-        clockTxt = findViewById(R.id.clockTxt)
-        batteryIcn = findViewById(R.id.batteryIcn)
-        batteryTxt = findViewById(R.id.batteryTxt)
-        notifications = findViewById(R.id.notifications)
 
         //Show on lock screen
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
@@ -236,10 +238,6 @@ class AlwaysOn : AppCompatActivity() {
                     val result = size.y - content!!.height
                     content!!.animate().translationY(result.toFloat() / 4).duration = 0
                     while (!isInterrupted) {
-                        sleep(animationDelay.toLong())
-                        content!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
-                        sleep(animationDelay.toLong())
-                        content!!.animate().translationY(result.toFloat() / 4 * 3).duration = animationDuration
                         sleep(animationDelay.toLong())
                         content!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
                         sleep(animationDelay.toLong())
