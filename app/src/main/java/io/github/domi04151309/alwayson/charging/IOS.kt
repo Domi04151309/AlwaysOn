@@ -1,24 +1,17 @@
 package io.github.domi04151309.alwayson.charging
 
 import android.app.ActivityManager
-import android.app.admin.DevicePolicyManager
 import android.content.*
 import android.graphics.Point
 import android.os.BatteryManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.KeyEvent
-import android.view.View
-import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import io.github.domi04151309.alwayson.receivers.AdminReceiver
-import io.github.domi04151309.alwayson.Preferences
+import io.github.domi04151309.alwayson.Global
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.Root
 
 class IOS : AppCompatActivity() {
 
@@ -30,33 +23,16 @@ class IOS : AppCompatActivity() {
         override fun onReceive(c: Context, intent: Intent) {
             val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
             batteryTxt!!.text = resources.getString(R.string.charged, level)
-            val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
-            val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL
-            if (isCharging) {
-                when {
-                    level >= 100 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_100_charging)
-                    level >= 90 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_90_charging)
-                    level >= 80 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_80_charging)
-                    level >= 60 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_60_charging)
-                    level >= 50 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_50_charging)
-                    level >= 30 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_30_charging)
-                    level >= 20 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_20_charging)
-                    level >= 0 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_0_charging)
-                    else -> batteryIcn!!.setImageResource(R.drawable.ic_battery_unknown_charging)
-                }
-            } else {
-                when {
-                    level >= 100 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_100)
-                    level >= 90 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_90)
-                    level >= 80 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_80)
-                    level >= 60 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_60)
-                    level >= 50 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_50)
-                    level >= 30 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_30)
-                    level >= 20 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_20)
-                    level >= 10 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_20_orange)
-                    level >= 0 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_0)
-                    else -> batteryIcn!!.setImageResource(R.drawable.ic_battery_unknown)
-                }
+            when {
+                level >= 100 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_100_charging)
+                level >= 90 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_90_charging)
+                level >= 80 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_80_charging)
+                level >= 60 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_60_charging)
+                level >= 50 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_50_charging)
+                level >= 30 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_30_charging)
+                level >= 20 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_20_charging)
+                level >= 0 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_0_charging)
+                else -> batteryIcn!!.setImageResource(R.drawable.ic_battery_unknown_charging)
             }
         }
     }
@@ -69,16 +45,7 @@ class IOS : AppCompatActivity() {
         batteryIcn = findViewById(R.id.batteryIcn)
         batteryTxt = findViewById(R.id.batteryTxt)
 
-        window.addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
-                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
-
-        content!!.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+        Global.fullscreen(this, content!!)
 
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
@@ -93,7 +60,7 @@ class IOS : AppCompatActivity() {
                     sleep(3000)
                     content!!.animate().alpha(0f).duration = 1000
                     sleep(1000)
-                    close()
+                    Global.close(this@IOS)
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
@@ -101,22 +68,6 @@ class IOS : AppCompatActivity() {
             }
         }
         animationThread.start()
-    }
-
-    private fun close() {
-        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode", false)) {
-            Root.shell("input keyevent KEYCODE_POWER")
-        } else {
-            val policyManager = this
-                    .getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-            if (policyManager.isAdminActive(ComponentName(this, AdminReceiver::class.java))) {
-                policyManager.lockNow()
-            } else {
-                runOnUiThread { Toast.makeText(this@IOS, R.string.pref_admin_summary, Toast.LENGTH_SHORT).show() }
-                startActivity(Intent(this, Preferences::class.java))
-            }
-        }
-        finish()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
