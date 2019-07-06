@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/charging_margin"
+    tools:context="io.github.domi04151309.alwayson.charging.Flash">
+
+    <ProgressBar
+        android:id="@+id/chargingProgress"
+        android:layout_width="192dp"
+        android:layout_height="192dp"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/progress_bar_progress"
+        android:background="@drawable/progress_bar_circle"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100"
+        android:progress="66"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/batteryTxt"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:text="@string/battery"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

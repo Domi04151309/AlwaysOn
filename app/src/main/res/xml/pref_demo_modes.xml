@@ -36,4 +36,11 @@
             android:targetClass="io.github.domi04151309.alwayson.charging.IOS"
             android:targetPackage="io.github.domi04151309.alwayson" />
     </Preference>
+    <Preference
+        android:icon="@drawable/ic_battery"
+        android:title="@string/pref_demo_charging_three">
+        <intent
+            android:targetClass="io.github.domi04151309.alwayson.charging.Circle"
+            android:targetPackage="io.github.domi04151309.alwayson" />
+    </Preference>
 </PreferenceScreen>

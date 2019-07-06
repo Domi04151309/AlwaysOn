@@ -92,10 +92,12 @@
     <string name="pref_look_and_feel_charging">Charging animation look</string>
     <string name="pref_look_and_feel_charging_summary">Changes the look of the charging animation</string>
     <string-array name="pref_look_and_feel_charging_array_display">
+        <item>Circle style</item>
         <item>Flash style</item>
         <item>iOS style</item>
     </string-array>
     <string-array name="pref_look_and_feel_charging_array">
+        <item>circle</item>
         <item>flash</item>
         <item>ios</item>
     </string-array>
@@ -120,6 +122,7 @@
     <string name="pref_demo_headset">Headset display</string>
     <string name="pref_demo_charging">Charging display</string>
     <string name="pref_demo_charging_two">Second charging display</string>
+    <string name="pref_demo_charging_three">Third charging display</string>
 
     <string name="notification_listener_service">"Notification Listener Service"</string>
     <string name="notification_listener_service_explanation">"You need to enable the notification listener service for the app to display a notification count on the always on display."</string>

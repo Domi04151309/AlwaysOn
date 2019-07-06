@@ -13,6 +13,8 @@
     <color name="textColor128">@color/white128</color>
     <color name="navigationBarColor">#ff000001</color>
     <color name="charging">#8055D769</color>
+    <color name="chargingSolid">#55D769</color>
+    <color name="progressBackground">#333</color>
 
     <color name="lightColorPrimary">#fafafa</color>
     <color name="lightColorPrimaryDark">@color/lightColorPrimary</color>

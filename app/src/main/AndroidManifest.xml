@@ -94,6 +94,15 @@
             android:taskAffinity=""
             android:theme="@style/AppTheme.NoActionbar" />
         <activity
+            android:name=".charging.Circle"
+            android:excludeFromRecents="true"
+            android:label=""
+            android:launchMode="singleInstance"
+            android:screenOrientation="sensorPortrait"
+            android:showOnLockScreen="true"
+            android:taskAffinity=""
+            android:theme="@style/AppTheme.NoActionbar" />
+        <activity
             android:name=".edge.Edge"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
