@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/samsung_sans"
             android:gravity="start"
-            android:text="@string/demoDate"
+            android:text="@string/demoDate2"
             android:layout_weight="1"
             android:textSize="25sp" />
 

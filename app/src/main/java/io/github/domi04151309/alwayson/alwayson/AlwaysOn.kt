@@ -35,6 +35,7 @@ class AlwaysOn : AppCompatActivity() {
 
     //Time
     private var clockTxt: TextView? = null
+    private var dateTxt: TextView? = null
     private var dateFormat: String? = null
 
     //Battery
@@ -116,6 +117,7 @@ class AlwaysOn : AppCompatActivity() {
         powerSaving = prefs!!.getBoolean("ao_power_saving", false)
         val userTheme = prefs!!.getString("ao_style", "google")
         val aoClock = prefs!!.getBoolean("ao_clock", true)
+        val aoDate = prefs!!.getBoolean("ao_date", true)
         val aoBatteryIcn = prefs!!.getBoolean("ao_batteryIcn", true)
         val aoBattery = prefs!!.getBoolean("ao_battery", true)
         val aoNotifications = prefs!!.getBoolean("ao_notifications", true)
@@ -133,11 +135,13 @@ class AlwaysOn : AppCompatActivity() {
             setContentView(R.layout.activity_ao_samsung)
 
         clockTxt = findViewById(R.id.clockTxt)
+        dateTxt = findViewById(R.id.dateTxt)
         batteryIcn = findViewById(R.id.batteryIcn)
         batteryTxt = findViewById(R.id.batteryTxt)
         notifications = findViewById(R.id.notifications)
 
         if (!aoClock) clockTxt!!.visibility = View.GONE
+        if (!aoDate) dateTxt!!.visibility = View.GONE
         if (!aoBatteryIcn) batteryIcn!!.visibility = View.GONE
         if (!aoBattery) batteryTxt!!.visibility = View.GONE
         if (!aoNotifications) notifications!!.visibility = View.GONE
@@ -206,7 +210,7 @@ class AlwaysOn : AppCompatActivity() {
             edgeThread.start()
         }
 
-        //Time
+        //Time and Date
         if (aoClock) {
             clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
             val clockThread = object : Thread() {
@@ -224,6 +228,24 @@ class AlwaysOn : AppCompatActivity() {
                 }
             }
             clockThread.start()
+        }
+        if (aoDate) {
+            dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
+            val dateThread = object : Thread() {
+                override fun run() {
+                    try {
+                        while (!isInterrupted) {
+                            sleep(60000)
+                            runOnUiThread {
+                                dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
+                            }
+                        }
+                    } catch (ex: InterruptedException) {
+                        ex.printStackTrace()
+                    }
+                }
+            }
+            dateThread.start()
         }
 
         //Animation

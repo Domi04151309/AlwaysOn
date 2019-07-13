@@ -20,12 +20,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/aod_spacing"
-            android:layout_marginBottom="@dimen/aod_spacing"
+            android:layout_marginBottom="@dimen/aod_second_spacing"
             android:fontFamily="@font/product_sans"
             android:gravity="center"
             android:lineSpacingMultiplier="0.72"
             android:text="@string/clock"
             android:textSize="75sp" />
+
+        <TextView
+            android:id="@+id/dateTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/aod_second_spacing"
+            android:layout_marginBottom="@dimen/aod_second_spacing"
+            android:fontFamily="@font/product_sans"
+            android:gravity="center"
+            android:text="@string/date"
+            android:textSize="25sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -33,20 +44,20 @@
             android:layout_marginTop="@dimen/aod_spacing"
             android:layout_marginBottom="@dimen/aod_spacing"
             android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:id="@+id/batteryIcn"
-                android:layout_width="48dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:contentDescription="@string/feature"
                 app:srcCompat="@drawable/ic_battery_unknown" />
 
             <TextView
                 android:id="@+id/batteryTxt"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
