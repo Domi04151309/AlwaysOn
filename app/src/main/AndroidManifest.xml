@@ -47,7 +47,7 @@
 
         <service
             android:name=".alwayson.AlwaysOnQS"
-            android:icon="@drawable/ic_refresh"
+            android:icon="@drawable/ic_warning"
             android:label="@string/AlwaysOn"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
@@ -121,7 +121,7 @@
 
         <service
             android:name=".edge.EdgeQS"
-            android:icon="@drawable/ic_refresh"
+            android:icon="@drawable/ic_warning"
             android:label="@string/Edge"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
