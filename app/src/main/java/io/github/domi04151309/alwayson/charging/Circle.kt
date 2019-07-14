@@ -37,7 +37,7 @@ class Circle : AppCompatActivity() {
 
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
-        val animationThread = object : Thread() {
+        object : Thread() {
             override fun run() {
                 try {
                     sleep(3000)
@@ -49,8 +49,7 @@ class Circle : AppCompatActivity() {
                 }
 
             }
-        }
-        animationThread.start()
+        }.start()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

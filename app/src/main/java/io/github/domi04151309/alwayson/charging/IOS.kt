@@ -49,7 +49,7 @@ class IOS : AppCompatActivity() {
 
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
-        val animationThread = object : Thread() {
+        object : Thread() {
             override fun run() {
                 try {
                     while (content!!.height == 0) sleep(10)
@@ -66,8 +66,7 @@ class IOS : AppCompatActivity() {
                 }
 
             }
-        }
-        animationThread.start()
+        }.start()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

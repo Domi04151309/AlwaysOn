@@ -33,10 +33,15 @@ class AlwaysOn : AppCompatActivity() {
     private var powerSaving: Boolean? = null
     private var userPowerSaving: Boolean? = null
 
-    //Time
+    //Time and Date
     private var clockTxt: TextView? = null
     private var dateTxt: TextView? = null
     private var dateFormat: String? = null
+    private val mDateChangedReceiver = object : BroadcastReceiver() {
+        override fun onReceive(c: Context, intent: Intent) {
+            dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
+        }
+    }
 
     //Battery
     private var batteryIcn: ImageView? = null
@@ -189,7 +194,7 @@ class AlwaysOn : AppCompatActivity() {
             transitionTime = prefs!!.getInt("ao_glowDuration", 2000)
             frame.background = ContextCompat.getDrawable(this, R.drawable.edge_glow)
             transition = frame.background as TransitionDrawable
-            val edgeThread = object : Thread() {
+            object : Thread() {
                 override fun run() {
                     try {
                         while (!isInterrupted) {
@@ -206,14 +211,13 @@ class AlwaysOn : AppCompatActivity() {
                     }
 
                 }
-            }
-            edgeThread.start()
+            }.start()
         }
 
         //Time and Date
         if (aoClock) {
             clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
-            val clockThread = object : Thread() {
+            object : Thread() {
                 override fun run() {
                     try {
                         while (!isInterrupted) {
@@ -226,32 +230,17 @@ class AlwaysOn : AppCompatActivity() {
                         ex.printStackTrace()
                     }
                 }
-            }
-            clockThread.start()
+            }.start()
         }
         if (aoDate) {
             dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
-            val dateThread = object : Thread() {
-                override fun run() {
-                    try {
-                        while (!isInterrupted) {
-                            sleep(60000)
-                            runOnUiThread {
-                                dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
-                            }
-                        }
-                    } catch (ex: InterruptedException) {
-                        ex.printStackTrace()
-                    }
-                }
-            }
-            dateThread.start()
+            registerReceiver(mDateChangedReceiver, IntentFilter(Intent.ACTION_DATE_CHANGED))
         }
 
         //Animation
         val animationDuration = 10000L
         val animationDelay = prefs!!.getInt("ao_animation_delay", 1) * 60000
-        val animationThread = object : Thread() {
+        object : Thread() {
             override fun run() {
                 try {
                     while (content!!.height == 0) sleep(10)
@@ -269,8 +258,7 @@ class AlwaysOn : AppCompatActivity() {
                     e.printStackTrace()
                 }
             }
-        }
-        animationThread.start()
+        }.start()
 
         //DoubleTap
         frame.setOnTouchListener(object : View.OnTouchListener {
@@ -327,6 +315,7 @@ class AlwaysOn : AppCompatActivity() {
     public override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(mBatInfoReceiver)
+        unregisterReceiver(mDateChangedReceiver)
         unregisterReceiver(mNotificationReceiver)
     }
 }

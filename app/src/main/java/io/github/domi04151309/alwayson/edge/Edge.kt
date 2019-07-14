@@ -89,7 +89,7 @@ class Edge : AppCompatActivity() {
         dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
         clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
 
-        val clockThread = object : Thread() {
+        object : Thread() {
             override fun run() {
                 try {
                     while (!isInterrupted) {
@@ -103,8 +103,7 @@ class Edge : AppCompatActivity() {
                     ex.printStackTrace()
                 }
             }
-        }
-        clockThread.start()
+        }.start()
 
         //DoubleTap
         content!!.setOnTouchListener(object : View.OnTouchListener {

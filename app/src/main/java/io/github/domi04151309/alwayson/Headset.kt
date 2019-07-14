@@ -15,7 +15,7 @@ class Headset : AppCompatActivity() {
 
         Global.fullscreen(this, findViewById(R.id.headsetLayout))
 
-        val animationThread = object : Thread() {
+        object : Thread() {
             override fun run() {
                 try {
                     sleep(1500)
@@ -28,8 +28,7 @@ class Headset : AppCompatActivity() {
                 }
 
             }
-        }
-        animationThread.start()
+        }.start()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

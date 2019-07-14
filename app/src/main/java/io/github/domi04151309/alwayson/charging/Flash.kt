@@ -17,7 +17,7 @@ class Flash : AppCompatActivity() {
 
         Global.fullscreen(this, findViewById(R.id.chargingLayout))
 
-        val animationThread = object : Thread() {
+        object : Thread() {
             override fun run() {
                 try {
                     sleep(1500)
@@ -30,8 +30,7 @@ class Flash : AppCompatActivity() {
                 }
 
             }
-        }
-        animationThread.start()
+        }.start()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
