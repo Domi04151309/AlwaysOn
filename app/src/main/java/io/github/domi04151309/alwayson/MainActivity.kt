@@ -13,10 +13,8 @@ import androidx.appcompat.app.AlertDialog
 import android.text.TextUtils
 import android.view.ContextThemeWrapper
 import android.view.KeyEvent
-import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 
 import io.github.domi04151309.alwayson.alwayson.AlwaysOn
@@ -31,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     private var prefs: SharedPreferences? = null
     private var clockTxt: TextView? = null
     private var dateTxt: TextView? = null
-    private var batteryIcn: ImageView? = null
     private var batteryTxt: TextView? = null
     private var dateFormat: String? = null
 
@@ -42,8 +39,8 @@ class MainActivity : AppCompatActivity() {
             batteryTxt!!.text = resources.getString(R.string.percent, level)
             val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
             val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL
-            if (isCharging) batteryIcn!!.visibility = View.VISIBLE
-            else batteryIcn!!.visibility = View.GONE
+            if (isCharging) batteryTxt!!.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_charging, 0, 0, 0)
+            else batteryTxt!!.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
         }
     }
 
@@ -103,7 +100,6 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.pref).setOnClickListener { startActivity(Intent(this@MainActivity, Preferences::class.java)) }
 
         //Battery
-        batteryIcn = findViewById(R.id.batteryIcn)
         batteryTxt = findViewById(R.id.batteryTxt)
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
@@ -121,7 +117,7 @@ class MainActivity : AppCompatActivity() {
 
         clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
         dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
-        val clockThread = object : Thread() {
+        object : Thread() {
             override fun run() {
                 try {
                     while (!isInterrupted) {
@@ -136,8 +132,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             }
-        }
-        clockThread.start()
+        }.start()
     }
 
     private fun buildDialog(case: Int) {

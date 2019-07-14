@@ -30,32 +30,15 @@
             android:text="@string/date2"
             android:textSize="25sp" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/batteryTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_gravity="center"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:id="@+id/batteryIcn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:contentDescription="@string/feature"
-                app:srcCompat="@drawable/ic_charging" />
-
-            <TextView
-                android:id="@+id/batteryTxt"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="start"
-                android:text="@string/battery"
-                android:textSize="25sp" />
-        </LinearLayout>
+            android:drawableStart="@drawable/ic_charging"
+            android:text="@string/battery"
+            android:textSize="25sp" />
 
         <TextView
             android:layout_width="match_parent"
