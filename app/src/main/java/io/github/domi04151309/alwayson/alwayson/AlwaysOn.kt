@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.SharedPreferences
 import android.graphics.Point
 import android.graphics.drawable.TransitionDrawable
 import android.icu.text.SimpleDateFormat
@@ -28,15 +27,14 @@ import io.github.domi04151309.alwayson.Root
 class AlwaysOn : AppCompatActivity() {
 
     private var content: View? = null
-    private var countCache = -1
-    private var rootMode: Boolean? = null
-    private var powerSaving: Boolean? = null
-    private var userPowerSaving: Boolean? = null
+    private var countCache: Int = -1
+    private var rootMode: Boolean = false
+    private var powerSaving: Boolean = false
+    private var userPowerSaving: Boolean = false
 
     //Time and Date
     private var clockTxt: TextView? = null
     private var dateTxt: TextView? = null
-    private var dateFormat: String? = null
     private val mDateChangedReceiver = object : BroadcastReceiver() {
         override fun onReceive(c: Context, intent: Intent) {
             dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
@@ -83,7 +81,7 @@ class AlwaysOn : AppCompatActivity() {
 
     //Notifications
     private var transition: TransitionDrawable? = null
-    private var notificationAvailable = false
+    private var notificationAvailable: Boolean = false
     private var transitionTime: Int = 0
     private var notifications: TextView? = null
     private val mNotificationReceiver = object : BroadcastReceiver() {
@@ -93,14 +91,14 @@ class AlwaysOn : AppCompatActivity() {
             if (count != 0) {
                 notifications!!.text = count.toString()
                 notificationAvailable = true
-                if (rootMode!! && powerSaving!!) {
+                if (rootMode && powerSaving) {
                     if ((audio!!.ringerMode == AudioManager.RINGER_MODE_NORMAL || audio!!.ringerMode == AudioManager.RINGER_MODE_VIBRATE)
-                            && !userPowerSaving!!
+                            && !userPowerSaving
                             && count > countCache
                             && countCache != -1)
                         Root.vibrate(250)
+                    countCache = count
                 }
-                countCache = count
             } else {
                 notifications!!.text = ""
                 notificationAvailable = false
@@ -112,27 +110,24 @@ class AlwaysOn : AppCompatActivity() {
     //Audio
     private var audio: AudioManager? = null
 
-    //Prefs
-    private var prefs: SharedPreferences? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         //Check prefs
-        prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        rootMode = prefs!!.getBoolean("root_mode", false)
-        powerSaving = prefs!!.getBoolean("ao_power_saving", false)
-        val userTheme = prefs!!.getString("ao_style", "google")
-        val aoClock = prefs!!.getBoolean("ao_clock", true)
-        val aoDate = prefs!!.getBoolean("ao_date", true)
-        val aoBatteryIcn = prefs!!.getBoolean("ao_batteryIcn", true)
-        val aoBattery = prefs!!.getBoolean("ao_battery", true)
-        val aoNotifications = prefs!!.getBoolean("ao_notifications", true)
-        val aoEdgeGlow = prefs!!.getBoolean("ao_edgeGlow", true)
-        val clock = prefs!!.getBoolean("hour", false)
-        val amPm = prefs!!.getBoolean("am_pm", false)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        rootMode = prefs.getBoolean("root_mode", false)
+        powerSaving = prefs.getBoolean("ao_power_saving", false)
+        val userTheme = prefs.getString("ao_style", "google")
+        val aoClock = prefs.getBoolean("ao_clock", true)
+        val aoDate = prefs.getBoolean("ao_date", true)
+        val aoBatteryIcn = prefs.getBoolean("ao_batteryIcn", true)
+        val aoBattery = prefs.getBoolean("ao_battery", true)
+        val aoNotifications = prefs.getBoolean("ao_notifications", true)
+        val aoEdgeGlow = prefs.getBoolean("ao_edgeGlow", true)
+        val clock = prefs.getBoolean("hour", false)
+        val amPm = prefs.getBoolean("am_pm", false)
 
-        if (prefs!!.getBoolean("hide_display_cutouts",true))
+        if (prefs.getBoolean("hide_display_cutouts",true))
             setTheme(R.style.CutoutHide)
         else
             setTheme(R.style.CutoutIgnore)
@@ -152,7 +147,7 @@ class AlwaysOn : AppCompatActivity() {
         if (!aoBatteryIcn) batteryIcn!!.visibility = View.GONE
         if (!aoBattery) batteryTxt!!.visibility = View.GONE
         if (!aoNotifications) notifications!!.visibility = View.GONE
-        dateFormat = if (userTheme == "google") {
+        val dateFormat = if (userTheme == "google") {
             if (clock) {
                 if (amPm) "h:mm a"
                 else "h:mm"
@@ -162,7 +157,7 @@ class AlwaysOn : AppCompatActivity() {
                 if (amPm) "hh\nmm\na"
                 else "hh\nmm"
             } else "HH\nmm"
-        } else null
+        } else ""
 
         //Variables
         val frame = findViewById<View>(R.id.frame)
@@ -194,7 +189,7 @@ class AlwaysOn : AppCompatActivity() {
             sendBroadcast(Intent("io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"))
         }
         if (aoEdgeGlow) {
-            transitionTime = prefs!!.getInt("ao_glowDuration", 2000)
+            transitionTime = prefs.getInt("ao_glowDuration", 2000)
             frame.background = ContextCompat.getDrawable(this, R.drawable.edge_glow)
             transition = frame.background as TransitionDrawable
             object : Thread() {
@@ -267,8 +262,8 @@ class AlwaysOn : AppCompatActivity() {
         frame.setOnTouchListener(object : View.OnTouchListener {
             private val gestureDetector = GestureDetector(this@AlwaysOn, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
-                    val duration = prefs!!.getInt("ao_vibration", 64).toLong()
-                    if (powerSaving!! && rootMode!! && !userPowerSaving!!)
+                    val duration = prefs.getInt("ao_vibration", 64).toLong()
+                    if (powerSaving && rootMode && !userPowerSaving)
                         Root.vibrate(duration)
                     else
                         (getSystemService(Context.VIBRATOR_SERVICE) as Vibrator).vibrate(duration)
@@ -313,7 +308,7 @@ class AlwaysOn : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (rootMode!! && powerSaving!!)
+        if (rootMode && powerSaving)
             Root.shell("settings put global low_power 1")
     }
 
@@ -323,7 +318,7 @@ class AlwaysOn : AppCompatActivity() {
                 .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         activityManager.moveTaskToFront(taskId, 0)
 
-        if (rootMode!! && powerSaving!! && !userPowerSaving!!)
+        if (rootMode && powerSaving && !userPowerSaving)
             Root.shell("settings put global low_power 0")
     }
 

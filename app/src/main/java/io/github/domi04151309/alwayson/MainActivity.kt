@@ -26,11 +26,9 @@ import io.github.domi04151309.alwayson.services.MainService
 
 class MainActivity : AppCompatActivity() {
 
-    private var prefs: SharedPreferences? = null
     private var clockTxt: TextView? = null
     private var dateTxt: TextView? = null
     private var batteryTxt: TextView? = null
-    private var dateFormat: String? = null
 
     private val mBatInfoReceiver = object : BroadcastReceiver() {
 
@@ -77,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
         if (!isNotificationServiceEnabled) buildDialog(2)
         if (!isDeviceAdminOrRoot) buildDialog(1)
@@ -104,9 +102,9 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
         //Date and time updates
-        val clock = prefs!!.getBoolean("hour", false)
-        val amPm = prefs!!.getBoolean("am_pm", false)
-        dateFormat = if (clock) {
+        val clock = prefs.getBoolean("hour", false)
+        val amPm = prefs.getBoolean("am_pm", false)
+        val dateFormat = if (clock) {
             if (amPm) "h:mm a"
             else "h:mm"
         }

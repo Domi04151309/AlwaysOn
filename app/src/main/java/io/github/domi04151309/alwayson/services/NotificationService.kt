@@ -9,7 +9,7 @@ import android.service.notification.StatusBarNotification
 
 class NotificationService : NotificationListenerService() {
 
-    private var cache = -1
+    private var cache: Int = -1
 
     private val mActionReceiver = object : BroadcastReceiver() {
 

@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.content.SharedPreferences
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.BatteryManager
@@ -24,9 +23,7 @@ import io.github.domi04151309.alwayson.R
 
 class Edge : AppCompatActivity() {
 
-    private var prefs: SharedPreferences? = null
     private var content: View? = null
-    private var dateFormat: String? = null
     private var dateTxt: TextView? = null
     private var clockTxt: TextView? = null
     private var batteryTxt: TextView? = null
@@ -44,7 +41,7 @@ class Edge : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         //Display cutouts
-        prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         if (prefs!!.getBoolean("hide_display_cutouts",true))
             setTheme(R.style.CutoutHide)
         else
@@ -68,7 +65,7 @@ class Edge : AppCompatActivity() {
         }
 
         //Corner margin
-        val cornerMargin = prefs!!.getInt("edge_corner_margin", 0)
+        val cornerMargin = prefs.getInt("edge_corner_margin", 0)
         content!!.setPaddingRelative(cornerMargin,0,cornerMargin,0)
 
         //Battery
@@ -76,9 +73,9 @@ class Edge : AppCompatActivity() {
         registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
         //Time
-        val clock = prefs!!.getBoolean("hour", false)
-        val amPm = prefs!!.getBoolean("am_pm", false)
-        dateFormat = if (clock) {
+        val clock = prefs.getBoolean("hour", false)
+        val amPm = prefs.getBoolean("am_pm", false)
+        val dateFormat = if (clock) {
             if (amPm) "h:mm a"
             else "h:mm"
         } else "H:mm"
@@ -110,7 +107,7 @@ class Edge : AppCompatActivity() {
             private val gestureDetector = GestureDetector(this@Edge, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
                     val v = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                    val duration = prefs!!.getInt("ao_vibration", 64)
+                    val duration = prefs.getInt("ao_vibration", 64)
                     v.vibrate(duration.toLong())
                     finish()
                     return super.onDoubleTap(e)
