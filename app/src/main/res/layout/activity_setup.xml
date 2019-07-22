@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,8 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
@@ -69,15 +70,16 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/section2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <TextView
+                android:id="@+id/section2_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/setup_heading_margin"
@@ -85,22 +87,33 @@
                 android:textSize="24sp" />
 
             <TextView
+                android:id="@+id/section2_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/section2_title"
                 android:layout_marginBottom="@dimen/setup_heading_margin"
                 android:text="@string/notification_listener_service_explanation"
                 android:textSize="14sp" />
-        </LinearLayout>
 
-        <LinearLayout
+            <ImageView
+                android:layout_width="192dp"
+                android:layout_height="match_parent"
+                android:layout_below="@id/section2_summary"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                app:srcCompat="@drawable/ic_notification" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/section3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:visibility="gone"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="visible">
 
             <TextView
+                android:id="@+id/section3_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/setup_heading_margin"
@@ -108,12 +121,22 @@
                 android:textSize="24sp" />
 
             <TextView
+                android:id="@+id/section3_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/section3_title"
                 android:layout_marginBottom="@dimen/setup_heading_margin"
                 android:text="@string/setup_finish_summary"
                 android:textSize="14sp" />
-        </LinearLayout>
+
+            <ImageView
+                android:layout_width="192dp"
+                android:layout_height="match_parent"
+                android:layout_below="@id/section3_summary"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@null"
+                app:srcCompat="@drawable/ic_finished" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/setup_continue"

@@ -6,8 +6,9 @@
     <string name="setup_root">Root</string>
     <string name="setup_root_failed">Root request failed! Please try again or switch mode!</string>
     <string name="setup_finish">Finish Setup</string>
-    <string name="setup_finish_summary">Click continue to finish the setup.</string>
+    <string name="setup_finish_summary">Everything is set up. Please click continue to finish the setup.</string>
     <string name="setup_continue">Continue</string>
+    <string name="setup_error">Something went wrong! Please try again!</string>
 
     <string name="app_name">AlwaysOn</string>
     <string name="app_by">AlwaysOn by Domi04151309</string>
