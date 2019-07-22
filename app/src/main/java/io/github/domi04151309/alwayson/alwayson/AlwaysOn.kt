@@ -94,8 +94,7 @@ class AlwaysOn : AppCompatActivity() {
                 notifications!!.text = count.toString()
                 notificationAvailable = true
                 if (rootMode!! && powerSaving!!) {
-                    val am = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-                    if ((am.ringerMode == AudioManager.RINGER_MODE_NORMAL || am.ringerMode == AudioManager.RINGER_MODE_VIBRATE)
+                    if ((audio!!.ringerMode == AudioManager.RINGER_MODE_NORMAL || audio!!.ringerMode == AudioManager.RINGER_MODE_VIBRATE)
                             && !userPowerSaving!!
                             && count > countCache
                             && countCache != -1)
@@ -109,6 +108,9 @@ class AlwaysOn : AppCompatActivity() {
             }
         }
     }
+
+    //Audio
+    private var audio: AudioManager? = null
 
     //Prefs
     private var prefs: SharedPreferences? = null
@@ -167,6 +169,7 @@ class AlwaysOn : AppCompatActivity() {
         content = findViewById(R.id.fullscreen_content)
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
         userPowerSaving = pm.isPowerSaveMode
+        audio = getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
         //Show on lock screen
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
@@ -293,7 +296,19 @@ class AlwaysOn : AppCompatActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        return true
+        return when (keyCode) {
+            KeyEvent.KEYCODE_VOLUME_UP -> {
+                audio!!.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_RAISE, 0)
+                true
+            }
+            KeyEvent.KEYCODE_VOLUME_DOWN -> {
+                audio!!.adjustStreamVolume(AudioManager.STREAM_MUSIC,
+                        AudioManager.ADJUST_LOWER, 0)
+                true
+            }
+            else -> true
+        }
     }
 
     override fun onResume() {
