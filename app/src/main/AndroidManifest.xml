@@ -19,6 +19,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".AboutActivity"
+            android:label="@string/about"
+            android:parentActivityName=".Preferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.Preferences" />
+        </activity>
+        <activity
             android:name=".SetupActivity"
             android:theme="@style/SetupTheme" />
 

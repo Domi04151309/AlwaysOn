@@ -128,6 +128,12 @@
     <string name="pref_demo_charging_two">Second charging display</string>
     <string name="pref_demo_charging_three">Third charging display</string>
 
+    <string name="about">About</string>
+    <string name="about_summary">About the app</string>
+    <string name="about_version">Version %1$s</string>
+    <string name="about_disclaimer1">There may be newer versions available on GitHub. This app is and always will be free software. Do not pay for this app.</string>
+    <string name="about_disclaimer2">I am not responsible for any damage to your device.</string>
+
     <string name="notification_listener_service">"Notification Listener Service"</string>
     <string name="notification_listener_service_explanation">"You need to enable the notification listener service for the app to display a notification count on the always on display."</string>
     <string name="device_admin">"Device Admin"</string>

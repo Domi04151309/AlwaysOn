@@ -59,6 +59,10 @@ class Preferences : AppCompatPreferenceActivity() {
                 fragmentManager.beginTransaction().replace(android.R.id.content, PreferenceDemoModes()).addToBackStack(PreferenceAlwaysOn::class.java.simpleName).commit()
                 true
             }
+            findPreference("pref_about").onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                startActivity(Intent(context, AboutActivity::class.java))
+                true
+            }
         }
 
         override fun onResume() {

@@ -15,4 +15,8 @@
     <dimen name="charging_progress_width">4dp</dimen>
     <dimen name="charging_margin">54dp</dimen>
 
+    <dimen name="about_item_margin">16dp</dimen>
+    <dimen name="about_divider_margin">32dp</dimen>
+    <dimen name="header_icon_height">48dp</dimen>
+
 </resources>
