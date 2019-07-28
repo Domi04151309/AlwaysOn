@@ -15,7 +15,7 @@ internal object Theme {
             val taskDescription = ActivityManager.TaskDescription(
                     context.getString(R.string.app_name),
                     BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher),
-                    ContextCompat.getColor(context, R.color.white)
+                    ContextCompat.getColor(context, android.R.color.white)
             )
             (context as Activity).setTaskDescription(taskDescription)
         }

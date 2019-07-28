@@ -10,12 +10,12 @@
     </style>
 
     <style name="AppTheme" parent="Base.Theme.AppCompat">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@android:color/black</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/windowBackground</item>
-        <item name="android:textColor">@color/textColor</item>
-        <item name="android:textColorSecondary">@color/textColor128</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorSecondary">@color/white128</item>
         <item name="buttonStyle">@style/Button</item>
         <item name="imageButtonStyle">@style/ImageButton</item>
         <item name="android:alertDialogTheme">@style/DialogTheme</item>
@@ -26,10 +26,10 @@
     <style name="AppTheme.Light" parent="Base.Theme.AppCompat.Light">
         <item name="android:windowLightStatusBar">true</item>
         <item name="colorPrimary">@color/lightColorPrimary</item>
-        <item name="colorPrimaryDark">@color/lightColorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/lightColorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/lightTextColor</item>
-        <item name="android:textColorSecondary">@color/lightTextColor128</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorSecondary">@color/black128</item>
         <item name="buttonStyle">@style/Button</item>
         <item name="imageButtonStyle">@style/ImageButton</item>
         <item name="android:alertDialogTheme">@style/DialogTheme</item>
@@ -50,32 +50,32 @@
 
     <style name="Button" parent="Widget.AppCompat.Button">
         <item name="android:background">@drawable/button_bg</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:stateListAnimator">@null</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="ImageButton" parent="Widget.AppCompat.ImageButton">
         <item name="android:background">@null</item>
-        <item name="android:tint">@color/white</item>
+        <item name="android:tint">@android:color/white</item>
     </style>
 
     <style name="AppTheme.ScreenOff" parent="AppTheme.NoActionbar">
-        <item name="android:textColor">@color/textColor128</item>
+        <item name="android:textColor">@color/white128</item>
     </style>
 
     <style name="Widget.Button" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/product_sans</item>
         <item name="android:background">@android:color/transparent</item>
-        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">24sp</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="colorAccent">@color/windowBackground</item>
-        <item name="android:textColor">@color/textColor</item>
-        <item name="android:textColorPrimary">@color/textColor</item>
-        <item name="android:textColorAlertDialogListItem">@color/textColor</item>
+        <item name="colorAccent">@android:color/black</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorAlertDialogListItem">@android:color/white</item>
         <item name="android:background">@color/colorAccent</item>
     </style>
 

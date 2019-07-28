@@ -12,15 +12,13 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import android.text.TextUtils
 import android.view.ContextThemeWrapper
+import android.view.Gravity
 import android.view.KeyEvent
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 
-import io.github.domi04151309.alwayson.alwayson.AlwaysOn
-import io.github.domi04151309.alwayson.charging.Flash
-import io.github.domi04151309.alwayson.charging.IOS
-import io.github.domi04151309.alwayson.edge.Edge
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import io.github.domi04151309.alwayson.services.MainService
 
@@ -71,6 +69,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+    private fun makeCenteredToast(context: Context, state: Boolean) {
+        val text = if(state) R.string.enabled else R.string.disabled
+        val toast = Toast.makeText(context, text, Toast.LENGTH_LONG)
+        toast.setGravity(Gravity.CENTER, 0, 0)
+        toast.show()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -82,17 +87,20 @@ class MainActivity : AppCompatActivity() {
 
         startService(Intent(this, MainService::class.java))
 
-        findViewById<ImageButton>(R.id.lAlwaysOn).setOnClickListener { startActivity(Intent(this@MainActivity, AlwaysOn::class.java)) }
+        findViewById<ImageButton>(R.id.lAlwaysOn).setOnClickListener {
+            makeCenteredToast(this, Global.changeAlwaysOnState(this))
+        }
 
-        findViewById<ImageButton>(R.id.lEdge).setOnClickListener { startActivity(Intent(this@MainActivity, Edge::class.java)) }
+        findViewById<ImageButton>(R.id.lEdge).setOnClickListener {
+            makeCenteredToast(this, Global.changeEdgeState(this))
+        }
 
-        findViewById<ImageButton>(R.id.pHeadset).setOnClickListener { startActivity(Intent(this@MainActivity, Headset::class.java)) }
+        findViewById<ImageButton>(R.id.pHeadset).setOnClickListener {
+            makeCenteredToast(this, Global.changeHeadsetState(this))
+        }
 
         findViewById<ImageButton>(R.id.pCharging).setOnClickListener {
-            if (PreferenceManager.getDefaultSharedPreferences(applicationContext).getString("charging_style", "flash") == "ios")
-                startActivity(Intent(this@MainActivity, IOS::class.java))
-            else
-                startActivity(Intent(this@MainActivity, Flash::class.java))
+            makeCenteredToast(this, Global.changeChargingState(this))
         }
 
         findViewById<Button>(R.id.pref).setOnClickListener { startActivity(Intent(this@MainActivity, Preferences::class.java)) }

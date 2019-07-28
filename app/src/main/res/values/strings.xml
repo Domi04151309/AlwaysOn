@@ -14,6 +14,9 @@
     <string name="app_by">AlwaysOn by Domi04151309</string>
     <string name="description">AlwaysOn is an app for every device with an AMOLED or OLED display. It keeps your screen on while the clock and battery percentage are displayed but it does not drain your battery.\nAlso, icons appear when you plug in your headphones or start charging your device.</string>
 
+    <string name="enabled">Enabled selected</string>
+    <string name="disabled">Disabled selected</string>
+
     <string name="AlwaysOn">Always on display</string>
     <string name="Edge">Edge display</string>
     <string name="Headset">Headphone animation</string>

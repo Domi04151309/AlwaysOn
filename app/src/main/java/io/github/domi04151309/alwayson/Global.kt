@@ -22,23 +22,39 @@ object Global {
     fun currentAlwaysOnState(context: Context): Boolean{
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("always_on", false)
     }
-    fun changeAlwaysOnState(context: Context){
+    fun changeAlwaysOnState(context: Context): Boolean {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val value = !prefs.getBoolean("always_on", false)
         prefs.edit().putBoolean("always_on", value).apply()
         TileService.requestListeningState(context, ComponentName(context ,AlwaysOnQS::class.java))
         context.sendBroadcast(Intent().setAction(ALWAYS_ON_STAE_CHANGED))
+        return value
     }
 
     const val EDGE_STAE_CHANGED = "io.github.domi04151309.alwayson.EDGE_STAE_CHANGED"
     fun currentEdgeState(context: Context): Boolean{
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("edge_display", false)
     }
-    fun changeEdgeState(context: Context){
+    fun changeEdgeState(context: Context): Boolean {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        prefs.edit().putBoolean("edge_display", !prefs.getBoolean("edge_display", false)).apply()
+        val value = !prefs.getBoolean("edge_display", false)
+        prefs.edit().putBoolean("edge_display", value).apply()
         TileService.requestListeningState(context, ComponentName(context ,EdgeQS::class.java))
         context.sendBroadcast(Intent().setAction(EDGE_STAE_CHANGED))
+        return value
+    }
+
+    fun changeHeadsetState(context: Context): Boolean {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val value = !prefs.getBoolean("headphone_animation", false)
+        prefs.edit().putBoolean("headphone_animation", value).apply()
+        return value
+    }
+    fun changeChargingState(context: Context): Boolean {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val value = !prefs.getBoolean("charging_animation", false)
+        prefs.edit().putBoolean("charging_animation", value).apply()
+        return value
     }
 
     fun close(context: Context) {

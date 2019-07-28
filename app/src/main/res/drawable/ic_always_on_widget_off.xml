@@ -3,7 +3,7 @@
     <item android:height="@dimen/icon_size"
         android:width="@dimen/icon_size">
         <shape android:shape="oval">
-            <solid android:color="@color/ic_launcher_background" />
+            <solid android:color="@android:color/black" />
         </shape>
     </item>
     <item android:drawable="@drawable/ic_always_on_white"
