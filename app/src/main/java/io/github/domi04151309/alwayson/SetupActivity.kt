@@ -118,19 +118,19 @@ class SetupActivity : AppCompatActivity() {
         if (number <= 0 ) finish()
         when (number) {
             1 -> {
-                findViewById<RelativeLayout>(R.id.section2).visibility = View.GONE
-                findViewById<RelativeLayout>(R.id.section3).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.section2).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.section3).visibility = View.GONE
                 findViewById<LinearLayout>(R.id.section1).visibility = View.VISIBLE
             }
             2 -> {
                 findViewById<LinearLayout>(R.id.section1).visibility = View.GONE
-                findViewById<RelativeLayout>(R.id.section3).visibility = View.GONE
-                findViewById<RelativeLayout>(R.id.section2).visibility = View.VISIBLE
+                findViewById<LinearLayout>(R.id.section3).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.section2).visibility = View.VISIBLE
             }
             3 -> {
                 findViewById<LinearLayout>(R.id.section1).visibility = View.GONE
-                findViewById<RelativeLayout>(R.id.section2).visibility = View.GONE
-                findViewById<RelativeLayout>(R.id.section3).visibility = View.VISIBLE
+                findViewById<LinearLayout>(R.id.section2).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.section3).visibility = View.VISIBLE
             }
         }
         section = number
