@@ -4,7 +4,7 @@ import android.app.admin.DevicePolicyManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import android.view.View
 import android.content.ComponentName
 import android.content.Context

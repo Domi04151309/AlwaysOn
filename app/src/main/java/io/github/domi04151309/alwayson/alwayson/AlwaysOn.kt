@@ -13,7 +13,7 @@ import android.media.AudioManager
 import android.os.BatteryManager
 import android.os.PowerManager
 import android.os.Vibrator
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

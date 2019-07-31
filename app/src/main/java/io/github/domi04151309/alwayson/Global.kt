@@ -4,7 +4,7 @@ import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import android.service.quicksettings.TileService
 import android.widget.Toast
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS

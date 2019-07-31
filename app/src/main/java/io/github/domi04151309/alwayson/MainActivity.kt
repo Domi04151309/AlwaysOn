@@ -5,7 +5,7 @@ import android.content.*
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.BatteryManager
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

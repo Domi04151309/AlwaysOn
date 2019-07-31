@@ -9,7 +9,7 @@ import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.BatteryManager
 import android.os.Vibrator
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.GestureDetector

@@ -1,7 +1,7 @@
 package io.github.domi04151309.alwayson.alwayson
 
 import android.graphics.Point
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.GestureDetector
