@@ -65,7 +65,6 @@ class Preferences : AppCompatActivity(),
             }
             findPreference<Preference>("pref_look_and_feel")!!.fragment = PreferenceLookAndFeel::class.java.name
             findPreference<Preference>("pref_permissions")!!.fragment = PreferencePermissions::class.java.name
-            findPreference<Preference>("pref_demo_modes")!!.fragment = PreferenceDemoModes::class.java.name
             findPreference<Preference>("pref_about")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 startActivity(Intent(context, AboutActivity::class.java))
                 true
@@ -123,13 +122,6 @@ class Preferences : AppCompatActivity(),
                     Toast.makeText(context, "Request failed!", Toast.LENGTH_LONG).show()
                 true
             }
-        }
-    }
-
-    class PreferenceDemoModes : PreferenceFragmentCompat() {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            addPreferencesFromResource(R.xml.pref_demo_modes)
-            (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref_demo_modes))
         }
     }
 }

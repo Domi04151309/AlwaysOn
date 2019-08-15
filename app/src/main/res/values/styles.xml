@@ -18,7 +18,7 @@
         <item name="android:textColorSecondary">@color/white128</item>
         <item name="buttonStyle">@style/Button</item>
         <item name="imageButtonStyle">@style/ImageButton</item>
-        <item name="android:alertDialogTheme">@style/DialogTheme</item>
+        <item name="dialogTheme">@style/DialogTheme</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
         <item name="android:listDivider">@null</item>
     </style>
@@ -32,7 +32,7 @@
         <item name="android:textColorSecondary">@color/black128</item>
         <item name="buttonStyle">@style/Button</item>
         <item name="imageButtonStyle">@style/ImageButton</item>
-        <item name="android:alertDialogTheme">@style/DialogTheme</item>
+        <item name="dialogTheme">@style/DialogTheme</item>
         <item name="android:navigationBarColor">@color/lightColorPrimary</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
         <item name="android:listDivider">@null</item>

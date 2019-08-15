@@ -44,11 +44,6 @@
             android:summary="@string/pref_permissions_summary"
             android:title="@string/pref_permissions" />
         <Preference
-            android:icon="@drawable/ic_android"
-            android:key="pref_demo_modes"
-            android:summary="@string/pref_demo_modes_summary"
-            android:title="@string/pref_demo_modes" />
-        <Preference
             android:icon="@drawable/ic_info"
             android:key="pref_about"
             android:summary="@string/about_summary"

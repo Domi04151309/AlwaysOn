@@ -32,12 +32,6 @@
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% Charged</string>
 
-    <string name="demoClock">7:00</string>
-    <string name="demoClock2">07\n00</string>
-    <string name="demoDate">Mon, Jan 1</string>
-    <string name="demoDate2">Monday, Jan 1</string>
-    <string name="demoBattery">100%</string>
-
     <string name="shortcut_settings">Settings</string>
     <string name="shortcut_disabled">Disabled</string>
 
@@ -121,15 +115,6 @@
     <string name="pref_root_summary">Enable root access for root mode</string>
     <string name="pref_root_mode">Root mode</string>
     <string name="pref_root_mode_summary">Enables unlocking with fingerprint scanner</string>
-
-    <string name="pref_demo_modes">Demo modes</string>
-    <string name="pref_demo_modes_summary">Demo modes for testing</string>
-    <string name="pref_demo_ao">Always on display</string>
-    <string name="pref_demo_edge">Edge display</string>
-    <string name="pref_demo_headset">Headset display</string>
-    <string name="pref_demo_charging">Charging display</string>
-    <string name="pref_demo_charging_two">Second charging display</string>
-    <string name="pref_demo_charging_three">Third charging display</string>
 
     <string name="about">About</string>
     <string name="about_summary">About the app</string>
