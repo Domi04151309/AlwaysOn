@@ -10,24 +10,22 @@ import android.graphics.drawable.TransitionDrawable
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.media.AudioManager
-import android.os.BatteryManager
-import android.os.PowerManager
-import android.os.Vibrator
+import android.os.*
 import androidx.preference.PreferenceManager
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.Root
+import io.github.domi04151309.alwayson.receivers.ScreenStateReceiver
+
 
 class AlwaysOn : AppCompatActivity() {
 
     private var content: View? = null
-    private var countCache: Int = -1
     private var rootMode: Boolean = false
     private var powerSaving: Boolean = false
     private var userPowerSaving: Boolean = false
@@ -35,6 +33,12 @@ class AlwaysOn : AppCompatActivity() {
     //Time and Date
     private var clockTxt: TextView? = null
     private var dateTxt: TextView? = null
+    private var dateFormat: String = ""
+    private val mTimeChangedReceiver = object : BroadcastReceiver() {
+        override fun onReceive(c: Context, intent: Intent) {
+            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
+        }
+    }
     private val mDateChangedReceiver = object : BroadcastReceiver() {
         override fun onReceive(c: Context, intent: Intent) {
             dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
@@ -91,18 +95,9 @@ class AlwaysOn : AppCompatActivity() {
             if (count != 0) {
                 notifications!!.text = count.toString()
                 notificationAvailable = true
-                if (rootMode && powerSaving) {
-                    if ((audio!!.ringerMode == AudioManager.RINGER_MODE_NORMAL || audio!!.ringerMode == AudioManager.RINGER_MODE_VIBRATE)
-                            && !userPowerSaving
-                            && count > countCache
-                            && countCache != -1)
-                        Root.vibrate(250)
-                    countCache = count
-                }
             } else {
                 notifications!!.text = ""
                 notificationAvailable = false
-                countCache = count
             }
         }
     }
@@ -147,7 +142,7 @@ class AlwaysOn : AppCompatActivity() {
         if (!aoBatteryIcn) batteryIcn!!.visibility = View.GONE
         if (!aoBattery) batteryTxt!!.visibility = View.GONE
         if (!aoNotifications) notifications!!.visibility = View.GONE
-        val dateFormat = if (userTheme == "google") {
+        dateFormat = if (userTheme == "google") {
             if (clock) {
                 if (amPm) "h:mm a"
                 else "h:mm"
@@ -188,6 +183,8 @@ class AlwaysOn : AppCompatActivity() {
             registerReceiver(mNotificationReceiver, IntentFilter("io.github.domi04151309.alwayson.NOTIFICATION"))
             sendBroadcast(Intent("io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"))
         }
+
+        //Edge Glow
         if (aoEdgeGlow) {
             transitionTime = prefs.getInt("ao_glowDuration", 2000)
             frame.background = ContextCompat.getDrawable(this, R.drawable.edge_glow)
@@ -215,24 +212,17 @@ class AlwaysOn : AppCompatActivity() {
         //Time and Date
         if (aoClock) {
             clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
-            object : Thread() {
-                override fun run() {
-                    try {
-                        while (!isInterrupted) {
-                            sleep(1000)
-                            runOnUiThread {
-                                clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
-                            }
-                        }
-                    } catch (ex: InterruptedException) {
-                        ex.printStackTrace()
-                    }
-                }
-            }.start()
+            val clockFilter = IntentFilter()
+            clockFilter.addAction(Intent.ACTION_TIME_TICK)
+            clockFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
+            registerReceiver(mTimeChangedReceiver, clockFilter)
         }
         if (aoDate) {
             dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
-            registerReceiver(mDateChangedReceiver, IntentFilter(Intent.ACTION_DATE_CHANGED))
+            val dateFilter = IntentFilter()
+            dateFilter.addAction(Intent.ACTION_DATE_CHANGED)
+            dateFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
+            registerReceiver(mDateChangedReceiver, dateFilter)
         }
 
         //Animation
@@ -262,11 +252,13 @@ class AlwaysOn : AppCompatActivity() {
         frame.setOnTouchListener(object : View.OnTouchListener {
             private val gestureDetector = GestureDetector(this@AlwaysOn, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
+                    val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                     val duration = prefs.getInt("ao_vibration", 64).toLong()
-                    if (powerSaving && rootMode && !userPowerSaving)
-                        Root.vibrate(duration)
-                    else
-                        (getSystemService(Context.VIBRATOR_SERVICE) as Vibrator).vibrate(duration)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE))
+                    } else {
+                        vibrator.vibrate(duration)
+                    }
                     finish()
                     return super.onDoubleTap(e)
                 }
@@ -308,6 +300,8 @@ class AlwaysOn : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        ScreenStateReceiver.alwaysOnRunning = true
+        hide()
         if (rootMode && powerSaving)
             Root.shell("settings put global low_power 1")
     }
@@ -324,7 +318,9 @@ class AlwaysOn : AppCompatActivity() {
 
     public override fun onDestroy() {
         super.onDestroy()
+        ScreenStateReceiver.alwaysOnRunning = false
         unregisterReceiver(mBatInfoReceiver)
+        unregisterReceiver(mTimeChangedReceiver)
         unregisterReceiver(mDateChangedReceiver)
         unregisterReceiver(mNotificationReceiver)
     }

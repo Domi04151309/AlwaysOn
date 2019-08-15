@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".services.TurnOnScreen"
+            android:theme="@style/AppTheme.ScreenOff" />
+        <activity
             android:name=".AboutActivity"
             android:label="@string/about"
             android:parentActivityName=".Preferences">
@@ -102,7 +105,6 @@
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppTheme.NoActionbar" />
-
         <activity
             android:name=".Headset"
             android:excludeFromRecents="true"

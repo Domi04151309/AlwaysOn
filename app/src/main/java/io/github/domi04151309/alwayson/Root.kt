@@ -30,8 +30,4 @@ object Root {
             Log.e("Superuser", ex.toString())
         }
     }
-
-    fun vibrate(duration: Long) {
-        shell("echo $duration > /sys/devices/virtual/timed_output/vibrator/enable")
-    }
 }

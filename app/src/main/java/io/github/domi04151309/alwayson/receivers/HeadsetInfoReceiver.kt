@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.preference.PreferenceManager
 import android.widget.Toast
+import io.github.domi04151309.alwayson.Headset
 
 class HeadsetInfoReceiver : BroadcastReceiver() {
 
@@ -13,8 +14,7 @@ class HeadsetInfoReceiver : BroadcastReceiver() {
                 && intent.getIntExtra("state", 0) == 1) {
             if (!ScreenStateReceiver.screenStateOn) {
                 context.startActivity(
-                        Intent().setClassName(context, "io.github.domi04151309.alwayson.Headphones")
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        Intent(context, Headset::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 )
             } else {
                 Toast.makeText(context, "Headphones connected", Toast.LENGTH_LONG).show()

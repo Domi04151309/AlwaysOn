@@ -61,6 +61,8 @@
     </style>
 
     <style name="AppTheme.ScreenOff" parent="AppTheme.NoActionbar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
         <item name="android:textColor">@color/white128</item>
     </style>
 

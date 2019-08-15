@@ -5,6 +5,9 @@ import android.content.Context
 import android.content.Intent
 import androidx.preference.PreferenceManager
 import android.widget.Toast
+import io.github.domi04151309.alwayson.charging.Circle
+import io.github.domi04151309.alwayson.charging.Flash
+import io.github.domi04151309.alwayson.charging.IOS
 
 class ChargeInfoReceiver : BroadcastReceiver() {
 
@@ -16,11 +19,10 @@ class ChargeInfoReceiver : BroadcastReceiver() {
                 if (ScreenStateReceiver.screenStateOn) {
                     Toast.makeText(context, "Power connected", Toast.LENGTH_LONG).show()
                 } else if (!ScreenStateReceiver.screenStateOn) {
-                    val i = Intent()
-                    when (prefs.getString("charging_style", "flash")) {
-                        "ios" -> i.setClassName(context, "io.github.domi04151309.alwayson.charging.IOS")
-                        "circle" -> i.setClassName(context, "io.github.domi04151309.alwayson.charging.Circle")
-                        else -> i.setClassName(context, "io.github.domi04151309.alwayson.charging.Flash")
+                    val i: Intent = when (prefs.getString("charging_style", "flash")) {
+                        "ios" -> Intent(context, IOS::class.java)
+                        "circle" -> Intent(context, Circle::class.java)
+                        else -> Intent(context, Flash::class.java)
                     }
                     i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     context.startActivity(i)
