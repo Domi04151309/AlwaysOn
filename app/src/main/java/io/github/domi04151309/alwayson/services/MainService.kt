@@ -15,9 +15,7 @@ class MainService : Service() {
 
     private val receiverScreen = ScreenStateReceiver()
     private val receiverCharging = ChargeInfoReceiver()
-    private val filterCharging = IntentFilter(Intent.ACTION_POWER_CONNECTED)
     private val receiverHeadphones = HeadsetInfoReceiver()
-    private val filterHeadphones = IntentFilter(Intent.ACTION_HEADSET_PLUG)
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         return START_STICKY
@@ -26,6 +24,8 @@ class MainService : Service() {
     override fun onCreate() {
         val filterScreen = IntentFilter(Intent.ACTION_SCREEN_ON)
         filterScreen.addAction(Intent.ACTION_SCREEN_OFF)
+        val filterCharging = IntentFilter(Intent.ACTION_POWER_CONNECTED)
+        val filterHeadphones = IntentFilter(Intent.ACTION_HEADSET_PLUG)
         registerReceiver(receiverScreen, filterScreen)
         registerReceiver(receiverCharging, filterCharging)
         registerReceiver(receiverHeadphones, filterHeadphones)

@@ -19,7 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".services.TurnOnScreen"
+            android:name=".TurnOnScreen"
+            android:excludeFromRecents="true"
+            android:showOnLockScreen="true"
             android:theme="@style/AppTheme.ScreenOff" />
         <activity
             android:name=".AboutActivity"

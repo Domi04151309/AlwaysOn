@@ -1,9 +1,11 @@
-package io.github.domi04151309.alwayson.services
+package io.github.domi04151309.alwayson
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
+import android.content.Intent
+
 
 class TurnOnScreen : AppCompatActivity() {
 
@@ -16,6 +18,10 @@ class TurnOnScreen : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
 
         Handler().postDelayed({
+            val intent = Intent(Intent.ACTION_MAIN)
+            intent.addCategory(Intent.CATEGORY_HOME)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
             finish()
         }, 10)
     }

@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.alwayson.AlwaysOn
-import io.github.domi04151309.alwayson.services.TurnOnScreen
+import io.github.domi04151309.alwayson.TurnOnScreen
 
 class ScreenStateReceiver : BroadcastReceiver() {
 

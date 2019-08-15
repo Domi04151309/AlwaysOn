@@ -30,6 +30,14 @@ class AlwaysOn : AppCompatActivity() {
     private var powerSaving: Boolean = false
     private var userPowerSaving: Boolean = false
 
+    //Settings
+    private var aoClock: Boolean = true
+    private var aoDate: Boolean = true
+    private var aoBatteryIcn: Boolean = true
+    private var aoBattery: Boolean = true
+    private var aoNotifications: Boolean = true
+    private var aoEdgeGlow: Boolean = true
+
     //Time and Date
     private var clockTxt: TextView? = null
     private var dateTxt: TextView? = null
@@ -113,12 +121,12 @@ class AlwaysOn : AppCompatActivity() {
         rootMode = prefs.getBoolean("root_mode", false)
         powerSaving = prefs.getBoolean("ao_power_saving", false)
         val userTheme = prefs.getString("ao_style", "google")
-        val aoClock = prefs.getBoolean("ao_clock", true)
-        val aoDate = prefs.getBoolean("ao_date", true)
-        val aoBatteryIcn = prefs.getBoolean("ao_batteryIcn", true)
-        val aoBattery = prefs.getBoolean("ao_battery", true)
-        val aoNotifications = prefs.getBoolean("ao_notifications", true)
-        val aoEdgeGlow = prefs.getBoolean("ao_edgeGlow", true)
+        aoClock = prefs.getBoolean("ao_clock", true)
+        aoDate = prefs.getBoolean("ao_date", true)
+        aoBatteryIcn = prefs.getBoolean("ao_batteryIcn", true)
+        aoBattery = prefs.getBoolean("ao_battery", true)
+        aoNotifications = prefs.getBoolean("ao_notifications", true)
+        aoEdgeGlow = prefs.getBoolean("ao_edgeGlow", true)
         val clock = prefs.getBoolean("hour", false)
         val amPm = prefs.getBoolean("am_pm", false)
 
@@ -319,9 +327,9 @@ class AlwaysOn : AppCompatActivity() {
     public override fun onDestroy() {
         super.onDestroy()
         ScreenStateReceiver.alwaysOnRunning = false
-        unregisterReceiver(mBatInfoReceiver)
-        unregisterReceiver(mTimeChangedReceiver)
-        unregisterReceiver(mDateChangedReceiver)
-        unregisterReceiver(mNotificationReceiver)
+        if (aoBatteryIcn || aoBattery) unregisterReceiver(mBatInfoReceiver)
+        if (aoClock) unregisterReceiver(mTimeChangedReceiver)
+        if (aoDate) unregisterReceiver(mDateChangedReceiver)
+        if (aoNotifications || aoEdgeGlow) unregisterReceiver(mNotificationReceiver)
     }
 }
