@@ -24,7 +24,7 @@ class ScreenStateReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        var screenStateOn: Boolean = false
+        var screenStateOn: Boolean = true
     }
 }
 

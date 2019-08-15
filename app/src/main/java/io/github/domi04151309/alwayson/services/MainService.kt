@@ -13,7 +13,6 @@ import io.github.domi04151309.alwayson.receivers.ScreenStateReceiver
 
 class MainService : Service() {
 
-    private val intent = Intent(Intent.ACTION_HEADSET_PLUG)
     private val receiverScreen = ScreenStateReceiver()
     private val receiverCharging = ChargeInfoReceiver()
     private val filterCharging = IntentFilter(Intent.ACTION_POWER_CONNECTED)
@@ -25,11 +24,6 @@ class MainService : Service() {
     }
 
     override fun onCreate() {
-        if (intent.getIntExtra("state", 0) == 0) {
-            headsetConnected = false
-        } else if (intent.getIntExtra("state", 0) == 1) {
-            headsetConnected = true
-        }
         val filterScreen = IntentFilter(Intent.ACTION_SCREEN_ON)
         filterScreen.addAction(Intent.ACTION_SCREEN_OFF)
         registerReceiver(receiverScreen, filterScreen)
@@ -48,9 +42,5 @@ class MainService : Service() {
     override fun onBind(intent: Intent): IBinder? {
         // TODO: Return the communication channel to the service.
         throw UnsupportedOperationException("Not yet implemented")
-    }
-
-    companion object {
-        var headsetConnected: Boolean = false
     }
 }
