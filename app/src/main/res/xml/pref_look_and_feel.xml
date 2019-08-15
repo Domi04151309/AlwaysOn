@@ -31,12 +31,6 @@
         android:key="pref_ao"
         android:summary="@string/pref_ao_settings_summary"
         android:title="@string/pref_ao_settings" />
-    <io.github.domi04151309.alwayson.EditIntegerPreference
-        android:defaultValue="0"
-        android:icon="@drawable/ic_edge"
-        android:key="edge_corner_margin"
-        android:summary="@string/pref_look_and_feel_edge_corner_margin_summary"
-        android:title="@string/pref_look_and_feel_edge_corner_margin" />
     <ListPreference
         android:defaultValue="flash"
         android:entries="@array/pref_look_and_feel_charging_array_display"

@@ -7,7 +7,6 @@ import android.content.IntentFilter
 import android.os.IBinder
 import android.service.quicksettings.TileService
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
-import io.github.domi04151309.alwayson.edge.EdgeQS
 import io.github.domi04151309.alwayson.receivers.ChargeInfoReceiver
 import io.github.domi04151309.alwayson.receivers.HeadsetInfoReceiver
 import io.github.domi04151309.alwayson.receivers.ScreenStateReceiver
@@ -37,7 +36,6 @@ class MainService : Service() {
         registerReceiver(receiverCharging, filterCharging)
         registerReceiver(receiverHeadphones, filterHeadphones)
         TileService.requestListeningState(this, ComponentName(this , AlwaysOnQS::class.java))
-        TileService.requestListeningState(this, ComponentName(this , EdgeQS::class.java))
     }
 
     override fun onDestroy() {

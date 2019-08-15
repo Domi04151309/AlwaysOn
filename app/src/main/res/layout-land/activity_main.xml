@@ -41,14 +41,6 @@
                 app:srcCompat="@drawable/ic_always_on" />
 
             <ImageButton
-                android:id="@+id/lEdge"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:contentDescription="@string/Edge"
-                app:srcCompat="@drawable/ic_edge" />
-
-            <ImageButton
                 android:id="@+id/pHeadset"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

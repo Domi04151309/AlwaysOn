@@ -91,10 +91,6 @@ class MainActivity : AppCompatActivity() {
             makeCenteredToast(this, Global.changeAlwaysOnState(this))
         }
 
-        findViewById<ImageButton>(R.id.lEdge).setOnClickListener {
-            makeCenteredToast(this, Global.changeEdgeState(this))
-        }
-
         findViewById<ImageButton>(R.id.pHeadset).setOnClickListener {
             makeCenteredToast(this, Global.changeHeadsetState(this))
         }

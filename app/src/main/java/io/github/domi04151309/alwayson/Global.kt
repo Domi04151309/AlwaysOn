@@ -8,7 +8,6 @@ import androidx.preference.PreferenceManager
 import android.service.quicksettings.TileService
 import android.widget.Toast
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
-import io.github.domi04151309.alwayson.edge.EdgeQS
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import android.app.Activity
 import android.view.View
@@ -28,19 +27,6 @@ object Global {
         prefs.edit().putBoolean("always_on", value).apply()
         TileService.requestListeningState(context, ComponentName(context ,AlwaysOnQS::class.java))
         context.sendBroadcast(Intent().setAction(ALWAYS_ON_STAE_CHANGED))
-        return value
-    }
-
-    const val EDGE_STAE_CHANGED = "io.github.domi04151309.alwayson.EDGE_STAE_CHANGED"
-    fun currentEdgeState(context: Context): Boolean{
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("edge_display", false)
-    }
-    fun changeEdgeState(context: Context): Boolean {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val value = !prefs.getBoolean("edge_display", false)
-        prefs.edit().putBoolean("edge_display", value).apply()
-        TileService.requestListeningState(context, ComponentName(context ,EdgeQS::class.java))
-        context.sendBroadcast(Intent().setAction(EDGE_STAE_CHANGED))
         return value
     }
 

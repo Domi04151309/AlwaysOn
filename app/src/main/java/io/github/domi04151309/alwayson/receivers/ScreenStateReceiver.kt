@@ -12,12 +12,6 @@ class ScreenStateReceiver : BroadcastReceiver() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         if (Intent.ACTION_SCREEN_ON == action) {
             screenStateOn = true
-            if (prefs.getBoolean("edge_display", false)) {
-                context.startActivity(
-                        Intent().setClassName(context, "io.github.domi04151309.alwayson.edge.Edge")
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                )
-            }
         } else if (Intent.ACTION_SCREEN_OFF == action) {
             screenStateOn = false
             if (prefs.getBoolean("always_on", false)) {

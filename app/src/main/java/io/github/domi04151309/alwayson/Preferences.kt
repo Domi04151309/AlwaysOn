@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
-import io.github.domi04151309.alwayson.edge.EdgeQS
 
 class Preferences : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -58,11 +57,6 @@ class Preferences : AppCompatActivity(),
                 context!!.sendBroadcast(Intent().setAction(Global.ALWAYS_ON_STAE_CHANGED))
                 true
             }
-            findPreference<Preference>("edge_display")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                TileService.requestListeningState(context, ComponentName(context!! , EdgeQS::class.java))
-                context!!.sendBroadcast(Intent().setAction(Global.EDGE_STAE_CHANGED))
-                true
-            }
             findPreference<Preference>("pref_look_and_feel")!!.fragment = PreferenceLookAndFeel::class.java.name
             findPreference<Preference>("pref_permissions")!!.fragment = PreferencePermissions::class.java.name
             findPreference<Preference>("pref_about")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
@@ -87,9 +81,6 @@ class Preferences : AppCompatActivity(),
             findPreference<Preference>("pref_ao")!!.fragment = PreferenceAlwaysOn::class.java.name
             if (Build.VERSION.SDK_INT < 28)
                 preferenceScreen.removePreference(findPreference("hide_display_cutouts"))
-            findPreference<EditIntegerPreference>("edge_corner_margin")!!.setOnBindEditTextListener { editText ->
-                editText.inputType = InputType.TYPE_CLASS_NUMBER
-            }
         }
 
         override fun onResume() {

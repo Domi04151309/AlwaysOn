@@ -102,28 +102,6 @@
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppTheme.NoActionbar" />
-        <activity
-            android:name=".edge.Edge"
-            android:excludeFromRecents="true"
-            android:launchMode="singleInstance"
-            android:screenOrientation="landscape"
-            android:showOnLockScreen="true"
-            android:taskAffinity=""
-            android:theme="@style/AppTheme.ScreenOff" />
-
-        <service
-            android:name=".edge.EdgeQS"
-            android:icon="@drawable/ic_qs_warning"
-            android:label="@string/Edge"
-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
-            <intent-filter>
-                <action android:name="android.service.quicksettings.action.QS_TILE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.service.quicksettings.ACTIVE_TILE"
-                android:value="true" />
-        </service>
 
         <activity
             android:name=".Headset"
@@ -225,17 +203,6 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/always_on_widget_info" />
-        </receiver>
-        <receiver
-            android:name=".edge.EdgeWidget"
-            android:label="@string/Edge">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/edge_widget_info" />
         </receiver>
     </application>
 
