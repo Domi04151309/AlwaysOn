@@ -17,6 +17,9 @@ object Global {
 
     const val LOG_TAG = "AlwaysOn"
 
+    const val REQUEST_NOTIFICATIONS = "io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"
+    const val NOTIFICATIONS = "io.github.domi04151309.alwayson.NOTIFICATIONS"
+
     const val ALWAYS_ON_STAE_CHANGED = "io.github.domi04151309.alwayson.ALWAYS_ON_STAE_CHANGED"
     fun currentAlwaysOnState(context: Context): Boolean{
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("always_on", false)

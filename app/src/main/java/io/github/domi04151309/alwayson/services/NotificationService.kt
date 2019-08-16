@@ -6,10 +6,13 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import io.github.domi04151309.alwayson.Global
 
 class NotificationService : NotificationListenerService() {
 
     private var cache: Int = -1
+    private var localManager: LocalBroadcastManager? = null
 
     private val mActionReceiver = object : BroadcastReceiver() {
 
@@ -20,23 +23,24 @@ class NotificationService : NotificationListenerService() {
 
     override fun onCreate() {
         super.onCreate()
-        registerReceiver(mActionReceiver, IntentFilter("io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"))
+        localManager = LocalBroadcastManager.getInstance(this)
+        localManager!!.registerReceiver(mActionReceiver, IntentFilter(Global.REQUEST_NOTIFICATIONS))
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(mActionReceiver)
+        localManager!!.unregisterReceiver(mActionReceiver)
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
-        sendCount(false)
+        sendCount()
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification) {
-        sendCount(false)
+        sendCount()
     }
 
-    private fun sendCount(force: Boolean) {
+    private fun sendCount(force: Boolean = false) {
         val notifications = activeNotifications
         var count = 0
         for (notification in notifications) {
@@ -46,7 +50,7 @@ class NotificationService : NotificationListenerService() {
         }
         if (cache != count || force) {
             cache = count
-            sendBroadcast(Intent("io.github.domi04151309.alwayson.NOTIFICATION").putExtra("count", count))
+            localManager!!.sendBroadcast(Intent(Global.NOTIFICATIONS).putExtra("count", count))
         }
     }
 }

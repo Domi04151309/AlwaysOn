@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import io.github.domi04151309.alwayson.Global
 
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.Root
@@ -25,6 +27,7 @@ import io.github.domi04151309.alwayson.receivers.ScreenStateReceiver
 
 class AlwaysOn : AppCompatActivity() {
 
+    private var localManager: LocalBroadcastManager? = null
     private var content: View? = null
     private var rootMode: Boolean = false
     private var powerSaving: Boolean = false
@@ -163,6 +166,7 @@ class AlwaysOn : AppCompatActivity() {
         } else ""
 
         //Variables
+        localManager = LocalBroadcastManager.getInstance(this)
         val frame = findViewById<View>(R.id.frame)
         content = findViewById(R.id.fullscreen_content)
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
@@ -188,8 +192,8 @@ class AlwaysOn : AppCompatActivity() {
 
         //Notifications
         if (aoNotifications || aoEdgeGlow) {
-            registerReceiver(mNotificationReceiver, IntentFilter("io.github.domi04151309.alwayson.NOTIFICATION"))
-            sendBroadcast(Intent("io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"))
+            localManager!!.registerReceiver(mNotificationReceiver, IntentFilter(Global.NOTIFICATIONS))
+            localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
         }
 
         //Edge Glow
@@ -330,6 +334,6 @@ class AlwaysOn : AppCompatActivity() {
         if (aoBatteryIcn || aoBattery) unregisterReceiver(mBatInfoReceiver)
         if (aoClock) unregisterReceiver(mTimeChangedReceiver)
         if (aoDate) unregisterReceiver(mDateChangedReceiver)
-        if (aoNotifications || aoEdgeGlow) unregisterReceiver(mNotificationReceiver)
+        if (aoNotifications || aoEdgeGlow) localManager!!.unregisterReceiver(mNotificationReceiver)
     }
 }
