@@ -5,14 +5,15 @@
     android:id="@+id/headsetLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/charging_margin"
     tools:context="io.github.domi04151309.alwayson.Headset">
 
     <ImageView
         android:id="@+id/headsetImage"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:layout_marginBottom="32dp"
         android:contentDescription="@string/Headset"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
