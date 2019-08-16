@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
 
 class Preferences : AppCompatActivity(),
@@ -99,6 +101,8 @@ class Preferences : AppCompatActivity(),
             findPreference<EditIntegerPreference>("ao_vibration")!!.setOnBindEditTextListener { editText ->
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
             }
+            if(!PreferenceManager.getDefaultSharedPreferences(context).getBoolean("root_mode", false))
+                findPreference<SwitchPreference>("ao_power_saving")!!.isEnabled = false
         }
     }
 

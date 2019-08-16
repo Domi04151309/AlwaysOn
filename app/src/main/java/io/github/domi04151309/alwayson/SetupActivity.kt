@@ -10,6 +10,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.provider.Settings
 import android.text.TextUtils
+import android.text.format.DateFormat
 import android.widget.*
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 
@@ -25,6 +26,9 @@ class SetupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_setup)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+
+        if (DateFormat.is24HourFormat(this)) prefs.edit().putBoolean("hour", false).apply()
+        else prefs.edit().putBoolean("hour", true).apply()
 
         loadSection(section)
         val btnDeviceAdmin = findViewById<RadioButton>(R.id.device_admin_mode)
