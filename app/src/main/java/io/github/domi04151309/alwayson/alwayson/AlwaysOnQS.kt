@@ -1,13 +1,11 @@
 package io.github.domi04151309.alwayson.alwayson
 
 import android.annotation.TargetApi
-import android.content.Intent
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 
-import io.github.domi04151309.alwayson.services.MainService
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.Global
 
@@ -32,7 +30,6 @@ class AlwaysOnQS : TileService() {
         if (isActive) {
             newIcon = Icon.createWithResource(applicationContext, R.drawable.ic_always_on_white)
             newState = Tile.STATE_ACTIVE
-            startService(Intent(this, MainService::class.java))
         } else {
             newIcon = Icon.createWithResource(applicationContext, R.drawable.ic_always_on_white)
             newState = Tile.STATE_INACTIVE

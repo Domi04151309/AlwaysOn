@@ -56,7 +56,7 @@ class Preferences : AppCompatActivity(),
             addPreferencesFromResource(R.xml.pref_general)
             findPreference<Preference>("always_on")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 TileService.requestListeningState(context, ComponentName(context!! , AlwaysOnQS::class.java))
-                context!!.sendBroadcast(Intent().setAction(Global.ALWAYS_ON_STAE_CHANGED))
+                context!!.sendBroadcast(Intent().setAction(Global.ALWAYS_ON_STATE_CHANGED))
                 true
             }
             findPreference<Preference>("pref_look_and_feel")!!.fragment = PreferenceLookAndFeel::class.java.name

@@ -32,7 +32,7 @@ class AlwaysOnWidget : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         try {
-            context.applicationContext.registerReceiver(stateReceiver, IntentFilter(Global.ALWAYS_ON_STAE_CHANGED))
+            context.applicationContext.registerReceiver(stateReceiver, IntentFilter(Global.ALWAYS_ON_STATE_CHANGED))
         } catch (e: Exception){
             Log.e(Global.LOG_TAG, e.toString())
         }

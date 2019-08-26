@@ -7,13 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.widget.*
-import androidx.constraintlayout.widget.ConstraintLayout
 import io.github.domi04151309.alwayson.Global
 import io.github.domi04151309.alwayson.R
 
 class Circle : AppCompatActivity() {
 
-    private var content: ConstraintLayout? = null
+    private var content: RelativeLayout? = null
     private var batteryTxt: TextView? = null
     private var chargingProgress: ProgressBar? = null
     private val mBatInfoReceiver = object : BroadcastReceiver() {

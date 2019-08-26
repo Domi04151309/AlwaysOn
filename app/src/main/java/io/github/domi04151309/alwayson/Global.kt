@@ -20,7 +20,7 @@ object Global {
     const val REQUEST_NOTIFICATIONS = "io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"
     const val NOTIFICATIONS = "io.github.domi04151309.alwayson.NOTIFICATIONS"
 
-    const val ALWAYS_ON_STAE_CHANGED = "io.github.domi04151309.alwayson.ALWAYS_ON_STAE_CHANGED"
+    const val ALWAYS_ON_STATE_CHANGED = "io.github.domi04151309.alwayson.ALWAYS_ON_STATE_CHANGED"
     fun currentAlwaysOnState(context: Context): Boolean{
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("always_on", false)
     }
@@ -29,7 +29,7 @@ object Global {
         val value = !prefs.getBoolean("always_on", false)
         prefs.edit().putBoolean("always_on", value).apply()
         TileService.requestListeningState(context, ComponentName(context ,AlwaysOnQS::class.java))
-        context.sendBroadcast(Intent().setAction(ALWAYS_ON_STAE_CHANGED))
+        context.sendBroadcast(Intent().setAction(ALWAYS_ON_STATE_CHANGED))
         return value
     }
 
