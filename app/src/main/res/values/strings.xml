@@ -38,6 +38,8 @@
     <string name="glance_lite_text">Loading</string>
 
     <!-- Strings related to Settings -->
+    <string name="pref_int_failed">This value cannot be used</string>
+
     <string name="pref">Settings</string>
     <string name="pref_general">General settings</string>
     <string name="pref_enabled">Currently enabled</string>
