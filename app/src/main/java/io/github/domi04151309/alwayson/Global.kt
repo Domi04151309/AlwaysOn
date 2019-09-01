@@ -12,6 +12,7 @@ import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import android.app.Activity
 import android.view.View
 import android.view.WindowManager
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 object Global {
 
@@ -29,7 +30,7 @@ object Global {
         val value = !prefs.getBoolean("always_on", false)
         prefs.edit().putBoolean("always_on", value).apply()
         TileService.requestListeningState(context, ComponentName(context ,AlwaysOnQS::class.java))
-        context.sendBroadcast(Intent().setAction(ALWAYS_ON_STATE_CHANGED))
+        LocalBroadcastManager.getInstance(context).sendBroadcast(Intent().setAction(ALWAYS_ON_STATE_CHANGED))
         return value
     }
 

@@ -206,9 +206,9 @@ class AlwaysOn : AppCompatActivity() {
                     try {
                         while (!isInterrupted) {
                             if (notificationAvailable) {
-                                transition!!.startTransition(transitionTime)
+                                runOnUiThread { transition!!.startTransition(transitionTime) }
                                 sleep(transitionTime.toLong())
-                                transition!!.reverseTransition(transitionTime)
+                                runOnUiThread { transition!!.reverseTransition(transitionTime) }
                                 sleep(transitionTime.toLong())
                             } else
                                 sleep(1000)

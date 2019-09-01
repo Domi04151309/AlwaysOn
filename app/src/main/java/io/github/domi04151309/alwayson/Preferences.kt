@@ -8,6 +8,7 @@ import android.service.quicksettings.TileService
 import android.text.InputType
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
@@ -56,7 +57,7 @@ class Preferences : AppCompatActivity(),
             addPreferencesFromResource(R.xml.pref_general)
             findPreference<Preference>("always_on")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 TileService.requestListeningState(context, ComponentName(context!! , AlwaysOnQS::class.java))
-                context!!.sendBroadcast(Intent().setAction(Global.ALWAYS_ON_STATE_CHANGED))
+                LocalBroadcastManager.getInstance(context!!).sendBroadcast(Intent().setAction(Global.ALWAYS_ON_STATE_CHANGED))
                 true
             }
             findPreference<Preference>("pref_look_and_feel")!!.fragment = PreferenceLookAndFeel::class.java.name

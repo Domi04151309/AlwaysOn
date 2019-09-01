@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.*
 import android.util.Log
 import android.widget.RemoteViews
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import io.github.domi04151309.alwayson.Global
 import io.github.domi04151309.alwayson.R
 
@@ -32,7 +33,7 @@ class AlwaysOnWidget : AppWidgetProvider() {
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         try {
-            context.applicationContext.registerReceiver(stateReceiver, IntentFilter(Global.ALWAYS_ON_STATE_CHANGED))
+            LocalBroadcastManager.getInstance(context).registerReceiver(stateReceiver, IntentFilter(Global.ALWAYS_ON_STATE_CHANGED))
         } catch (e: Exception){
             Log.e(Global.LOG_TAG, e.toString())
         }
