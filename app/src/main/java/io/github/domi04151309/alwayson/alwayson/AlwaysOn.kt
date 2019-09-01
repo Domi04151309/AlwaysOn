@@ -41,15 +41,8 @@ class AlwaysOn : AppCompatActivity() {
     private var aoNotifications: Boolean = true
     private var aoEdgeGlow: Boolean = true
 
-    //Time and Date
-    private var clockTxt: TextView? = null
+    //Date
     private var dateTxt: TextView? = null
-    private var dateFormat: String = ""
-    private val mTimeChangedReceiver = object : BroadcastReceiver() {
-        override fun onReceive(c: Context, intent: Intent) {
-            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
-        }
-    }
     private val mDateChangedReceiver = object : BroadcastReceiver() {
         override fun onReceive(c: Context, intent: Intent) {
             dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
@@ -142,7 +135,7 @@ class AlwaysOn : AppCompatActivity() {
         else if (userTheme == "samsung")
             setContentView(R.layout.activity_ao_samsung)
 
-        clockTxt = findViewById(R.id.clockTxt)
+        val clockTxt = findViewById<TextView>(R.id.clockTxt)
         dateTxt = findViewById(R.id.dateTxt)
         batteryIcn = findViewById(R.id.batteryIcn)
         batteryTxt = findViewById(R.id.batteryTxt)
@@ -153,7 +146,7 @@ class AlwaysOn : AppCompatActivity() {
         if (!aoBatteryIcn) batteryIcn!!.visibility = View.GONE
         if (!aoBattery) batteryTxt!!.visibility = View.GONE
         if (!aoNotifications) notifications!!.visibility = View.GONE
-        dateFormat = if (userTheme == "google") {
+        val dateFormatString = if (userTheme == "google") {
             if (clock) {
                 if (amPm) "h:mm a"
                 else "h:mm"
@@ -164,6 +157,7 @@ class AlwaysOn : AppCompatActivity() {
                 else "hh\nmm"
             } else "HH\nmm"
         } else ""
+        val dateFormat = SimpleDateFormat(dateFormatString)
 
         //Variables
         localManager = LocalBroadcastManager.getInstance(this)
@@ -223,11 +217,14 @@ class AlwaysOn : AppCompatActivity() {
 
         //Time and Date
         if (aoClock) {
-            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
-            val clockFilter = IntentFilter()
-            clockFilter.addAction(Intent.ACTION_TIME_TICK)
-            clockFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
-            registerReceiver(mTimeChangedReceiver, clockFilter)
+            clockTxt!!.text = dateFormat.format(Calendar.getInstance())
+            val clockHandler = Handler()
+            clockHandler.postDelayed(object : Runnable {
+                override fun run() {
+                    clockTxt.text = dateFormat.format(Calendar.getInstance())
+                    clockHandler.postDelayed(this, 1000L)
+                }
+            }, 1000L)
         }
         if (aoDate) {
             dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
@@ -332,7 +329,6 @@ class AlwaysOn : AppCompatActivity() {
         super.onDestroy()
         ScreenStateReceiver.alwaysOnRunning = false
         if (aoBatteryIcn || aoBattery) unregisterReceiver(mBatInfoReceiver)
-        if (aoClock) unregisterReceiver(mTimeChangedReceiver)
         if (aoDate) unregisterReceiver(mDateChangedReceiver)
         if (aoNotifications || aoEdgeGlow) localManager!!.unregisterReceiver(mNotificationReceiver)
     }
