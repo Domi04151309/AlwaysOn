@@ -222,9 +222,9 @@ class AlwaysOn : AppCompatActivity() {
             clockHandler.postDelayed(object : Runnable {
                 override fun run() {
                     clockTxt.text = dateFormat.format(Calendar.getInstance())
-                    clockHandler.postDelayed(this, 1000L)
+                    clockHandler.postDelayed(this, 2000L)
                 }
-            }, 1000L)
+            }, 2000L)
         }
         if (aoDate) {
             dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
