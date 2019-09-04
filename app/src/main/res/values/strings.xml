@@ -34,9 +34,6 @@
     <string name="shortcut_settings">Settings</string>
     <string name="shortcut_disabled">Disabled</string>
 
-    <string name="glance_lite_title">At a glance lite</string>
-    <string name="glance_lite_text">Loading</string>
-
     <!-- Strings related to Settings -->
     <string name="pref_int_failed">This value cannot be used</string>
 

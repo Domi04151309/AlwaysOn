@@ -143,18 +143,6 @@
             </intent-filter>
         </service>
 
-        <receiver
-            android:name=".GlanceLite"
-            android:label="@string/glance_lite_title">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/glance_lite_info" />
-        </receiver>
-
         <activity
             android:name=".Preferences"
             android:label="@string/pref"
