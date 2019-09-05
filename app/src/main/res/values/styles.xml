@@ -18,6 +18,7 @@
         <item name="android:textColorSecondary">@color/white128</item>
         <item name="buttonStyle">@style/Button</item>
         <item name="imageButtonStyle">@style/ImageButton</item>
+        <item name="dialogCornerRadius">8dp</item>
         <item name="dialogTheme">@style/DialogTheme</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
         <item name="android:listDivider">@null</item>
@@ -32,6 +33,7 @@
         <item name="android:textColorSecondary">@color/black128</item>
         <item name="buttonStyle">@style/Button</item>
         <item name="imageButtonStyle">@style/ImageButton</item>
+        <item name="dialogCornerRadius">8dp</item>
         <item name="dialogTheme">@style/DialogTheme</item>
         <item name="android:navigationBarColor">@color/lightColorPrimary</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
@@ -72,6 +74,7 @@
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorAlertDialogListItem">@android:color/white</item>
         <item name="android:background">@color/colorAccent</item>
+        <item name="dialogCornerRadius">8dp</item>
     </style>
 
     <style name="CutoutHide">
