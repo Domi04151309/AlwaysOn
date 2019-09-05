@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
-  android:insetLeft="6dp"
-  android:insetTop="6dp"
-  android:insetRight="6dp"
-  android:insetBottom="6dp">
+    android:insetLeft="6dp"
+    android:insetTop="6dp"
+    android:insetRight="6dp"
+    android:insetBottom="6dp">
+
   <shape android:shape="rectangle">
-    <gradient android:startColor="#0157A0"
-      android:centerColor="#085E9B"
-      android:endColor="#03A1E0"/>
-    <corners android:bottomRightRadius="16dp"
-      android:bottomLeftRadius="16dp"  
-      android:topRightRadius="16dp"
-      android:topLeftRadius="16dp"/>
-    <padding android:left="8dp"
-      android:top="8dp"
-      android:right="8dp"
-      android:bottom="8dp" />
+
+    <gradient
+        android:startColor="#0157A0"
+        android:centerColor="#085E9B"
+        android:endColor="#03A1E0"
+        android:angle="0" />
+
+    <corners
+        android:bottomRightRadius="16dp"
+        android:bottomLeftRadius="16dp"
+        android:topRightRadius="16dp"
+        android:topLeftRadius="16dp" />
+
+    <padding
+        android:left="8dp"
+        android:top="8dp"
+        android:right="8dp"
+        android:bottom="8dp" />
   </shape>
 </inset>

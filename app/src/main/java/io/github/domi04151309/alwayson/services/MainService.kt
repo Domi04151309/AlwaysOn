@@ -22,6 +22,7 @@ class MainService : Service() {
     }
 
     override fun onCreate() {
+        super.onCreate()
         val filterScreen = IntentFilter(Intent.ACTION_SCREEN_ON)
         filterScreen.addAction(Intent.ACTION_SCREEN_OFF)
         val filterCharging = IntentFilter(Intent.ACTION_POWER_CONNECTED)
