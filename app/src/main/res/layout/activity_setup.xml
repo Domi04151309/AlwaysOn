@@ -24,7 +24,7 @@
         android:padding="?dialogPreferredPadding">
 
         <LinearLayout
-            android:id="@+id/section1"
+            android:id="@+id/sectionMode"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -71,7 +71,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/section2"
+            android:id="@+id/sectionNotifications"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/setup_heading_margin"
-                android:text="@string/notification_listener_service_explanation"
+                android:text="@string/notification_listener_service_summary"
                 android:textSize="14sp" />
 
             <ImageView
@@ -101,7 +101,37 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/section3"
+            android:id="@+id/sectionDrawOverOtherApps"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/setup_heading_margin"
+                android:text="@string/setup_draw_over_other_apps"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/setup_heading_margin"
+                android:text="@string/setup_draw_over_other_apps_summary"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="192dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                app:srcCompat="@drawable/ic_draw_over_other_apps" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sectionFinished"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

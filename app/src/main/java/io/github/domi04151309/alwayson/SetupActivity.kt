@@ -39,7 +39,7 @@ class SetupActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.setup_continue).setOnClickListener {
             when (section) {
-                1 -> {
+                SECTION_MODE -> {
                     if (rootMode) {
                         if (!Root.request()) {
                             Toast.makeText(this, R.string.setup_root_failed, Toast.LENGTH_LONG).show()
@@ -53,11 +53,15 @@ class SetupActivity : AppCompatActivity() {
                         isActionRequired = true
                     }
                 }
-                2 -> {
+                SECTION_NOTIFICATIONS -> {
                     startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
                     isActionRequired = true
                 }
-                3 -> {
+                SECTION_DRAW_OVER_OTHER_APPS -> {
+                    startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 1)
+                    isActionRequired = true
+                }
+                SECTION_FINISHED -> {
                     prefs.edit().putBoolean("setup_complete", true).apply()
                     startActivity(Intent(this@SetupActivity, MainActivity::class.java))
                 }
@@ -69,15 +73,22 @@ class SetupActivity : AppCompatActivity() {
         super.onResume()
         if (isActionRequired) {
             when (section) {
-                1 -> {
+                SECTION_MODE -> {
                     if(!rootMode && !isDeviceAdmin) {
                         Toast.makeText(this, R.string.setup_error, Toast.LENGTH_LONG).show()
                     } else {
                         nextSection()
                     }
                 }
-                2 -> {
+                SECTION_NOTIFICATIONS -> {
                     if(!isNotificationServiceEnabled) {
+                        Toast.makeText(this, R.string.setup_error, Toast.LENGTH_LONG).show()
+                    } else {
+                        nextSection()
+                    }
+                }
+                SECTION_DRAW_OVER_OTHER_APPS -> {
+                    if (!Settings.canDrawOverlays(this)) {
                         Toast.makeText(this, R.string.setup_error, Toast.LENGTH_LONG).show()
                     } else {
                         nextSection()
@@ -121,20 +132,29 @@ class SetupActivity : AppCompatActivity() {
     private fun loadSection(number: Int) {
         if (number <= 0 ) finish()
         when (number) {
-            1 -> {
-                findViewById<LinearLayout>(R.id.section2).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.section3).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.section1).visibility = View.VISIBLE
+            SECTION_MODE -> {
+                findViewById<LinearLayout>(R.id.sectionNotifications).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.sectionDrawOverOtherApps).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.sectionFinished).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.sectionMode).visibility = View.VISIBLE
             }
-            2 -> {
-                findViewById<LinearLayout>(R.id.section1).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.section3).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.section2).visibility = View.VISIBLE
+            SECTION_NOTIFICATIONS -> {
+                findViewById<LinearLayout>(R.id.sectionMode).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.sectionDrawOverOtherApps).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.sectionFinished).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.sectionNotifications).visibility = View.VISIBLE
             }
-            3 -> {
-                findViewById<LinearLayout>(R.id.section1).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.section2).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.section3).visibility = View.VISIBLE
+            SECTION_DRAW_OVER_OTHER_APPS -> {
+                findViewById<LinearLayout>(R.id.sectionMode).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.sectionNotifications).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.sectionFinished).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.sectionDrawOverOtherApps).visibility = View.VISIBLE
+            }
+            SECTION_FINISHED -> {
+                findViewById<LinearLayout>(R.id.sectionMode).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.sectionNotifications).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.sectionDrawOverOtherApps).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.sectionFinished).visibility = View.VISIBLE
             }
         }
         section = number
@@ -143,5 +163,12 @@ class SetupActivity : AppCompatActivity() {
     private fun nextSection() {
         section++
         loadSection(section)
+    }
+
+    companion object {
+        const val SECTION_MODE = 1
+        const val SECTION_NOTIFICATIONS = 2
+        const val SECTION_DRAW_OVER_OTHER_APPS = 3
+        const val SECTION_FINISHED = 4
     }
 }

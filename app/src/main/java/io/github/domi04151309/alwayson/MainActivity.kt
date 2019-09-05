@@ -82,8 +82,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
-        if (!isNotificationServiceEnabled) buildDialog(2)
         if (!isDeviceAdminOrRoot) buildDialog(1)
+        if (!isNotificationServiceEnabled) buildDialog(2)
+        if (!Settings.canDrawOverlays(this)) buildDialog(3)
 
         startService(Intent(this, MainService::class.java))
 
@@ -142,20 +143,24 @@ class MainActivity : AppCompatActivity() {
 
         when (case) {
             1 -> {
-                builder.setTitle(resources.getString(R.string.device_admin))
-                builder.setView(R.layout.dialog_admin)
-                builder.setPositiveButton(resources.getString(android.R.string.ok)) { dialog, _ ->
+                builder.setTitle(R.string.device_admin)
+                builder.setMessage(R.string.device_admin_summary)
+                builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
                     startActivity(Intent(this@MainActivity, Preferences::class.java))
-                    dialog.cancel()
                 }
             } 2-> {
-                builder.setTitle(resources.getString(R.string.notification_listener_service))
-                builder.setView(R.layout.dialog_nls)
-                builder.setPositiveButton(resources.getString(android.R.string.ok)) { dialog, _ ->
+                builder.setTitle(R.string.notification_listener_service)
+                builder.setMessage(R.string.notification_listener_service_summary)
+                builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
                     startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
-                    dialog.cancel()
                 }
-        } else -> return
+            } 3-> {
+                builder.setTitle(R.string.setup_draw_over_other_apps)
+                builder.setMessage(R.string.setup_draw_over_other_apps_summary)
+                builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
+                    startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 1)
+                }
+            } else -> return
         }
 
         builder.setNegativeButton(resources.getString(android.R.string.cancel)) { dialog, _ -> dialog.cancel() }
