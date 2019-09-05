@@ -313,8 +313,10 @@ class AlwaysOn : AppCompatActivity() {
         super.onResume()
         ScreenStateReceiver.alwaysOnRunning = true
         hide()
-        if (rootMode && powerSaving)
+        if (rootMode && powerSaving) {
             Root.shell("settings put global low_power 1")
+            Root.shell("dumpsys deviceidle force-idle")
+        }
     }
 
     override fun onPause() {
