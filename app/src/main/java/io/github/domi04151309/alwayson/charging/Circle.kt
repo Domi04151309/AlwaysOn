@@ -12,35 +12,26 @@ import io.github.domi04151309.alwayson.R
 
 class Circle : AppCompatActivity() {
 
-    private var content: RelativeLayout? = null
-    private var batteryTxt: TextView? = null
-    private var chargingProgress: ProgressBar? = null
-    private val mBatInfoReceiver = object : BroadcastReceiver() {
-
-        override fun onReceive(c: Context, intent: Intent) {
-            val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
-            batteryTxt!!.text = resources.getString(R.string.percent, level)
-            chargingProgress!!.progress = level
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_charging_circle)
 
-        content = findViewById(R.id.content)
-        batteryTxt = findViewById(R.id.batteryTxt)
-        chargingProgress = findViewById(R.id.chargingProgress)
+        val content = findViewById<RelativeLayout>(R.id.content)
+        val batteryTxt = findViewById<TextView>(R.id.batteryTxt)
+        val chargingProgress = findViewById<ProgressBar>(R.id.chargingProgress)
 
-        Global.fullscreen(this, content!!)
+        Global.fullscreen(this, content)
 
-        registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        val batteryStatus: Intent? = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        val level = batteryStatus?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) ?: 0
+        batteryTxt!!.text = resources.getString(R.string.percent, level)
+        chargingProgress!!.progress = level
 
         object : Thread() {
             override fun run() {
                 try {
                     sleep(3000)
-                    content!!.animate().alpha(0f).duration = 1000
+                    content.animate().alpha(0f).duration = 1000
                     sleep(1000)
                     Global.close(this@Circle)
                 } catch (e: InterruptedException) {
@@ -60,10 +51,5 @@ class Circle : AppCompatActivity() {
         val activityManager = applicationContext
                 .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         activityManager.moveTaskToFront(taskId, 0)
-    }
-
-    public override fun onDestroy() {
-        super.onDestroy()
-        unregisterReceiver(mBatInfoReceiver)
     }
 }
