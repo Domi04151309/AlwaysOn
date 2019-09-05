@@ -261,12 +261,14 @@ class AlwaysOn : AppCompatActivity() {
         frame.setOnTouchListener(object : View.OnTouchListener {
             private val gestureDetector = GestureDetector(this@AlwaysOn, object : GestureDetector.SimpleOnGestureListener() {
                 override fun onDoubleTap(e: MotionEvent): Boolean {
-                    val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                     val duration = prefs.getInt("ao_vibration", 64).toLong()
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE))
-                    } else {
-                        vibrator.vibrate(duration)
+                    if (duration > 0) {
+                        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE))
+                        } else {
+                            vibrator.vibrate(duration)
+                        }
                     }
                     finish()
                     return super.onDoubleTap(e)
