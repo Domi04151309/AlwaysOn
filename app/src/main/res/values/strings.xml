@@ -121,4 +121,5 @@
     <string name="about_version">Version %1$s</string>
     <string name="about_disclaimer1">There may be newer versions available on GitHub. This app is and always will be free software. Do not pay for this app.</string>
     <string name="about_disclaimer2">I am not responsible for any damage to your device.</string>
+    <string name="about_disclaimer3">Icons by <a href="https://icons8.com/">Icons8</a> and <a href="https://material.io/resources/icons/">Google</a>.</string>
 </resources>

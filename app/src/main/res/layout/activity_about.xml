@@ -75,6 +75,16 @@
             android:layout_marginTop="@dimen/about_item_margin"
             android:text="@string/about_disclaimer2" />
 
+        <TextView
+            android:id="@+id/icons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/about_item_margin"
+            android:drawableStart="@drawable/ic_palette"
+            android:drawablePadding="@dimen/about_item_margin"
+            android:gravity="center_vertical"
+            android:text="@string/about_disclaimer3" />
+
     </LinearLayout>
 
 </LinearLayout>
