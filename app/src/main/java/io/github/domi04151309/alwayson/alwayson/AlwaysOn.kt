@@ -11,6 +11,7 @@ import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.media.AudioManager
 import android.os.*
+import android.provider.Settings
 import androidx.preference.PreferenceManager
 import androidx.core.content.ContextCompat
 import androidx.appcompat.app.AppCompatActivity
@@ -238,7 +239,8 @@ class AlwaysOn : AppCompatActivity() {
 
         //Animation
         val animationDuration = 10000L
-        val animationDelay = prefs!!.getInt("ao_animation_delay", 1) * 60000
+        val animationScale = Settings.Global.getFloat(contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1.0f)
+        val animationDelay = (prefs!!.getInt("ao_animation_delay", 2) * 60000 + animationDuration * animationScale + 1000).toLong()
         object : Thread() {
             override fun run() {
                 try {
@@ -248,9 +250,9 @@ class AlwaysOn : AppCompatActivity() {
                     val result = size.y - content!!.height
                     content!!.animate().translationY(result.toFloat() / 4).duration = 0
                     while (!isInterrupted) {
-                        sleep(animationDelay.toLong())
+                        sleep(animationDelay)
                         content!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
-                        sleep(animationDelay.toLong())
+                        sleep(animationDelay)
                         content!!.animate().translationY(result.toFloat() / 4).duration = animationDuration
                     }
                 } catch (e: InterruptedException) {
