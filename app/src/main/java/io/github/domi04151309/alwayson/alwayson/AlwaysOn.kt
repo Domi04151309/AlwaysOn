@@ -34,6 +34,11 @@ class AlwaysOn : AppCompatActivity() {
     private var powerSaving: Boolean = false
     private var userPowerSaving: Boolean = false
 
+    //Threads and Handlers
+    private var aoEdgeGlowThread: Thread = Thread()
+    private var animationThread: Thread = Thread()
+    private val clockHandler = Handler()
+
     //Settings
     private var aoClock: Boolean = true
     private var aoDate: Boolean = true
@@ -196,32 +201,33 @@ class AlwaysOn : AppCompatActivity() {
         //Edge Glow
         if (aoEdgeGlow) {
             transitionTime = prefs.getInt("ao_glowDuration", 2000)
-            frame.background = ContextCompat.getDrawable(this, R.drawable.edge_glow)
-            transition = frame.background as TransitionDrawable
-            object : Thread() {
-                override fun run() {
-                    try {
-                        while (!isInterrupted) {
-                            if (notificationAvailable) {
-                                runOnUiThread { transition!!.startTransition(transitionTime) }
-                                sleep(transitionTime.toLong())
-                                runOnUiThread { transition!!.reverseTransition(transitionTime) }
-                                sleep(transitionTime.toLong())
-                            } else
-                                sleep(1000)
+            if (transitionTime >= 100) {
+                frame.background = ContextCompat.getDrawable(this, R.drawable.edge_glow)
+                transition = frame.background as TransitionDrawable
+                aoEdgeGlowThread = object : Thread() {
+                    override fun run() {
+                        try {
+                            while (!isInterrupted) {
+                                if (notificationAvailable) {
+                                    runOnUiThread { transition!!.startTransition(transitionTime) }
+                                    sleep(transitionTime.toLong())
+                                    runOnUiThread { transition!!.reverseTransition(transitionTime) }
+                                    sleep(transitionTime.toLong())
+                                } else
+                                    sleep(1000)
+                            }
+                        } catch (e: InterruptedException) {
+                            e.printStackTrace()
                         }
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
                     }
-
                 }
-            }.start()
+                aoEdgeGlowThread.start()
+            }
         }
 
         //Time and Date
         if (aoClock) {
             clockTxt!!.text = dateFormat.format(Calendar.getInstance())
-            val clockHandler = Handler()
             clockHandler.postDelayed(object : Runnable {
                 override fun run() {
                     clockTxt.text = dateFormat.format(Calendar.getInstance())
@@ -241,7 +247,7 @@ class AlwaysOn : AppCompatActivity() {
         val animationDuration = 10000L
         val animationScale = Settings.Global.getFloat(contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1.0f)
         val animationDelay = (prefs!!.getInt("ao_animation_delay", 2) * 60000 + animationDuration * animationScale + 1000).toLong()
-        object : Thread() {
+        animationThread = object : Thread() {
             override fun run() {
                 try {
                     while (content!!.height == 0) sleep(10)
@@ -259,7 +265,8 @@ class AlwaysOn : AppCompatActivity() {
                     e.printStackTrace()
                 }
             }
-        }.start()
+        }
+        animationThread.start()
 
         //DoubleTap
         frame.setOnTouchListener(object : View.OnTouchListener {
@@ -337,7 +344,10 @@ class AlwaysOn : AppCompatActivity() {
         super.onDestroy()
         ScreenStateReceiver.alwaysOnRunning = false
         if (aoBatteryIcn || aoBattery) unregisterReceiver(mBatInfoReceiver)
+        if (aoClock) clockHandler.removeCallbacksAndMessages(null)
         if (aoDate) unregisterReceiver(mDateChangedReceiver)
         if (aoNotifications || aoEdgeGlow) localManager!!.unregisterReceiver(mNotificationReceiver)
+        if (aoEdgeGlow) aoEdgeGlowThread.interrupt()
+        animationThread.interrupt()
     }
 }
