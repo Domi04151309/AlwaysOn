@@ -12,6 +12,6 @@ class AboutActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
         findViewById<TextView>(R.id.versionTxt).text = resources.getString(R.string.about_version, BuildConfig.VERSION_NAME)
-        findViewById<TextView>(R.id.icons).movementMethod = LinkMovementMethod.getInstance();
+        findViewById<TextView>(R.id.icons).movementMethod = LinkMovementMethod.getInstance()
     }
 }
