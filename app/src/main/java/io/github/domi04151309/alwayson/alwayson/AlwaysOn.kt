@@ -20,7 +20,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import io.github.domi04151309.alwayson.objects.Global
-
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Root
 import io.github.domi04151309.alwayson.receivers.ScreenStateReceiver
@@ -37,11 +36,11 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
     private var rootMode: Boolean = false
     private var powerSaving: Boolean = false
     private var userPowerSaving: Boolean = false
+    private var servicesRunning: Boolean = false
 
-    //Threads and Handlers
+    //Threads
     private var aoEdgeGlowThread: Thread = Thread()
     private var animationThread: Thread = Thread()
-    private val clockHandler = Handler()
 
     //Settings
     private var aoClock: Boolean = true
@@ -52,6 +51,17 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
     private var aoEdgeGlow: Boolean = true
     private var aoPocketMode: Boolean = false
 
+    //Time
+    private var clockTxt: TextView? = null
+    private var dateFormat: SimpleDateFormat = SimpleDateFormat()
+    private val clockHandler = Handler()
+    private val clockRunnable = object : Runnable {
+        override fun run() {
+            clockTxt!!.text = dateFormat.format(Calendar.getInstance())
+            clockHandler.postDelayed(this, 2000L)
+        }
+    }
+
     //Date
     private var dateTxt: TextView? = null
     private val mDateChangedReceiver = object : BroadcastReceiver() {
@@ -59,6 +69,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
             dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
         }
     }
+    private val dateFilter = IntentFilter()
 
     //Battery
     private var batteryIcn: ImageView? = null
@@ -151,7 +162,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         else if (userTheme == "samsung")
             setContentView(R.layout.activity_ao_samsung)
 
-        val clockTxt = findViewById<TextView>(R.id.clockTxt)
+        clockTxt = findViewById(R.id.clockTxt)
         dateTxt = findViewById(R.id.dateTxt)
         batteryIcn = findViewById(R.id.batteryIcn)
         batteryTxt = findViewById(R.id.batteryTxt)
@@ -173,7 +184,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
                 else "hh\nmm"
             } else "HH\nmm"
         } else ""
-        val dateFormat = SimpleDateFormat(dateFormatString)
+        dateFormat = SimpleDateFormat(dateFormatString)
 
         //Variables
         localManager = LocalBroadcastManager.getInstance(this)
@@ -192,20 +203,27 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         }, 300L)
 
         //Hide UI
-        hide()
+        hideUI()
         window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
             if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0)
-                hide()
+                hideUI()
         }
 
-        //Battery
-        if (aoBatteryIcn || aoBattery)
-            registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        //Time
+        if (aoClock) clockTxt!!.text = dateFormat.format(Calendar.getInstance())
 
-        //Notifications
-        if (aoNotifications || aoEdgeGlow) {
-            localManager!!.registerReceiver(mNotificationReceiver, IntentFilter(Global.NOTIFICATIONS))
-            localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
+        //Date
+        if (aoDate) {
+            dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
+            dateFilter.addAction(Intent.ACTION_DATE_CHANGED)
+            dateFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
+        }
+
+        //Proximity
+        if (aoPocketMode) {
+            mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+            mProximity = mSensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY)
+            mSensorManager!!.registerListener(this, mProximity, SensorManager.SENSOR_DELAY_NORMAL)
         }
 
         //Edge Glow
@@ -233,30 +251,6 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
                 }
                 aoEdgeGlowThread.start()
             }
-        }
-
-        //Proximity
-        if (aoPocketMode) {
-            mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-            mProximity = mSensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY)
-        }
-
-        //Time and Date
-        if (aoClock) {
-            clockTxt!!.text = dateFormat.format(Calendar.getInstance())
-            clockHandler.postDelayed(object : Runnable {
-                override fun run() {
-                    clockTxt.text = dateFormat.format(Calendar.getInstance())
-                    clockHandler.postDelayed(this, 2000L)
-                }
-            }, 2000L)
-        }
-        if (aoDate) {
-            dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
-            val dateFilter = IntentFilter()
-            dateFilter.addAction(Intent.ACTION_DATE_CHANGED)
-            dateFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
-            registerReceiver(mDateChangedReceiver, dateFilter)
         }
 
         //Animation
@@ -310,8 +304,8 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         })
     }
 
-    //Hide UI
-    private fun hide() {
+    // Hide UI
+    private fun hideUI() {
         content!!.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -320,13 +314,63 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
     }
 
+    private fun startServices() {
+        servicesRunning = true
+
+        // Clock Handler
+        clockHandler.postDelayed(clockRunnable, 2000L)
+
+        // Date Receiver
+        registerReceiver(mDateChangedReceiver, dateFilter)
+
+        // Battery Receiver
+        if (aoBatteryIcn || aoBattery) registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+
+        // Notification Listener
+        if (aoNotifications || aoEdgeGlow) {
+            localManager!!.registerReceiver(mNotificationReceiver, IntentFilter(Global.NOTIFICATIONS))
+            localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
+        }
+
+        // Power saving mode
+        if (rootMode && powerSaving) {
+            Root.shell("settings put global low_power 1")
+            Root.shell("dumpsys deviceidle force-idle")
+        }
+    }
+
+    private fun stopServices(all: Boolean = false) {
+        if (servicesRunning) {
+            servicesRunning = false
+
+            // Clock Handler
+            if (aoClock) clockHandler.removeCallbacksAndMessages(null)
+
+            // Date Receiver
+            if (aoDate) unregisterReceiver(mDateChangedReceiver)
+
+            // Battery Receiver
+            if (aoBatteryIcn || aoBattery) unregisterReceiver(mBatInfoReceiver)
+
+            // Notification Listener
+            if (aoNotifications || aoEdgeGlow) localManager!!.unregisterReceiver(mNotificationReceiver)
+        }
+
+        if (all) {
+            // Power saving mode
+            if (rootMode && powerSaving && !userPowerSaving) Root.shell("settings put global low_power 0")
+        }
+    }
+
     //Proximity
     override fun onSensorChanged(p0: SensorEvent?) {
         if (p0!!.sensor.type == Sensor.TYPE_PROXIMITY) {
             if (p0.values[0] == p0.sensor.maximumRange) {
                 content!!.animate().alpha(1F).duration = 1000L
+                startServices()
             } else {
                 content!!.animate().alpha(0F).duration = 1000L
+                stopServices()
             }
         }
     }
@@ -351,13 +395,10 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
 
     override fun onResume() {
         super.onResume()
+        hideUI()
         ScreenStateReceiver.alwaysOnRunning = true
-        hide()
-        if (rootMode && powerSaving) {
-            Root.shell("settings put global low_power 1")
-            Root.shell("dumpsys deviceidle force-idle")
-        }
-        if (aoPocketMode) mSensorManager!!.registerListener(this, mProximity, SensorManager.SENSOR_DELAY_NORMAL)
+
+        startServices()
     }
 
     override fun onPause() {
@@ -366,19 +407,13 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
                 .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         activityManager.moveTaskToFront(taskId, 0)
 
-        if (rootMode && powerSaving && !userPowerSaving)
-            Root.shell("settings put global low_power 0")
-
-        if (aoPocketMode) mSensorManager!!.unregisterListener(this)
+        stopServices(true)
     }
 
     public override fun onDestroy() {
         super.onDestroy()
         ScreenStateReceiver.alwaysOnRunning = false
-        if (aoBatteryIcn || aoBattery) unregisterReceiver(mBatInfoReceiver)
-        if (aoClock) clockHandler.removeCallbacksAndMessages(null)
-        if (aoDate) unregisterReceiver(mDateChangedReceiver)
-        if (aoNotifications || aoEdgeGlow) localManager!!.unregisterReceiver(mNotificationReceiver)
+        if (aoPocketMode) mSensorManager!!.unregisterListener(this)
         if (aoEdgeGlow) aoEdgeGlowThread.interrupt()
         animationThread.interrupt()
     }
