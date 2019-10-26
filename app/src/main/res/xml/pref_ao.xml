@@ -1,9 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ListPreference
-        android:defaultValue="google"
-        android:entries="@array/pref_look_and_feel_ao_array_display"
-        android:entryValues="@array/pref_look_and_feel_ao_array"
+    <Preference
         android:key="ao_style"
         android:summary="@string/pref_look_and_feel_ao_summary"
         android:title="@string/pref_look_and_feel_ao" />

@@ -19,6 +19,13 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".LookActivity"
+            android:label="@string/pref_look_and_feel_ao"
+            android:parentActivityName=".Preferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.Preferences" />
+        </activity>
         <activity
             android:name=".TurnOnScreen"
             android:excludeFromRecents="true"

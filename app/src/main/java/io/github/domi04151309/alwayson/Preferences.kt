@@ -96,6 +96,10 @@ class Preferences : AppCompatActivity(),
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_ao)
             (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref_ao_settings))
+            findPreference<Preference>("ao_style")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                startActivity(Intent(context, LookActivity::class.java))
+                true
+            }
             findPreference<EditIntegerPreference>("ao_glowDuration")!!.setOnBindEditTextListener { editText ->
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
             }
