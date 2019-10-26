@@ -14,7 +14,7 @@ class AlwaysOnLookActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_look)
+        setContentView(R.layout.activity_ao_look)
 
         val preview = findViewById<ImageView>(R.id.preview)
         val googleBtn = findViewById<RadioButton>(R.id.googleBtn)

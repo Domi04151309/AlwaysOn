@@ -86,6 +86,10 @@ class Preferences : AppCompatActivity(),
                 true
             }
             findPreference<Preference>("pref_ao")!!.fragment = PreferenceAlwaysOn::class.java.name
+            findPreference<Preference>("charging_style")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                startActivity(Intent(context, ChargingLookActivity::class.java))
+                true
+            }
             if (Build.VERSION.SDK_INT < 28)
                 preferenceScreen.removePreference(findPreference("hide_display_cutouts"))
         }

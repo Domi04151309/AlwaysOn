@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/radio"
+        android:padding="?dialogPreferredPadding"
+        app:srcCompat="@drawable/charging_0"
+        android:contentDescription="@string/Charging" />
+
+    <RadioGroup
+        android:id="@+id/radio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/selectBtn"
+        android:padding="?dialogPreferredPadding">
+
+        <RadioButton
+            android:id="@+id/circleBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_look_and_feel_charging_array_display_0"/>
+
+        <RadioButton
+            android:id="@+id/flashBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_look_and_feel_charging_array_display_1"/>
+
+        <RadioButton
+            android:id="@+id/iosBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_look_and_feel_charging_array_display_2"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/selectBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="?dialogPreferredPadding"
+        android:text="@string/select"/>
+
+</RelativeLayout>

@@ -19,7 +19,7 @@ class ChargeInfoReceiver : BroadcastReceiver() {
                 if (ScreenStateReceiver.screenStateOn) {
                     Toast.makeText(context, "Power connected", Toast.LENGTH_LONG).show()
                 } else if (!ScreenStateReceiver.screenStateOn) {
-                    val i: Intent = when (prefs.getString("charging_style", "flash")) {
+                    val i: Intent = when (prefs.getString("charging_style", "circle")) {
                         "ios" -> Intent(context, IOS::class.java)
                         "circle" -> Intent(context, Circle::class.java)
                         else -> Intent(context, Flash::class.java)
