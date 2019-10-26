@@ -19,12 +19,12 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LookActivity"
+        <activity android:name=".preferences.AlwaysOnLookActivity"
             android:label="@string/pref_look_and_feel_ao"
-            android:parentActivityName=".Preferences">
+            android:parentActivityName=".preferences.Preferences">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.Preferences" />
+                android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
         </activity>
         <activity
             android:name=".TurnOnScreen"
@@ -34,10 +34,10 @@
         <activity
             android:name=".AboutActivity"
             android:label="@string/about"
-            android:parentActivityName=".Preferences">
+            android:parentActivityName=".preferences.Preferences">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.Preferences" />
+                android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
         </activity>
         <activity
             android:name=".SetupActivity"
@@ -152,7 +152,7 @@
         </service>
 
         <activity
-            android:name=".Preferences"
+            android:name=".preferences.Preferences"
             android:label="@string/pref"
             android:parentActivityName=".MainActivity">
             <meta-data

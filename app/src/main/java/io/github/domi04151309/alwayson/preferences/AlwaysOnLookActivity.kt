@@ -1,4 +1,4 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.preferences
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,8 +6,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.RadioButton
 import androidx.preference.PreferenceManager
+import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.objects.Theme
 
-class LookActivity : AppCompatActivity() {
+class AlwaysOnLookActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)

@@ -1,10 +1,11 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.preferences
 
 import android.content.Context
 
 import androidx.preference.EditTextPreference
 import android.util.AttributeSet
 import android.widget.Toast
+import io.github.domi04151309.alwayson.R
 
 class EditIntegerPreference : EditTextPreference {
 

@@ -7,7 +7,7 @@ import android.content.IntentFilter
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import io.github.domi04151309.alwayson.Global
+import io.github.domi04151309.alwayson.objects.Global
 
 class NotificationService : NotificationListenerService() {
 

@@ -10,7 +10,7 @@ import android.view.KeyEvent
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import io.github.domi04151309.alwayson.Global
+import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.R
 
 class IOS : AppCompatActivity() {

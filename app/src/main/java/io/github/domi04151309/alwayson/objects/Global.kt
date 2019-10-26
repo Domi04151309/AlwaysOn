@@ -1,4 +1,4 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.objects
 
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
@@ -13,6 +13,8 @@ import android.app.Activity
 import android.view.View
 import android.view.WindowManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.preferences.Preferences
 
 object Global {
 

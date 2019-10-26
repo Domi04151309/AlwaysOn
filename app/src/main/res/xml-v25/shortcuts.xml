@@ -9,7 +9,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.alwayson.Preferences" />
+            android:targetClass="io.github.domi04151309.alwayson.preferences.Preferences" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 </shortcuts>

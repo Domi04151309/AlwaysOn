@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
+import io.github.domi04151309.alwayson.objects.Theme
 
 class AboutActivity : AppCompatActivity() {
 

@@ -18,6 +18,9 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import io.github.domi04151309.alwayson.objects.Global
+import io.github.domi04151309.alwayson.objects.Theme
+import io.github.domi04151309.alwayson.preferences.Preferences
 
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import io.github.domi04151309.alwayson.services.MainService

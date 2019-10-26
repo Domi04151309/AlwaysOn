@@ -1,4 +1,4 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.preferences
 
 import android.content.ComponentName
 import android.content.Intent
@@ -13,7 +13,11 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreference
+import io.github.domi04151309.alwayson.*
+import io.github.domi04151309.alwayson.objects.Theme
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
+import io.github.domi04151309.alwayson.objects.Global
+import io.github.domi04151309.alwayson.objects.Root
 
 class Preferences : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -97,7 +101,7 @@ class Preferences : AppCompatActivity(),
             addPreferencesFromResource(R.xml.pref_ao)
             (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref_ao_settings))
             findPreference<Preference>("ao_style")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivity(Intent(context, LookActivity::class.java))
+                startActivity(Intent(context, AlwaysOnLookActivity::class.java))
                 true
             }
             findPreference<EditIntegerPreference>("ao_glowDuration")!!.setOnBindEditTextListener { editText ->

@@ -19,10 +19,10 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import io.github.domi04151309.alwayson.Global
+import io.github.domi04151309.alwayson.objects.Global
 
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.Root
+import io.github.domi04151309.alwayson.objects.Root
 import io.github.domi04151309.alwayson.receivers.ScreenStateReceiver
 import android.hardware.SensorManager
 import android.hardware.Sensor

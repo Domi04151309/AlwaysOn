@@ -7,7 +7,7 @@ import android.content.*
 import android.util.Log
 import android.widget.RemoteViews
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import io.github.domi04151309.alwayson.Global
+import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.R
 
 class AlwaysOnWidget : AppWidgetProvider() {

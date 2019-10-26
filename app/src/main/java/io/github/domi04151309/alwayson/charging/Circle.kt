@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
 import android.widget.*
-import io.github.domi04151309.alwayson.Global
+import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.R
 
 class Circle : AppCompatActivity() {
