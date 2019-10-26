@@ -24,9 +24,13 @@ import io.github.domi04151309.alwayson.Global
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.Root
 import io.github.domi04151309.alwayson.receivers.ScreenStateReceiver
+import android.hardware.SensorManager
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
 
 
-class AlwaysOn : AppCompatActivity() {
+class AlwaysOn : AppCompatActivity(), SensorEventListener {
 
     private var localManager: LocalBroadcastManager? = null
     private var content: View? = null
@@ -46,6 +50,7 @@ class AlwaysOn : AppCompatActivity() {
     private var aoBattery: Boolean = true
     private var aoNotifications: Boolean = true
     private var aoEdgeGlow: Boolean = true
+    private var aoPocketMode: Boolean = false
 
     //Date
     private var dateTxt: TextView? = null
@@ -115,6 +120,10 @@ class AlwaysOn : AppCompatActivity() {
     //Audio
     private var audio: AudioManager? = null
 
+    //Proximity
+    private var mSensorManager: SensorManager? = null
+    private var mProximity: Sensor? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -129,6 +138,7 @@ class AlwaysOn : AppCompatActivity() {
         aoBattery = prefs.getBoolean("ao_battery", true)
         aoNotifications = prefs.getBoolean("ao_notifications", true)
         aoEdgeGlow = prefs.getBoolean("ao_edgeGlow", true)
+        aoPocketMode = prefs.getBoolean("ao_pocket_mode", false)
         val clock = prefs.getBoolean("hour", false)
         val amPm = prefs.getBoolean("am_pm", false)
 
@@ -225,6 +235,12 @@ class AlwaysOn : AppCompatActivity() {
             }
         }
 
+        //Proximity
+        if (aoPocketMode) {
+            mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+            mProximity = mSensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY)
+        }
+
         //Time and Date
         if (aoClock) {
             clockTxt!!.text = dateFormat.format(Calendar.getInstance())
@@ -304,6 +320,19 @@ class AlwaysOn : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
     }
 
+    //Proximity
+    override fun onSensorChanged(p0: SensorEvent?) {
+        if (p0!!.sensor.type == Sensor.TYPE_PROXIMITY) {
+            if (p0.values[0] == p0.sensor.maximumRange) {
+                content!!.animate().alpha(1F).duration = 1000L
+            } else {
+                content!!.animate().alpha(0F).duration = 1000L
+            }
+        }
+    }
+
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {}
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         return when (keyCode) {
             KeyEvent.KEYCODE_VOLUME_UP -> {
@@ -328,6 +357,7 @@ class AlwaysOn : AppCompatActivity() {
             Root.shell("settings put global low_power 1")
             Root.shell("dumpsys deviceidle force-idle")
         }
+        if (aoPocketMode) mSensorManager!!.registerListener(this, mProximity, SensorManager.SENSOR_DELAY_NORMAL)
     }
 
     override fun onPause() {
@@ -338,6 +368,8 @@ class AlwaysOn : AppCompatActivity() {
 
         if (rootMode && powerSaving && !userPowerSaving)
             Root.shell("settings put global low_power 0")
+
+        if (aoPocketMode) mSensorManager!!.unregisterListener(this)
     }
 
     public override fun onDestroy() {
