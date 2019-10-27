@@ -53,20 +53,21 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
 
     //Time
     private var clockTxt: TextView? = null
-    private var dateFormat: SimpleDateFormat = SimpleDateFormat()
+    private var clockFormat: SimpleDateFormat = SimpleDateFormat()
     private val clockHandler = Handler()
     private val clockRunnable = object : Runnable {
         override fun run() {
-            clockTxt!!.text = dateFormat.format(Calendar.getInstance())
+            clockTxt!!.text = clockFormat.format(Calendar.getInstance())
             clockHandler.postDelayed(this, 2000L)
         }
     }
 
     //Date
     private var dateTxt: TextView? = null
+    private var dateFormat: SimpleDateFormat = SimpleDateFormat()
     private val mDateChangedReceiver = object : BroadcastReceiver() {
         override fun onReceive(c: Context, intent: Intent) {
-            dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
+            dateTxt!!.text = dateFormat.format(Calendar.getInstance())
         }
     }
     private val dateFilter = IntentFilter()
@@ -157,10 +158,12 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
             setTheme(R.style.CutoutHide)
         else
             setTheme(R.style.CutoutIgnore)
-        if (userTheme == "google")
-            setContentView(R.layout.activity_ao_google)
-        else if (userTheme == "samsung")
-            setContentView(R.layout.activity_ao_samsung)
+
+        when (userTheme) {
+            "google" -> setContentView(R.layout.activity_ao_google)
+            "samsung" -> setContentView(R.layout.activity_ao_samsung)
+            "samsung2" -> setContentView(R.layout.activity_ao_samsung_2)
+        }
 
         clockTxt = findViewById(R.id.clockTxt)
         dateTxt = findViewById(R.id.dateTxt)
@@ -173,17 +176,24 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         if (!aoBatteryIcn) batteryIcn!!.visibility = View.GONE
         if (!aoBattery) batteryTxt!!.visibility = View.GONE
         if (!aoNotifications) notifications!!.visibility = View.GONE
-        val dateFormatString = if (userTheme == "google") {
-            if (clock) {
-                if (amPm) "h:mm a"
-                else "h:mm"
-            } else "H:mm"
-        } else if (userTheme == "samsung") {
+        val clockFormatString = if (userTheme == "samsung") {
             if (clock) {
                 if (amPm) "hh\nmm\na"
                 else "hh\nmm"
             } else "HH\nmm"
-        } else ""
+        } else {
+            if (clock) {
+                if (amPm) "h:mm a"
+                else "h:mm"
+            } else "H:mm"
+        }
+        clockFormat = SimpleDateFormat(clockFormatString)
+
+        val dateFormatString = if (userTheme == "samsung2") {
+            "EEE, MMMM d"
+        } else {
+            "EEE, MMM d"
+        }
         dateFormat = SimpleDateFormat(dateFormatString)
 
         //Variables
@@ -210,11 +220,11 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         }
 
         //Time
-        if (aoClock) clockTxt!!.text = dateFormat.format(Calendar.getInstance())
+        if (aoClock) clockTxt!!.text = clockFormat.format(Calendar.getInstance())
 
         //Date
         if (aoDate) {
-            dateTxt!!.text = SimpleDateFormat("EEE, MMM d").format(Calendar.getInstance())
+            dateTxt!!.text = dateFormat.format(Calendar.getInstance())
             dateFilter.addAction(Intent.ACTION_DATE_CHANGED)
             dateFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
         }

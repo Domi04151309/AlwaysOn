@@ -31,6 +31,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/pref_look_and_feel_ao_array_display_1"/>
+
+        <RadioButton
+            android:id="@+id/secondSamsungBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_look_and_feel_ao_array_display_2"/>
     </RadioGroup>
 
     <Button

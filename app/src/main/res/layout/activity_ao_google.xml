@@ -23,7 +23,6 @@
             android:layout_marginBottom="@dimen/aod_second_spacing"
             android:fontFamily="@font/product_sans"
             android:gravity="center"
-            android:lineSpacingMultiplier="0.72"
             android:text="@string/clock"
             android:textSize="75sp" />
 
@@ -51,7 +50,6 @@
                 android:id="@+id/batteryIcn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:contentDescription="@string/feature"
                 app:srcCompat="@drawable/ic_battery_unknown" />
 
@@ -59,7 +57,6 @@
                 android:id="@+id/batteryTxt"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="@font/product_sans"
                 android:gravity="start"

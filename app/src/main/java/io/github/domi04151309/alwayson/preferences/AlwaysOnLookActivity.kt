@@ -19,6 +19,7 @@ class AlwaysOnLookActivity : AppCompatActivity() {
         val preview = findViewById<ImageView>(R.id.preview)
         val googleBtn = findViewById<RadioButton>(R.id.googleBtn)
         val samsungBtn = findViewById<RadioButton>(R.id.samsungBtn)
+        val secondSamsungBtn = findViewById<RadioButton>(R.id.secondSamsungBtn)
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         var value = prefs.getString("ao_style", "google") ?:"google"
 
@@ -31,6 +32,10 @@ class AlwaysOnLookActivity : AppCompatActivity() {
                 preview.setImageResource(R.drawable.always_on_1)
                 samsungBtn.isChecked = true
             }
+            "samsung2" -> {
+                preview.setImageResource(R.drawable.always_on_2)
+                secondSamsungBtn.isChecked = true
+            }
         }
 
         googleBtn.setOnClickListener{
@@ -41,6 +46,11 @@ class AlwaysOnLookActivity : AppCompatActivity() {
         samsungBtn.setOnClickListener{
             preview.setImageResource(R.drawable.always_on_1)
             value = "samsung"
+        }
+
+        secondSamsungBtn.setOnClickListener{
+            preview.setImageResource(R.drawable.always_on_2)
+            value = "samsung2"
         }
 
         findViewById<Button>(R.id.selectBtn).setOnClickListener {
