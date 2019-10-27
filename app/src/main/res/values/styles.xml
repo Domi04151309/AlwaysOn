@@ -19,6 +19,7 @@
         <item name="buttonStyle">@style/Button</item>
         <item name="imageButtonStyle">@style/ImageButton</item>
         <item name="dialogCornerRadius">8dp</item>
+        <item name="alertDialogTheme">@style/DialogTheme</item>
         <item name="dialogTheme">@style/DialogTheme</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
         <item name="android:listDivider">@null</item>
@@ -34,6 +35,7 @@
         <item name="buttonStyle">@style/Button</item>
         <item name="imageButtonStyle">@style/ImageButton</item>
         <item name="dialogCornerRadius">8dp</item>
+        <item name="alertDialogTheme">@style/DialogTheme</item>
         <item name="dialogTheme">@style/DialogTheme</item>
         <item name="android:navigationBarColor">@color/lightColorPrimary</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
