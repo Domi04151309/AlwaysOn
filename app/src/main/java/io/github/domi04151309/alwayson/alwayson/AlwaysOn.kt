@@ -52,13 +52,20 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
     private var aoPocketMode: Boolean = false
 
     //Time
+    private var clockCache: String = ""
+    private var clockTemp: String = ""
     private var clockTxt: TextView? = null
     private var clockFormat: SimpleDateFormat = SimpleDateFormat()
+    private val clockDelay: Long = 5000
     private val clockHandler = Handler()
     private val clockRunnable = object : Runnable {
         override fun run() {
-            clockTxt!!.text = clockFormat.format(Calendar.getInstance())
-            clockHandler.postDelayed(this, 2000L)
+            clockTemp = clockFormat.format(Calendar.getInstance())
+            if (clockCache != clockTemp) {
+                clockCache = clockTemp
+                clockTxt!!.text = clockTemp
+            }
+            clockHandler.postDelayed(this, clockDelay)
         }
     }
 
@@ -263,15 +270,21 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
             }
         }
 
+        // Power saving mode
+        if (rootMode && powerSaving) {
+            Root.shell("settings put global low_power 1")
+            Root.shell("dumpsys deviceidle force-idle")
+        }
+
         //Animation
         val animationDuration = 10000L
         val animationScale = Settings.Global.getFloat(contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1.0f)
         val animationDelay = (prefs!!.getInt("ao_animation_delay", 2) * 60000 + animationDuration * animationScale + 1000).toLong()
+        val size = Point()
         animationThread = object : Thread() {
             override fun run() {
                 try {
                     while (content!!.height == 0) sleep(10)
-                    val size = Point()
                     windowManager.defaultDisplay.getSize(size)
                     val result = size.y - content!!.height
                     content!!.animate().translationY(result.toFloat() / 4).duration = 0
@@ -325,31 +338,27 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
     }
 
     private fun startServices() {
-        servicesRunning = true
+        if (!servicesRunning) {
+            servicesRunning = true
 
-        // Clock Handler
-        clockHandler.postDelayed(clockRunnable, 2000L)
+            // Clock Handler
+            clockHandler.postDelayed(clockRunnable, clockDelay)
 
-        // Date Receiver
-        registerReceiver(mDateChangedReceiver, dateFilter)
+            // Date Receiver
+            registerReceiver(mDateChangedReceiver, dateFilter)
 
-        // Battery Receiver
-        if (aoBatteryIcn || aoBattery) registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            // Battery Receiver
+            if (aoBatteryIcn || aoBattery) registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
-        // Notification Listener
-        if (aoNotifications || aoEdgeGlow) {
-            localManager!!.registerReceiver(mNotificationReceiver, IntentFilter(Global.NOTIFICATIONS))
-            localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
-        }
-
-        // Power saving mode
-        if (rootMode && powerSaving) {
-            Root.shell("settings put global low_power 1")
-            Root.shell("dumpsys deviceidle force-idle")
+            // Notification Listener
+            if (aoNotifications || aoEdgeGlow) {
+                localManager!!.registerReceiver(mNotificationReceiver, IntentFilter(Global.NOTIFICATIONS))
+                localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
+            }
         }
     }
 
-    private fun stopServices(all: Boolean = false) {
+    private fun stopServices() {
         if (servicesRunning) {
             servicesRunning = false
 
@@ -364,11 +373,6 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
 
             // Notification Listener
             if (aoNotifications || aoEdgeGlow) localManager!!.unregisterReceiver(mNotificationReceiver)
-        }
-
-        if (all) {
-            // Power saving mode
-            if (rootMode && powerSaving && !userPowerSaving) Root.shell("settings put global low_power 0")
         }
     }
 
@@ -417,7 +421,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
                 .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         activityManager.moveTaskToFront(taskId, 0)
 
-        stopServices(true)
+        stopServices()
     }
 
     public override fun onDestroy() {
@@ -426,5 +430,6 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         if (aoPocketMode) mSensorManager!!.unregisterListener(this)
         if (aoEdgeGlow) aoEdgeGlowThread.interrupt()
         animationThread.interrupt()
+        if (rootMode && powerSaving && !userPowerSaving) Root.shell("settings put global low_power 0")
     }
 }
