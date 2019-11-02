@@ -1,4 +1,7 @@
 <resources>
+    <string name="device_admin_description">Allow AlwaysOn to turn off your display</string>
+    <string name="notification_listener_description">Show a notification count on the always on display</string>
+
     <string name="setup_header">Setup</string>
     <string name="setup_choose_mode">Choose a mode</string>
     <string name="setup_choose_mode_summary">You need to choose a mode for the app. If you are not sure about what you need to choose, leave this setting as is. If your device is rooted, choose root.</string>
