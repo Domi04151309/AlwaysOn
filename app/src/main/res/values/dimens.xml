@@ -2,7 +2,7 @@
 <resources>
     <dimen name="setup_header">144dp</dimen>
     <dimen name="setup_corner">16dp</dimen>
-    <dimen name="setup_heading_margin">8dp</dimen>
+    <dimen name="setup_icon_size">192dp</dimen>
 
     <dimen name="widget_margin">0dp</dimen>
     <dimen name="icon_size">48dp</dimen>

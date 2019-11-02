@@ -16,41 +16,38 @@
         android:textColor="@android:color/white"
         android:textSize="36sp" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/setup_card"
-        android:orientation="vertical"
         android:padding="?dialogPreferredPadding">
 
         <LinearLayout
             android:id="@+id/sectionMode"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/setup_heading_margin"
+                android:layout_marginBottom="?dialogPreferredPadding"
                 android:text="@string/setup_choose_mode"
-                android:textSize="24sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/setup_heading_margin"
+                android:layout_marginBottom="?dialogPreferredPadding"
                 android:text="@string/setup_choose_mode_summary"
-                android:textSize="14sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <RadioGroup
                 android:id="@+id/mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/setup_heading_margin"
-                android:layout_marginBottom="@dimen/setup_heading_margin"
+                android:layout_marginBottom="?dialogPreferredPadding"
                 android:orientation="vertical">
 
                 <RadioButton
@@ -68,33 +65,41 @@
 
             </RadioGroup>
 
+            <ImageView
+                android:layout_width="@dimen/setup_icon_size"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="?dialogPreferredPadding"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                app:srcCompat="@drawable/ic_mode" />
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/sectionNotifications"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/setup_heading_margin"
+                android:layout_marginBottom="?dialogPreferredPadding"
                 android:text="@string/notification_listener_service"
-                android:textSize="24sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/setup_heading_margin"
+                android:layout_marginBottom="?dialogPreferredPadding"
                 android:text="@string/notification_listener_service_summary"
-                android:textSize="14sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <ImageView
-                android:layout_width="192dp"
+                android:layout_width="@dimen/setup_icon_size"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="?dialogPreferredPadding"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
                 app:srcCompat="@drawable/ic_notification" />
@@ -103,28 +108,28 @@
         <LinearLayout
             android:id="@+id/sectionDrawOverOtherApps"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/setup_heading_margin"
+                android:layout_marginBottom="?dialogPreferredPadding"
                 android:text="@string/setup_draw_over_other_apps"
-                android:textSize="24sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/setup_heading_margin"
+                android:layout_marginBottom="?dialogPreferredPadding"
                 android:text="@string/setup_draw_over_other_apps_summary"
-                android:textSize="14sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <ImageView
-                android:layout_width="192dp"
+                android:layout_width="@dimen/setup_icon_size"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="?dialogPreferredPadding"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
                 app:srcCompat="@drawable/ic_draw_over_other_apps" />
@@ -133,28 +138,28 @@
         <LinearLayout
             android:id="@+id/sectionFinished"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:visibility="gone">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/setup_heading_margin"
+                android:layout_marginBottom="?dialogPreferredPadding"
                 android:text="@string/setup_finish"
-                android:textSize="24sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/setup_heading_margin"
+                android:layout_marginBottom="?dialogPreferredPadding"
                 android:text="@string/setup_finish_summary"
-                android:textSize="14sp" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <ImageView
-                android:layout_width="192dp"
+                android:layout_width="@dimen/setup_icon_size"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="?dialogPreferredPadding"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
                 app:srcCompat="@drawable/ic_finished" />
@@ -164,10 +169,11 @@
             android:id="@+id/setup_continue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
             android:background="@null"
             android:text="@string/setup_continue"
             android:textColor="?attr/colorAccent" />
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
