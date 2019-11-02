@@ -24,6 +24,7 @@ import io.github.domi04151309.alwayson.preferences.Preferences
 
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import io.github.domi04151309.alwayson.services.MainService
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -89,7 +90,11 @@ class MainActivity : AppCompatActivity() {
         if (!isNotificationServiceEnabled) buildDialog(2)
         if (!Settings.canDrawOverlays(this)) buildDialog(3)
 
-        startService(Intent(this, MainService::class.java))
+        try {
+            startService(Intent(this, MainService::class.java))
+        } catch (e: Exception) {
+            Toast.makeText(this, R.string.err_service_failed, Toast.LENGTH_LONG).show()
+        }
 
         findViewById<ImageButton>(R.id.lAlwaysOn).setOnClickListener {
             makeCenteredToast(this, Global.changeAlwaysOnState(this))
