@@ -143,6 +143,13 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
     private var mSensorManager: SensorManager? = null
     private var mProximity: Sensor? = null
 
+    //Stop
+    private val mStopReceiver = object : BroadcastReceiver() {
+        override fun onReceive(c: Context, intent: Intent) {
+            finish()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -156,7 +163,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         aoBatteryIcn = prefs.getBoolean("ao_batteryIcn", true)
         aoBattery = prefs.getBoolean("ao_battery", true)
         aoNotifications = prefs.getBoolean("ao_notifications", true)
-        aoEdgeGlow = prefs.getBoolean("ao_edgeGlow", true)
+        aoEdgeGlow = prefs.getBoolean("ao_edgeGlow", false)
         aoPocketMode = prefs.getBoolean("ao_pocket_mode", false)
         val clock = prefs.getBoolean("hour", false)
         val amPm = prefs.getBoolean("am_pm", false)
@@ -336,6 +343,9 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
                 return true
             }
         })
+
+        //Stop
+        localManager!!.registerReceiver(mStopReceiver, IntentFilter(Global.REQUEST_STOP))
     }
 
     // Hide UI
@@ -442,5 +452,6 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         if (aoEdgeGlow) aoEdgeGlowThread.interrupt()
         animationThread.interrupt()
         if (rootMode && powerSaving && !userPowerSaving) Root.shell("settings put global low_power 0")
+        localManager!!.unregisterReceiver(mStopReceiver)
     }
 }

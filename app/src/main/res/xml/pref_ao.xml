@@ -39,7 +39,7 @@
         android:summaryOn="@string/pref_enabled"
         android:title="@string/pref_ao_showNotifications" />
     <SwitchPreference
-        android:defaultValue="true"
+        android:defaultValue="false"
         android:key="ao_edgeGlow"
         android:summary="@string/pref_ao_edgeGlow_summary"
         android:title="@string/pref_ao_edgeGlow" />

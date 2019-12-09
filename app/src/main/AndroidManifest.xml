@@ -47,7 +47,7 @@
             android:name=".TurnOnScreen"
             android:excludeFromRecents="true"
             android:showOnLockScreen="true"
-            android:theme="@style/AppTheme.ScreenOff" />
+            android:theme="@style/AppThemeScreenOff" />
         <activity
             android:name=".AboutActivity"
             android:label="@string/about"
@@ -83,7 +83,7 @@
             android:screenOrientation="portrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:theme="@style/AppTheme.ScreenOff" />
+            android:theme="@style/AppThemeScreenOff" />
 
         <service
             android:name=".alwayson.AlwaysOnQS"
@@ -124,7 +124,7 @@
             android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:theme="@style/AppTheme.NoActionbar" />
+            android:theme="@style/AppThemeNoWindowTransitions" />
         <activity
             android:name=".charging.Circle"
             android:excludeFromRecents="true"
@@ -133,7 +133,7 @@
             android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:theme="@style/AppTheme.NoActionbar" />
+            android:theme="@style/AppThemeNoWindowTransitions" />
         <activity
             android:name=".Headset"
             android:excludeFromRecents="true"
@@ -142,7 +142,7 @@
             android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:theme="@style/AppTheme.NoActionbar" />
+            android:theme="@style/AppThemeNoWindowTransitions" />
 
         <receiver
             android:name=".receivers.HeadsetInfoReceiver"
@@ -213,7 +213,7 @@
             android:screenOrientation="sensorPortrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:theme="@style/AppTheme.NoActionbar" />
+            android:theme="@style/AppThemeNoWindowTransitions" />
 
         <receiver
             android:name=".alwayson.AlwaysOnWidget"

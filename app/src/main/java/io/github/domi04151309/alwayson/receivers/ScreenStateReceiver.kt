@@ -13,9 +13,9 @@ class ScreenStateReceiver : BroadcastReceiver() {
         val action = intent.action
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         if (Intent.ACTION_SCREEN_ON == action) {
-            screenStateOn = true
+            screenIsOn = true
         } else if (Intent.ACTION_SCREEN_OFF == action) {
-            screenStateOn = false
+            screenIsOn = false
             if (prefs.getBoolean("always_on", false)) {
                 if (alwaysOnRunning) {
                     context.startActivity(
@@ -32,7 +32,7 @@ class ScreenStateReceiver : BroadcastReceiver() {
     }
 
     companion object {
-        var screenStateOn: Boolean = true
+        var screenIsOn: Boolean = true
         var alwaysOnRunning: Boolean = false
     }
 }
