@@ -19,14 +19,24 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".preferences.ChargingLookActivity"
+        <activity
+            android:name=".preferences.BrightnessActivity"
+            android:label="@string/pref_ao_force_brightness_title"
+            android:parentActivityName=".preferences.Preferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
+        </activity>
+        <activity
+            android:name=".preferences.ChargingLookActivity"
             android:label="@string/pref_look_and_feel_charging"
             android:parentActivityName=".preferences.Preferences">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
         </activity>
-        <activity android:name=".preferences.AlwaysOnLookActivity"
+        <activity
+            android:name=".preferences.AlwaysOnLookActivity"
             android:label="@string/pref_look_and_feel_ao"
             android:parentActivityName=".preferences.Preferences">
             <meta-data
@@ -52,9 +62,9 @@
 
         <receiver
             android:name=".receivers.AdminReceiver"
+            android:description="@string/device_admin_description"
             android:enabled="true"
             android:exported="true"
-            android:description="@string/device_admin_description"
             android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data
                 android:name="android.app.device_admin"
@@ -143,7 +153,9 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTop" />
 
         <service
             android:name=".services.MainService"

@@ -58,6 +58,10 @@
         android:key="ao_animation_delay"
         android:summary="@string/pref_ao_animation_delay_summary"
         android:title="@string/pref_ao_animation_delay" />
+    <Preference
+        android:key="ao_force_brightness"
+        android:summary="@string/pref_ao_force_brightness_summary"
+        android:title="@string/pref_ao_force_brightness" />
     <SwitchPreference
         android:defaultValue="false"
         android:key="ao_pocket_mode"

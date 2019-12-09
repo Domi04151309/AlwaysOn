@@ -114,6 +114,10 @@ class Preferences : AppCompatActivity(),
             findPreference<EditIntegerPreference>("ao_vibration")!!.setOnBindEditTextListener { editText ->
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
             }
+            findPreference<Preference>("ao_force_brightness")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                startActivity(Intent(context, BrightnessActivity::class.java))
+                true
+            }
             if(!PreferenceManager.getDefaultSharedPreferences(context).getBoolean("root_mode", false))
                 findPreference<SwitchPreference>("ao_power_saving")!!.isEnabled = false
         }

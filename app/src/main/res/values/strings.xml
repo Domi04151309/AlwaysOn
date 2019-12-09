@@ -87,6 +87,10 @@
     <string name="pref_ao_vibration_summary">Duration the phone vibrates when you double-tap the screen</string>
     <string name="pref_ao_animation_delay">Animation delay (in minutes)</string>
     <string name="pref_ao_animation_delay_summary">Time between the different positions of the content\nWarning: Too high values can cause screen burn-ins!</string>
+    <string name="pref_ao_force_brightness">Force a certain brightness on the AOD</string>
+    <string name="pref_ao_force_brightness_summary">Tap to change the forced brightness</string>
+    <string name="pref_ao_force_brightness_title">Brightness</string>
+    <string name="pref_ao_force_brightness_example">This is how bright the text on your always on display will appear.</string>
     <string name="pref_ao_pocket_mode">Pocket mode</string>
     <string name="pref_ao_pocket_mode_summary">Disables the always on display in your pocket\nWarning: Sensor usage may cause increased battery usage!</string>
     <string name="pref_ao_power_saving">Power saving mode (root)</string>
@@ -112,6 +116,7 @@
     <string name="pref_root_mode_summary">Enables unlocking with fingerprint scanner</string>
 
     <string name="select">Select</string>
+    <string name="save">Save</string>
 
     <string name="about">About</string>
     <string name="about_summary">About the app</string>

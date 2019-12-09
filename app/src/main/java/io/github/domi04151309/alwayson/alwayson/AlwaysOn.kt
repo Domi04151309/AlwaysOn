@@ -160,7 +160,9 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         aoPocketMode = prefs.getBoolean("ao_pocket_mode", false)
         val clock = prefs.getBoolean("hour", false)
         val amPm = prefs.getBoolean("am_pm", false)
+        val aoForceBrightness = prefs.getBoolean("ao_force_brightness", false)
 
+        //Cutouts
         if (prefs.getBoolean("hide_display_cutouts",true))
             setTheme(R.style.CutoutHide)
         else
@@ -172,6 +174,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
             "samsung2" -> setContentView(R.layout.activity_ao_samsung_2)
         }
 
+        //Watch face
         clockTxt = findViewById(R.id.clockTxt)
         dateTxt = findViewById(R.id.dateTxt)
         batteryIcn = findViewById(R.id.batteryIcn)
@@ -202,6 +205,14 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
             "EEE, MMM d"
         }
         dateFormat = SimpleDateFormat(dateFormatString)
+
+        //Brightness
+        if (aoForceBrightness) {
+            val brightness: Float = prefs.getInt("ao_force_brightness_value", 50) / 255.toFloat()
+            val lp = window.attributes
+            lp.screenBrightness = brightness
+            window.attributes = lp
+        }
 
         //Variables
         localManager = LocalBroadcastManager.getInstance(this)
