@@ -21,9 +21,6 @@ class BrightnessActivity : AppCompatActivity() {
         val seekBar = findViewById<SeekBar>(R.id.seekBar)
         var savedBrightness = 50
 
-        brightnessSwitch.isChecked = prefs.getBoolean("ao_force_brightness", false)
-        seekBar.progress = prefs.getInt("ao_force_brightness_value", savedBrightness)
-
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 savedBrightness = progress
@@ -35,6 +32,9 @@ class BrightnessActivity : AppCompatActivity() {
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
+
+        brightnessSwitch.isChecked = prefs.getBoolean("ao_force_brightness", false)
+        seekBar.progress = prefs.getInt("ao_force_brightness_value", savedBrightness)
 
         findViewById<Button>(R.id.saveBtn).setOnClickListener {
             prefs.edit().putBoolean("ao_force_brightness", brightnessSwitch.isChecked).apply()
