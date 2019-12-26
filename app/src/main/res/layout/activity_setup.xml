@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:context=".SetupActivity">
 
@@ -19,161 +18,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/setup_card"
-        android:padding="?dialogPreferredPadding">
+        android:background="@drawable/setup_card">
 
         <LinearLayout
-            android:id="@+id/sectionMode"
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?dialogPreferredPadding"
-                android:text="@string/setup_choose_mode"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?dialogPreferredPadding"
-                android:text="@string/setup_choose_mode_summary"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-            <RadioGroup
-                android:id="@+id/mode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?dialogPreferredPadding"
-                android:orientation="vertical">
-
-                <RadioButton
-                    android:id="@+id/device_admin_mode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="@string/setup_device_admin" />
-
-                <RadioButton
-                    android:id="@+id/root_mode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/setup_root" />
-
-            </RadioGroup>
-
-            <ImageView
-                android:layout_width="@dimen/setup_icon_size"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="?dialogPreferredPadding"
-                android:layout_gravity="center"
-                android:contentDescription="@null"
-                app:srcCompat="@drawable/ic_mode" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/sectionNotifications"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?dialogPreferredPadding"
-                android:text="@string/notification_listener_service"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?dialogPreferredPadding"
-                android:text="@string/notification_listener_service_summary"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-            <ImageView
-                android:layout_width="@dimen/setup_icon_size"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="?dialogPreferredPadding"
-                android:layout_gravity="center"
-                android:contentDescription="@null"
-                app:srcCompat="@drawable/ic_notification" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/sectionDrawOverOtherApps"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?dialogPreferredPadding"
-                android:text="@string/setup_draw_over_other_apps"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?dialogPreferredPadding"
-                android:text="@string/setup_draw_over_other_apps_summary"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-            <ImageView
-                android:layout_width="@dimen/setup_icon_size"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="?dialogPreferredPadding"
-                android:layout_gravity="center"
-                android:contentDescription="@null"
-                app:srcCompat="@drawable/ic_draw_over_other_apps" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/sectionFinished"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?dialogPreferredPadding"
-                android:text="@string/setup_finish"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="?dialogPreferredPadding"
-                android:text="@string/setup_finish_summary"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-            <ImageView
-                android:layout_width="@dimen/setup_icon_size"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="?dialogPreferredPadding"
-                android:layout_gravity="center"
-                android:contentDescription="@null"
-                app:srcCompat="@drawable/ic_finished" />
-        </LinearLayout>
+            android:padding="?dialogPreferredPadding" />
 
         <Button
-            android:id="@+id/setup_continue"
+            android:id="@+id/continueBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="?dialogPreferredPadding"
             android:background="@null"
             android:text="@string/setup_continue"
             android:textColor="?attr/colorAccent" />
     </RelativeLayout>
-
 </LinearLayout>

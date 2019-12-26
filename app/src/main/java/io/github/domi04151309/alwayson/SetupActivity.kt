@@ -1,25 +1,26 @@
 package io.github.domi04151309.alwayson
 
 import android.app.admin.DevicePolicyManager
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.content.Intent
-import androidx.preference.PreferenceManager
-import android.view.View
 import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
-import android.text.format.DateFormat
-import android.widget.*
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.objects.Root
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
-
+import io.github.domi04151309.alwayson.setup.*
 
 class SetupActivity : AppCompatActivity() {
 
-    private var section = 1
-    private var rootMode = false
+    private var currentFragment = MODE_FRAGMENT
+    var rootMode = false
     private var isActionRequired = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,44 +28,40 @@ class SetupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_setup)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        swapContentFragment(ModeFragment())
 
-        if (DateFormat.is24HourFormat(this)) prefs.edit().putBoolean("hour", false).apply()
-        else prefs.edit().putBoolean("hour", true).apply()
-
-        loadSection(section)
-        val btnDeviceAdmin = findViewById<RadioButton>(R.id.device_admin_mode)
-        val btnRoot = findViewById<RadioButton>(R.id.root_mode)
-
-        btnDeviceAdmin.setOnClickListener { rootMode = false }
-        btnRoot.setOnClickListener { rootMode = true }
-
-        findViewById<Button>(R.id.setup_continue).setOnClickListener {
-            when (section) {
-                SECTION_MODE -> {
+        findViewById<Button>(R.id.continueBtn).setOnClickListener {
+            when (currentFragment) {
+                NO_FRAGMENT -> {
+                    swapContentFragment(ModeFragment())
+                    currentFragment = MODE_FRAGMENT
+                }
+                MODE_FRAGMENT -> {
                     if (rootMode) {
                         if (!Root.request()) {
                             Toast.makeText(this, R.string.setup_root_failed, Toast.LENGTH_LONG).show()
                             return@setOnClickListener
                         }
                         prefs.edit().putBoolean("root_mode", true).apply()
-                        nextSection()
+                        swapContentFragment(NotificationListenerFragment())
+                        currentFragment = NOTIFICATION_LISTENER_FRAGMENT
                     } else {
                         prefs.edit().putBoolean("root_mode", false).apply()
                         startActivity(Intent().setComponent( ComponentName("com.android.settings", "com.android.settings.Settings\$DeviceAdminSettingsActivity")))
                         isActionRequired = true
                     }
                 }
-                SECTION_NOTIFICATIONS -> {
+                NOTIFICATION_LISTENER_FRAGMENT -> {
                     startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
                     isActionRequired = true
                 }
-                SECTION_DRAW_OVER_OTHER_APPS -> {
+                DRAW_OVER_OTHER_APPS_FRAGMENT -> {
                     startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 1)
                     isActionRequired = true
                 }
-                SECTION_FINISHED -> {
+                FINISH_FRAGMENT -> {
                     prefs.edit().putBoolean("setup_complete", true).apply()
-                    startActivity(Intent(this@SetupActivity, MainActivity::class.java))
+                    startActivity(Intent(this, MainActivity::class.java))
                 }
             }
         }
@@ -73,36 +70,47 @@ class SetupActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (isActionRequired) {
-            when (section) {
-                SECTION_MODE -> {
+            when (currentFragment) {
+                MODE_FRAGMENT -> {
                     if(!rootMode && !isDeviceAdmin) {
                         Toast.makeText(this, R.string.setup_error, Toast.LENGTH_LONG).show()
                     } else {
-                        nextSection()
+                        swapContentFragment(NotificationListenerFragment())
+                        currentFragment = NOTIFICATION_LISTENER_FRAGMENT
                     }
                 }
-                SECTION_NOTIFICATIONS -> {
+                NOTIFICATION_LISTENER_FRAGMENT -> {
                     if(!isNotificationServiceEnabled) {
                         Toast.makeText(this, R.string.setup_error, Toast.LENGTH_LONG).show()
                     } else {
-                        nextSection()
+                        swapContentFragment(DrawOverOtherAppsFragment())
+                        currentFragment = DRAW_OVER_OTHER_APPS_FRAGMENT
                     }
                 }
-                SECTION_DRAW_OVER_OTHER_APPS -> {
+                DRAW_OVER_OTHER_APPS_FRAGMENT -> {
                     if (!Settings.canDrawOverlays(this)) {
                         Toast.makeText(this, R.string.setup_error, Toast.LENGTH_LONG).show()
                     } else {
-                        nextSection()
+                        swapContentFragment(FinishFragment())
+                        currentFragment = FINISH_FRAGMENT
                     }
                 }
             }
             isActionRequired = false
         }
-        loadSection(section)
     }
 
     override fun onBackPressed() {
-        loadSection(section - 1)
+        super.onBackPressed()
+        if (currentFragment > NO_FRAGMENT) currentFragment--
+    }
+
+    private fun swapContentFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .replace(R.id.content, fragment, null)
+            .addToBackStack(null)
+            .commitAllowingStateLoss()
     }
 
     private val isNotificationServiceEnabled: Boolean
@@ -126,50 +134,15 @@ class SetupActivity : AppCompatActivity() {
     private val isDeviceAdmin: Boolean
         get() {
             val policyManager = this
-                        .getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+                    .getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
             return policyManager.isAdminActive(ComponentName(this, AdminReceiver::class.java))
         }
 
-    private fun loadSection(number: Int) {
-        if (number <= 0 ) finish()
-        when (number) {
-            SECTION_MODE -> {
-                findViewById<LinearLayout>(R.id.sectionNotifications).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.sectionDrawOverOtherApps).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.sectionFinished).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.sectionMode).visibility = View.VISIBLE
-            }
-            SECTION_NOTIFICATIONS -> {
-                findViewById<LinearLayout>(R.id.sectionMode).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.sectionDrawOverOtherApps).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.sectionFinished).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.sectionNotifications).visibility = View.VISIBLE
-            }
-            SECTION_DRAW_OVER_OTHER_APPS -> {
-                findViewById<LinearLayout>(R.id.sectionMode).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.sectionNotifications).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.sectionFinished).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.sectionDrawOverOtherApps).visibility = View.VISIBLE
-            }
-            SECTION_FINISHED -> {
-                findViewById<LinearLayout>(R.id.sectionMode).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.sectionNotifications).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.sectionDrawOverOtherApps).visibility = View.GONE
-                findViewById<LinearLayout>(R.id.sectionFinished).visibility = View.VISIBLE
-            }
-        }
-        section = number
-    }
-
-    private fun nextSection() {
-        section++
-        loadSection(section)
-    }
-
     companion object {
-        const val SECTION_MODE = 1
-        const val SECTION_NOTIFICATIONS = 2
-        const val SECTION_DRAW_OVER_OTHER_APPS = 3
-        const val SECTION_FINISHED = 4
+        const val NO_FRAGMENT = 0
+        const val MODE_FRAGMENT = 1
+        const val NOTIFICATION_LISTENER_FRAGMENT = 2
+        const val DRAW_OVER_OTHER_APPS_FRAGMENT = 3
+        const val FINISH_FRAGMENT = 4
     }
 }
