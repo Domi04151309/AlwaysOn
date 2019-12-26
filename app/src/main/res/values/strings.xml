@@ -2,6 +2,9 @@
     <string name="device_admin_description">Allow AlwaysOn to turn off your display</string>
     <string name="notification_listener_description">Show a notification count on the always on display</string>
 
+    <string name="service_text">AlwaysOn is running in the background</string>
+    <string name="service_channel">Service channel</string>
+
     <string name="err_service_failed">Failed starting service!</string>
 
     <string name="setup_header">Setup</string>

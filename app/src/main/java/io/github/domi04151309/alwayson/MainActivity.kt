@@ -5,11 +5,8 @@ import android.content.*
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.BatteryManager
-import androidx.preference.PreferenceManager
-import android.provider.Settings
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
+import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import android.view.ContextThemeWrapper
@@ -19,13 +16,16 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.objects.Theme
 import io.github.domi04151309.alwayson.preferences.Preferences
-
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
-import io.github.domi04151309.alwayson.services.MainService
-import java.lang.Exception
+import io.github.domi04151309.alwayson.services.ForegroundService
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         if (!Settings.canDrawOverlays(this)) buildDialog(3)
 
         try {
-            startService(Intent(this, MainService::class.java))
+            ContextCompat.startForegroundService(this, Intent(this, ForegroundService::class.java))
         } catch (e: Exception) {
             Toast.makeText(this, R.string.err_service_failed, Toast.LENGTH_LONG).show()
         }

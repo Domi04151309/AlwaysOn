@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.USES_POLICY_FORCE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
         android:allowBackup="true"
@@ -156,12 +157,10 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop" />
-
         <service
-            android:name=".services.MainService"
+            android:name=".services.ForegroundService"
             android:enabled="true"
             android:exported="false"
-            android:launchMode="singleTop"
             android:permission="" />
         <service
             android:name=".services.NotificationService"
