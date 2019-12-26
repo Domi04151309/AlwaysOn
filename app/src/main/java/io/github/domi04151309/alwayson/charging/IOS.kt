@@ -6,6 +6,7 @@ import android.graphics.Point
 import android.os.BatteryManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -52,10 +53,9 @@ class IOS : AppCompatActivity() {
                     content.animate().alpha(0f).duration = 1000
                     sleep(1000)
                     Global.close(this@IOS)
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
+                } catch (e: Exception) {
+                    Log.e(Global.LOG_TAG, e.toString())
                 }
-
             }
         }.start()
     }

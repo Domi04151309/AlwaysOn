@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import android.text.TextUtils
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.Gravity
 import android.view.KeyEvent
@@ -138,10 +139,9 @@ class MainActivity : AppCompatActivity() {
                             clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
                         }
                     }
-                } catch (ex: InterruptedException) {
-                    ex.printStackTrace()
+                } catch (e: Exception) {
+                    Log.e(Global.LOG_TAG, e.toString())
                 }
-
             }
         }.start()
     }

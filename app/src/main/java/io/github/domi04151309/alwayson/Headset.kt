@@ -4,6 +4,7 @@ import android.app.ActivityManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.widget.ImageView
 import io.github.domi04151309.alwayson.objects.Global
@@ -24,10 +25,9 @@ class Headset : AppCompatActivity() {
                     image.animate().alpha(0f).duration = 1000
                     sleep(1000)
                     Global.close(this@Headset)
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
+                } catch (e: Exception) {
+                    Log.e(Global.LOG_TAG, e.toString())
                 }
-
             }
         }.start()
     }

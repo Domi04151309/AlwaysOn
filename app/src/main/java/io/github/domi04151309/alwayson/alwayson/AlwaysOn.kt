@@ -27,6 +27,7 @@ import android.hardware.SensorManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
+import android.util.Log
 
 
 class AlwaysOn : AppCompatActivity(), SensorEventListener {
@@ -279,8 +280,8 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
                                 } else
                                     sleep(1000)
                             }
-                        } catch (e: InterruptedException) {
-                            e.printStackTrace()
+                        } catch (e: Exception) {
+                            Log.e(Global.LOG_TAG, e.toString())
                         }
                     }
                 }
@@ -312,8 +313,8 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
                         sleep(animationDelay)
                         content!!.animate().translationY(result.toFloat() / 4).duration = animationDuration
                     }
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
+                } catch (e: Exception) {
+                    Log.e(Global.LOG_TAG, e.toString())
                 }
             }
         }

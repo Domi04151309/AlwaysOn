@@ -2,7 +2,6 @@ package io.github.domi04151309.alwayson.objects
 
 import android.util.Log
 import java.io.DataOutputStream
-import java.io.IOException
 
 object Root {
 
@@ -15,8 +14,8 @@ object Root {
             os.writeBytes("exit\n")
             os.flush()
             true
-        } catch (e: IOException) {
-            e.printStackTrace()
+        } catch (e: Exception) {
+            Log.e(Global.LOG_TAG, e.toString())
             false
         }
     }
@@ -26,8 +25,8 @@ object Root {
             val p = Runtime.getRuntime()
                     .exec(arrayOf("su", "-c", command))
             p.waitFor()
-        } catch (ex: Exception) {
-            Log.e("Superuser", ex.toString())
+        } catch (e: Exception) {
+            Log.e("Superuser", e.toString())
         }
     }
 }

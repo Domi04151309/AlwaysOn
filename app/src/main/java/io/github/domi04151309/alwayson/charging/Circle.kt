@@ -5,6 +5,7 @@ import android.content.*
 import android.os.BatteryManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.widget.*
 import io.github.domi04151309.alwayson.objects.Global
@@ -34,10 +35,9 @@ class Circle : AppCompatActivity() {
                     content.animate().alpha(0f).duration = 1000
                     sleep(1000)
                     Global.close(this@Circle)
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
+                } catch (e: Exception) {
+                    Log.e(Global.LOG_TAG, e.toString())
                 }
-
             }
         }.start()
     }
