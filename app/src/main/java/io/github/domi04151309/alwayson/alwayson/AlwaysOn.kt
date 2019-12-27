@@ -1,6 +1,7 @@
 package io.github.domi04151309.alwayson.alwayson
 
 import android.app.ActivityManager
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -35,8 +36,6 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
     private var localManager: LocalBroadcastManager? = null
     private var content: View? = null
     private var rootMode: Boolean = false
-    private var powerSaving: Boolean = false
-    private var userPowerSaving: Boolean = false
     private var servicesRunning: Boolean = false
 
     //Threads
@@ -51,6 +50,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
     private var aoNotifications: Boolean = true
     private var aoEdgeGlow: Boolean = true
     private var aoPocketMode: Boolean = false
+    private var aoDND: Boolean = false
 
     //Time
     private var clockCache: String = ""
@@ -140,9 +140,17 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
     //Audio
     private var audio: AudioManager? = null
 
+    //Battery saver
+    private var powerSaving: Boolean = false
+    private var userPowerSaving: Boolean = false
+
     //Proximity
     private var mSensorManager: SensorManager? = null
     private var mProximity: Sensor? = null
+
+    //DND
+    private var mNotificationManager: NotificationManager? = null
+    private var userDND: Int = 0
 
     //Stop
     private val mStopReceiver = object : BroadcastReceiver() {
@@ -166,6 +174,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         aoNotifications = prefs.getBoolean("ao_notifications", true)
         aoEdgeGlow = prefs.getBoolean("ao_edgeGlow", false)
         aoPocketMode = prefs.getBoolean("ao_pocket_mode", false)
+        aoDND = prefs.getBoolean("ao_dnd", false)
         val clock = prefs.getBoolean("hour", false)
         val amPm = prefs.getBoolean("am_pm", false)
         val aoForceBrightness = prefs.getBoolean("ao_force_brightness", false)
@@ -260,6 +269,12 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
             mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
             mProximity = mSensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY)
             mSensorManager!!.registerListener(this, mProximity, SensorManager.SENSOR_DELAY_NORMAL)
+        }
+
+        //DND
+        if (aoDND) {
+            mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            userDND = mNotificationManager!!.currentInterruptionFilter
         }
 
         //Edge Glow
@@ -377,6 +392,9 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
                 localManager!!.registerReceiver(mNotificationReceiver, IntentFilter(Global.NOTIFICATIONS))
                 localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
             }
+
+            // DND
+            if (aoDND) mNotificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
         }
     }
 
@@ -395,6 +413,9 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
 
             // Notification Listener
             if (aoNotifications || aoEdgeGlow) localManager!!.unregisterReceiver(mNotificationReceiver)
+
+            // DND
+            if (aoDND) mNotificationManager!!.setInterruptionFilter(userDND)
         }
     }
 

@@ -8,7 +8,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreference
-import io.github.domi04151309.alwayson.*
+import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Theme
 
 class AlwaysOnPreferences : AppCompatActivity(),

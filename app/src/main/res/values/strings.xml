@@ -98,6 +98,8 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="pref_ao_force_brightness_example">This is how bright the text on your always on display will appear.</string>
     <string name="pref_ao_pocket_mode">Pocket mode</string>
     <string name="pref_ao_pocket_mode_summary">Disables the always on display in your pocket\nWarning: Sensor usage may cause increased battery usage!</string>
+    <string name="pref_ao_dnd">Do not disturb</string>
+    <string name="pref_ao_dnd_summary">Turns on do not disturb mode while the always on display is running</string>
     <string name="pref_ao_power_saving">Power saving mode (root)</string>
     <string name="pref_ao_power_saving_summary">Saves power when the always on display is enabled</string>
 
@@ -111,9 +113,9 @@ You can customize your always on display and toggle it on or off with quick tile
 
     <string name="pref_permissions">Permissions</string>
     <string name="pref_permissions_summary">Settings related to permissions</string>
-    <string name="pref_notification">Notification listener service</string>
-    <string name="pref_notification_summary">Enable or disable the notification listener service</string>
-    <string name="pref_draw_over_other_apps">Draw over other apps</string>
+    <string name="pref_notification">Notification access</string>
+    <string name="pref_notification_summary">Enable or disable notification access</string>
+    <string name="pref_draw_over_other_apps">Display over other apps</string>
     <string name="pref_draw_over_other_apps_summary">Enable or disable this permission</string>
     <string name="pref_admin">Device admin</string>
     <string name="pref_admin_summary">Activate this device admin for normal mode</string>
