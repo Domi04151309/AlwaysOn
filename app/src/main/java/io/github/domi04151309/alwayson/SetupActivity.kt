@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
+import android.text.format.DateFormat
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,9 @@ class SetupActivity : AppCompatActivity() {
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         swapContentFragment(ModeFragment())
+
+        if (DateFormat.is24HourFormat(this)) prefs.edit().putBoolean("hour", false).apply()
+        else prefs.edit().putBoolean("hour", true).apply()
 
         findViewById<Button>(R.id.continueBtn).setOnClickListener {
             when (currentFragment) {

@@ -1,76 +1,85 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Preference
-        android:key="ao_style"
-        android:summary="@string/pref_look_and_feel_ao_summary"
-        android:title="@string/pref_look_and_feel_ao" />
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="ao_clock"
-        android:summaryOff="@string/pref_disabled"
-        android:summaryOn="@string/pref_enabled"
-        android:title="@string/pref_ao_showClock" />
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="ao_date"
-        android:summaryOff="@string/pref_disabled"
-        android:summaryOn="@string/pref_enabled"
-        android:title="@string/pref_ao_showDate" />
-    <SwitchPreference
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:defaultValue="true"
-        android:key="ao_batteryIcn"
-        android:summaryOff="@string/pref_disabled"
-        android:summaryOn="@string/pref_enabled"
-        android:title="@string/pref_ao_showBatteryIcn" />
-    <SwitchPreference
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:defaultValue="true"
-        android:key="ao_battery"
-        android:summaryOff="@string/pref_disabled"
-        android:summaryOn="@string/pref_enabled"
-        android:title="@string/pref_ao_showBattery" />
-    <SwitchPreference
-        android:defaultValue="true"
-        android:key="ao_notifications"
-        android:summaryOff="@string/pref_disabled"
-        android:summaryOn="@string/pref_enabled"
-        android:title="@string/pref_ao_showNotifications" />
-    <SwitchPreference
-        android:defaultValue="false"
-        android:key="ao_edgeGlow"
-        android:summary="@string/pref_ao_edgeGlow_summary"
-        android:title="@string/pref_ao_edgeGlow" />
-    <io.github.domi04151309.alwayson.preferences.EditIntegerPreference
-        android:defaultValue="2000"
-        android:key="ao_glowDuration"
-        android:summary="@string/pref_ao_glowDuration_summary"
-        android:title="@string/pref_ao_glowDuration" />
-    <io.github.domi04151309.alwayson.preferences.EditIntegerPreference
-        android:defaultValue="64"
-        android:key="ao_vibration"
-        android:summary="@string/pref_ao_vibration_summary"
-        android:title="@string/pref_ao_vibration" />
-    <io.github.domi04151309.alwayson.preferences.EditIntegerPreference
-        android:defaultValue="2"
-        android:key="ao_animation_delay"
-        android:summary="@string/pref_ao_animation_delay_summary"
-        android:title="@string/pref_ao_animation_delay" />
-    <Preference
-        android:key="ao_force_brightness"
-        android:summary="@string/pref_ao_force_brightness_summary"
-        android:title="@string/pref_ao_force_brightness" />
-    <SwitchPreference
-        android:defaultValue="false"
-        android:key="ao_pocket_mode"
-        android:summary="@string/pref_ao_pocket_mode_summary"
-        android:title="@string/pref_ao_pocket_mode" />
-    <SwitchPreference
-        android:defaultValue="false"
-        android:key="ao_power_saving"
-        android:summary="@string/pref_ao_power_saving_summary"
-        android:title="@string/pref_ao_power_saving" />
+    <PreferenceCategory android:title="@string/pref_ao_watch_face">
+
+        <Preference
+            android:key="ao_style"
+            android:summary="@string/pref_look_and_feel_ao_summary"
+            android:title="@string/pref_look_and_feel_ao" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="ao_clock"
+            android:summaryOff="@string/pref_disabled"
+            android:summaryOn="@string/pref_enabled"
+            android:title="@string/pref_ao_showClock" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="ao_date"
+            android:summaryOff="@string/pref_disabled"
+            android:summaryOn="@string/pref_enabled"
+            android:title="@string/pref_ao_showDate" />
+        <SwitchPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="true"
+            android:key="ao_batteryIcn"
+            android:summaryOff="@string/pref_disabled"
+            android:summaryOn="@string/pref_enabled"
+            android:title="@string/pref_ao_showBatteryIcn" />
+        <SwitchPreference
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:defaultValue="true"
+            android:key="ao_battery"
+            android:summaryOff="@string/pref_disabled"
+            android:summaryOn="@string/pref_enabled"
+            android:title="@string/pref_ao_showBattery" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="ao_notifications"
+            android:summaryOff="@string/pref_disabled"
+            android:summaryOn="@string/pref_enabled"
+            android:title="@string/pref_ao_showNotifications" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_ao_background">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="ao_edgeGlow"
+            android:summary="@string/pref_ao_edgeGlow_summary"
+            android:title="@string/pref_ao_edgeGlow" />
+        <io.github.domi04151309.alwayson.preferences.EditIntegerPreference
+            android:defaultValue="2000"
+            android:key="ao_glowDuration"
+            android:summary="@string/pref_ao_glowDuration_summary"
+            android:title="@string/pref_ao_glowDuration" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_ao_behavior">
+
+        <io.github.domi04151309.alwayson.preferences.EditIntegerPreference
+            android:defaultValue="64"
+            android:key="ao_vibration"
+            android:summary="@string/pref_ao_vibration_summary"
+            android:title="@string/pref_ao_vibration" />
+        <io.github.domi04151309.alwayson.preferences.EditIntegerPreference
+            android:defaultValue="2"
+            android:key="ao_animation_delay"
+            android:summary="@string/pref_ao_animation_delay_summary"
+            android:title="@string/pref_ao_animation_delay" />
+        <Preference
+            android:key="ao_force_brightness"
+            android:summary="@string/pref_ao_force_brightness_summary"
+            android:title="@string/pref_ao_force_brightness" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="ao_pocket_mode"
+            android:summary="@string/pref_ao_pocket_mode_summary"
+            android:title="@string/pref_ao_pocket_mode" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="ao_power_saving"
+            android:summary="@string/pref_ao_power_saving_summary"
+            android:title="@string/pref_ao_power_saving" />
+    </PreferenceCategory>
 
 </PreferenceScreen>
