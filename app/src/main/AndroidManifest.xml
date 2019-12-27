@@ -23,26 +23,26 @@
         <activity
             android:name=".preferences.BrightnessActivity"
             android:label="@string/pref_ao_force_brightness_title"
-            android:parentActivityName=".preferences.Preferences">
+            android:parentActivityName=".preferences.AlwaysOnPreferences">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
+                android:value="io.github.domi04151309.alwayson.preferences.AlwaysOnPreferences" />
         </activity>
         <activity
             android:name=".preferences.ChargingLookActivity"
             android:label="@string/pref_look_and_feel_charging"
-            android:parentActivityName=".preferences.Preferences">
+            android:parentActivityName=".preferences.LookAndFeelPreferences">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
+                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
         </activity>
         <activity
             android:name=".preferences.AlwaysOnLookActivity"
             android:label="@string/pref_look_and_feel_ao"
-            android:parentActivityName=".preferences.Preferences">
+            android:parentActivityName=".preferences.AlwaysOnPreferences">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
+                android:value="io.github.domi04151309.alwayson.preferences.AlwaysOnPreferences" />
         </activity>
         <activity
             android:name=".TurnOnScreen"
@@ -179,6 +179,33 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.domi04151309.alwayson.MainActivity" />
+        </activity>
+        <activity
+            android:name=".preferences.LookAndFeelPreferences"
+            android:label="@string/pref_look_and_feel"
+            android:launchMode="singleTop"
+            android:parentActivityName=".preferences.Preferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
+        </activity>
+        <activity
+            android:name=".preferences.AlwaysOnPreferences"
+            android:label="@string/pref_ao_settings"
+            android:launchMode="singleTop"
+            android:parentActivityName=".preferences.LookAndFeelPreferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
+        </activity>
+        <activity
+            android:name=".preferences.PermissionPreferences"
+            android:label="@string/pref_permissions"
+            android:launchMode="singleTop"
+            android:parentActivityName=".preferences.Preferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
         </activity>
 
         <receiver

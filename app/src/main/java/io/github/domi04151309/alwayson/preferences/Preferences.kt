@@ -2,22 +2,16 @@ package io.github.domi04151309.alwayson.preferences
 
 import android.content.ComponentName
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.service.quicksettings.TileService
-import android.text.InputType
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
-import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.*
 import io.github.domi04151309.alwayson.objects.Theme
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
 import io.github.domi04151309.alwayson.objects.Global
-import io.github.domi04151309.alwayson.objects.Root
 
 class Preferences : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -26,35 +20,24 @@ class Preferences : AppCompatActivity(),
         Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
-        setupActionBar()
         supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.settings, GeneralPreferenceFragment())
                 .commit()
     }
 
-    private fun setupActionBar() {
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    fun setActionBarTitle(title: String) {
-        supportActionBar!!.title = title
-    }
-
     override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
-        val args = pref.extras
         val fragment = supportFragmentManager.fragmentFactory.instantiate(
                 classLoader,
                 pref.fragment)
-        fragment.arguments = args
+        fragment.arguments = pref.extras
         fragment.setTargetFragment(caller, 0)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.settings, fragment)
                 .addToBackStack(null)
                 .commit()
         return true
-        }
+    }
 
     class GeneralPreferenceFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -64,74 +47,16 @@ class Preferences : AppCompatActivity(),
                 LocalBroadcastManager.getInstance(context!!).sendBroadcast(Intent().setAction(Global.ALWAYS_ON_STATE_CHANGED))
                 true
             }
-            findPreference<Preference>("pref_look_and_feel")!!.fragment = PreferenceLookAndFeel::class.java.name
-            findPreference<Preference>("pref_permissions")!!.fragment = PreferencePermissions::class.java.name
+            findPreference<Preference>("pref_look_and_feel")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                startActivity(Intent(context, LookAndFeelPreferences::class.java))
+                true
+            }
+            findPreference<Preference>("pref_permissions")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                startActivity(Intent(context, PermissionPreferences::class.java))
+                true
+            }
             findPreference<Preference>("pref_about")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 startActivity(Intent(context, AboutActivity::class.java))
-                true
-            }
-        }
-
-        override fun onResume() {
-            super.onResume()
-            (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref))
-        }
-    }
-
-    class PreferenceLookAndFeel : PreferenceFragmentCompat() {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            addPreferencesFromResource(R.xml.pref_look_and_feel)
-            findPreference<Preference>("light_mode")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivity(Intent(context, MainActivity::class.java))
-                true
-            }
-            findPreference<Preference>("pref_ao")!!.fragment = PreferenceAlwaysOn::class.java.name
-            findPreference<Preference>("charging_style")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivity(Intent(context, ChargingLookActivity::class.java))
-                true
-            }
-            if (Build.VERSION.SDK_INT < 28)
-                preferenceScreen.removePreference(findPreference("hide_display_cutouts"))
-        }
-
-        override fun onResume() {
-            super.onResume()
-            (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref_look_and_feel))
-        }
-    }
-
-    class PreferenceAlwaysOn : PreferenceFragmentCompat() {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            addPreferencesFromResource(R.xml.pref_ao)
-            (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref_ao_settings))
-            findPreference<Preference>("ao_style")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivity(Intent(context, AlwaysOnLookActivity::class.java))
-                true
-            }
-            findPreference<EditIntegerPreference>("ao_glowDuration")!!.setOnBindEditTextListener { editText ->
-                editText.inputType = InputType.TYPE_CLASS_NUMBER
-            }
-            findPreference<EditIntegerPreference>("ao_vibration")!!.setOnBindEditTextListener { editText ->
-                editText.inputType = InputType.TYPE_CLASS_NUMBER
-            }
-            findPreference<Preference>("ao_force_brightness")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivity(Intent(context, BrightnessActivity::class.java))
-                true
-            }
-            if(!PreferenceManager.getDefaultSharedPreferences(context).getBoolean("root_mode", false))
-                findPreference<SwitchPreference>("ao_power_saving")!!.isEnabled = false
-        }
-    }
-
-    class PreferencePermissions : PreferenceFragmentCompat() {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            addPreferencesFromResource(R.xml.pref_permissions)
-            (activity as Preferences).setActionBarTitle(resources.getString(R.string.pref_permissions))
-            findPreference<Preference>("request_root")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                if (Root.request())
-                    Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
-                else
-                    Toast.makeText(context, "Request failed!", Toast.LENGTH_LONG).show()
                 true
             }
         }
