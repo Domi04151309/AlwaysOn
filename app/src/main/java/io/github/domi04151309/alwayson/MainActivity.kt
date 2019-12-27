@@ -10,10 +10,8 @@ import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import android.view.ContextThemeWrapper
-import android.view.Gravity
 import android.view.KeyEvent
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -74,13 +72,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    private fun makeCenteredToast(context: Context, state: Boolean) {
-        val text = if(state) R.string.enabled else R.string.disabled
-        val toast = Toast.makeText(context, text, Toast.LENGTH_LONG)
-        toast.setGravity(Gravity.CENTER, 0, 0)
-        toast.show()
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -95,18 +86,6 @@ class MainActivity : AppCompatActivity() {
             ContextCompat.startForegroundService(this, Intent(this, ForegroundService::class.java))
         } catch (e: Exception) {
             Toast.makeText(this, R.string.err_service_failed, Toast.LENGTH_LONG).show()
-        }
-
-        findViewById<ImageButton>(R.id.lAlwaysOn).setOnClickListener {
-            makeCenteredToast(this, Global.changeAlwaysOnState(this))
-        }
-
-        findViewById<ImageButton>(R.id.pHeadset).setOnClickListener {
-            makeCenteredToast(this, Global.changeHeadsetState(this))
-        }
-
-        findViewById<ImageButton>(R.id.pCharging).setOnClickListener {
-            makeCenteredToast(this, Global.changeChargingState(this))
         }
 
         findViewById<Button>(R.id.pref).setOnClickListener { startActivity(Intent(this@MainActivity, Preferences::class.java)) }

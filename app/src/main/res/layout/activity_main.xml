@@ -1,96 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="io.github.domi04151309.alwayson.MainActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/clockTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            android:lineSpacingMultiplier="0.72"
-            android:text="@string/clock"
-            android:textSize="75sp" />
-
-        <TextView
-            android:id="@+id/dateTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/date2"
-            android:textSize="25sp" />
-
-        <TextView
-            android:id="@+id/batteryTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_gravity="center"
-            android:drawableStart="@drawable/ic_charging"
-            android:text="@string/battery"
-            android:textSize="25sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:padding="8dp"
-            android:text="@string/app_by"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/description" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="36dp">
 
         <LinearLayout
-            style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/button_bg">
+            android:padding="?dialogPreferredPadding"
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/lAlwaysOn"
+            <TextView
+                android:id="@+id/clockTxt"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:contentDescription="@string/AlwaysOn"
-                app:srcCompat="@drawable/ic_always_on" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:lineSpacingMultiplier="0.72"
+                android:text="@string/clock"
+                android:textSize="75sp" />
 
-            <ImageButton
-                android:id="@+id/pHeadset"
+            <TextView
+                android:id="@+id/dateTxt"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:contentDescription="@string/Headset"
-                app:srcCompat="@drawable/ic_headset" />
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/date2"
+                android:textSize="25sp" />
 
-            <ImageButton
-                android:id="@+id/pCharging"
+            <TextView
+                android:id="@+id/batteryTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:drawableStart="@drawable/ic_charging"
+                android:text="@string/battery"
+                android:textSize="25sp" />
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:contentDescription="@string/Charging"
-                app:srcCompat="@drawable/ic_charging" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:padding="8dp"
+                android:text="@string/app_by"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="@string/description" />
+
         </LinearLayout>
+    </ScrollView>
 
-        <Button
-            android:id="@+id/pref"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pref" />
-
-    </LinearLayout>
-</ScrollView>
+    <Button
+        android:id="@+id/pref"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="?dialogPreferredPadding"
+        android:text="@string/pref" />
+</RelativeLayout>

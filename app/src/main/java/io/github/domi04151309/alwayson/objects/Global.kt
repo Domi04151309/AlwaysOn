@@ -38,19 +38,6 @@ object Global {
         return value
     }
 
-    fun changeHeadsetState(context: Context): Boolean {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val value = !prefs.getBoolean("headphone_animation", false)
-        prefs.edit().putBoolean("headphone_animation", value).apply()
-        return value
-    }
-    fun changeChargingState(context: Context): Boolean {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val value = !prefs.getBoolean("charging_animation", false)
-        prefs.edit().putBoolean("charging_animation", value).apply()
-        return value
-    }
-
     fun close(context: Context) {
         if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("root_mode", false)) {
             Root.shell("input keyevent KEYCODE_POWER")
