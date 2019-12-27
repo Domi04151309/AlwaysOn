@@ -114,6 +114,8 @@
     <string name="pref_permissions_summary">Settings related to permissions</string>
     <string name="pref_notification">Notification listener service</string>
     <string name="pref_notification_summary">Enable or disable the notification listener service</string>
+    <string name="pref_draw_over_other_apps">Draw over other apps</string>
+    <string name="pref_draw_over_other_apps_summary">Enable or disable this permission</string>
     <string name="pref_admin">Device admin</string>
     <string name="pref_admin_summary">Activate this device admin for normal mode</string>
     <string name="pref_root">Request root access</string>

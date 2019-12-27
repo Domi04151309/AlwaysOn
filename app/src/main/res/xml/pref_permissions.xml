@@ -2,6 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
+        android:icon="@drawable/ic_notification"
         android:summary="@string/pref_notification_summary"
         android:title="@string/pref_notification">
         <intent
@@ -9,6 +10,15 @@
             android:targetPackage="com.android.settings" />
     </Preference>
     <Preference
+        android:icon="@drawable/ic_brush"
+        android:summary="@string/pref_draw_over_other_apps_summary"
+        android:title="@string/pref_draw_over_other_apps">
+        <intent
+            android:targetClass="com.android.settings.Settings$OverlaySettingsActivity"
+            android:targetPackage="com.android.settings" />
+    </Preference>
+    <Preference
+        android:icon="@drawable/ic_security"
         android:summary="@string/pref_admin_summary"
         android:title="@string/pref_admin">
         <intent
@@ -16,11 +26,13 @@
             android:targetPackage="com.android.settings" />
     </Preference>
     <Preference
+        android:icon="@drawable/ic_hashtag"
         android:key="request_root"
         android:summary="@string/pref_root_summary"
         android:title="@string/pref_root" />
     <SwitchPreference
         android:defaultValue="false"
+        android:icon="@drawable/ic_hashtag"
         android:key="root_mode"
         android:summary="@string/pref_root_mode_summary"
         android:title="@string/pref_root_mode" />

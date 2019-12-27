@@ -25,5 +25,5 @@
         android:layout_marginBottom="?dialogPreferredPadding"
         android:layout_gravity="center"
         android:contentDescription="@null"
-        app:srcCompat="@drawable/ic_notification" />
+        app:srcCompat="@drawable/ic_color_notification" />
 </LinearLayout>
