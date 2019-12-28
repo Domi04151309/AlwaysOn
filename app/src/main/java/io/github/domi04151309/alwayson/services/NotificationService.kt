@@ -6,8 +6,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
+import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import io.github.domi04151309.alwayson.objects.Global
+import java.lang.Exception
 
 class NotificationService : NotificationListenerService() {
 
@@ -41,12 +43,16 @@ class NotificationService : NotificationListenerService() {
     }
 
     private fun sendCount(force: Boolean = false) {
-        val notifications = activeNotifications
         var count = 0
-        for (notification in notifications) {
-            if (!notification.isOngoing) {
-                count++
+        try {
+            val notifications = activeNotifications
+            for (notification in notifications) {
+                if (!notification.isOngoing) {
+                    count++
+                }
             }
+        } catch (e: Exception) {
+            Log.e(Global.LOG_TAG, e.toString())
         }
         if (cache != count || force) {
             cache = count
