@@ -34,7 +34,9 @@ class Circle : AppCompatActivity() {
                     sleep(3000)
                     content.animate().alpha(0f).duration = 1000
                     sleep(1000)
-                    Global.close(this@Circle)
+                    runOnUiThread {
+                        Global.close(this@Circle)
+                    }
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
                 }

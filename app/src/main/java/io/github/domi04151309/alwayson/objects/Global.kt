@@ -14,7 +14,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.preferences.Preferences
+import io.github.domi04151309.alwayson.preferences.PermissionPreferences
 
 object Global {
 
@@ -48,7 +48,7 @@ object Global {
                 policyManager.lockNow()
             } else {
                 Toast.makeText(context, R.string.pref_admin_summary, Toast.LENGTH_SHORT).show()
-                context.startActivity(Intent(context, Preferences::class.java))
+                context.startActivity(Intent(context, PermissionPreferences::class.java))
             }
         }
         val activity = context as Activity

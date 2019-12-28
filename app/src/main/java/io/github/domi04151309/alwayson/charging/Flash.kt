@@ -25,7 +25,9 @@ class Flash : AppCompatActivity() {
                     val image = findViewById<ImageView>(R.id.chargingImage)
                     image.animate().alpha(0f).duration = 1000
                     sleep(1000)
-                    Global.close(this@Flash)
+                    runOnUiThread {
+                        Global.close(this@Flash)
+                    }
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
                 }

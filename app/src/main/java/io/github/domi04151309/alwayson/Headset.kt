@@ -24,7 +24,9 @@ class Headset : AppCompatActivity() {
                     val image = findViewById<ImageView>(R.id.headsetImage)
                     image.animate().alpha(0f).duration = 1000
                     sleep(1000)
-                    Global.close(this@Headset)
+                    runOnUiThread {
+                        Global.close(this@Headset)
+                    }
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
                 }

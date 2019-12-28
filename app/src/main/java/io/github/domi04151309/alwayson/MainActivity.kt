@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.objects.Theme
+import io.github.domi04151309.alwayson.preferences.PermissionPreferences
 import io.github.domi04151309.alwayson.preferences.Preferences
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import io.github.domi04151309.alwayson.services.ForegroundService
@@ -78,10 +79,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
-        if (!isDeviceAdminOrRoot) buildDialog(1)
-        if (!isNotificationServiceEnabled) buildDialog(2)
-        if (!Settings.canDrawOverlays(this)) buildDialog(3)
-
         try {
             ContextCompat.startForegroundService(this, Intent(this, ForegroundService::class.java))
         } catch (e: Exception) {
@@ -125,6 +122,13 @@ class MainActivity : AppCompatActivity() {
         }.start()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (!isDeviceAdminOrRoot) buildDialog(1)
+        if (!isNotificationServiceEnabled) buildDialog(2)
+        if (!Settings.canDrawOverlays(this)) buildDialog(3)
+    }
+
     private fun buildDialog(case: Int) {
         val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.DialogTheme))
 
@@ -133,7 +137,7 @@ class MainActivity : AppCompatActivity() {
                 builder.setTitle(R.string.device_admin)
                 builder.setMessage(R.string.device_admin_summary)
                 builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
-                    startActivity(Intent(this@MainActivity, Preferences::class.java))
+                    startActivity(Intent(this@MainActivity, PermissionPreferences::class.java))
                 }
             } 2-> {
                 builder.setTitle(R.string.notification_listener_service)

@@ -14,7 +14,7 @@
     <string name="setup_root">Root</string>
     <string name="setup_root_failed">Root request failed! Please try again or switch mode!</string>
     <string name="device_admin">Device Admin</string>
-    <string name="device_admin_summary">You need to activate this device admin or switch to root mode for some features.</string>
+    <string name="device_admin_summary">You need to activate this device admin or switch to root mode for this app to work.</string>
     <string name="notification_listener_service">Notification Listener Service</string>
     <string name="notification_listener_service_summary">You need to enable the notification listener service for the app to display a notification count on the always on display.</string>
     <string name="setup_draw_over_other_apps">Draw over other apps</string>

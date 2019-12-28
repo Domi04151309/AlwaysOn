@@ -52,7 +52,9 @@ class IOS : AppCompatActivity() {
                     sleep(3000)
                     content.animate().alpha(0f).duration = 1000
                     sleep(1000)
-                    Global.close(this@IOS)
+                    runOnUiThread {
+                        Global.close(this@IOS)
+                    }
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
                 }
