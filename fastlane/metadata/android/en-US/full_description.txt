@@ -1,0 +1,22 @@
+AlwaysOn is an app for every device with an AMOLED or OLED display. It keeps your screen on while the time and battery percentage are displayed but it does not drain your battery.
+Also, icons appear when you plug in your headphones or start charging your device.
+You can customize your always on display and toggle it on or off with quick tiles and widgets.
+
+<font color="#2467d6"><b>Features</b></font>
+- Always on display
+- View your notifications
+- Move content to prevent burn-ins
+- Double tap to wake
+- Customizable
+- Power saver mode [for root]
+- Pocket mode
+- Do not disturb mode
+- Adjustable brightness
+- Quick tiles
+- Widgets
+- Minimal permissions
+
+<font color="#2467d6"><b>Related Links</b></font>
+Source code: <a href="https://github.com/Domi04151309/AlwaysOn">https://github.com/Domi04151309/AlwaysOn</a>
+Website: <a href="https://domi04151309.github.io/Android/AlwaysOn">https://domi04151309.github.io/Android/AlwaysOn</a>
+Icons8: <a href="https://icons8.com/">https://icons8.com/</a>

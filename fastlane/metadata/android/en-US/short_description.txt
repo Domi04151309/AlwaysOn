@@ -1,0 +1,1 @@
+Android app which adds an always on display. Free, no ads and open source.

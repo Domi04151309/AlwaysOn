@@ -1,0 +1,5 @@
+- Added do not disturb mode
+- Categorized always on display settings
+- Switched to foreground service
+- Improved user experience
+- Minor improvements
