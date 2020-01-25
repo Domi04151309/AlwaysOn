@@ -121,27 +121,24 @@
         <activity
             android:name=".charging.Flash"
             android:excludeFromRecents="true"
-            android:label=""
             android:launchMode="singleInstance"
-            android:screenOrientation="sensorPortrait"
+            android:screenOrientation="portrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeNoWindowTransitions" />
         <activity
             android:name=".charging.Circle"
             android:excludeFromRecents="true"
-            android:label=""
             android:launchMode="singleInstance"
-            android:screenOrientation="sensorPortrait"
+            android:screenOrientation="portrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeNoWindowTransitions" />
         <activity
             android:name=".Headset"
             android:excludeFromRecents="true"
-            android:label=""
             android:launchMode="singleInstance"
-            android:screenOrientation="sensorPortrait"
+            android:screenOrientation="portrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeNoWindowTransitions" />
@@ -235,9 +232,8 @@
         <activity
             android:name=".charging.IOS"
             android:excludeFromRecents="true"
-            android:label=""
             android:launchMode="singleInstance"
-            android:screenOrientation="sensorPortrait"
+            android:screenOrientation="portrait"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeNoWindowTransitions" />
