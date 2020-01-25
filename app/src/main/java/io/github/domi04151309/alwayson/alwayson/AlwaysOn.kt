@@ -150,6 +150,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
 
     //DND
     private var mNotificationManager: NotificationManager? = null
+    private var notificationAccess: Boolean = false
     private var userDND: Int = 0
 
     //Stop
@@ -274,7 +275,8 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         //DND
         if (aoDND) {
             mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            userDND = mNotificationManager!!.currentInterruptionFilter
+            notificationAccess = mNotificationManager!!.isNotificationPolicyAccessGranted
+            if(notificationAccess) userDND = mNotificationManager!!.currentInterruptionFilter
         }
 
         //Edge Glow
@@ -394,7 +396,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
             }
 
             // DND
-            if (aoDND) mNotificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+            if (aoDND && notificationAccess) mNotificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
         }
     }
 
@@ -415,7 +417,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
             if (aoNotifications || aoEdgeGlow) localManager!!.unregisterReceiver(mNotificationReceiver)
 
             // DND
-            if (aoDND) mNotificationManager!!.setInterruptionFilter(userDND)
+            if (aoDND && notificationAccess) mNotificationManager!!.setInterruptionFilter(userDND)
         }
     }
 
