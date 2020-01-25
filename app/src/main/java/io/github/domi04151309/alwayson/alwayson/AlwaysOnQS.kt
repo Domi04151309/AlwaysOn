@@ -1,12 +1,10 @@
 package io.github.domi04151309.alwayson.alwayson
 
 import android.annotation.TargetApi
-import android.graphics.drawable.Icon
 import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 
-import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Global
 
 
@@ -24,17 +22,13 @@ class AlwaysOnQS : TileService() {
 
     private fun updateTile(isActive: Boolean) {
         val tile = qsTile
-        val newIcon: Icon
         val newState: Int
 
         if (isActive) {
-            newIcon = Icon.createWithResource(applicationContext, R.drawable.ic_always_on_white)
             newState = Tile.STATE_ACTIVE
         } else {
-            newIcon = Icon.createWithResource(applicationContext, R.drawable.ic_always_on_white)
             newState = Tile.STATE_INACTIVE
         }
-        tile.icon = newIcon
         tile.state = newState
         tile.updateTile()
     }
