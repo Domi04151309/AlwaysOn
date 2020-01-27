@@ -58,13 +58,24 @@
             android:text="@string/app_by" />
 
         <TextView
+            android:id="@+id/github"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_github"
             android:drawablePadding="@dimen/about_item_margin"
             android:gravity="center_vertical"
             android:layout_marginTop="@dimen/about_item_margin"
-            android:text="@string/about_disclaimer1" />
+            android:text="@string/about_github" />
+
+        <TextView
+            android:id="@+id/license"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/about_item_margin"
+            android:drawableStart="@drawable/ic_scales"
+            android:drawablePadding="@dimen/about_item_margin"
+            android:gravity="center_vertical"
+            android:text="@string/about_license" />
 
         <TextView
             android:layout_width="match_parent"
@@ -73,7 +84,7 @@
             android:drawablePadding="@dimen/about_item_margin"
             android:gravity="center_vertical"
             android:layout_marginTop="@dimen/about_item_margin"
-            android:text="@string/about_disclaimer2" />
+            android:text="@string/about_damage" />
 
         <TextView
             android:id="@+id/icons"
@@ -83,7 +94,7 @@
             android:drawableStart="@drawable/ic_palette"
             android:drawablePadding="@dimen/about_item_margin"
             android:gravity="center_vertical"
-            android:text="@string/about_disclaimer3" />
+            android:text="@string/about_icons" />
 
     </LinearLayout>
 

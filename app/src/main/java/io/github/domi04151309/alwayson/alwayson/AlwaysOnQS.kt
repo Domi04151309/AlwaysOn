@@ -22,12 +22,10 @@ class AlwaysOnQS : TileService() {
 
     private fun updateTile(isActive: Boolean) {
         val tile = qsTile
-        val newState: Int
-
-        if (isActive) {
-            newState = Tile.STATE_ACTIVE
+        val newState: Int = if (isActive) {
+            Tile.STATE_ACTIVE
         } else {
-            newState = Tile.STATE_INACTIVE
+            Tile.STATE_INACTIVE
         }
         tile.state = newState
         tile.updateTile()

@@ -130,7 +130,8 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="about">About</string>
     <string name="about_summary">About the app</string>
     <string name="about_version">Version %1$s</string>
-    <string name="about_disclaimer1">There may be newer versions available on GitHub. This app is and always will be free software. Do not pay for this app.</string>
-    <string name="about_disclaimer2">I am not responsible for any damage to your device.</string>
-    <string name="about_disclaimer3">Icons by <a href="https://icons8.com/">Icons8</a> and <a href="https://material.io/resources/icons/">Google</a>.</string>
+    <string name="about_github">There may be newer versions available on <a href="https://github.com/Domi04151309/AlwaysOn">GitHub</a>. This app is and always will be free software. Do not pay for this app.</string>
+    <string name="about_license">This app is distributed under the terms and conditions of the <a href="https://github.com/Domi04151309/AlwaysOn/blob/master/LICENSE">GNU General Public License v3.0</a></string>
+    <string name="about_damage">I am not responsible for any damage to your device.</string>
+    <string name="about_icons">Icons by <a href="https://icons8.com/">Icons8</a> and <a href="https://material.io/resources/icons/">Google</a>.</string>
 </resources>
