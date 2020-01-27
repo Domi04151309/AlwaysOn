@@ -16,37 +16,11 @@
         android:padding="?dialogPreferredPadding"
         tools:ignore="UselessParent">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/aod_spacing"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
-
-            <TextView
-                android:id="@+id/batteryTxt"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:fontFamily="@font/samsung_sans"
-                android:includeFontPadding="false"
-                android:gravity="start"
-                android:text="@string/battery"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:id="@+id/batteryIcn"
-                android:layout_width="wrap_content"
-                android:layout_height="16sp"
-                android:contentDescription="@string/feature"
-                app:srcCompat="@drawable/ic_battery_unknown" />
-        </LinearLayout>
-
         <TextView
             android:id="@+id/clockTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/aod_second_spacing"
+            android:layout_marginBottom="@dimen/aod_spacing_2"
             android:fontFamily="@font/samsung_sans"
             android:includeFontPadding="false"
             android:text="@string/clock"
@@ -56,19 +30,47 @@
             android:id="@+id/dateTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/aod_second_spacing"
+            android:layout_marginBottom="@dimen/aod_spacing_2"
             android:fontFamily="@font/samsung_sans"
             android:includeFontPadding="false"
             android:text="@string/date"
             android:textSize="36sp" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/aod_spacing_8"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:id="@+id/batteryTxt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/samsung_sans"
+                android:gravity="start"
+                android:includeFontPadding="false"
+                android:text="@string/battery"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/batteryIcn"
+                android:layout_width="wrap_content"
+                android:layout_height="18sp"
+                android:contentDescription="@string/feature"
+                app:srcCompat="@drawable/ic_battery_unknown" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/notifications"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/aod_spacing"
             android:fontFamily="@font/samsung_sans"
             android:includeFontPadding="false"
             android:text="@string/feature"
-            android:textSize="36sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 </FrameLayout>

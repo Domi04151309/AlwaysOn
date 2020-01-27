@@ -10,7 +10,8 @@
     <dimen name="dot_size">12dp</dimen>
 
     <dimen name="aod_spacing">16dp</dimen>
-    <dimen name="aod_second_spacing">2dp</dimen>
+    <dimen name="aod_spacing_2">2dp</dimen>
+    <dimen name="aod_spacing_8">8dp</dimen>
 
     <dimen name="charging_progress_width">4dp</dimen>
     <dimen name="charging_margin">54dp</dimen>
