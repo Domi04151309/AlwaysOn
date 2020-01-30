@@ -1,0 +1,137 @@
+<resources>
+    <string name="device_admin_description">Sta toe dat AlwaysOn je scherm uitschakelt</string>
+    <string name="notification_listener_description">Toon het aantal meldingen op het altijdaan-scherm</string>
+
+    <string name="service_text">AlwaysOn draait op de achtergrond</string>
+    <string name="service_channel">Dienstkanaal</string>
+
+    <string name="err_service_failed">De dienst kan niet worden gestart!</string>
+
+    <string name="setup_header">Instelhulp</string>
+    <string name="setup_choose_mode">Kies een modus</string>
+    <string name="setup_choose_mode_summary">Kies een modus voor de app. Kies voor 'root' als je apparaat geroot is. Weet je niet wat je moet kiezen? Sla deze stap dan over.</string>
+    <string name="setup_device_admin">Apparaatbeheerder</string>
+    <string name="setup_root">Root</string>
+    <string name="setup_root_failed">Rootverzoek mislukt! Probeer het opnieuw of kies een andere modus.</string>
+    <string name="device_admin">Apparaatbeheerder</string>
+    <string name="device_admin_summary">Schakel deze apparaatbeheerder in of kies voor de rootmodus.</string>
+    <string name="notification_listener_service">Meldingsdienst</string>
+    <string name="notification_listener_service_summary">Schakel de meldingsdienst in om het aantal meldingen te tonen op het altijdaan-scherm.</string>
+    <string name="setup_draw_over_other_apps">Weergeven vóór andere apps</string>
+    <string name="setup_draw_over_other_apps_summary">Deze machtiging is vereist om het altijdaan-scherm te kunnen tonen.</string>
+    <string name="setup_finish">Instelhulp afronden</string>
+    <string name="setup_finish_summary">Alles is ingesteld. Druk op 'Afronden' om de instelhulp af te sluiten.</string>
+    <string name="setup_continue">Afronden</string>
+    <string name="setup_error">Er is iets misgegaan! Probeer het opnieuw.</string>
+
+    <string name="app_name">AlwaysOn</string>
+    <string name="app_by">AlwaysOn, gemaakt door @Domi04151309</string>
+    <string name="description">AlwaysOn is een app voor elk apparaat met een AMOLED- of OLED-scherm. De app zorgt er voor dat je scherm aan blijft, en toont een klok en het accupercentage, maar slurpt geen energie.
+Daarnaast toont het een pictogram bij het inpluggen van je koptelefoon en het opladen.
+Je kunt het altijdaan-scherm naar eigen inzicht aanpassen met tegels en widgets.</string>
+
+    <string name="AlwaysOn">Altijdaan-scherm</string>
+    <string name="Headset">Koptelefoonanimatie</string>
+    <string name="Charging">Oplaadanimatie</string>
+
+    <string name="chargingState_error">De huidige oplaadstatus kan niet worden getoond</string>
+    <string name="battery">\??%</string>
+    <string name="clock">H:mm</string>
+    <string name="clock2">HH\nMM</string>
+    <string name="date">d MMM EEE</string>
+    <string name="date2">d MMM EEEE</string>
+    <string name="feature">-</string>
+    <string name="percent">%1$d%%</string>
+    <string name="charged">%1$d%% opgeladen</string>
+
+    <string name="shortcut_settings">Instellingen</string>
+    <string name="shortcut_disabled">Uitgeschakeld</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref_int_failed">Deze waarde kan niet worden gebruikt</string>
+
+    <string name="pref">Instellingen</string>
+    <string name="pref_general">Algemeen</string>
+    <string name="pref_enabled">Ingeschakeld</string>
+    <string name="pref_disabled">Uitgeschakeld</string>
+    <string name="pref_always_on">Altijdaan-scherm</string>
+    <string name="pref_headphones">Koptelefoonanimatie</string>
+    <string name="pref_charging">Oplaadanimatie</string>
+
+    <string name="pref_categories">Categorieën</string>
+    <string name="pref_look_and_feel">Uiterlijk</string>
+    <string name="pref_look_and_feel_summary">Pas het uiterlijk van het altijdaan-scherm aan</string>
+    <string name="pref_look_and_feel_light">Licht thema</string>
+    <string name="pref_look_and_feel_light_summary">Gebruik het lichte thema</string>
+    <string name="pref_look_and_feel_hour">12-uursklok gebruiken</string>
+    <string name="pref_look_and_feel_hour_summary_on">Huidige instelling: 12-uursklok</string>
+    <string name="pref_look_and_feel_hour_summary_off">Huidige instelling: 24-uursklok</string>
+    <string name="pref_look_and_feel_am_pm">AM/PM tonen</string>
+    <string name="pref_look_and_feel_am_pm_summary">Toont AM/PM op de 12-uursklok</string>
+
+    <string name="pref_ao_settings">Scherminstellingen</string>
+    <string name="pref_ao_settings_summary">Meer instellingen omtrent het altijdaan-scherm</string>
+    <string name="pref_look_and_feel_ao">Uiterlijk</string>
+    <string name="pref_look_and_feel_ao_summary">Pas het uiterlijk van het altijdaan-scherm aan</string>
+    <string name="pref_look_and_feel_ao_array_display_0">Google-achtige stijl</string>
+    <string name="pref_look_and_feel_ao_array_display_1">Samsung-achtige stijl</string>
+    <string name="pref_look_and_feel_ao_array_display_2">Alternatieve Samsung-achtige stijl</string>
+    <string name="pref_ao_watch_face">Uurwerk</string>
+    <string name="pref_ao_showClock">Tijd tonen</string>
+    <string name="pref_ao_showDate">Datum tonen</string>
+    <string name="pref_ao_showBatteryIcn">Accupictogram tonen</string>
+    <string name="pref_ao_showBattery">Accupercentage tonen</string>
+    <string name="pref_ao_showNotifications">Aantal meldingen tonen</string>
+    <string name="pref_ao_background">Achtergrond</string>
+    <string name="pref_ao_edgeGlow">Randen oplichten</string>
+    <string name="pref_ao_edgeGlow_summary">Laat de schermranden oplichten bij het ontvangen van een melding</string>
+    <string name="pref_ao_glowDuration">Duur (in milliseconden)</string>
+    <string name="pref_ao_glowDuration_summary">Hoe lang de randen moeten oplichten</string>
+    <string name="pref_ao_behavior">Gedrag</string>
+    <string name="pref_ao_vibration">Duur (in milliseconden)</string>
+    <string name="pref_ao_vibration_summary">Hoe lang de telefoon moet trillen als je dubbeltikt op het scherm</string>
+    <string name="pref_ao_animation_delay">Animatievertraging (in minuten)</string>
+    <string name="pref_ao_animation_delay_summary">Tijd tussen de verschillende posities van de inhoud\nWaarschuwing: té hoge waarden kunnen zorgen voor inbranding!</string>
+    <string name="pref_ao_force_brightness">Specifieke helderheid afdwingen</string>
+    <string name="pref_ao_force_brightness_summary">Druk om het helderheidsniveau aan te passen</string>
+    <string name="pref_ao_force_brightness_title">Helderheid</string>
+    <string name="pref_ao_force_brightness_example">Zó helder wordt tekst getoond op het altijdaan-scherm.</string>
+    <string name="pref_ao_pocket_mode">Broekzakmodus</string>
+    <string name="pref_ao_pocket_mode_summary">Schakelt het altijdaan-scherm uit als je telefoon in je broekzak zit\nWaarschuwing: dit kan het accuverbruik verhogen!</string>
+    <string name="pref_ao_dnd">Niet storen</string>
+    <string name="pref_ao_dnd_summary">Schakel dit in om de nietstoren-modus in te schakelen zolang het altijdaan-scherm wordt getoond</string>
+    <string name="pref_ao_power_saving">Energiebesparingsmodus (root)</string>
+    <string name="pref_ao_power_saving_summary">Bespaart energie zolang het altijdaan-scherm wordt getoond</string>
+
+    <string name="pref_look_and_feel_charging">Oplaadanimatiestijl</string>
+    <string name="pref_look_and_feel_charging_summary">Pas de stijl aan van de oplaadanimatie</string>
+    <string name="pref_look_and_feel_charging_array_display_0">Cirkelstijl</string>
+    <string name="pref_look_and_feel_charging_array_display_1">Knipperstijl</string>
+    <string name="pref_look_and_feel_charging_array_display_2">iOS-stijl</string>
+    <string name="pref_look_and_feel_hide_display_cutouts">Scherminkepingen verbergen</string>
+    <string name="pref_look_and_feel_hide_display_cutouts_summary">Verberg scherminkepingen bij beeldvullende inhoud</string>
+
+    <string name="pref_permissions">Machtigingen</string>
+    <string name="pref_permissions_summary">Instellingen omtrent machtigingen</string>
+    <string name="pref_notification">Meldingstoegang</string>
+    <string name="pref_notification_summary">Schakel meldingstoegang in of uit</string>
+    <string name="pref_draw_over_other_apps">Weergeven vóór andere apps</string>
+    <string name="pref_draw_over_other_apps_summary">Schakel weergeven vóór andere apps in of uit</string>
+    <string name="pref_admin">Apparaatbeheerder</string>
+    <string name="pref_admin_summary">Schakel apparaatbeheerder in voor de reguliere modus</string>
+    <string name="pref_root">Roottoegangsverzoek</string>
+    <string name="pref_root_summary">Schakel roottoegang in of uit voor de rootmodus</string>
+    <string name="pref_root_mode">Rootmodus</string>
+    <string name="pref_root_mode_summary">Schakel ontgrendelen met de vingerafdrukscanner in</string>
+
+    <string name="select">Kiezen</string>
+    <string name="save">Opslaan</string>
+
+    <string name="about">Over</string>
+    <string name="about_summary">Over de app</string>
+    <string name="about_version">Versie %1$s</string>
+    <string name="about_github">Wellicht is er een nieuwere versie beschikbaar op <a href="https://github.com/Domi04151309/AlwaysOn">GitHub</a>. Deze app is gratis en zal dat ook altijd blijven. Betaal niet voor deze app.</string>
+    <string name="about_license">Deze app wordt verspreid onder de voorwaarden van de <a href="https://github.com/Domi04151309/AlwaysOn/blob/master/LICENSE">GNU General Public License v3.0</a></string>
+    <string name="about_damage">Ik ben niet verantwoordelijk voor schade aan je apparaat.</string>
+    <string name="about_icons">De pictogrammen zijn gemaakt door <a href="https://icons8.com/">Icons8</a> and <a href="https://material.io/resources/icons/">Google</a>.</string>
+</resources>
