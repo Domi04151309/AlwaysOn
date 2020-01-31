@@ -52,6 +52,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
     private var aoBatteryIcn: Boolean = true
     private var aoBattery: Boolean = true
     private var aoNotifications: Boolean = true
+    private var aoNotificationIcons: Boolean = false
     private var aoEdgeGlow: Boolean = true
     private var aoPocketMode: Boolean = false
     private var aoDND: Boolean = false
@@ -132,16 +133,21 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
 
         override fun onReceive(c: Context, intent: Intent) {
             val count = intent.getIntExtra("count", 0)
-            if (count != 0) {
-                notifications!!.text = count.toString()
-                notificationAvailable = true
-            } else {
-                notifications!!.text = ""
-                notificationAvailable = false
+            if (aoNotifications) {
+                if (count == 0)
+                    notifications!!.text = ""
+                else
+                    notifications!!.text = count.toString()
             }
 
-            val itemArray: java.util.ArrayList<Icon> = intent.getParcelableArrayListExtra<Icon>("icons") ?: arrayListOf()
-            notificationGrid!!.adapter = NotificationGridAdapter(itemArray)
+            if (aoNotificationIcons) {
+                val itemArray: java.util.ArrayList<Icon> = intent.getParcelableArrayListExtra<Icon>("icons") ?: arrayListOf()
+                notificationGrid!!.adapter = NotificationGridAdapter(itemArray)
+            }
+
+            if (aoEdgeGlow) {
+                notificationAvailable = count != 0
+            }
         }
     }
 
@@ -181,6 +187,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         aoBatteryIcn = prefs.getBoolean("ao_batteryIcn", true)
         aoBattery = prefs.getBoolean("ao_battery", true)
         aoNotifications = prefs.getBoolean("ao_notifications", true)
+        aoNotificationIcons = prefs.getBoolean("ao_notification_icons", false)
         aoEdgeGlow = prefs.getBoolean("ao_edgeGlow", false)
         aoPocketMode = prefs.getBoolean("ao_pocket_mode", false)
         aoDND = prefs.getBoolean("ao_dnd", false)
@@ -213,6 +220,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         if (!aoBatteryIcn) batteryIcn!!.visibility = View.GONE
         if (!aoBattery) batteryTxt!!.visibility = View.GONE
         if (!aoNotifications) notifications!!.visibility = View.GONE
+        if (!aoNotificationIcons) notificationGrid!!.visibility = View.GONE
         val clockFormatString = if (userTheme == "samsung") {
             if (clock) {
                 if (amPm) "hh\nmm\na"
@@ -404,7 +412,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
             if (aoBatteryIcn || aoBattery) registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
             // Notification Listener
-            if (aoNotifications || aoEdgeGlow) {
+            if (aoNotifications || aoNotificationIcons || aoEdgeGlow) {
                 localManager!!.registerReceiver(mNotificationReceiver, IntentFilter(Global.NOTIFICATIONS))
                 localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
             }
@@ -428,7 +436,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
             if (aoBatteryIcn || aoBattery) unregisterReceiver(mBatInfoReceiver)
 
             // Notification Listener
-            if (aoNotifications || aoEdgeGlow) localManager!!.unregisterReceiver(mNotificationReceiver)
+            if (aoNotifications || aoNotificationIcons || aoEdgeGlow) localManager!!.unregisterReceiver(mNotificationReceiver)
 
             // DND
             if (aoDND && notificationAccess) mNotificationManager!!.setInterruptionFilter(userDND)

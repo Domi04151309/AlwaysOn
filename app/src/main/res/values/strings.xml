@@ -82,6 +82,7 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="pref_ao_showBatteryIcn">Display a battery icon</string>
     <string name="pref_ao_showBattery">Display the battery percentage</string>
     <string name="pref_ao_showNotifications">Display a notification count</string>
+    <string name="pref_ao_showNotificationIcons">Display notification icons</string>
     <string name="pref_ao_background">Background</string>
     <string name="pref_ao_edgeGlow">Edge glow</string>
     <string name="pref_ao_edgeGlow_summary">Glowing edges when a notification is received</string>
