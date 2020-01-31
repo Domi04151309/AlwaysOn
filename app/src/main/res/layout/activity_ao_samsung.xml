@@ -76,5 +76,13 @@
             android:gravity="center"
             android:text="@string/feature"
             android:textSize="25sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notifications_grid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/aod_spacing"
+            android:layout_marginBottom="@dimen/aod_spacing"
+            android:layout_gravity="center" />
     </LinearLayout>
 </FrameLayout>

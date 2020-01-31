@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Point
+import android.graphics.drawable.Icon
 import android.graphics.drawable.TransitionDrawable
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
@@ -29,6 +30,9 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.util.Log
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import io.github.domi04151309.alwayson.adapters.NotificationGridAdapter
 
 
 class AlwaysOn : AppCompatActivity(), SensorEventListener {
@@ -123,6 +127,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
     private var notificationAvailable: Boolean = false
     private var transitionTime: Int = 0
     private var notifications: TextView? = null
+    private var notificationGrid: RecyclerView? = null
     private val mNotificationReceiver = object : BroadcastReceiver() {
 
         override fun onReceive(c: Context, intent: Intent) {
@@ -134,6 +139,9 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
                 notifications!!.text = ""
                 notificationAvailable = false
             }
+
+            val itemArray: java.util.ArrayList<Icon> = intent.getParcelableArrayListExtra<Icon>("icons") ?: arrayListOf()
+            notificationGrid!!.adapter = NotificationGridAdapter(itemArray)
         }
     }
 
@@ -198,6 +206,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         batteryIcn = findViewById(R.id.batteryIcn)
         batteryTxt = findViewById(R.id.batteryTxt)
         notifications = findViewById(R.id.notifications)
+        notificationGrid = findViewById(R.id.notifications_grid)
 
         if (!aoClock) clockTxt!!.visibility = View.GONE
         if (!aoDate) dateTxt!!.visibility = View.GONE
@@ -264,6 +273,11 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
             dateFilter.addAction(Intent.ACTION_DATE_CHANGED)
             dateFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
         }
+
+        //Notifications
+        val layoutManager = LinearLayoutManager(this)
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        notificationGrid!!.layoutManager = layoutManager
 
         //Proximity
         if (aoPocketMode) {

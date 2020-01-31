@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.drawable.Icon
+import android.os.Handler
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
@@ -15,6 +17,7 @@ class NotificationService : NotificationListenerService() {
 
     private var cache: Int = -1
     private var localManager: LocalBroadcastManager? = null
+    private var sentRecently: Boolean = false
 
     private val mActionReceiver = object : BroadcastReceiver() {
 
@@ -43,20 +46,26 @@ class NotificationService : NotificationListenerService() {
     }
 
     private fun sendCount(force: Boolean = false) {
-        var count = 0
-        try {
-            val notifications = activeNotifications
-            for (notification in notifications) {
-                if (!notification.isOngoing) {
-                    count++
+        if (!sentRecently) {
+            sentRecently = true
+            var count = 0
+            val icons: ArrayList<Icon> = arrayListOf()
+            try {
+                val notifications = activeNotifications
+                for (notification in notifications) {
+                    if (!notification.isOngoing) {
+                        count++
+                        icons += notification.notification.smallIcon
+                    }
                 }
+            } catch (e: Exception) {
+                Log.e(Global.LOG_TAG, e.toString())
             }
-        } catch (e: Exception) {
-            Log.e(Global.LOG_TAG, e.toString())
-        }
-        if (cache != count || force) {
-            cache = count
-            localManager!!.sendBroadcast(Intent(Global.NOTIFICATIONS).putExtra("count", count))
+            if (cache != count || force) {
+                cache = count
+                localManager!!.sendBroadcast(Intent(Global.NOTIFICATIONS).putExtra("count", count).putExtra("icons", icons))
+            }
+            Handler().postDelayed({ sentRecently = false }, 100)
         }
     }
 }

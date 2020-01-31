@@ -30,9 +30,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.preference:preference:1.1.0'
-    testImplementation 'junit:junit:4.12'
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
 }
 
 apply plugin: 'kotlin-android-extensions'
