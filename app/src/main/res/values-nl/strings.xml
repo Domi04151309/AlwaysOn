@@ -82,6 +82,7 @@ Je kunt het altijdaan-scherm naar eigen inzicht aanpassen met tegels en widgets.
     <string name="pref_ao_showBatteryIcn">Accupictogram tonen</string>
     <string name="pref_ao_showBattery">Accupercentage tonen</string>
     <string name="pref_ao_showNotifications">Aantal meldingen tonen</string>
+    <string name="pref_ao_showNotificationIcons">Meldingspictogrammen tonen</string>
     <string name="pref_ao_background">Achtergrond</string>
     <string name="pref_ao_edgeGlow">Randen oplichten</string>
     <string name="pref_ao_edgeGlow_summary">Laat de schermranden oplichten bij het ontvangen van een melding</string>
