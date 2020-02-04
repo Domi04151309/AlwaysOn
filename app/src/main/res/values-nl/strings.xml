@@ -9,7 +9,7 @@
 
     <string name="setup_header">Instelhulp</string>
     <string name="setup_choose_mode">Kies een modus</string>
-    <string name="setup_choose_mode_summary">Kies een modus voor de app. Kies voor 'root' als je apparaat geroot is. Weet je niet wat je moet kiezen? Sla deze stap dan over.</string>
+    <string name="setup_choose_mode_summary">Kies een modus voor de app. Kies voor \'root\' als je apparaat geroot is. Weet je niet wat je moet kiezen? Sla deze stap dan over.</string>
     <string name="setup_device_admin">Apparaatbeheerder</string>
     <string name="setup_root">Root</string>
     <string name="setup_root_failed">Rootverzoek mislukt! Probeer het opnieuw of kies een andere modus.</string>
@@ -20,11 +20,10 @@
     <string name="setup_draw_over_other_apps">Weergeven vóór andere apps</string>
     <string name="setup_draw_over_other_apps_summary">Deze machtiging is vereist om het altijdaan-scherm te kunnen tonen.</string>
     <string name="setup_finish">Instelhulp afronden</string>
-    <string name="setup_finish_summary">Alles is ingesteld. Druk op 'Afronden' om de instelhulp af te sluiten.</string>
+    <string name="setup_finish_summary">Alles is ingesteld. Druk op \'Afronden\' om de instelhulp af te sluiten.</string>
     <string name="setup_continue">Afronden</string>
     <string name="setup_error">Er is iets misgegaan! Probeer het opnieuw.</string>
 
-    <string name="app_name">AlwaysOn</string>
     <string name="app_by">AlwaysOn, gemaakt door @Domi04151309</string>
     <string name="description">AlwaysOn is een app voor elk apparaat met een AMOLED- of OLED-scherm. De app zorgt er voor dat je scherm aan blijft, en toont een klok en het accupercentage, maar slurpt geen energie.
 Daarnaast toont het een pictogram bij het inpluggen van je koptelefoon en het opladen.
