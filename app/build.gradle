@@ -8,8 +8,8 @@ android {
         applicationId "io.github.domi04151309.alwayson"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 352
-        versionName "3.5.2"
+        versionCode 360
+        versionName "3.6.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

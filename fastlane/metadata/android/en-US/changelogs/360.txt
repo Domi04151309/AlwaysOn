@@ -1,0 +1,4 @@
+- Add notification icons
+- Add option to disable double-tap
+- Enable landscape mode
+- Add German and Dutch translation
