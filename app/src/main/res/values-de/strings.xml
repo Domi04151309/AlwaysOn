@@ -102,6 +102,8 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="pref_ao_dnd_summary">Schaltet den Nicht-stören-Modus ein, während das Always On Display läuft</string>
     <string name="pref_ao_power_saving">Energiesparmodus (root)</string>
     <string name="pref_ao_power_saving_summary">Spart Strom, wenn das Always On Display aktiviert ist</string>
+    <string name="pref_ao_double_tap_disabled">Doppel-tippen deaktivieren</string>
+    <string name="pref_ao_double_tap_disabled_summary">Deaktiviert doppeltes Tippen um das Always On Display zu schließen (nicht empfohlen)</string>
 
     <string name="pref_look_and_feel_charging">Aussehen der Ladeanimation</string>
     <string name="pref_look_and_feel_charging_summary">Ändert das Aussehen der Ladeanimation</string>

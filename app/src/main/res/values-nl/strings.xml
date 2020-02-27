@@ -102,6 +102,8 @@ Je kunt het altijdaan-scherm naar eigen inzicht aanpassen met tegels en widgets.
     <string name="pref_ao_dnd_summary">Schakel dit in om de nietstoren-modus in te schakelen zolang het altijdaan-scherm wordt getoond</string>
     <string name="pref_ao_power_saving">Energiebesparingsmodus (root)</string>
     <string name="pref_ao_power_saving_summary">Bespaart energie zolang het altijdaan-scherm wordt getoond</string>
+    <string name="pref_ao_double_tap_disabled">Dubbelklik uitschakelen</string>
+    <string name="pref_ao_double_tap_disabled_summary">Schakelt dubbeltikken uit om Always On Display te sluiten (niet aanbevolen)</string>
 
     <string name="pref_look_and_feel_charging">Oplaadanimatiestijl</string>
     <string name="pref_look_and_feel_charging_summary">Pas de stijl aan van de oplaadanimatie</string>

@@ -194,6 +194,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         val clock = prefs.getBoolean("hour", false)
         val amPm = prefs.getBoolean("am_pm", false)
         val aoForceBrightness = prefs.getBoolean("ao_force_brightness", false)
+        val aoDoubleTapDisabled = prefs.getBoolean("ao_double_tap_disabled", false)
 
         //Cutouts
         if (prefs.getBoolean("hide_display_cutouts",true))
@@ -360,29 +361,31 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         animationThread.start()
 
         //DoubleTap
-        frame.setOnTouchListener(object : View.OnTouchListener {
-            private val gestureDetector = GestureDetector(this@AlwaysOn, object : GestureDetector.SimpleOnGestureListener() {
-                override fun onDoubleTap(e: MotionEvent): Boolean {
-                    val duration = prefs.getInt("ao_vibration", 64).toLong()
-                    if (duration > 0) {
-                        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE))
-                        } else {
-                            vibrator.vibrate(duration)
+        if (!aoDoubleTapDisabled) {
+            frame.setOnTouchListener(object : View.OnTouchListener {
+                private val gestureDetector = GestureDetector(this@AlwaysOn, object : GestureDetector.SimpleOnGestureListener() {
+                    override fun onDoubleTap(e: MotionEvent): Boolean {
+                        val duration = prefs.getInt("ao_vibration", 64).toLong()
+                        if (duration > 0) {
+                            val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE))
+                            } else {
+                                vibrator.vibrate(duration)
+                            }
                         }
+                        finish()
+                        return super.onDoubleTap(e)
                     }
-                    finish()
-                    return super.onDoubleTap(e)
+                })
+
+                override fun onTouch(v: View, event: MotionEvent): Boolean {
+                    gestureDetector.onTouchEvent(event)
+                    v.performClick()
+                    return true
                 }
             })
-
-            override fun onTouch(v: View, event: MotionEvent): Boolean {
-                gestureDetector.onTouchEvent(event)
-                v.performClick()
-                return true
-            }
-        })
+        }
 
         //Stop
         localManager!!.registerReceiver(mStopReceiver, IntentFilter(Global.REQUEST_STOP))
