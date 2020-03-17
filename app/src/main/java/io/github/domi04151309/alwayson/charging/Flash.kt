@@ -1,8 +1,8 @@
 package io.github.domi04151309.alwayson.charging
 
+import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -10,7 +10,7 @@ import android.widget.ImageView
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.R
 
-class Flash : AppCompatActivity() {
+class Flash : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,5 +1,6 @@
 package io.github.domi04151309.alwayson.alwayson
 
+import android.app.Activity
 import android.app.ActivityManager
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
@@ -16,7 +17,6 @@ import android.os.*
 import android.provider.Settings
 import androidx.preference.PreferenceManager
 import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -35,7 +35,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.adapters.NotificationGridAdapter
 
 
-class AlwaysOn : AppCompatActivity(), SensorEventListener {
+class AlwaysOn : Activity(), SensorEventListener {
 
     private var localManager: LocalBroadcastManager? = null
     private var content: View? = null

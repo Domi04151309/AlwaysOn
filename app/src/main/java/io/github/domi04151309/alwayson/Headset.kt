@@ -1,15 +1,15 @@
 package io.github.domi04151309.alwayson
 
+import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.widget.ImageView
 import io.github.domi04151309.alwayson.objects.Global
 
-class Headset : AppCompatActivity() {
+class Headset : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
