@@ -141,7 +141,7 @@ class AlwaysOn : Activity(), SensorEventListener {
             }
 
             if (aoNotificationIcons) {
-                val itemArray: java.util.ArrayList<Icon> = intent.getParcelableArrayListExtra<Icon>("icons") ?: arrayListOf()
+                val itemArray: java.util.ArrayList<Icon> = intent.getParcelableArrayListExtra("icons") ?: arrayListOf()
                 notificationGrid!!.adapter = NotificationGridAdapter(itemArray)
             }
 
