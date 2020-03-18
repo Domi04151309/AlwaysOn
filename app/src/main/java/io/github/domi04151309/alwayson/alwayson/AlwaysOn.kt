@@ -1,6 +1,6 @@
 package io.github.domi04151309.alwayson.alwayson
 
-import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ActivityManager
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
@@ -17,7 +17,6 @@ import android.os.*
 import android.provider.Settings
 import androidx.preference.PreferenceManager
 import androidx.core.content.ContextCompat
-import androidx.appcompat.app.AppCompatActivity
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -36,7 +35,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.adapters.NotificationGridAdapter
 
 
-class AlwaysOn : AppCompatActivity(), SensorEventListener {
+class AlwaysOn : Activity(), SensorEventListener {
 
     private var localManager: LocalBroadcastManager? = null
     private var content: View? = null
@@ -151,12 +150,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
             }
 
             if (aoNotificationIcons) {
-                val itemArray: java.util.ArrayList<Icon> = intent.getParcelableArrayListExtra<Icon>("icons") ?: arrayListOf()
-                if (itemArray.size > 3) {
-                    for (i in itemArray.size - 1 downTo 3) {
-                        itemArray.removeAt(i)
-                    }
-                }
+                val itemArray: java.util.ArrayList<Icon> = intent.getParcelableArrayListExtra("icons") ?: arrayListOf()
                 notificationGrid!!.adapter = NotificationGridAdapter(itemArray)
             }
 
@@ -209,6 +203,7 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         val clock = prefs.getBoolean("hour", false)
         val amPm = prefs.getBoolean("am_pm", false)
         val aoForceBrightness = prefs.getBoolean("ao_force_brightness", false)
+        val aoDoubleTapDisabled = prefs.getBoolean("ao_double_tap_disabled", false)
 
         //Cutouts
         if (prefs.getBoolean("hide_display_cutouts",true))
@@ -380,29 +375,31 @@ class AlwaysOn : AppCompatActivity(), SensorEventListener {
         animationThread.start()
 
         //DoubleTap
-        frame.setOnTouchListener(object : View.OnTouchListener {
-            private val gestureDetector = GestureDetector(this@AlwaysOn, object : GestureDetector.SimpleOnGestureListener() {
-                override fun onDoubleTap(e: MotionEvent): Boolean {
-                    val duration = prefs.getInt("ao_vibration", 64).toLong()
-                    if (duration > 0) {
-                        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE))
-                        } else {
-                            vibrator.vibrate(duration)
+        if (!aoDoubleTapDisabled) {
+            frame.setOnTouchListener(object : View.OnTouchListener {
+                private val gestureDetector = GestureDetector(this@AlwaysOn, object : GestureDetector.SimpleOnGestureListener() {
+                    override fun onDoubleTap(e: MotionEvent): Boolean {
+                        val duration = prefs.getInt("ao_vibration", 64).toLong()
+                        if (duration > 0) {
+                            val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                vibrator.vibrate(VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE))
+                            } else {
+                                vibrator.vibrate(duration)
+                            }
                         }
+                        finish()
+                        return super.onDoubleTap(e)
                     }
-                    finish()
-                    return super.onDoubleTap(e)
+                })
+
+                override fun onTouch(v: View, event: MotionEvent): Boolean {
+                    gestureDetector.onTouchEvent(event)
+                    v.performClick()
+                    return true
                 }
             })
-
-            override fun onTouch(v: View, event: MotionEvent): Boolean {
-                gestureDetector.onTouchEvent(event)
-                v.performClick()
-                return true
-            }
-        })
+        }
 
         //Stop
         localManager!!.registerReceiver(mStopReceiver, IntentFilter(Global.REQUEST_STOP))

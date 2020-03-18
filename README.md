@@ -1,3 +1,4 @@
+![App Icon](https://raw.githubusercontent.com/Domi04151309/AlwaysOn/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
 # AlwaysOn for Android™
 AlwaysOn is an app for every device with an AMOLED or OLED display.
 It keeps your screen on while the time and battery percentage are displayed but it does not drain your battery.
@@ -6,12 +7,12 @@ Also, icons appear when you plug in your headphones or start charging your devic
 <a href='https://play.google.com/store/apps/details?id=io.github.domi04151309.alwayson'>
   <img src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'
   alt='Get it on Google Play'
-  width="24%"/>
+  height="80"/>
 </a>
 <a href="https://f-droid.org/packages/io.github.domi04151309.alwayson">
   <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
   alt="Get it on F-Droid"
-  width="24%"/>
+  height="80"/>
 </a>
 
 ## Previews

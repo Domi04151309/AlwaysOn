@@ -1,13 +1,13 @@
 package io.github.domi04151309.alwayson
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import android.content.Intent
 
 
-class TurnOnScreen : AppCompatActivity() {
+class TurnOnScreen : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

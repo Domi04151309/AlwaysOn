@@ -102,6 +102,12 @@
             android:key="ao_power_saving"
             android:summary="@string/pref_ao_power_saving_summary"
             android:title="@string/pref_ao_power_saving" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_touch_app"
+            android:key="ao_double_tap_disabled"
+            android:summary="@string/pref_ao_double_tap_disabled_summary"
+            android:title="@string/pref_ao_double_tap_disabled" />
     </PreferenceCategory>
 
 </PreferenceScreen>

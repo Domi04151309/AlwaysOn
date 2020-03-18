@@ -82,7 +82,7 @@
             android:excludeFromRecents="true"
             android:hardwareAccelerated="false"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeScreenOff" />
@@ -122,7 +122,7 @@
             android:name=".charging.Flash"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeNoWindowTransitions" />
@@ -130,7 +130,7 @@
             android:name=".charging.Circle"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeNoWindowTransitions" />
@@ -138,7 +138,7 @@
             android:name=".Headset"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeNoWindowTransitions" />
@@ -233,7 +233,7 @@
             android:name=".charging.IOS"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
+            android:screenOrientation="locked"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeNoWindowTransitions" />

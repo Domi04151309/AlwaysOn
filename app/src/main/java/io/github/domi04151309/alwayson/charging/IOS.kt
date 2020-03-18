@@ -1,10 +1,10 @@
 package io.github.domi04151309.alwayson.charging
 
+import android.app.Activity
 import android.app.ActivityManager
 import android.content.*
 import android.graphics.Point
 import android.os.BatteryManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -14,7 +14,7 @@ import android.widget.TextView
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.R
 
-class IOS : AppCompatActivity() {
+class IOS : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

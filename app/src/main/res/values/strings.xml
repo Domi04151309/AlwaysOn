@@ -24,7 +24,7 @@
     <string name="setup_continue">Continue</string>
     <string name="setup_error">Something went wrong! Please try again!</string>
 
-    <string name="app_name">AlwaysOn</string>
+    <string name="app_name" translatable="false">AlwaysOn</string>
     <string name="app_by">AlwaysOn by Domi04151309</string>
     <string name="description">AlwaysOn is an app for every device with an AMOLED or OLED display. It keeps your screen on while the time and battery percentage are displayed but it does not drain your battery.
 Also, icons appear when you plug in your headphones or start charging your device.
@@ -103,6 +103,8 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="pref_ao_dnd_summary">Turns on do not disturb mode while the always on display is running</string>
     <string name="pref_ao_power_saving">Power saving mode (root)</string>
     <string name="pref_ao_power_saving_summary">Saves power when the always on display is enabled</string>
+    <string name="pref_ao_double_tap_disabled">Disable double-tap</string>
+    <string name="pref_ao_double_tap_disabled_summary">Disables double-tap to exit the AOD (not recommended)</string>
 
     <string name="pref_look_and_feel_charging">Charging animation look</string>
     <string name="pref_look_and_feel_charging_summary">Changes the look of the charging animation</string>

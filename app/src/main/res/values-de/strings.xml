@@ -1,0 +1,139 @@
+<resources>
+    <string name="device_admin_description">Erlaube AlwaysOn den Bildschirm auszuschalten</string>
+    <string name="notification_listener_description">Benachrichtigungen auf dem Always On Display anzeigen</string>
+
+    <string name="service_text">AlwaysOn läuft im Hintergrund</string>
+    <string name="service_channel">Servicekanal</string>
+
+    <string name="err_service_failed">Starten des Services fehlgeschlagen!</string>
+
+    <string name="setup_header">Setup</string>
+    <string name="setup_choose_mode">Wähle einen Modus</string>
+    <string name="setup_choose_mode_summary">Sie müssen einen Modus für die App auswählen. Wenn Sie sich nicht sicher sind, was Sie auswählen sollen, lassen Sie diese Einstellung unverändert. Wenn Ihr Gerät gerootet ist, wählen Sie root.</string>
+    <string name="setup_device_admin">Geräteadministrator</string>
+    <string name="setup_root">Root</string>
+    <string name="setup_root_failed">Root-Anfrage fehlgeschlagen! Bitte versuchen Sie es erneut oder wechseln Sie den Modus!</string>
+    <string name="device_admin">Geräteadministrator</string>
+    <string name="device_admin_summary">Sie müssen diesen Geräteadministrator aktivieren oder in den Root-Modus wechseln, damit diese App funktioniert.</string>
+    <string name="notification_listener_service">Benachrichtigungsservice</string>
+    <string name="notification_listener_service_summary">Sie müssen den Benachrichtigungsdienst für die App aktivieren, damit eine Benachrichtigungsanzahl auf dem Always On Display angezeigt wird.</string>
+    <string name="setup_draw_over_other_apps">Über andere Apps zeichnen</string>
+    <string name="setup_draw_over_other_apps_summary">Diese Berechtigung ist erforderlich, um das Always On Display anzuzeigen.</string>
+    <string name="setup_finish">Setup beenden</string>
+    <string name="setup_finish_summary">Alles ist eingerichtet. Bitte klicken Sie auf Weiter, um die Einrichtung abzuschließen.</string>
+    <string name="setup_continue">Weiter</string>
+    <string name="setup_error">Etwas ist schief gelaufen! Bitte versuchen Sie es erneut!</string>
+
+    <string name="app_by">AlwaysOn von Domi04151309</string>
+    <string name="description">AlwaysOn ist eine App für jedes Gerät mit AMOLED- oder OLED-Display. Der Bildschirm bleibt eingeschaltet, während die Uhrzeit und die Akkuladung angezeigt werden.
+Außerdem werden Symbole angezeigt, wenn Sie Ihren Kopfhörer anschließen oder das Gerät aufladen.
+Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets ein- und ausschalten.</string>
+
+    <string name="AlwaysOn">Always On Display</string>
+    <string name="Headset">Kopfhöreranimation</string>
+    <string name="Charging">Ladeanimation</string>
+
+    <string name="chargingState_error">Ladezustand kann nicht angezeigt werden</string>
+    <string name="battery">\??%</string>
+    <string name="clock">H:mm</string>
+    <string name="clock2">HH\nMM</string>
+    <string name="date">EEE, MMM d</string>
+    <string name="date2">EEEE, MMM d</string>
+    <string name="feature">-</string>
+    <string name="percent">%1$d%%</string>
+    <string name="charged">%1$d%% Charged</string>
+
+    <string name="shortcut_settings">Einstellungen</string>
+    <string name="shortcut_disabled">Deaktiviert</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref_int_failed">Dieser Wert kann nicht benutzt werden.</string>
+
+    <string name="pref">Einstellungen</string>
+    <string name="pref_general">Allgemeine Einstellungen</string>
+    <string name="pref_enabled">Derzeit aktiviert</string>
+    <string name="pref_disabled">Derzeit deaktiviert</string>
+    <string name="pref_always_on">Always On Display</string>
+    <string name="pref_headphones">Kopfhöreranimation</string>
+    <string name="pref_charging">Ladeanimation</string>
+
+    <string name="pref_categories">Kategorien</string>
+    <string name="pref_look_and_feel">Erscheinungsbild</string>
+    <string name="pref_look_and_feel_summary">Einstellungen in Bezug auf das Erscheinungsbild</string>
+    <string name="pref_look_and_feel_light">Heller Modus</string>
+    <string name="pref_look_and_feel_light_summary">Ändert das Aussehen der App zu einem hellem Stil</string>
+    <string name="pref_look_and_feel_hour">12-Stunden-Format verwenden</string>
+    <string name="pref_look_and_feel_hour_summary_on">Derzeit verwendet: 12-Stunden-Uhr</string>
+    <string name="pref_look_and_feel_hour_summary_off">Derzeit verwendet: 24-Stunden-Uhr</string>
+    <string name="pref_look_and_feel_am_pm">AM / PM anzeigen</string>
+    <string name="pref_look_and_feel_am_pm_summary">Zeigt AM / PM im 12-Stunden-Format an</string>
+
+    <string name="pref_ao_settings">Always On Display Einstellungen</string>
+    <string name="pref_ao_settings_summary">Mehr Einstellungen in Bezug auf das Always On Display</string>
+    <string name="pref_look_and_feel_ao">Aussehen</string>
+    <string name="pref_look_and_feel_ao_summary">Ändert das Aussehen des Always On Displays</string>
+    <string name="pref_look_and_feel_ao_array_display_0">Google-ähnlicher Stil</string>
+    <string name="pref_look_and_feel_ao_array_display_1">Samsung-ähnlicher Stil</string>
+    <string name="pref_look_and_feel_ao_array_display_2">Zweiter Samsung-ähnlicher Stil</string>
+    <string name="pref_ao_watch_face">Zifferblatt</string>
+    <string name="pref_ao_showClock">Zeit anzeigen</string>
+    <string name="pref_ao_showDate">Datum anzeigen</string>
+    <string name="pref_ao_showBatteryIcn">Batterieicon anzeigen</string>
+    <string name="pref_ao_showBattery">Batterieladung anzeigen</string>
+    <string name="pref_ao_showNotifications">Benachrichtigungszähler anzeigen</string>
+    <string name="pref_ao_showNotificationIcons">Benachrichtigungsicons anzeigen</string>
+    <string name="pref_ao_background">Hintergrund</string>
+    <string name="pref_ao_edgeGlow">Leuchtende Kanten</string>
+    <string name="pref_ao_edgeGlow_summary">Leuchtende Kanten, wenn eine Benachrichtigung eingeht</string>
+    <string name="pref_ao_glowDuration">Leuchtdauer (in Millisekunden)</string>
+    <string name="pref_ao_glowDuration_summary">Dauer, welche die Kanten leuchten</string>
+    <string name="pref_ao_behavior">Verhalten</string>
+    <string name="pref_ao_vibration">Vibrationsdauer (in Millisekunden)</string>
+    <string name="pref_ao_vibration_summary">Dauer, die das Telefon vibriert, wenn Sie zweimal auf den Bildschirm tippen</string>
+    <string name="pref_ao_animation_delay">Animationsverzögerung (in Minuten)</string>
+    <string name="pref_ao_animation_delay_summary">Zeit zwischen den verschiedenen Positionen des Inhalts\nWarnung: Zu hohe Werte können zum Einbrennen des Bildschirms führen!</string>
+    <string name="pref_ao_force_brightness">Eine bestimmte Helligkeit auf dem AOD erzwingen</string>
+    <string name="pref_ao_force_brightness_summary">Tippen Sie, um die Helligkeit zu ändern</string>
+    <string name="pref_ao_force_brightness_title">Helligkeit</string>
+    <string name="pref_ao_force_brightness_example">So hell erscheint der Text auf Ihrem Always On Display.</string>
+    <string name="pref_ao_pocket_mode">Taschenmodus</string>
+    <string name="pref_ao_pocket_mode_summary">Deaktiviert das Always On Display in Ihrer Tasche\nWarnung: Die Verwendung von Sensoren kann zu einer erhöhten Akkunutzung führen!</string>
+    <string name="pref_ao_dnd">Nicht stören</string>
+    <string name="pref_ao_dnd_summary">Schaltet den Nicht-stören-Modus ein, während das Always On Display läuft</string>
+    <string name="pref_ao_power_saving">Energiesparmodus (root)</string>
+    <string name="pref_ao_power_saving_summary">Spart Strom, wenn das Always On Display aktiviert ist</string>
+    <string name="pref_ao_double_tap_disabled">Doppel-tippen deaktivieren</string>
+    <string name="pref_ao_double_tap_disabled_summary">Deaktiviert doppeltes Tippen um das Always On Display zu schließen (nicht empfohlen)</string>
+
+    <string name="pref_look_and_feel_charging">Aussehen der Ladeanimation</string>
+    <string name="pref_look_and_feel_charging_summary">Ändert das Aussehen der Ladeanimation</string>
+    <string name="pref_look_and_feel_charging_array_display_0">Kreis Stil</string>
+    <string name="pref_look_and_feel_charging_array_display_1">Blitz Stil</string>
+    <string name="pref_look_and_feel_charging_array_display_2">iOS Stil</string>
+    <string name="pref_look_and_feel_hide_display_cutouts">Bildschirmausschnitte ausblenden</string>
+    <string name="pref_look_and_feel_hide_display_cutouts_summary">Verstecken von Bildschirmausschnitten im Vollbildmodus</string>
+
+    <string name="pref_permissions">Berechtigungen</string>
+    <string name="pref_permissions_summary">Einstellungen in Bezug auf Berechtigungen</string>
+    <string name="pref_notification">Benachrichtigungszugriff</string>
+    <string name="pref_notification_summary">Aktivieren oder deaktivieren Sie den Benachrichtigungszugriff</string>
+    <string name="pref_draw_over_other_apps">Über anderen Apps anzeigen</string>
+    <string name="pref_draw_over_other_apps_summary">Aktivieren oder deaktivieren Sie diese Berechtigung</string>
+    <string name="pref_admin">Geräteadministrator</string>
+    <string name="pref_admin_summary">Aktivieren Sie diesen Geräteadministrator für den normalen Modus</string>
+    <string name="pref_root">Root-Zugriff anfordern</string>
+    <string name="pref_root_summary">Aktivieren Sie den Root-Zugriff für den Root-Modus</string>
+    <string name="pref_root_mode">Root-Modus</string>
+    <string name="pref_root_mode_summary">Aktiviert das Entsperren mit dem Fingerabdruckscanner</string>
+
+    <string name="select">Auswählen</string>
+    <string name="save">Speichern</string>
+
+    <string name="about">Über</string>
+    <string name="about_summary">Über die App</string>
+    <string name="about_version">Version %1$s</string>
+    <string name="about_github">Möglicherweise sind neuere Versionen auf <a href="https://github.com/Domi04151309/AlwaysOn">GitHub</a> verfügbar. Diese App ist und bleibt freie Software. Zahlen Sie nicht für diese App.</string>
+    <string name="about_license">Diese App wird unter den Bedingungen der <a href="https://github.com/Domi04151309/AlwaysOn/blob/master/LICENSE">GNU General Public License v3.0</a> zur Verfügung gestellt.</string>
+    <string name="about_damage">Ich bin nicht für Schäden an Ihrem Gerät verantwortlich.</string>
+    <string name="about_icons">Icons von <a href="https://icons8.com/">Icons8</a> und <a href="https://material.io/resources/icons/">Google</a>.</string>
+</resources>
