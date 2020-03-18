@@ -1,0 +1,139 @@
+<resources>
+    <string name="device_admin_description">Разрешить AlwaysOn выключать экран</string>
+    <string name="notification_listener_description">Показывать количество уведомлений на экране Always On Display</string>
+
+    <string name="service_text">AlwaysOn работает в фоновом режиме</string>
+    <string name="service_channel">Сервисный канал</string>
+
+    <string name="err_service_failed">Не удалось запустить сервис!</string>
+
+    <string name="setup_header">Настройка</string>
+    <string name="setup_choose_mode">Выберите режим</string>
+    <string name="setup_choose_mode_summary">Вам нужно выбрать режим работы приложения. Если вы не уверены, в нужном вам режиме, оставьте этот параметр как есть. Если ваше устройство имеет root-права, выберите root.</string>
+    <string name="setup_device_admin">Администратор Устройства</string>
+    <string name="setup_root">Root</string>
+    <string name="setup_root_failed">Запрос на root права не выполнен! Пожалуйста, попробуйте еще раз или переключите режим!</string>
+    <string name="device_admin">Администратор Устройства</string>
+    <string name="device_admin_summary">Вам нужно активировать права администратора или переключиться в root, чтобы это приложение работало.</string>
+    <string name="notification_listener_service">Служба проверки уведомлений</string>
+    <string name="notification_listener_service_summary">Вам необходимо включить службу проверки уведомлений для приложения, чтобы отображать счетчик уведомлений на экране Always On Display.</string>
+    <string name="setup_draw_over_other_apps">Показывать поверх других приложений</string>
+    <string name="setup_draw_over_other_apps_summary">Это разрешение требуется для отображения Always On Display</string>
+    <string name="setup_finish">Завершить настройку</string>
+    <string name="setup_finish_summary">Все настроено. Пожалуйста, нажмите «Продолжить», чтобы завершить настройку.</string>
+    <string name="setup_continue">Продолжить</string>
+    <string name="setup_error">Что-то пошло не так! Пожалуйста, попробуйте еще раз!</string>
+
+    <string name="app_by">AlwaysOn создано Domi04151309</string>
+    <string name="description">AlwaysOn - это приложение для устройств с AMOLED и OLED дисплеями. Приложение включает Always On Dispaly, отображает время и процент заряда батареи, но не разряжает батарею.
+Кроме того, значки появляются, когда вы подключаете наушники или начинаете зарядку устройства.
+Вы можете настроить свой Always On Display и включать или выключать его с помощью панели быстрых настроек и виджетов.</string>
+
+    <string name="AlwaysOn">Always on display</string>
+    <string name="Headset">Анимация подключения наушников</string>
+    <string name="Charging">Анимация подключения зарядки</string>
+
+    <string name="chargingState_error">Невозможно отобразить состояние зарядки</string>
+    <string name="battery">\??%</string>
+    <string name="clock">Ч:мм</string>
+    <string name="clock2">ЧЧ\nММ</string>
+    <string name="date">ДДД, МММ д</string>
+    <string name="date2">ДДДД, МММ д</string>
+    <string name="feature">-</string>
+    <string name="percent">%1$d%%</string>
+    <string name="charged">%1$d%% Заряжен</string>
+
+    <string name="shortcut_settings">Настройки</string>
+    <string name="shortcut_disabled">Отключено</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref_int_failed">Это значение не может быть использовано</string>
+
+    <string name="pref">Настройки</string>
+    <string name="pref_general">Общие настройки</string>
+    <string name="pref_enabled">Сейчас Включено</string>
+    <string name="pref_disabled">Сейчас Выключено</string>
+    <string name="pref_always_on">Always on display</string>
+    <string name="pref_headphones">Анимация подключения наушников</string>
+    <string name="pref_charging">Анимация подключения зарядки</string>
+
+    <string name="pref_categories">Категории</string>
+    <string name="pref_look_and_feel">Внешний вид</string>
+    <string name="pref_look_and_feel_summary">Настройки относящиеся к внешнему виду</string>
+    <string name="pref_look_and_feel_light">Светлый режим</string>
+    <string name="pref_look_and_feel_light_summary">Изменяет внешний вид приложения на светлый стиль</string>
+    <string name="pref_look_and_feel_hour">Использовть 12-часовой формат</string>
+    <string name="pref_look_and_feel_hour_summary_on">Сейчас используется: 12-часовой формат</string>
+    <string name="pref_look_and_feel_hour_summary_off">Сейчас используется: 24-часовой формат</string>
+    <string name="pref_look_and_feel_am_pm">Показывать AM / PM</string>
+    <string name="pref_look_and_feel_am_pm_summary">Показывать AM / PM при использовании 12-часового формата</string>
+
+    <string name="pref_ao_settings">Настройки Always on display</string>
+    <string name="pref_ao_settings_summary">Дополнительные настройки, относящиеся к always on display</string>
+    <string name="pref_look_and_feel_ao">Внешний вид Always on</string>
+    <string name="pref_look_and_feel_ao_summary">Изменяет внешний вид always on display</string>
+    <string name="pref_look_and_feel_ao_array_display_0">Стиль Google</string>
+    <string name="pref_look_and_feel_ao_array_display_1">Стиль Samsung</string>
+    <string name="pref_look_and_feel_ao_array_display_2">Стиль Samsung 2</string>
+    <string name="pref_ao_watch_face">Отображение</string>
+    <string name="pref_ao_showClock">Показывать время</string>
+    <string name="pref_ao_showDate">Показывать дату</string>
+    <string name="pref_ao_showBatteryIcn">Показывать иконку батареи</string>
+    <string name="pref_ao_showBattery">Показывать заряд батареи</string>
+    <string name="pref_ao_showNotifications">Показывать счетчик уведомлений</string>
+    <string name="pref_ao_showNotificationIcons">Показывать иконки уведомлений</string>
+    <string name="pref_ao_background">Задний фон</string>
+    <string name="pref_ao_edgeGlow">Подсветка краёв экрана</string>
+    <string name="pref_ao_edgeGlow_summary">Подсвечивать края экрана при получении уведомлений</string>
+    <string name="pref_ao_glowDuration">Время подсветки (в милисекундах)</string>
+    <string name="pref_ao_glowDuration_summary">Время подсветки краёв</string>
+    <string name="pref_ao_behavior">Поведение</string>
+    <string name="pref_ao_vibration">Время вибрации (в милисекундах)</string>
+    <string name="pref_ao_vibration_summary">Время вибрации телефона при двойном нажатии на экран</string>
+    <string name="pref_ao_animation_delay">Длительность анимации (в минутах)</string>
+    <string name="pref_ao_animation_delay_summary">Время между различными позициями содержимого \ Предупреждение. Слишком высокие значения могут стать причиной выгорания экрана!</string>
+    <string name="pref_ao_force_brightness">Принудительно установить яркость на AOD</string>
+    <string name="pref_ao_force_brightness_summary">Нажмите, чтобы изменить принудительную яркость</string>
+    <string name="pref_ao_force_brightness_title">Яркость</string>
+    <string name="pref_ao_force_brightness_example">Показывает насколько ярким будет текст на вашем экране</string>
+    <string name="pref_ao_pocket_mode">Карманный режим</string>
+    <string name="pref_ao_pocket_mode_summary">Выключает AOD в вашем кармане \ Предупреждение: использование датчика может привести к увеличению расхода заряда батареи!</string>
+    <string name="pref_ao_dnd">Не беспокоить</string>
+    <string name="pref_ao_dnd_summary">Включает режим «Не беспокоить», когда работает AOD</string>
+    <string name="pref_ao_power_saving">Режим энергосбережения (root)</string>
+    <string name="pref_ao_power_saving_summary">Экономит заряд, когда работает AOD</string>
+    <string name="pref_ao_double_tap_disabled">Отключить пробуждение по двойному нажатию</string>
+    <string name="pref_ao_double_tap_disabled_summary">Отключает пробуждение по двойному нажатию для выхода из AOD (не рекомендуется)</string>
+
+    <string name="pref_look_and_feel_charging">Вид анимации зарядки</string>
+    <string name="pref_look_and_feel_charging_summary">Изменяет внешний вид анимации зарядки</string>
+    <string name="pref_look_and_feel_charging_array_display_0">Круг</string>
+    <string name="pref_look_and_feel_charging_array_display_1">Молния</string>
+    <string name="pref_look_and_feel_charging_array_display_2">iOS</string>
+    <string name="pref_look_and_feel_hide_display_cutouts">Скрыть вырезы на дисплее</string>
+    <string name="pref_look_and_feel_hide_display_cutouts_summary">Скрыть вырезы в полноэкранном контенте</string>
+
+    <string name="pref_permissions">Разрешения</string>
+    <string name="pref_permissions_summary">Настройки, связанные с разрешениями</string>
+    <string name="pref_notification">Доступ к уведомлениям</string>
+    <string name="pref_notification_summary">Включить или отключить доступ к уведомлениям</string>
+    <string name="pref_draw_over_other_apps">Отображать поверх других приложений</string>
+    <string name="pref_draw_over_other_apps_summary">Включить или отключить это разрешение</string>
+    <string name="pref_admin">Администратор устройства</string>
+    <string name="pref_admin_summary">Активируйте эту настройку для нормального режима</string>
+    <string name="pref_root">Запросить root-доступ</string>
+    <string name="pref_root_summary">Включить root-доступ для root режима</string>
+    <string name="pref_root_mode">Root режим</string>
+    <string name="pref_root_mode_summary">Разблокировка с помощью сканера отпечатков пальцев</string>
+
+    <string name="select">Выбрать</string>
+    <string name="save">Сохранить</string>
+
+    <string name="about">О приложении</string>
+    <string name="about_summary">О приложении</string>
+    <string name="about_version">Версия %1$s</string>
+    <string name="about_github">Можеть быть доступна более новая версия на <a href="https://github.com/Domi04151309/AlwaysOn">GitHub</a>. Это приложение было, есть и всегда будет свободным программным обеспечением. Не платите за это приложение.</string>
+    <string name="about_license">Это приложение распространяется в соответствии с условиями <a href="https://github.com/Domi04151309/AlwaysOn/blob/master/LICENSE">GNU General Public License v3.0</a></string>
+    <string name="about_damage">Я не несу ответственности за любые повреждения вашего устройства.</string>
+    <string name="about_icons">Иконки предоставлены <a href="https://icons8.com/">Icons8</a> и <a href="https://material.io/resources/icons/">Google</a>.</string>
+</resources>
