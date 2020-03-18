@@ -1,0 +1,87 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    tools:context="io.github.domi04151309.alwayson.alwayson.AlwaysOn"
+    tools:ignore="MergeRootFrame">
+
+    <LinearLayout
+        android:id="@+id/fullscreen_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:id="@+id/clockTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/aod_spacing"
+            android:layout_marginBottom="@dimen/aod_spacing_2"
+            android:fontFamily="@font/slate_medium"
+            android:gravity="center"
+            android:lineSpacingMultiplier="0.72"
+            android:text="@string/clock2"
+            android:textSize="75sp" />
+
+        <TextView
+            android:id="@+id/dateTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/aod_spacing_2"
+            android:layout_marginBottom="@dimen/aod_spacing_2"
+            android:fontFamily="@font/slate_medium"
+            android:gravity="center"
+            android:text="@string/date"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/aod_spacing"
+            android:layout_marginBottom="@dimen/aod_spacing"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <TextView
+                android:id="@+id/batteryTxt"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/slate_medium"
+                android:gravity="start"
+                android:text="@string/battery"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/batteryIcn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/feature"
+                app:srcCompat="@drawable/ic_battery_unknown" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/notifications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/aod_spacing"
+            android:layout_marginBottom="@dimen/aod_spacing"
+            android:fontFamily="@font/slate_medium"
+            android:gravity="center"
+            android:text="@string/feature"
+            android:textSize="20sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notifications_grid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/aod_spacing"
+            android:layout_marginBottom="@dimen/aod_spacing"
+            android:layout_gravity="center" />
+    </LinearLayout>
+</FrameLayout>

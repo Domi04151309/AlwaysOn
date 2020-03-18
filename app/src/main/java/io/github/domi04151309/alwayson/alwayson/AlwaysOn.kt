@@ -206,6 +206,7 @@ class AlwaysOn : Activity(), SensorEventListener {
             "google" -> setContentView(R.layout.activity_ao_google)
             "samsung" -> setContentView(R.layout.activity_ao_samsung)
             "samsung2" -> setContentView(R.layout.activity_ao_samsung_2)
+            "oneplus" -> setContentView(R.layout.activity_ao_oneplus)
         }
 
         //Watch face
@@ -222,7 +223,7 @@ class AlwaysOn : Activity(), SensorEventListener {
         if (!aoBattery) batteryTxt!!.visibility = View.GONE
         if (!aoNotifications) notifications!!.visibility = View.GONE
         if (!aoNotificationIcons) notificationGrid!!.visibility = View.GONE
-        val clockFormatString = if (userTheme == "samsung") {
+        val clockFormatString = if (userTheme == "samsung" || userTheme == "oneplus") {
             if (clock) {
                 if (amPm) "hh\nmm\na"
                 else "hh\nmm"

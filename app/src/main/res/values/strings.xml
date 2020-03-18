@@ -76,6 +76,7 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="pref_look_and_feel_ao_array_display_0">Google like style</string>
     <string name="pref_look_and_feel_ao_array_display_1">Samsung like style</string>
     <string name="pref_look_and_feel_ao_array_display_2">Second Samsung like style</string>
+    <string name="pref_look_and_feel_ao_array_display_3">OnePlus like style</string>
     <string name="pref_ao_watch_face">Watch face</string>
     <string name="pref_ao_showClock">Display the time</string>
     <string name="pref_ao_showDate">Display the date</string>

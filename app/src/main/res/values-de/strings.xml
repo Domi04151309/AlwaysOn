@@ -75,6 +75,7 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="pref_look_and_feel_ao_array_display_0">Google-ähnlicher Stil</string>
     <string name="pref_look_and_feel_ao_array_display_1">Samsung-ähnlicher Stil</string>
     <string name="pref_look_and_feel_ao_array_display_2">Zweiter Samsung-ähnlicher Stil</string>
+    <string name="pref_look_and_feel_ao_array_display_3">OnePlus-ähnlicher Stil</string>
     <string name="pref_ao_watch_face">Zifferblatt</string>
     <string name="pref_ao_showClock">Zeit anzeigen</string>
     <string name="pref_ao_showDate">Datum anzeigen</string>
