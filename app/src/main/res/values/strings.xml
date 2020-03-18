@@ -137,4 +137,5 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="about_license">This app is distributed under the terms and conditions of the <a href="https://github.com/Domi04151309/AlwaysOn/blob/master/LICENSE">GNU General Public License v3.0</a></string>
     <string name="about_damage">I am not responsible for any damage to your device.</string>
     <string name="about_icons">Icons by <a href="https://icons8.com/">Icons8</a> and <a href="https://material.io/resources/icons/">Google</a>.</string>
+    <string name="pre_look_and_feel_ao_array_display_3">OnePlus like style</string>
 </resources>
