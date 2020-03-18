@@ -75,6 +75,7 @@
     <string name="pref_look_and_feel_ao_array_display_0">Стиль Google</string>
     <string name="pref_look_and_feel_ao_array_display_1">Стиль Samsung</string>
     <string name="pref_look_and_feel_ao_array_display_2">Стиль Samsung 2</string>
+    <string name="pref_look_and_feel_ao_array_display_3">Стиль OnePlus</string>
     <string name="pref_ao_watch_face">Отображение</string>
     <string name="pref_ao_showClock">Показывать время</string>
     <string name="pref_ao_showDate">Показывать дату</string>

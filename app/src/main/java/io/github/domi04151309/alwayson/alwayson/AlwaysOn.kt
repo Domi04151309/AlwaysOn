@@ -181,7 +181,7 @@ class AlwaysOn : Activity(), SensorEventListener {
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         rootMode = prefs.getBoolean("root_mode", false)
         powerSaving = prefs.getBoolean("ao_power_saving", false)
-        val userTheme = prefs.getString("ao_style", "google")!!
+        val userTheme = prefs.getString("ao_style", "google")
         aoClock = prefs.getBoolean("ao_clock", true)
         aoDate = prefs.getBoolean("ao_date", true)
         aoBatteryIcn = prefs.getBoolean("ao_batteryIcn", true)
