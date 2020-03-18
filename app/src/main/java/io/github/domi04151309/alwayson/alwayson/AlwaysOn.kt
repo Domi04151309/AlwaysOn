@@ -56,7 +56,6 @@ class AlwaysOn : Activity(), SensorEventListener {
     private var aoEdgeGlow: Boolean = true
     private var aoPocketMode: Boolean = false
     private var aoDND: Boolean = false
-    private var userTheme: String = ""
 
     //Time
     private var clockCache: String = ""
@@ -132,21 +131,13 @@ class AlwaysOn : Activity(), SensorEventListener {
     private var notificationGrid: RecyclerView? = null
     private val mNotificationReceiver = object : BroadcastReceiver() {
 
-        @SuppressLint("SetTextI18n")
         override fun onReceive(c: Context, intent: Intent) {
             val count = intent.getIntExtra("count", 0)
             if (aoNotifications) {
                 if (count == 0)
                     notifications!!.text = ""
-                else {
-                    if (userTheme == "oneplus" && aoNotificationIcons)
-                        if (count > 3)
-                            notifications!!.text = "+" + (count - 3).toString()
-                        else
-                            notifications!!.text = ""
-                    else
-                        notifications!!.text = count.toString()
-                }
+                else
+                    notifications!!.text = count.toString()
             }
 
             if (aoNotificationIcons) {
@@ -190,7 +181,7 @@ class AlwaysOn : Activity(), SensorEventListener {
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         rootMode = prefs.getBoolean("root_mode", false)
         powerSaving = prefs.getBoolean("ao_power_saving", false)
-        userTheme = prefs.getString("ao_style", "google")!!
+        val userTheme = prefs.getString("ao_style", "google")!!
         aoClock = prefs.getBoolean("ao_clock", true)
         aoDate = prefs.getBoolean("ao_date", true)
         aoBatteryIcn = prefs.getBoolean("ao_batteryIcn", true)
@@ -232,14 +223,10 @@ class AlwaysOn : Activity(), SensorEventListener {
         if (!aoBattery) batteryTxt!!.visibility = View.GONE
         if (!aoNotifications) notifications!!.visibility = View.GONE
         if (!aoNotificationIcons) notificationGrid!!.visibility = View.GONE
-        val clockFormatString = if (userTheme == "samsung") {
+        val clockFormatString = if (userTheme == "samsung" || userTheme == "oneplus") {
             if (clock) {
                 if (amPm) "hh\nmm\na"
                 else "hh\nmm"
-            } else "HH\nmm"
-        } else if (userTheme == "oneplus") {
-            if (clock) {
-                "hh\nmm"
             } else "HH\nmm"
         } else {
             if (clock) {
