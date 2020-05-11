@@ -43,8 +43,8 @@ class Preferences : AppCompatActivity(),
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_general)
             findPreference<Preference>("always_on")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                TileService.requestListeningState(context, ComponentName(context!! , AlwaysOnQS::class.java))
-                LocalBroadcastManager.getInstance(context!!).sendBroadcast(Intent().setAction(Global.ALWAYS_ON_STATE_CHANGED))
+                TileService.requestListeningState(context, ComponentName(requireContext(), AlwaysOnQS::class.java))
+                LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(Intent().setAction(Global.ALWAYS_ON_STATE_CHANGED))
                 true
             }
             findPreference<Preference>("pref_look_and_feel")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
