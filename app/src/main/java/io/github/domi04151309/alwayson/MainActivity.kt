@@ -1,7 +1,9 @@
 package io.github.domi04151309.alwayson
 
+import android.Manifest
 import android.app.admin.DevicePolicyManager
 import android.content.*
+import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.BatteryManager
@@ -16,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.objects.Global
@@ -77,6 +80,7 @@ class MainActivity : AppCompatActivity() {
         Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
         try {
@@ -120,6 +124,13 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }.start()
+        
+        if (applicationContext.checkSelfPermission(Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.READ_PHONE_STATE),
+                    0)
+        }
     }
 
     override fun onResume() {
