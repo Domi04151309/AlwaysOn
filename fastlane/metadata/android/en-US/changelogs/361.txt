@@ -1,0 +1,4 @@
+- Add Russian translation
+- Add OnePlus like style
+- The AOD will now stop on incoming phone calls
+- General improvements

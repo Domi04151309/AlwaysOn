@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }.start()
-        
+
         if (applicationContext.checkSelfPermission(Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
