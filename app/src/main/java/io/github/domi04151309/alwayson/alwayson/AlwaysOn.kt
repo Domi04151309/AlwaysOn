@@ -1,18 +1,16 @@
 package io.github.domi04151309.alwayson.alwayson
 
-import android.app.Activity
-import android.app.ActivityManager
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.Configuration
 import android.graphics.Point
 import android.graphics.drawable.Icon
 import android.graphics.drawable.TransitionDrawable
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
-import android.media.AudioManager
 import android.os.*
 import android.provider.Settings
 import androidx.preference.PreferenceManager
@@ -42,6 +40,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     private var content: View? = null
     private var rootMode: Boolean = false
     private var servicesRunning: Boolean = false
+    private var screenSize: Float = 0F
 
     //Threads
     private var aoEdgeGlowThread: Thread = Thread()
@@ -152,9 +151,6 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         }
     }
 
-    //Audio
-    private var audio: AudioManager? = null
-
     //Battery saver
     private var powerSaving: Boolean = false
     private var userPowerSaving: Boolean = false
@@ -258,7 +254,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         content = findViewById(R.id.fullscreen_content)
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
         userPowerSaving = pm.isPowerSaveMode
-        audio = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        screenSize = getScreenSize()
 
         //Show on lock screen
         Handler().postDelayed({
@@ -341,19 +337,16 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         val animationDuration = 10000L
         val animationScale = Settings.Global.getFloat(contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1.0f)
         val animationDelay = (prefs!!.getInt("ao_animation_delay", 2) * 60000 + animationDuration * animationScale + 1000).toLong()
-        val size = Point()
         animationThread = object : Thread() {
             override fun run() {
                 try {
-                    while (content!!.height == 0) sleep(10)
-                    windowManager.defaultDisplay.getSize(size)
-                    val result = size.y - content!!.height
-                    content!!.animate().translationY(result.toFloat() / 4).duration = 0
+                    while (content!!.height == 0 && screenSize == 0F) sleep(10)
+                    content!!.animate().translationY(screenSize / 4).duration = 0
                     while (!isInterrupted) {
                         sleep(animationDelay)
-                        content!!.animate().translationY(result.toFloat() / 2).duration = animationDuration
+                        content!!.animate().translationY(screenSize / 2).duration = animationDuration
                         sleep(animationDelay)
-                        content!!.animate().translationY(result.toFloat() / 4).duration = animationDuration
+                        content!!.animate().translationY(screenSize / 4).duration = animationDuration
                     }
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
@@ -401,6 +394,12 @@ class AlwaysOn : OffActivity(), SensorEventListener {
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
                 or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+    }
+
+    private fun getScreenSize(): Float {
+        val size = Point()
+        windowManager.defaultDisplay.getSize(size)
+        return  (size.y - content!!.height).toFloat()
     }
 
     private fun startServices() {
@@ -463,20 +462,9 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {}
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        return when (keyCode) {
-            KeyEvent.KEYCODE_VOLUME_UP -> {
-                audio!!.adjustStreamVolume(AudioManager.STREAM_MUSIC,
-                        AudioManager.ADJUST_RAISE, 0)
-                true
-            }
-            KeyEvent.KEYCODE_VOLUME_DOWN -> {
-                audio!!.adjustStreamVolume(AudioManager.STREAM_MUSIC,
-                        AudioManager.ADJUST_LOWER, 0)
-                true
-            }
-            else -> true
-        }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        screenSize = getScreenSize()
     }
 
     override fun onResume() {

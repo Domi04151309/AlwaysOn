@@ -114,6 +114,8 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="pref_look_and_feel_charging_array_display_2">iOS style</string>
     <string name="pref_look_and_feel_hide_display_cutouts">Hide display cutouts</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Hide display cutouts on fullscreen content</string>
+    <string name="pref_look_and_feel_orientation">Orientation</string>
+    <string name="pref_look_and_feel_orientation_summary">Changes the displays orientation</string>
 
     <string name="pref_permissions">Permissions</string>
     <string name="pref_permissions_summary">Settings related to permissions</string>
@@ -138,4 +140,15 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="about_license">This app is distributed under the terms and conditions of the <a href="https://github.com/Domi04151309/AlwaysOn/blob/master/LICENSE">GNU General Public License v3.0</a></string>
     <string name="about_damage">I am not responsible for any damage to your device.</string>
     <string name="about_icons">Icons by <a href="https://icons8.com/">Icons8</a> and <a href="https://material.io/resources/icons/">Google</a>.</string>
+
+    <string-array name="pref_look_and_feel_orientation_display">
+        <item>Auto-lock</item>
+        <item>Portrait</item>
+        <item>Landscape</item>
+    </string-array>
+    <string-array name="pref_look_and_feel_orientation_values">
+        <item>locked</item>
+        <item>portrait</item>
+        <item>landscape</item>
+    </string-array>
 </resources>
