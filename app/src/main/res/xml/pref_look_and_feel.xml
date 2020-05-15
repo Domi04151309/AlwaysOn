@@ -1,47 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <SwitchPreference
-        android:defaultValue="false"
-        android:icon="@drawable/ic_palette"
-        android:key="light_mode"
-        android:summary="@string/pref_look_and_feel_light_summary"
-        android:title="@string/pref_look_and_feel_light" />
-    <SwitchPreference
-        android:defaultValue="false"
-        android:icon="@drawable/ic_smartphone"
-        android:key="hide_display_cutouts"
-        android:summary="@string/pref_look_and_feel_hide_display_cutouts_summary"
-        android:title="@string/pref_look_and_feel_hide_display_cutouts" />
-    <SwitchPreference
-        android:defaultValue="false"
-        android:icon="@drawable/ic_clock"
-        android:key="hour"
-        android:summaryOff="@string/pref_look_and_feel_hour_summary_off"
-        android:summaryOn="@string/pref_look_and_feel_hour_summary_on"
-        android:title="@string/pref_look_and_feel_hour" />
-    <SwitchPreference
-        android:defaultValue="false"
-        android:icon="@drawable/ic_clock"
-        android:key="am_pm"
-        android:summary="@string/pref_look_and_feel_am_pm_summary"
-        android:title="@string/pref_look_and_feel_am_pm" />
-    <ListPreference
-        android:defaultValue="locked"
-        android:entries="@array/pref_look_and_feel_orientation_display"
-        android:entryValues="@array/pref_look_and_feel_orientation_values"
-        android:icon="@drawable/ic_orientation"
-        android:key="orientation"
-        android:summary="@string/pref_look_and_feel_orientation_summary"
-        android:title="@string/pref_look_and_feel_orientation" />
-    <Preference
-        android:icon="@drawable/ic_always_on"
-        android:key="pref_ao"
-        android:summary="@string/pref_ao_settings_summary"
-        android:title="@string/pref_ao_settings" />
-    <Preference
-        android:icon="@drawable/ic_charging"
-        android:key="charging_style"
-        android:summary="@string/pref_look_and_feel_charging_summary"
-        android:title="@string/pref_look_and_feel_charging" />
+    <PreferenceCategory android:title="@string/pref_look_and_feel_app">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_palette"
+            android:key="light_mode"
+            android:summary="@string/pref_look_and_feel_light_summary"
+            android:title="@string/pref_look_and_feel_light" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_look_and_feel_general">
+
+        <SwitchPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_smartphone"
+            android:key="hide_display_cutouts"
+            android:summary="@string/pref_look_and_feel_hide_display_cutouts_summary"
+            android:title="@string/pref_look_and_feel_hide_display_cutouts" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_clock"
+            android:key="hour"
+            android:summaryOff="@string/pref_look_and_feel_hour_summary_off"
+            android:summaryOn="@string/pref_look_and_feel_hour_summary_on"
+            android:title="@string/pref_look_and_feel_hour" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_clock"
+            android:key="am_pm"
+            android:summary="@string/pref_look_and_feel_am_pm_summary"
+            android:title="@string/pref_look_and_feel_am_pm" />
+        <ListPreference
+            android:defaultValue="locked"
+            android:entries="@array/pref_look_and_feel_orientation_display"
+            android:entryValues="@array/pref_look_and_feel_orientation_values"
+            android:icon="@drawable/ic_orientation"
+            android:key="orientation"
+            android:summary="@string/pref_look_and_feel_orientation_summary"
+            android:title="@string/pref_look_and_feel_orientation" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_look_and_feel_specific">
+
+        <Preference
+            android:icon="@drawable/ic_always_on"
+            android:key="pref_ao"
+            android:summary="@string/pref_ao_settings_summary"
+            android:title="@string/pref_ao_settings" />
+        <Preference
+            android:icon="@drawable/ic_charging"
+            android:key="charging_style"
+            android:summary="@string/pref_look_and_feel_charging_summary"
+            android:title="@string/pref_look_and_feel_charging" />
+    </PreferenceCategory>
 </PreferenceScreen>

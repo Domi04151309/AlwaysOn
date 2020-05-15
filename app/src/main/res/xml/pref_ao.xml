@@ -64,6 +64,14 @@
             android:key="ao_glowDuration"
             android:summary="@string/pref_ao_glowDuration_summary"
             android:title="@string/pref_ao_glowDuration" />
+        <ListPreference
+            android:defaultValue="all"
+            android:entries="@array/pref_ao_glowStyle_display"
+            android:entryValues="@array/pref_ao_glowStyle_values"
+            android:icon="@drawable/ic_portrait"
+            android:key="ao_glowStyle"
+            android:summary="@string/pref_ao_glowStyle_summary"
+            android:title="@string/pref_ao_glowStyle" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_ao_behavior">
 

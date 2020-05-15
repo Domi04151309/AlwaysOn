@@ -304,7 +304,10 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         if (aoEdgeGlow) {
             transitionTime = prefs.getInt("ao_glowDuration", 2000)
             if (transitionTime >= 100) {
-                frame.background = ContextCompat.getDrawable(this, R.drawable.edge_glow)
+                frame.background = when (prefs.getString("ao_glowStyle", "all")) {
+                    "horizontal" -> ContextCompat.getDrawable(this, R.drawable.edge_glow_horizontal)
+                    else -> ContextCompat.getDrawable(this, R.drawable.edge_glow)
+                }
                 transition = frame.background as TransitionDrawable
                 aoEdgeGlowThread = object : Thread() {
                     override fun run() {
