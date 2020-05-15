@@ -6,7 +6,6 @@ import android.os.Handler
 import android.view.WindowManager
 import android.content.Intent
 
-
 class TurnOnScreen : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

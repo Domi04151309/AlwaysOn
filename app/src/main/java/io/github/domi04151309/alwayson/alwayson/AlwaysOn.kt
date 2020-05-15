@@ -32,10 +32,11 @@ import android.hardware.SensorEventListener
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import io.github.domi04151309.alwayson.OffActivity
 import io.github.domi04151309.alwayson.adapters.NotificationGridAdapter
 
 
-class AlwaysOn : Activity(), SensorEventListener {
+class AlwaysOn : OffActivity(), SensorEventListener {
 
     private var localManager: LocalBroadcastManager? = null
     private var content: View? = null
@@ -488,10 +489,6 @@ class AlwaysOn : Activity(), SensorEventListener {
 
     override fun onPause() {
         super.onPause()
-        val activityManager = applicationContext
-                .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        activityManager.moveTaskToFront(taskId, 0)
-
         stopServices()
     }
 

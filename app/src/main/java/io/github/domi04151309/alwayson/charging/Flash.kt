@@ -1,16 +1,13 @@
 package io.github.domi04151309.alwayson.charging
 
-import android.app.Activity
-import android.app.ActivityManager
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.widget.ImageView
+import io.github.domi04151309.alwayson.OffActivity
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.R
 
-class Flash : Activity() {
+class Flash : OffActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,16 +30,5 @@ class Flash : Activity() {
                 }
             }
         }.start()
-    }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        return true
-    }
-
-    override fun onPause() {
-        super.onPause()
-        val activityManager = applicationContext
-                .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        activityManager.moveTaskToFront(taskId, 0)
     }
 }
