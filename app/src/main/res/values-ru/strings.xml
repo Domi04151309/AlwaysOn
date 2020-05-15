@@ -68,8 +68,6 @@
     <string name="pref_look_and_feel_am_pm">Показывать AM / PM</string>
     <string name="pref_look_and_feel_am_pm_summary">Показывать AM / PM при использовании 12-часового формата</string>
 
-    <string name="pref_ao_settings">Настройки Always on display</string>
-    <string name="pref_ao_settings_summary">Дополнительные настройки, относящиеся к always on display</string>
     <string name="pref_look_and_feel_ao">Внешний вид Always on</string>
     <string name="pref_look_and_feel_ao_summary">Изменяет внешний вид always on display</string>
     <string name="pref_look_and_feel_ao_array_display_0">Стиль Google</string>

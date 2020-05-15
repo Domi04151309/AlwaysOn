@@ -68,8 +68,6 @@ Je kunt het altijdaan-scherm naar eigen inzicht aanpassen met tegels en widgets.
     <string name="pref_look_and_feel_am_pm">AM/PM tonen</string>
     <string name="pref_look_and_feel_am_pm_summary">Toont AM/PM op de 12-uursklok</string>
 
-    <string name="pref_ao_settings">Scherminstellingen</string>
-    <string name="pref_ao_settings_summary">Meer instellingen omtrent het altijdaan-scherm</string>
     <string name="pref_look_and_feel_ao">Uiterlijk</string>
     <string name="pref_look_and_feel_ao_summary">Pas het uiterlijk van het altijdaan-scherm aan</string>
     <string name="pref_look_and_feel_ao_array_display_0">Google-achtige stijl</string>

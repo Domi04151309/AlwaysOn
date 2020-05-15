@@ -1,17 +1,15 @@
 package io.github.domi04151309.alwayson.preferences
 
-import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
-import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Theme
 
-class AlwaysOnPreferences : AppCompatActivity(),
+class LAFBackgroundPreferences : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,7 +18,7 @@ class AlwaysOnPreferences : AppCompatActivity(),
         setContentView(R.layout.activity_settings)
         supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.settings, PreferenceAlwaysOn())
+                .replace(R.id.settings, PreferenceFragment())
                 .commit()
     }
 
@@ -37,25 +35,14 @@ class AlwaysOnPreferences : AppCompatActivity(),
         return true
     }
 
-    class PreferenceAlwaysOn : PreferenceFragmentCompat() {
+    class PreferenceFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            addPreferencesFromResource(R.xml.pref_ao)
-            findPreference<Preference>("ao_style")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivity(Intent(context, AlwaysOnLookActivity::class.java))
-                true
-            }
+            addPreferencesFromResource(R.xml.pref_laf_background)
+            if (Build.VERSION.SDK_INT < 28)
+                preferenceScreen.removePreference(findPreference("hide_display_cutouts"))
             findPreference<EditIntegerPreference>("ao_glowDuration")!!.setOnBindEditTextListener { editText ->
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
             }
-            findPreference<EditIntegerPreference>("ao_vibration")!!.setOnBindEditTextListener { editText ->
-                editText.inputType = InputType.TYPE_CLASS_NUMBER
-            }
-            findPreference<Preference>("ao_force_brightness")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivity(Intent(context, BrightnessActivity::class.java))
-                true
-            }
-            if(!PreferenceManager.getDefaultSharedPreferences(context).getBoolean("root_mode", false))
-                findPreference<SwitchPreference>("ao_power_saving")!!.isEnabled = false
         }
     }
 }

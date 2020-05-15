@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_palette"
+        android:key="light_mode"
+        android:summary="@string/pref_look_and_feel_light_summary"
+        android:title="@string/pref_look_and_feel_light" />
+    <Preference
+        android:icon="@drawable/ic_charging"
+        android:key="charging_style"
+        android:summary="@string/pref_look_and_feel_charging_summary"
+        android:title="@string/pref_look_and_feel_charging" />
+</PreferenceScreen>

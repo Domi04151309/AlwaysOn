@@ -25,10 +25,10 @@
         <activity
             android:name=".preferences.BrightnessActivity"
             android:label="@string/pref_ao_force_brightness_title"
-            android:parentActivityName=".preferences.AlwaysOnPreferences">
+            android:parentActivityName=".preferences.LAFBehaviorPreferences">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.AlwaysOnPreferences" />
+                android:value="io.github.domi04151309.alwayson.preferences.LAFBehaviorPreferences" />
         </activity>
         <activity
             android:name=".preferences.ChargingLookActivity"
@@ -41,10 +41,10 @@
         <activity
             android:name=".preferences.AlwaysOnLookActivity"
             android:label="@string/pref_look_and_feel_ao"
-            android:parentActivityName=".preferences.AlwaysOnPreferences">
+            android:parentActivityName=".preferences.LAFWatchFacePreferences">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.AlwaysOnPreferences" />
+                android:value="io.github.domi04151309.alwayson.preferences.LAFWatchFacePreferences" />
         </activity>
         <activity
             android:name=".TurnOnScreen"
@@ -189,15 +189,6 @@
                 android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
         </activity>
         <activity
-            android:name=".preferences.AlwaysOnPreferences"
-            android:label="@string/pref_ao_settings"
-            android:launchMode="singleTop"
-            android:parentActivityName=".preferences.LookAndFeelPreferences">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
-        </activity>
-        <activity
             android:name=".preferences.PermissionPreferences"
             android:label="@string/pref_permissions"
             android:launchMode="singleTop"
@@ -255,6 +246,42 @@
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
+        <activity
+            android:name=".preferences.LAFWatchFacePreferences"
+            android:label="@string/pref_ao_watch_face"
+            android:launchMode="singleTop"
+            android:parentActivityName=".preferences.LookAndFeelPreferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
+        </activity>
+        <activity
+            android:name=".preferences.LAFBackgroundPreferences"
+            android:label="@string/pref_ao_background"
+            android:launchMode="singleTop"
+            android:parentActivityName=".preferences.LookAndFeelPreferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
+        </activity>
+        <activity
+            android:name=".preferences.LAFBehaviorPreferences"
+            android:label="@string/pref_ao_behavior"
+            android:launchMode="singleTop"
+            android:parentActivityName=".preferences.LookAndFeelPreferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
+        </activity>
+        <activity
+            android:name=".preferences.LAFOtherPreferences"
+            android:label="@string/pref_ao_other"
+            android:launchMode="singleTop"
+            android:parentActivityName=".preferences.LookAndFeelPreferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,30 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_smartphone"
+        android:key="hide_display_cutouts"
+        android:summary="@string/pref_look_and_feel_hide_display_cutouts_summary"
+        android:title="@string/pref_look_and_feel_hide_display_cutouts" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_portrait"
+        android:key="ao_edgeGlow"
+        android:summary="@string/pref_ao_edgeGlow_summary"
+        android:title="@string/pref_ao_edgeGlow" />
+    <io.github.domi04151309.alwayson.preferences.EditIntegerPreference
+        android:defaultValue="2000"
+        android:icon="@drawable/ic_portrait"
+        android:key="ao_glowDuration"
+        android:summary="@string/pref_ao_glowDuration_summary"
+        android:title="@string/pref_ao_glowDuration" />
+    <ListPreference
+        android:defaultValue="all"
+        android:entries="@array/pref_ao_glowStyle_display"
+        android:entryValues="@array/pref_ao_glowStyle_values"
+        android:icon="@drawable/ic_portrait"
+        android:key="ao_glowStyle"
+        android:summary="@string/pref_ao_glowStyle_summary"
+        android:title="@string/pref_ao_glowStyle" />
+
+</PreferenceScreen>

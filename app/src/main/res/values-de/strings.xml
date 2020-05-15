@@ -68,8 +68,6 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="pref_look_and_feel_am_pm">AM / PM anzeigen</string>
     <string name="pref_look_and_feel_am_pm_summary">Zeigt AM / PM im 12-Stunden-Format an</string>
 
-    <string name="pref_ao_settings">Always On Display Einstellungen</string>
-    <string name="pref_ao_settings_summary">Mehr Einstellungen in Bezug auf das Always On Display</string>
     <string name="pref_look_and_feel_ao">Aussehen</string>
     <string name="pref_look_and_feel_ao_summary">Ändert das Aussehen des Always On Displays</string>
     <string name="pref_look_and_feel_ao_array_display_0">Google-ähnlicher Stil</string>

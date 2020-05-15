@@ -1,0 +1,64 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:icon="@drawable/ic_palette"
+        android:key="ao_style"
+        android:summary="@string/pref_look_and_feel_ao_summary"
+        android:title="@string/pref_look_and_feel_ao" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ic_clock"
+        android:key="ao_clock"
+        android:summaryOff="@string/pref_disabled"
+        android:summaryOn="@string/pref_enabled"
+        android:title="@string/pref_ao_showClock" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ic_date"
+        android:key="ao_date"
+        android:summaryOff="@string/pref_disabled"
+        android:summaryOn="@string/pref_enabled"
+        android:title="@string/pref_ao_showDate" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ic_battery"
+        android:key="ao_batteryIcn"
+        android:summaryOff="@string/pref_disabled"
+        android:summaryOn="@string/pref_enabled"
+        android:title="@string/pref_ao_showBatteryIcn" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ic_percent"
+        android:key="ao_battery"
+        android:summaryOff="@string/pref_disabled"
+        android:summaryOn="@string/pref_enabled"
+        android:title="@string/pref_ao_showBattery" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:icon="@drawable/ic_notification"
+        android:key="ao_notifications"
+        android:summaryOff="@string/pref_disabled"
+        android:summaryOn="@string/pref_enabled"
+        android:title="@string/pref_ao_showNotifications" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_notification"
+        android:key="ao_notification_icons"
+        android:summaryOff="@string/pref_disabled"
+        android:summaryOn="@string/pref_enabled"
+        android:title="@string/pref_ao_showNotificationIcons" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_clock"
+        android:key="hour"
+        android:summaryOff="@string/pref_look_and_feel_hour_summary_off"
+        android:summaryOn="@string/pref_look_and_feel_hour_summary_on"
+        android:title="@string/pref_look_and_feel_hour" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_clock"
+        android:key="am_pm"
+        android:summary="@string/pref_look_and_feel_am_pm_summary"
+        android:title="@string/pref_look_and_feel_am_pm" />
+
+</PreferenceScreen>

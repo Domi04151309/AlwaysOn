@@ -5,10 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import io.github.domi04151309.alwayson.*
+import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Theme
 
-class LookAndFeelPreferences : AppCompatActivity(),
+class LAFWatchFacePreferences : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +17,7 @@ class LookAndFeelPreferences : AppCompatActivity(),
         setContentView(R.layout.activity_settings)
         supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.settings, PreferenceLookAndFeel())
+                .replace(R.id.settings, PreferenceFragment())
                 .commit()
     }
 
@@ -34,26 +34,13 @@ class LookAndFeelPreferences : AppCompatActivity(),
         return true
     }
 
-    class PreferenceLookAndFeel : PreferenceFragmentCompat() {
+    class PreferenceFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            addPreferencesFromResource(R.xml.pref_look_and_feel)
-            findPreference<Preference>("pref_watch_face")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivity(Intent(context, LAFWatchFacePreferences::class.java))
-                true
-            }
-            findPreference<Preference>("pref_background")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivity(Intent(context, LAFBackgroundPreferences::class.java))
-                true
-            }
-            findPreference<Preference>("pref_behavior")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivity(Intent(context, LAFBehaviorPreferences::class.java))
-                true
-            }
-            findPreference<Preference>("pref_other")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivity(Intent(context, LAFOtherPreferences::class.java))
+            addPreferencesFromResource(R.xml.pref_laf_watch_face)
+            findPreference<Preference>("ao_style")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+                startActivity(Intent(context, AlwaysOnLookActivity::class.java))
                 true
             }
         }
     }
-
 }
