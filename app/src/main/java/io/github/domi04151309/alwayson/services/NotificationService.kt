@@ -49,13 +49,17 @@ class NotificationService : NotificationListenerService() {
         if (!sentRecently) {
             sentRecently = true
             var count = 0
+            val apps: ArrayList<String> = arrayListOf()
             val icons: ArrayList<Icon> = arrayListOf()
             try {
                 val notifications = activeNotifications
                 for (notification in notifications) {
                     if (!notification.isOngoing) {
                         count++
-                        icons += notification.notification.smallIcon
+                        if (!apps.contains(notification.packageName)) {
+                            apps += notification.packageName
+                            icons += notification.notification.smallIcon
+                        }
                     }
                 }
             } catch (e: Exception) {
