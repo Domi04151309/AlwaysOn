@@ -20,6 +20,8 @@ object Global {
 
     const val LOG_TAG = "AlwaysOn"
 
+    const val REQUEST_DETAILED_NOTIFICATIONS = "io.github.domi04151309.alwayson.REQUEST_DETAILED_NOTIFICATIONS"
+    const val DETAILED_NOTIFICATIONS = "io.github.domi04151309.alwayson.DETAILED_NOTIFICATIONS"
     const val REQUEST_NOTIFICATIONS = "io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"
     const val NOTIFICATIONS = "io.github.domi04151309.alwayson.NOTIFICATIONS"
 

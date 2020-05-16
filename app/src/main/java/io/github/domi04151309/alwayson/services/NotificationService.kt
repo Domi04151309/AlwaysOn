@@ -19,22 +19,31 @@ class NotificationService : NotificationListenerService() {
     private var localManager: LocalBroadcastManager? = null
     private var sentRecently: Boolean = false
 
-    private val mActionReceiver = object : BroadcastReceiver() {
+    private val actionReceiver = object : BroadcastReceiver() {
 
         override fun onReceive(c: Context, intent: Intent) {
-            sendCount(true)
+            when (intent.action) {
+                Global.REQUEST_DETAILED_NOTIFICATIONS -> {
+                    localManager!!.sendBroadcast(Intent(Global.DETAILED_NOTIFICATIONS).putExtra("notifications", activeNotifications))
+                }
+                Global.REQUEST_NOTIFICATIONS -> {
+                    sendCount(true)
+                }
+            }
         }
     }
 
     override fun onCreate() {
         super.onCreate()
         localManager = LocalBroadcastManager.getInstance(this)
-        localManager!!.registerReceiver(mActionReceiver, IntentFilter(Global.REQUEST_NOTIFICATIONS))
+        val filter = IntentFilter(Global.REQUEST_DETAILED_NOTIFICATIONS)
+        filter.addAction(Global.REQUEST_NOTIFICATIONS)
+        localManager!!.registerReceiver(actionReceiver, filter)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        localManager!!.unregisterReceiver(mActionReceiver)
+        localManager!!.unregisterReceiver(actionReceiver)
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
