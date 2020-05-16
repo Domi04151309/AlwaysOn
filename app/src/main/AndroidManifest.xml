@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.USES_POLICY_FORCE_LOCK" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
     <application
@@ -22,6 +22,15 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".preferences.FilterNotificationsActivity"
+            android:label="@string/pref_look_and_feel_filter_notifications"
+            android:launchMode="singleTop"
+            android:parentActivityName=".preferences.LAFWatchFacePreferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.preferences.LAFWatchFacePreferences" />
+        </activity>
         <activity
             android:name=".preferences.BrightnessActivity"
             android:label="@string/pref_ao_force_brightness_title"
@@ -80,10 +89,10 @@
 
         <activity
             android:name=".alwayson.AlwaysOn"
+            android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:hardwareAccelerated="false"
             android:launchMode="singleInstance"
-            android:configChanges="orientation|screenSize"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeScreenOff" />
@@ -121,25 +130,25 @@
 
         <activity
             android:name=".charging.Flash"
+            android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:configChanges="orientation|screenSize"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeNoWindowTransitions" />
         <activity
             android:name=".charging.Circle"
+            android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:configChanges="orientation|screenSize"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeNoWindowTransitions" />
         <activity
             android:name=".Headset"
+            android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:configChanges="orientation|screenSize"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeNoWindowTransitions" />
@@ -156,6 +165,7 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop" />
+
         <service
             android:name=".services.ForegroundService"
             android:enabled="true"
@@ -223,9 +233,9 @@
         </activity>
         <activity
             android:name=".charging.IOS"
+            android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
-            android:configChanges="orientation|screenSize"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeNoWindowTransitions" />
@@ -246,6 +256,7 @@
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
         </receiver>
+
         <activity
             android:name=".preferences.LAFWatchFacePreferences"
             android:label="@string/pref_ao_watch_face"

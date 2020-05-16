@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:icon="@drawable/ic_info"
+        android:summary="@string/pref_look_and_feel_filter_notifications_explanation" />
+
+    <PreferenceCategory android:title="@string/pref_look_and_feel_filter_notifications_blocked">
+
+        <Preference
+            android:icon="@drawable/ic_notification"
+            android:summary="@string/pref_look_and_feel_filter_notifications_empty_summary"
+            android:title="@string/pref_look_and_feel_filter_notifications_empty" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_look_and_feel_filter_notifications_shown">
+
+        <Preference
+            android:icon="@drawable/ic_notification"
+            android:summary="@string/pref_look_and_feel_filter_notifications_empty_summary"
+            android:title="@string/pref_look_and_feel_filter_notifications_empty" />
+    </PreferenceCategory>
+</PreferenceScreen>

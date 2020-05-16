@@ -1,6 +1,5 @@
 package io.github.domi04151309.alwayson.preferences
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
@@ -8,7 +7,7 @@ import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Theme
 
-class LAFWatchFacePreferences : AppCompatActivity(),
+class FilterNotificationsActivity : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,15 +35,7 @@ class LAFWatchFacePreferences : AppCompatActivity(),
 
     class PreferenceFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            addPreferencesFromResource(R.xml.pref_laf_watch_face)
-            findPreference<Preference>("ao_style")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivity(Intent(context, AlwaysOnLookActivity::class.java))
-                true
-            }
-            findPreference<Preference>("pref_filter_notifications")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                startActivity(Intent(context, FilterNotificationsActivity::class.java))
-                true
-            }
+            addPreferencesFromResource(R.xml.pref_filter_notifications)
         }
     }
 }
