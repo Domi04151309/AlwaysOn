@@ -38,7 +38,7 @@ class PermissionPreferences : AppCompatActivity(),
     class PreferencePermissions : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_permissions)
-            findPreference<Preference>("request_root")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            findPreference<Preference>("request_root")!!.setOnPreferenceClickListener {
                 if (Root.request())
                     Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
                 else

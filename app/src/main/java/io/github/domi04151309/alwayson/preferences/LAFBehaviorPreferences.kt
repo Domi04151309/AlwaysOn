@@ -43,7 +43,7 @@ class LAFBehaviorPreferences : AppCompatActivity(),
             findPreference<EditIntegerPreference>("ao_vibration")!!.setOnBindEditTextListener { editText ->
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
             }
-            findPreference<Preference>("ao_force_brightness")!!.onPreferenceClickListener = Preference.OnPreferenceClickListener {
+            findPreference<Preference>("ao_force_brightness")!!.setOnPreferenceClickListener {
                 startActivity(Intent(context, BrightnessActivity::class.java))
                 true
             }
