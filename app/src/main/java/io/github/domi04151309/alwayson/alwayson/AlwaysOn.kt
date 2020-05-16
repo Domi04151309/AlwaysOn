@@ -56,6 +56,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     private var aoEdgeGlow: Boolean = true
     private var aoPocketMode: Boolean = false
     private var aoDND: Boolean = false
+    private var aoHeadsUp: Boolean = false
 
     //Time
     private var clockCache: String = ""
@@ -188,6 +189,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         aoEdgeGlow = prefs.getBoolean("ao_edgeGlow", false)
         aoPocketMode = prefs.getBoolean("ao_pocket_mode", false)
         aoDND = prefs.getBoolean("ao_dnd", false)
+        aoHeadsUp = prefs.getBoolean("heads_up", false)
         val clock = prefs.getBoolean("hour", false)
         val amPm = prefs.getBoolean("am_pm", false)
         val aoForceBrightness = prefs.getBoolean("ao_force_brightness", false)
@@ -426,6 +428,9 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
             // DND
             if (aoDND && notificationAccess) mNotificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+
+            // Heads Up
+            if (aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 0")
         }
     }
 
@@ -447,6 +452,9 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
             // DND
             if (aoDND && notificationAccess) mNotificationManager!!.setInterruptionFilter(userDND)
+
+            // Heads Up
+            if (aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 1")
         }
     }
 

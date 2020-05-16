@@ -49,5 +49,11 @@
         android:key="ao_power_saving"
         android:summary="@string/pref_ao_power_saving_summary"
         android:title="@string/pref_ao_power_saving" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_notification"
+        android:key="heads_up"
+        android:summary="@string/pref_look_and_feel_heads_up_summary"
+        android:title="@string/pref_look_and_feel_heads_up" />
 
 </PreferenceScreen>

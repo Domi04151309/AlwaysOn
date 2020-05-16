@@ -123,6 +123,8 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Hide display cutouts on fullscreen content</string>
     <string name="pref_look_and_feel_orientation">Orientation</string>
     <string name="pref_look_and_feel_orientation_summary">Changes the display\'s orientation</string>
+    <string name="pref_look_and_feel_heads_up">Hide heads up notifications (root)</string>
+    <string name="pref_look_and_feel_heads_up_summary">Prevents the heads up notifications from showing (experimental)</string>
 
     <string name="pref_permissions">Permissions</string>
     <string name="pref_permissions_summary">Settings related to permissions</string>
