@@ -1,22 +1,23 @@
 package io.github.domi04151309.alwayson.services
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.graphics.drawable.Icon
 import android.os.Handler
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.objects.Global
+import io.github.domi04151309.alwayson.objects.JSON
+import org.json.JSONArray
 import java.lang.Exception
 
 class NotificationService : NotificationListenerService() {
 
     private var cache: Int = -1
     private var localManager: LocalBroadcastManager? = null
+    private var prefs: SharedPreferences? = null
     private var sentRecently: Boolean = false
 
     private val actionReceiver = object : BroadcastReceiver() {
@@ -36,6 +37,7 @@ class NotificationService : NotificationListenerService() {
     override fun onCreate() {
         super.onCreate()
         localManager = LocalBroadcastManager.getInstance(this)
+        prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val filter = IntentFilter(Global.REQUEST_DETAILED_NOTIFICATIONS)
         filter.addAction(Global.REQUEST_NOTIFICATIONS)
         localManager!!.registerReceiver(actionReceiver, filter)
@@ -63,7 +65,7 @@ class NotificationService : NotificationListenerService() {
             try {
                 val notifications = activeNotifications
                 for (notification in notifications) {
-                    if (!notification.isOngoing) {
+                    if (!notification.isOngoing && !JSON.contains(JSONArray(prefs!!.getString("blocked_notifications", "[]")), notification.packageName)) {
                         count++
                         if (!apps.contains(notification.packageName)) {
                             apps += notification.packageName
