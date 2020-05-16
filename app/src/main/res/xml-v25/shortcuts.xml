@@ -1,15 +1,41 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
-        android:shortcutId="settings"
+        android:shortcutId="look_and_feel"
         android:enabled="true"
         android:icon="@mipmap/ic_shortcut"
-        android:shortcutShortLabel="@string/shortcut_settings"
-        android:shortcutLongLabel="@string/shortcut_settings"
+        android:shortcutShortLabel="@string/pref_look_and_feel"
+        android:shortcutLongLabel="@string/pref_look_and_feel"
         android:shortcutDisabledMessage="@string/shortcut_disabled">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.alwayson.preferences.Preferences" />
+            android:targetClass="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="permissions"
+        android:enabled="true"
+        android:icon="@mipmap/ic_shortcut"
+        android:shortcutShortLabel="@string/pref_permissions"
+        android:shortcutLongLabel="@string/pref_permissions"
+        android:shortcutDisabledMessage="@string/shortcut_disabled">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="io.github.domi04151309.alwayson"
+            android:targetClass="io.github.domi04151309.alwayson.preferences.PermissionPreferences" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="about"
+        android:enabled="true"
+        android:icon="@mipmap/ic_shortcut"
+        android:shortcutShortLabel="@string/about"
+        android:shortcutLongLabel="@string/about"
+        android:shortcutDisabledMessage="@string/shortcut_disabled">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="io.github.domi04151309.alwayson"
+            android:targetClass="io.github.domi04151309.alwayson.AboutActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 </shortcuts>

@@ -43,7 +43,6 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% Charged</string>
 
-    <string name="shortcut_settings">Einstellungen</string>
     <string name="shortcut_disabled">Deaktiviert</string>
 
     <!-- Strings related to Settings -->

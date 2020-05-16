@@ -43,7 +43,6 @@
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% Заряжен</string>
 
-    <string name="shortcut_settings">Настройки</string>
     <string name="shortcut_disabled">Отключено</string>
 
     <!-- Strings related to Settings -->

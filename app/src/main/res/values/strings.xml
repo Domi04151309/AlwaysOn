@@ -44,7 +44,6 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% Charged</string>
 
-    <string name="shortcut_settings">Settings</string>
     <string name="shortcut_disabled">Disabled</string>
 
     <!-- Strings related to Settings -->

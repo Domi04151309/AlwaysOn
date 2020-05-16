@@ -43,7 +43,6 @@ Je kunt het altijdaan-scherm naar eigen inzicht aanpassen met tegels en widgets.
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% opgeladen</string>
 
-    <string name="shortcut_settings">Instellingen</string>
     <string name="shortcut_disabled">Uitgeschakeld</string>
 
     <!-- Strings related to Settings -->
