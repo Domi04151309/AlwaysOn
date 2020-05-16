@@ -66,8 +66,8 @@ class FilterNotificationsActivity : AppCompatActivity(),
                         pref = generatePref(notification.packageName)
                         pref.setOnPreferenceClickListener {
                             if (!JSON.contains(blockedArray, notification.packageName)) {
-                                blockedArray.put(notification.packageName)
                                 addToList(notification.packageName)
+                                blockedArray.put(notification.packageName)
                             }
                             true
                         }
