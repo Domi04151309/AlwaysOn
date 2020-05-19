@@ -256,7 +256,6 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         content = findViewById(R.id.fullscreen_content)
         val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
         userPowerSaving = pm.isPowerSaveMode
-        screenSize = getScreenSize()
 
         //Show on lock screen
         Handler().postDelayed({
@@ -345,7 +344,8 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         animationThread = object : Thread() {
             override fun run() {
                 try {
-                    while (content!!.height == 0 && screenSize == 0F) sleep(10)
+                    while (content!!.height == 0) sleep(10)
+                    screenSize = getScreenSize()
                     content!!.animate().translationY(screenSize / 4).duration = 0
                     while (!isInterrupted) {
                         sleep(animationDelay)
