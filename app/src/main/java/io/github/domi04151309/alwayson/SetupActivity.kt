@@ -29,7 +29,7 @@ class SetupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_setup)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        swapContentFragment(ModeFragment())
+        swapContentFragment(ModeFragment(), MODE_FRAGMENT)
 
         if (DateFormat.is24HourFormat(this)) prefs.edit().putBoolean("hour", false).apply()
         else prefs.edit().putBoolean("hour", true).apply()
@@ -37,31 +37,41 @@ class SetupActivity : AppCompatActivity() {
         findViewById<Button>(R.id.continueBtn).setOnClickListener {
             when (currentFragment) {
                 NO_FRAGMENT -> {
-                    swapContentFragment(ModeFragment())
-                    currentFragment = MODE_FRAGMENT
+                    swapContentFragment(ModeFragment(), MODE_FRAGMENT)
                 }
                 MODE_FRAGMENT -> {
                     if (rootMode) {
-                        if (!Root.request()) {
+                        if (Root.request()) {
+                            prefs.edit().putBoolean("root_mode", true).apply()
+                            swapContentFragment(NotificationListenerFragment(), NOTIFICATION_LISTENER_FRAGMENT)
+                        } else {
                             Toast.makeText(this, R.string.setup_root_failed, Toast.LENGTH_LONG).show()
-                            return@setOnClickListener
                         }
-                        prefs.edit().putBoolean("root_mode", true).apply()
-                        swapContentFragment(NotificationListenerFragment())
-                        currentFragment = NOTIFICATION_LISTENER_FRAGMENT
                     } else {
                         prefs.edit().putBoolean("root_mode", false).apply()
-                        startActivity(Intent().setComponent( ComponentName("com.android.settings", "com.android.settings.Settings\$DeviceAdminSettingsActivity")))
-                        isActionRequired = true
+                        if (isDeviceAdmin) {
+                            swapContentFragment(NotificationListenerFragment(), NOTIFICATION_LISTENER_FRAGMENT)
+                        } else {
+                            startActivity(Intent().setComponent( ComponentName("com.android.settings", "com.android.settings.Settings\$DeviceAdminSettingsActivity")))
+                            isActionRequired = true
+                        }
                     }
                 }
                 NOTIFICATION_LISTENER_FRAGMENT -> {
-                    startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
-                    isActionRequired = true
+                    if (isNotificationServiceEnabled) {
+                        swapContentFragment(DrawOverOtherAppsFragment(), DRAW_OVER_OTHER_APPS_FRAGMENT)
+                    } else {
+                        startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
+                        isActionRequired = true
+                    }
                 }
                 DRAW_OVER_OTHER_APPS_FRAGMENT -> {
-                    startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 1)
-                    isActionRequired = true
+                    if (Settings.canDrawOverlays(this)) {
+                        swapContentFragment(FinishFragment(), FINISH_FRAGMENT)
+                    } else {
+                        startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 1)
+                        isActionRequired = true
+                    }
                 }
                 FINISH_FRAGMENT -> {
                     prefs.edit().putBoolean("setup_complete", true).apply()
@@ -79,24 +89,21 @@ class SetupActivity : AppCompatActivity() {
                     if(!rootMode && !isDeviceAdmin) {
                         Toast.makeText(this, R.string.setup_error, Toast.LENGTH_LONG).show()
                     } else {
-                        swapContentFragment(NotificationListenerFragment())
-                        currentFragment = NOTIFICATION_LISTENER_FRAGMENT
+                        swapContentFragment(NotificationListenerFragment(), NOTIFICATION_LISTENER_FRAGMENT)
                     }
                 }
                 NOTIFICATION_LISTENER_FRAGMENT -> {
                     if(!isNotificationServiceEnabled) {
                         Toast.makeText(this, R.string.setup_error, Toast.LENGTH_LONG).show()
                     } else {
-                        swapContentFragment(DrawOverOtherAppsFragment())
-                        currentFragment = DRAW_OVER_OTHER_APPS_FRAGMENT
+                        swapContentFragment(DrawOverOtherAppsFragment(), DRAW_OVER_OTHER_APPS_FRAGMENT)
                     }
                 }
                 DRAW_OVER_OTHER_APPS_FRAGMENT -> {
                     if (!Settings.canDrawOverlays(this)) {
                         Toast.makeText(this, R.string.setup_error, Toast.LENGTH_LONG).show()
                     } else {
-                        swapContentFragment(FinishFragment())
-                        currentFragment = FINISH_FRAGMENT
+                        swapContentFragment(FinishFragment(), FINISH_FRAGMENT)
                     }
                 }
             }
@@ -109,7 +116,8 @@ class SetupActivity : AppCompatActivity() {
         if (currentFragment > NO_FRAGMENT) currentFragment--
     }
 
-    private fun swapContentFragment(fragment: Fragment) {
+    private fun swapContentFragment(fragment: Fragment, id: Int) {
+        currentFragment = id
         supportFragmentManager.beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .replace(R.id.content, fragment, null)
