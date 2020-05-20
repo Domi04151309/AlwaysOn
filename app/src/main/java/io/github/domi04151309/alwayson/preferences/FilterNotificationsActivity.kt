@@ -15,6 +15,7 @@ import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.objects.JSON
 import io.github.domi04151309.alwayson.objects.Theme
 import org.json.JSONArray
+import java.lang.Exception
 
 
 class FilterNotificationsActivity : AppCompatActivity(),
@@ -124,7 +125,11 @@ class FilterNotificationsActivity : AppCompatActivity(),
         private fun generatePref(packageName: String): Preference {
             val pref = Preference(preferenceScreen.context)
             pref.setIcon(R.drawable.ic_notification)
-            pref.title = packageManager!!.getApplicationLabel(packageManager!!.getApplicationInfo(packageName, PackageManager.GET_META_DATA)) as String
+            pref.title = try {
+                packageManager!!.getApplicationLabel(packageManager!!.getApplicationInfo(packageName, PackageManager.GET_META_DATA)) as String
+            } catch (e: Exception) {
+                resources.getString(R.string.pref_look_and_feel_filter_notifications_unknown)
+            }
             pref.summary = packageName
             return pref
         }
