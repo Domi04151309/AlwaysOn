@@ -12,33 +12,25 @@ import android.service.quicksettings.TileService
 import androidx.core.app.NotificationCompat
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
-import io.github.domi04151309.alwayson.receivers.ChargeInfoReceiver
-import io.github.domi04151309.alwayson.receivers.HeadsetInfoReceiver
-import io.github.domi04151309.alwayson.receivers.ScreenStateReceiver
+import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 
 class ForegroundService : Service() {
 
-    private val receiverScreen = ScreenStateReceiver()
-    private val receiverCharging = ChargeInfoReceiver()
-    private val receiverHeadphones = HeadsetInfoReceiver()
+    private val combinedServiceReceiver = CombinedServiceReceiver()
 
     override fun onCreate() {
         super.onCreate()
-        val filterScreen = IntentFilter(Intent.ACTION_SCREEN_ON)
-        filterScreen.addAction(Intent.ACTION_SCREEN_OFF)
-        val filterCharging = IntentFilter(Intent.ACTION_POWER_CONNECTED)
-        val filterHeadphones = IntentFilter(Intent.ACTION_HEADSET_PLUG)
-        registerReceiver(receiverScreen, filterScreen)
-        registerReceiver(receiverCharging, filterCharging)
-        registerReceiver(receiverHeadphones, filterHeadphones)
+        val filter = IntentFilter(Intent.ACTION_HEADSET_PLUG)
+        filter.addAction(Intent.ACTION_POWER_CONNECTED)
+        filter.addAction(Intent.ACTION_SCREEN_OFF)
+        filter.addAction(Intent.ACTION_SCREEN_ON)
+        registerReceiver(combinedServiceReceiver, filter)
         TileService.requestListeningState(this, ComponentName(this , AlwaysOnQS::class.java))
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(receiverScreen)
-        unregisterReceiver(receiverCharging)
-        unregisterReceiver(receiverHeadphones)
+        unregisterReceiver(combinedServiceReceiver)
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {

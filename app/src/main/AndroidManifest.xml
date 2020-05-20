@@ -119,14 +119,6 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name=".receivers.ChargeInfoReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-            </intent-filter>
-        </receiver>
 
         <activity
             android:name=".charging.Flash"
@@ -152,15 +144,6 @@
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AppThemeNoWindowTransitions" />
-
-        <receiver
-            android:name=".receivers.HeadsetInfoReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.ACTION_HEADSET_PLUG" />
-            </intent-filter>
-        </receiver>
 
         <activity
             android:name=".MainActivity"
@@ -207,16 +190,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
         </activity>
-
-        <receiver
-            android:name=".receivers.ScreenStateReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.ACTION_SCREEN_ON" />
-                <action android:name="android.intent.action.ACTION_SCREEN_OFF" />
-            </intent-filter>
-        </receiver>
 
         <activity
             android:name=".SplashActivity"

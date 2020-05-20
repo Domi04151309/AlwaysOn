@@ -22,7 +22,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Root
-import io.github.domi04151309.alwayson.receivers.ScreenStateReceiver
 import android.hardware.SensorManager
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -32,7 +31,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.OffActivity
 import io.github.domi04151309.alwayson.adapters.NotificationGridAdapter
-
+import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 
 class AlwaysOn : OffActivity(), SensorEventListener {
 
@@ -481,7 +480,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     override fun onResume() {
         super.onResume()
         hideUI()
-        ScreenStateReceiver.alwaysOnRunning = true
+        CombinedServiceReceiver.isAlwaysOnRunning = true
 
         startServices()
     }
@@ -493,7 +492,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
     public override fun onDestroy() {
         super.onDestroy()
-        ScreenStateReceiver.alwaysOnRunning = false
+        CombinedServiceReceiver.isAlwaysOnRunning = false
         if (aoPocketMode) mSensorManager!!.unregisterListener(this)
         if (aoEdgeGlow) aoEdgeGlowThread.interrupt()
         animationThread.interrupt()
