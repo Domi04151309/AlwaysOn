@@ -57,7 +57,7 @@
             android:drawablePadding="@dimen/about_item_margin"
             android:gravity="center_vertical"
             android:layout_marginTop="@dimen/about_item_margin"
-            android:textColor="?android:textColorSecondary"
+            android:textColor="?android:textColorPrimary"
             android:text="@string/app_by" />
 
         <TextView
@@ -68,7 +68,7 @@
             android:drawablePadding="@dimen/about_item_margin"
             android:gravity="center_vertical"
             android:layout_marginTop="@dimen/about_item_margin"
-            android:textColor="?android:textColorSecondary"
+            android:textColor="?android:textColorPrimary"
             android:text="@string/about_github" />
 
         <TextView
@@ -79,7 +79,7 @@
             android:drawableStart="@drawable/ic_scales"
             android:drawablePadding="@dimen/about_item_margin"
             android:gravity="center_vertical"
-            android:textColor="?android:textColorSecondary"
+            android:textColor="?android:textColorPrimary"
             android:text="@string/about_license" />
 
         <TextView
@@ -89,7 +89,7 @@
             android:drawablePadding="@dimen/about_item_margin"
             android:gravity="center_vertical"
             android:layout_marginTop="@dimen/about_item_margin"
-            android:textColor="?android:textColorSecondary"
+            android:textColor="?android:textColorPrimary"
             android:text="@string/about_damage" />
 
         <TextView
@@ -100,7 +100,7 @@
             android:drawableStart="@drawable/ic_palette"
             android:drawablePadding="@dimen/about_item_margin"
             android:gravity="center_vertical"
-            android:textColor="?android:textColorSecondary"
+            android:textColor="?android:textColorPrimary"
             android:text="@string/about_icons" />
 
     </LinearLayout>
