@@ -134,6 +134,13 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="pref_look_and_feel_filter_notifications_empty_summary">It seems that there is nothing to show</string>
     <string name="pref_look_and_feel_filter_notifications_unknown">Unknown application</string>
 
+    <string name="pref_look_and_feel_rules">Rules</string>
+    <string name="pref_look_and_feel_rules_summary">Control when to show the AOD</string>
+    <string name="pref_look_and_feel_rules_charging_state">Charging state</string>
+    <string name="pref_look_and_feel_rules_battery_level">Battery level</string>
+    <string name="pref_look_and_feel_rules_time">Time period</string>
+    <string name="pref_look_and_feel_rules_timeout">Timeout</string>
+
     <string name="pref_permissions">Permissions</string>
     <string name="pref_permissions_summary">Settings related to permissions</string>
     <string name="pref_notification">Notification access</string>
@@ -149,6 +156,7 @@ You can customize your always on display and toggle it on or off with quick tile
 
     <string name="select">Select</string>
     <string name="save">Save</string>
+    <string name="loading">Loading</string>
 
     <string name="about">About</string>
     <string name="about_summary">About the app</string>

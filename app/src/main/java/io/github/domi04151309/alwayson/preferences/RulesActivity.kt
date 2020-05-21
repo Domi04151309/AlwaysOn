@@ -1,17 +1,15 @@
 package io.github.domi04151309.alwayson.preferences
 
-import android.content.Intent
+import android.content.*
 import android.os.Bundle
-import android.text.InputType
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
-import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Theme
 
-class LAFBehaviorPreferences : AppCompatActivity(),
+class RulesActivity : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,23 +36,12 @@ class LAFBehaviorPreferences : AppCompatActivity(),
     }
 
     class PreferenceFragment : PreferenceFragmentCompat() {
+
+        private var prefs: SharedPreferences? = null
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            addPreferencesFromResource(R.xml.pref_laf_behavior)
-            findPreference<Preference>("rules")!!.setOnPreferenceClickListener {
-                startActivity(Intent(context, RulesActivity::class.java))
-                true
-            }
-            findPreference<EditIntegerPreference>("ao_vibration")!!.setOnBindEditTextListener { editText ->
-                editText.inputType = InputType.TYPE_CLASS_NUMBER
-            }
-            findPreference<Preference>("ao_force_brightness")!!.setOnPreferenceClickListener {
-                startActivity(Intent(context, BrightnessActivity::class.java))
-                true
-            }
-            if(!PreferenceManager.getDefaultSharedPreferences(context).getBoolean("root_mode", false)) {
-                findPreference<SwitchPreference>("ao_power_saving")!!.isEnabled = false
-                findPreference<SwitchPreference>("heads_up")!!.isEnabled = false
-            }
+            addPreferencesFromResource(R.xml.pref_rules)
+            prefs = PreferenceManager.getDefaultSharedPreferences(context)
         }
     }
 }

@@ -23,6 +23,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".preferences.RulesActivity"
+            android:label="@string/pref_look_and_feel_rules"
+            android:launchMode="singleTop"
+            android:parentActivityName=".preferences.LAFBehaviorPreferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.preferences.LAFBehaviorPreferences" />
+        </activity>
+        <activity
             android:name=".preferences.FilterNotificationsActivity"
             android:label="@string/pref_look_and_feel_filter_notifications"
             android:launchMode="singleTop"

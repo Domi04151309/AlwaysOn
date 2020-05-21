@@ -1,5 +1,10 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <Preference
+        android:icon="@drawable/ic_build"
+        android:key="rules"
+        android:summary="@string/pref_look_and_feel_rules_summary"
+        android:title="@string/pref_look_and_feel_rules" />
     <ListPreference
         android:defaultValue="locked"
         android:entries="@array/pref_look_and_feel_orientation_display"

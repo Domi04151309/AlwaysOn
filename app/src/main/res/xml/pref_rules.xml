@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_build"
+        android:key="ao_rules"
+        android:summary="@string/pref_look_and_feel_rules_summary"
+        android:title="@string/pref_look_and_feel_rules" />
+
+    <PreferenceCategory
+        android:key="rules"
+        android:title="@string/pref_look_and_feel_rules">
+
+        <Preference
+            android:icon="@drawable/ic_battery"
+            android:key="rules_charging_state"
+            android:summary="@string/loading"
+            android:title="@string/pref_look_and_feel_rules_charging_state" />
+
+        <Preference
+            android:icon="@drawable/ic_percent"
+            android:key="rules_battery_level"
+            android:summary="@string/loading"
+            android:title="@string/pref_look_and_feel_rules_battery_level" />
+
+        <Preference
+            android:icon="@drawable/ic_clock"
+            android:key="rules_time"
+            android:summary="@string/loading"
+            android:title="@string/pref_look_and_feel_rules_time" />
+
+        <Preference
+            android:icon="@drawable/ic_clock"
+            android:key="rules_timeout"
+            android:summary="@string/loading"
+            android:title="@string/pref_look_and_feel_rules_timeout" />
+    </PreferenceCategory>
+</PreferenceScreen>
