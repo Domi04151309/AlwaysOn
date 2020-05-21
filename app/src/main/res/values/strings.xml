@@ -138,6 +138,8 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="pref_look_and_feel_rules_summary">Control when to show the AOD</string>
     <string name="pref_look_and_feel_rules_charging_state">Charging state</string>
     <string name="pref_look_and_feel_rules_battery_level">Battery level</string>
+    <string name="pref_look_and_feel_rules_battery_level_summary">Show the AOD only above %1$d%% battery</string>
+    <string name="pref_look_and_feel_rules_battery_level_summary_zero">Show the AOD at every battery level</string>
     <string name="pref_look_and_feel_rules_time">Time period</string>
     <string name="pref_look_and_feel_rules_timeout">Timeout</string>
     <string name="pref_look_and_feel_rules_timeout_summary">The AOD will stop after %1$d minutes</string>

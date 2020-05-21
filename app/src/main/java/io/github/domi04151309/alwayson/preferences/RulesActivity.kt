@@ -39,14 +39,19 @@ class RulesActivity : AppCompatActivity(),
     class PreferenceFragment : PreferenceFragmentCompat() {
 
         private var prefs: SharedPreferences? = null
+        private var rulesBatteryLevel: EditIntegerPreference? = null
         private var rulesTimeout: EditIntegerPreference? = null
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_rules)
             prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
+            rulesBatteryLevel = findPreference("rules_battery_level")
             rulesTimeout = findPreference("rules_timeout")
 
+            rulesBatteryLevel!!.setOnBindEditTextListener { editText ->
+                editText.inputType = InputType.TYPE_CLASS_NUMBER
+            }
             rulesTimeout!!.setOnBindEditTextListener { editText ->
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
             }
@@ -59,8 +64,12 @@ class RulesActivity : AppCompatActivity(),
         }
 
         private fun updateSummaries() {
+            val rulesBatteryLevelValue = prefs!!.getInt("rules_battery_level", 0)
             val rulesTimeoutValue = prefs!!.getInt("rules_timeout", 0)
 
+            rulesBatteryLevel!!.summary =
+                    if (rulesBatteryLevelValue > 0) resources.getString(R.string.pref_look_and_feel_rules_battery_level_summary, rulesBatteryLevelValue)
+                    else resources.getString(R.string.pref_look_and_feel_rules_battery_level_summary_zero)
             rulesTimeout!!.summary =
                     if (rulesTimeoutValue > 0) resources.getString(R.string.pref_look_and_feel_rules_timeout_summary, rulesTimeoutValue)
                     else resources.getString(R.string.pref_look_and_feel_rules_timeout_summary_zero)
