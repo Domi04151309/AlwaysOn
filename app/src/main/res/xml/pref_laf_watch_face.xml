@@ -34,14 +34,14 @@
         android:summaryOn="@string/pref_enabled"
         android:title="@string/pref_ao_showBattery" />
     <SwitchPreference
-        android:defaultValue="true"
+        android:defaultValue="false"
         android:icon="@drawable/ic_notification"
         android:key="ao_notifications"
         android:summaryOff="@string/pref_disabled"
         android:summaryOn="@string/pref_enabled"
         android:title="@string/pref_ao_showNotifications" />
     <SwitchPreference
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:icon="@drawable/ic_notification"
         android:key="ao_notification_icons"
         android:summaryOff="@string/pref_disabled"

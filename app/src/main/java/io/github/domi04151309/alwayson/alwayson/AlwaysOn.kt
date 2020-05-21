@@ -183,8 +183,8 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         aoDate = prefs.getBoolean("ao_date", true)
         aoBatteryIcn = prefs.getBoolean("ao_batteryIcn", true)
         aoBattery = prefs.getBoolean("ao_battery", true)
-        aoNotifications = prefs.getBoolean("ao_notifications", true)
-        aoNotificationIcons = prefs.getBoolean("ao_notification_icons", false)
+        aoNotifications = prefs.getBoolean("ao_notifications", false)
+        aoNotificationIcons = prefs.getBoolean("ao_notification_icons", true)
         aoEdgeGlow = prefs.getBoolean("ao_edgeGlow", false)
         aoPocketMode = prefs.getBoolean("ao_pocket_mode", false)
         aoDND = prefs.getBoolean("ao_dnd", false)
@@ -195,7 +195,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         val aoDoubleTapDisabled = prefs.getBoolean("ao_double_tap_disabled", false)
 
         //Cutouts
-        if (prefs.getBoolean("hide_display_cutouts",true))
+        if (prefs.getBoolean("hide_display_cutouts", false))
             setTheme(R.style.CutoutHide)
         else
             setTheme(R.style.CutoutIgnore)
