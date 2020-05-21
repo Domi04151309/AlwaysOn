@@ -30,7 +30,8 @@
             android:summary="@string/loading"
             android:title="@string/pref_look_and_feel_rules_time" />
 
-        <Preference
+        <io.github.domi04151309.alwayson.preferences.EditIntegerPreference
+            android:defaultValue="0"
             android:icon="@drawable/ic_clock"
             android:key="rules_timeout"
             android:summary="@string/loading"
