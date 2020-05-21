@@ -9,6 +9,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Theme
+import java.util.prefs.PreferenceChangeListener
 
 class RulesActivity : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -42,6 +43,11 @@ class RulesActivity : AppCompatActivity(),
         private var rulesBatteryLevel: EditIntegerPreference? = null
         private var rulesTimeout: EditIntegerPreference? = null
 
+        private val spChanged: SharedPreferences.OnSharedPreferenceChangeListener =
+                SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
+                    updateSummaries()
+                }
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_rules)
             prefs = PreferenceManager.getDefaultSharedPreferences(context)
@@ -58,9 +64,7 @@ class RulesActivity : AppCompatActivity(),
 
             updateSummaries()
 
-            prefs!!.registerOnSharedPreferenceChangeListener { _, _ ->
-               updateSummaries()
-            }
+            prefs!!.registerOnSharedPreferenceChangeListener(spChanged)
         }
 
         private fun updateSummaries() {
