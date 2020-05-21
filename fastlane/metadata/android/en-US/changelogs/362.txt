@@ -1,0 +1,7 @@
+- Add screen orientation setting
+- Add edge glow styles
+- Improve preference user flow
+- Allow only one notification icon per app
+- Add ability to hide heads up notifications
+- Add ability to filter notifications
+- Performance improvements
