@@ -71,6 +71,11 @@ class RulesActivity : AppCompatActivity(),
             val rulesBatteryLevelValue = prefs!!.getInt("rules_battery_level", 0)
             val rulesTimeoutValue = prefs!!.getInt("rules_timeout", 0)
 
+            if (rulesBatteryLevelValue > 100) {
+                prefs!!.edit().putInt("rules_battery_level", 100).apply()
+                return
+            }
+
             rulesBatteryLevel!!.summary =
                     if (rulesBatteryLevelValue > 0) resources.getString(R.string.pref_look_and_feel_rules_battery_level_summary, rulesBatteryLevelValue)
                     else resources.getString(R.string.pref_look_and_feel_rules_battery_level_summary_zero)
