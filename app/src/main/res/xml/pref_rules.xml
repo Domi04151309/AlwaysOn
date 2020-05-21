@@ -12,10 +12,13 @@
         android:key="rules"
         android:title="@string/pref_look_and_feel_rules">
 
-        <Preference
+        <ListPreference
+            android:defaultValue="always"
+            android:entries="@array/pref_look_and_feel_rules_charging_state_display"
+            android:entryValues="@array/pref_look_and_feel_rules_charging_state_values"
             android:icon="@drawable/ic_battery"
             android:key="rules_charging_state"
-            android:summary="@string/loading"
+            android:summary="%s"
             android:title="@string/pref_look_and_feel_rules_charging_state" />
 
         <io.github.domi04151309.alwayson.preferences.EditIntegerPreference

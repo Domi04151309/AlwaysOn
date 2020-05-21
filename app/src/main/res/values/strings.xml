@@ -138,11 +138,11 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="pref_look_and_feel_rules_summary">Control when to show the AOD</string>
     <string name="pref_look_and_feel_rules_charging_state">Charging state</string>
     <string name="pref_look_and_feel_rules_battery_level">Battery level</string>
-    <string name="pref_look_and_feel_rules_battery_level_summary">Show the AOD only above %1$d%% battery</string>
-    <string name="pref_look_and_feel_rules_battery_level_summary_zero">Show the AOD at every battery level</string>
+    <string name="pref_look_and_feel_rules_battery_level_summary">Show only above %1$d%%</string>
+    <string name="pref_look_and_feel_rules_battery_level_summary_zero">Show at any battery level</string>
     <string name="pref_look_and_feel_rules_time">Time period</string>
     <string name="pref_look_and_feel_rules_timeout">Timeout</string>
-    <string name="pref_look_and_feel_rules_timeout_summary">The AOD will stop after %1$d minutes</string>
+    <string name="pref_look_and_feel_rules_timeout_summary">Stop after %1$d minutes</string>
     <string name="pref_look_and_feel_rules_timeout_summary_zero">No timeout has been set</string>
 
     <string name="pref_permissions">Permissions</string>
@@ -169,6 +169,17 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="about_license">This app is distributed under the terms and conditions of the <a href="https://github.com/Domi04151309/AlwaysOn/blob/master/LICENSE">GNU General Public License v3.0</a></string>
     <string name="about_damage">I am not responsible for any damage to your device.</string>
     <string name="about_icons">Icons by <a href="https://icons8.com/">Icons8</a> and <a href="https://material.io/resources/icons/">Google</a>.</string>
+
+    <string-array name="pref_look_and_feel_rules_charging_state_display">
+        <item>Show at any charging state</item>
+        <item>Show only while charging</item>
+        <item>Show only while discharging</item>
+    </string-array>
+    <string-array name="pref_look_and_feel_rules_charging_state_values">
+        <item>always</item>
+        <item>charging</item>
+        <item>discharging</item>
+    </string-array>
 
     <string-array name="pref_look_and_feel_orientation_display">
         <item>Auto-lock</item>
