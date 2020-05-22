@@ -58,19 +58,13 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     private var aoHeadsUp: Boolean = false
 
     //Time
-    private var clockCache: String = ""
-    private var clockTemp: String = ""
     private var clockTxt: TextView? = null
     private var clockFormat: SimpleDateFormat = SimpleDateFormat()
-    private val clockDelay: Long = 5000
+    private val clockDelay: Long = 60000
     private val clockHandler = Handler()
     private val clockRunnable = object : Runnable {
         override fun run() {
-            clockTemp = clockFormat.format(Calendar.getInstance())
-            if (clockCache != clockTemp) {
-                clockCache = clockTemp
-                clockTxt!!.text = clockTemp
-            }
+            clockTxt!!.text = clockFormat.format(Calendar.getInstance())
             clockHandler.postDelayed(this, clockDelay)
         }
     }
@@ -93,8 +87,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
             val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
             batteryTxt!!.text = resources.getString(R.string.percent, level)
             val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
-            val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL
-            if (isCharging) {
+            if (status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL) {
                 when {
                     level >= 100 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_100_charging)
                     level >= 90 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_90_charging)
@@ -221,25 +214,27 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         if (!aoBattery) batteryTxt!!.visibility = View.GONE
         if (!aoNotifications) notifications!!.visibility = View.GONE
         if (!aoNotificationIcons) notificationGrid!!.visibility = View.GONE
-        val clockFormatString = if (userTheme == "samsung" || userTheme == "oneplus") {
-            if (clock) {
-                if (amPm) "hh\nmm\na"
-                else "hh\nmm"
-            } else "HH\nmm"
-        } else {
-            if (clock) {
-                if (amPm) "h:mm a"
-                else "h:mm"
-            } else "H:mm"
-        }
-        clockFormat = SimpleDateFormat(clockFormatString)
 
-        val dateFormatString = if (userTheme == "samsung2") {
-            "EEE, MMMM d"
-        } else {
-            "EEE, MMM d"
-        }
-        dateFormat = SimpleDateFormat(dateFormatString)
+        clockFormat = SimpleDateFormat(
+                if (userTheme == "samsung" || userTheme == "oneplus") {
+                    if (clock) {
+                        if (amPm) "hh\nmm\na"
+                        else "hh\nmm"
+                    } else "HH\nmm"
+                } else {
+                    if (clock) {
+                        if (amPm) "h:mm a"
+                        else "h:mm"
+                    } else "H:mm"
+                }
+        )
+        dateFormat = SimpleDateFormat(
+                if (userTheme == "samsung2") {
+                    "EEE, MMMM d"
+                } else {
+                    "EEE, MMM d"
+                }
+        )
 
         //Brightness
         if (aoForceBrightness) {
@@ -282,9 +277,11 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         }
 
         //Notifications
-        val layoutManager = LinearLayoutManager(this)
-        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        notificationGrid!!.layoutManager = layoutManager
+        if(aoNotificationIcons) {
+            val layoutManager = LinearLayoutManager(this)
+            layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+            notificationGrid!!.layoutManager = layoutManager
+        }
 
         //Proximity
         if (aoPocketMode) {
@@ -481,7 +478,6 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         super.onResume()
         hideUI()
         CombinedServiceReceiver.isAlwaysOnRunning = true
-
         startServices()
     }
 
