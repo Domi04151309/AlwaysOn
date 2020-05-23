@@ -40,10 +40,6 @@ class LAFBehaviorPreferences : AppCompatActivity(),
     class PreferenceFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_behavior)
-            findPreference<Preference>("rules")!!.setOnPreferenceClickListener {
-                startActivity(Intent(context, RulesActivity::class.java))
-                true
-            }
             findPreference<EditIntegerPreference>("ao_vibration")!!.setOnBindEditTextListener { editText ->
                 editText.inputType = InputType.TYPE_CLASS_NUMBER
             }

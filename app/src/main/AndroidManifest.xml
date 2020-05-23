@@ -26,10 +26,10 @@
             android:name=".preferences.RulesActivity"
             android:label="@string/pref_look_and_feel_rules"
             android:launchMode="singleTop"
-            android:parentActivityName=".preferences.LAFBehaviorPreferences">
+            android:parentActivityName=".preferences.LookAndFeelPreferences">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.LAFBehaviorPreferences" />
+                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
         </activity>
         <activity
             android:name=".preferences.FilterNotificationsActivity"

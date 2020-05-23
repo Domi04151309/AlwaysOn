@@ -1,40 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <ListPreference
+        android:defaultValue="always"
+        android:entries="@array/pref_look_and_feel_rules_charging_state_display"
+        android:entryValues="@array/pref_look_and_feel_rules_charging_state_values"
+        android:icon="@drawable/ic_battery"
+        android:key="rules_charging_state"
+        android:summary="%s"
+        android:title="@string/pref_look_and_feel_rules_charging_state" />
+
+    <io.github.domi04151309.alwayson.preferences.EditIntegerPreference
+        android:defaultValue="0"
+        android:icon="@drawable/ic_percent"
+        android:key="rules_battery_level"
+        android:summary="@string/loading"
+        android:title="@string/pref_look_and_feel_rules_battery_level" />
+
     <Preference
-        android:summary="@string/pref_look_and_feel_rules_summary" />
+        android:icon="@drawable/ic_clock"
+        android:key="rules_time"
+        android:summary="@string/loading"
+        android:title="@string/pref_look_and_feel_rules_time" />
 
-    <PreferenceCategory
-        android:key="rules"
-        android:title="@string/pref_look_and_feel_rules">
-
-        <ListPreference
-            android:defaultValue="always"
-            android:entries="@array/pref_look_and_feel_rules_charging_state_display"
-            android:entryValues="@array/pref_look_and_feel_rules_charging_state_values"
-            android:icon="@drawable/ic_battery"
-            android:key="rules_charging_state"
-            android:summary="%s"
-            android:title="@string/pref_look_and_feel_rules_charging_state" />
-
-        <io.github.domi04151309.alwayson.preferences.EditIntegerPreference
-            android:defaultValue="0"
-            android:icon="@drawable/ic_percent"
-            android:key="rules_battery_level"
-            android:summary="@string/loading"
-            android:title="@string/pref_look_and_feel_rules_battery_level" />
-
-        <Preference
-            android:icon="@drawable/ic_clock"
-            android:key="rules_time"
-            android:summary="@string/loading"
-            android:title="@string/pref_look_and_feel_rules_time" />
-
-        <io.github.domi04151309.alwayson.preferences.EditIntegerPreference
-            android:defaultValue="0"
-            android:icon="@drawable/ic_timer"
-            android:key="rules_timeout"
-            android:summary="@string/loading"
-            android:title="@string/pref_look_and_feel_rules_timeout" />
-    </PreferenceCategory>
+    <io.github.domi04151309.alwayson.preferences.EditIntegerPreference
+        android:defaultValue="0"
+        android:icon="@drawable/ic_timer"
+        android:key="rules_timeout"
+        android:summary="@string/loading"
+        android:title="@string/pref_look_and_feel_rules_timeout" />
 </PreferenceScreen>
