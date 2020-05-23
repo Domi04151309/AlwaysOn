@@ -14,7 +14,6 @@ import android.view.View
 import android.view.WindowManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.preferences.PermissionPreferences
 
 object Global {
 
@@ -28,9 +27,11 @@ object Global {
     const val REQUEST_STOP = "io.github.domi04151309.alwayson.REQUEST_STOP"
 
     const val ALWAYS_ON_STATE_CHANGED = "io.github.domi04151309.alwayson.ALWAYS_ON_STATE_CHANGED"
+
     fun currentAlwaysOnState(context: Context): Boolean{
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("always_on", false)
     }
+
     fun changeAlwaysOnState(context: Context): Boolean {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val value = !prefs.getBoolean("always_on", false)
@@ -50,11 +51,9 @@ object Global {
                 policyManager.lockNow()
             } else {
                 Toast.makeText(context, R.string.pref_admin_summary, Toast.LENGTH_SHORT).show()
-                context.startActivity(Intent(context, PermissionPreferences::class.java))
             }
         }
-        val activity = context as Activity
-        activity.finish()
+        (context as Activity).finish()
     }
 
     fun fullscreen(context: Context, rootLayout: View) {

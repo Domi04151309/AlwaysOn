@@ -387,9 +387,59 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
         //Stop
         localManager!!.registerReceiver(mStopReceiver, IntentFilter(Global.REQUEST_STOP))
+
+        //Rules
+        val rulesTimeout = prefs.getInt("rules_timeout", 0)
+        if (rulesTimeout != 0) {
+            Handler().postDelayed({
+                stopAndOff()
+            }, rulesTimeout * 60000L)
+        }
     }
 
-    // Hide UI
+    //Proximity
+    override fun onSensorChanged(p0: SensorEvent?) {
+        if (p0!!.sensor.type == Sensor.TYPE_PROXIMITY) {
+            if (p0.values[0] == p0.sensor.maximumRange) {
+                content!!.animate().alpha(1F).duration = 1000L
+                startServices()
+            } else {
+                content!!.animate().alpha(0F).duration = 1000L
+                stopServices()
+            }
+        }
+    }
+
+    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {}
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        screenSize = getScreenSize()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        hideUI()
+        CombinedServiceReceiver.isAlwaysOnRunning = true
+        startServices()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopServices()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        CombinedServiceReceiver.isAlwaysOnRunning = false
+        if (aoPocketMode) mSensorManager!!.unregisterListener(this)
+        if (aoEdgeGlow) aoEdgeGlowThread.interrupt()
+        animationThread.interrupt()
+        if (rootMode && powerSaving && !userPowerSaving) Root.shell("settings put global low_power 0")
+        localManager!!.unregisterReceiver(mStopReceiver)
+    }
+
+
     private fun hideUI() {
         content!!.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -403,6 +453,11 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         val size = Point()
         windowManager.defaultDisplay.getSize(size)
         return  (size.y - content!!.height).toFloat()
+    }
+
+    private fun stopAndOff() {
+        CombinedServiceReceiver.hasRequestedStop = true
+        Global.close(this)
     }
 
     private fun startServices() {
@@ -454,47 +509,5 @@ class AlwaysOn : OffActivity(), SensorEventListener {
             // Heads Up
             if (aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 1")
         }
-    }
-
-    //Proximity
-    override fun onSensorChanged(p0: SensorEvent?) {
-        if (p0!!.sensor.type == Sensor.TYPE_PROXIMITY) {
-            if (p0.values[0] == p0.sensor.maximumRange) {
-                content!!.animate().alpha(1F).duration = 1000L
-                startServices()
-            } else {
-                content!!.animate().alpha(0F).duration = 1000L
-                stopServices()
-            }
-        }
-    }
-
-    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {}
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        screenSize = getScreenSize()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        hideUI()
-        CombinedServiceReceiver.isAlwaysOnRunning = true
-        startServices()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        stopServices()
-    }
-
-    public override fun onDestroy() {
-        super.onDestroy()
-        CombinedServiceReceiver.isAlwaysOnRunning = false
-        if (aoPocketMode) mSensorManager!!.unregisterListener(this)
-        if (aoEdgeGlow) aoEdgeGlowThread.interrupt()
-        animationThread.interrupt()
-        if (rootMode && powerSaving && !userPowerSaving) Root.shell("settings put global low_power 0")
-        localManager!!.unregisterReceiver(mStopReceiver)
     }
 }

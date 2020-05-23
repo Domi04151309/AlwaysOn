@@ -19,6 +19,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
     companion object {
         var isScreenOn: Boolean = true
         var isAlwaysOnRunning: Boolean = false
+        var hasRequestedStop: Boolean = false
         val format = SimpleDateFormat("H:mm")
     }
 
@@ -57,13 +58,17 @@ class CombinedServiceReceiver : BroadcastReceiver() {
             }
             Intent.ACTION_SCREEN_OFF -> {
                 isScreenOn = false
-                if (prefs.getBoolean("always_on", false)) {
+                val alwaysOn = prefs.getBoolean("always_on", false)
+                if (alwaysOn && !hasRequestedStop) {
                     if (isAlwaysOnRunning) {
                         c.startActivity(Intent(c, TurnOnScreen::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                         isAlwaysOnRunning = false
-                    } else {
-                        if (checkRules(c, prefs)) c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                    } else if (checkRules(c, prefs)) {
+                        c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                     }
+                } else if (alwaysOn && hasRequestedStop) {
+                    hasRequestedStop = false
+                    isAlwaysOnRunning = false
                 }
             }
             Intent.ACTION_SCREEN_ON -> {
