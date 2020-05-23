@@ -89,35 +89,52 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     //Battery
     private var batteryIcn: ImageView? = null
     private var batteryTxt: TextView? = null
+    private var batteryFilter = IntentFilter()
     private val mBatInfoReceiver = object : BroadcastReceiver() {
         override fun onReceive(c: Context, intent: Intent) {
-            val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
-            batteryTxt!!.text = resources.getString(R.string.percent, level)
-            val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
-            if (status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL) {
-                when {
-                    level >= 100 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_100_charging)
-                    level >= 90 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_90_charging)
-                    level >= 80 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_80_charging)
-                    level >= 60 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_60_charging)
-                    level >= 50 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_50_charging)
-                    level >= 30 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_30_charging)
-                    level >= 20 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_20_charging)
-                    level >= 0 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_0_charging)
-                    else -> batteryIcn!!.setImageResource(R.drawable.ic_battery_unknown_charging)
+            when (intent.action) {
+                Intent.ACTION_BATTERY_CHANGED -> {
+                    val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
+                    val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
+
+                    if (level <= rulesBattery) {
+                        stopAndOff()
+                        return
+                    }
+
+                    if (aoBattery) batteryTxt!!.text = resources.getString(R.string.percent, level)
+                    if (status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL) {
+                        if (aoBatteryIcn) when {
+                            level >= 100 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_100_charging)
+                            level >= 90 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_90_charging)
+                            level >= 80 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_80_charging)
+                            level >= 60 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_60_charging)
+                            level >= 50 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_50_charging)
+                            level >= 30 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_30_charging)
+                            level >= 20 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_20_charging)
+                            level >= 0 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_0_charging)
+                            else -> batteryIcn!!.setImageResource(R.drawable.ic_battery_unknown_charging)
+                        }
+                    } else {
+                        if (aoBatteryIcn) when {
+                            level >= 100 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_100)
+                            level >= 90 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_90)
+                            level >= 80 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_80)
+                            level >= 60 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_60)
+                            level >= 50 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_50)
+                            level >= 30 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_30)
+                            level >= 20 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_20)
+                            level >= 10 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_20_orange)
+                            level >= 0 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_0)
+                            else -> batteryIcn!!.setImageResource(R.drawable.ic_battery_unknown)
+                        }
+                    }
                 }
-            } else {
-                when {
-                    level >= 100 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_100)
-                    level >= 90 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_90)
-                    level >= 80 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_80)
-                    level >= 60 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_60)
-                    level >= 50 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_50)
-                    level >= 30 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_30)
-                    level >= 20 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_20)
-                    level >= 10 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_20_orange)
-                    level >= 0 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_0)
-                    else -> batteryIcn!!.setImageResource(R.drawable.ic_battery_unknown)
+                Intent.ACTION_POWER_CONNECTED -> {
+                    if (rulesChargingState == "discharging") stopAndOff()
+                }
+                Intent.ACTION_POWER_DISCONNECTED -> {
+                    if (rulesChargingState == "charging") stopAndOff()
                 }
             }
         }
@@ -169,6 +186,10 @@ class AlwaysOn : OffActivity(), SensorEventListener {
             finish()
         }
     }
+
+    //Rules
+    private var rulesChargingState: String = ""
+    private var rulesBattery: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -281,6 +302,11 @@ class AlwaysOn : OffActivity(), SensorEventListener {
             dateFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
         }
 
+        //Battery
+        batteryFilter.addAction(Intent.ACTION_BATTERY_CHANGED)
+        batteryFilter.addAction(Intent.ACTION_POWER_CONNECTED)
+        batteryFilter.addAction(Intent.ACTION_POWER_DISCONNECTED)
+
         //Notifications
         if(aoNotificationIcons) {
             val layoutManager = LinearLayoutManager(this)
@@ -392,6 +418,9 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         localManager!!.registerReceiver(mStopReceiver, IntentFilter(Global.REQUEST_STOP))
 
         //Rules
+        rulesChargingState = prefs.getString("rules_charging_state", "always") ?: "alwayson"
+        rulesBattery = prefs.getInt("rules_battery_level", 0)
+
         val rulesEndTime = prefs.getString("rules_time_end", "23:59")!!
         val end = Calendar.getInstance()
         end[Calendar.MILLISECOND] = 0
@@ -478,13 +507,13 @@ class AlwaysOn : OffActivity(), SensorEventListener {
             servicesRunning = true
 
             // Clock Handler
-            clockHandler.postDelayed(clockRunnable, CLOCK_DELAY)
+            if (aoClock) clockHandler.postDelayed(clockRunnable, CLOCK_DELAY)
 
             // Date Receiver
-            registerReceiver(mDateChangedReceiver, dateFilter)
+            if (aoDate) registerReceiver(mDateChangedReceiver, dateFilter)
 
             // Battery Receiver
-            if (aoBatteryIcn || aoBattery) registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            registerReceiver(mBatInfoReceiver, batteryFilter)
 
             // Notification Listener
             if (aoNotifications || aoNotificationIcons || aoEdgeGlow) {
@@ -511,7 +540,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
             if (aoDate) unregisterReceiver(mDateChangedReceiver)
 
             // Battery Receiver
-            if (aoBatteryIcn || aoBattery) unregisterReceiver(mBatInfoReceiver)
+            unregisterReceiver(mBatInfoReceiver)
 
             // Notification Listener
             if (aoNotifications || aoNotificationIcons || aoEdgeGlow) localManager!!.unregisterReceiver(mNotificationReceiver)
