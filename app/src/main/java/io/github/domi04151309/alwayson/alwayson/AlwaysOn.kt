@@ -9,28 +9,31 @@ import android.content.res.Configuration
 import android.graphics.Point
 import android.graphics.drawable.Icon
 import android.graphics.drawable.TransitionDrawable
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.*
 import android.provider.Settings
-import androidx.preference.PreferenceManager
-import androidx.core.content.ContextCompat
-import android.view.*
+import android.util.Log
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import io.github.domi04151309.alwayson.objects.Global
-import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.objects.Root
-import android.hardware.SensorManager
-import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
-import android.util.Log
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.OffActivity
+import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.adapters.NotificationGridAdapter
+import io.github.domi04151309.alwayson.objects.Global
+import io.github.domi04151309.alwayson.objects.Root
 import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 
 class AlwaysOn : OffActivity(), SensorEventListener {
@@ -389,6 +392,16 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         localManager!!.registerReceiver(mStopReceiver, IntentFilter(Global.REQUEST_STOP))
 
         //Rules
+        val rulesEndTime = prefs.getString("rules_time_end", "23:59")!!
+        val end = Calendar.getInstance()
+        end[Calendar.MILLISECOND] = 0
+        end[Calendar.SECOND] = 0
+        end[Calendar.MINUTE] = rulesEndTime.substringAfter(":").toInt()
+        end[Calendar.HOUR_OF_DAY] = rulesEndTime.substringBefore(":").toInt()
+        Handler().postDelayed({
+            stopAndOff()
+        }, end.time.time - Calendar.getInstance().time.time)
+
         val rulesTimeout = prefs.getInt("rules_timeout", 0)
         if (rulesTimeout != 0) {
             Handler().postDelayed({
