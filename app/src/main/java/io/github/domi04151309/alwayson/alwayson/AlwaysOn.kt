@@ -35,6 +35,11 @@ import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 
 class AlwaysOn : OffActivity(), SensorEventListener {
 
+    companion object {
+        private const val CLOCK_DELAY: Long = 60000
+        private const val SENSOR_DELAY_SLOW: Int = 1000000
+    }
+
     private var localManager: LocalBroadcastManager? = null
     private var content: View? = null
     private var rootMode: Boolean = false
@@ -60,12 +65,11 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     //Time
     private var clockTxt: TextView? = null
     private var clockFormat: SimpleDateFormat = SimpleDateFormat()
-    private val clockDelay: Long = 60000
     private val clockHandler = Handler()
     private val clockRunnable = object : Runnable {
         override fun run() {
             clockTxt!!.text = clockFormat.format(Calendar.getInstance())
-            clockHandler.postDelayed(this, clockDelay)
+            clockHandler.postDelayed(this, CLOCK_DELAY)
         }
     }
 
@@ -119,7 +123,6 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     //Notifications
     private var transition: TransitionDrawable? = null
     private var notificationAvailable: Boolean = false
-    private var transitionTime: Int = 0
     private var notifications: TextView? = null
     private var notificationGrid: RecyclerView? = null
     private val mNotificationReceiver = object : BroadcastReceiver() {
@@ -248,8 +251,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         localManager = LocalBroadcastManager.getInstance(this)
         val frame = findViewById<View>(R.id.frame)
         content = findViewById(R.id.fullscreen_content)
-        val pm = getSystemService(Context.POWER_SERVICE) as PowerManager
-        userPowerSaving = pm.isPowerSaveMode
+        userPowerSaving = (getSystemService(Context.POWER_SERVICE) as PowerManager).isPowerSaveMode
 
         //Show on lock screen
         Handler().postDelayed({
@@ -287,7 +289,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         if (aoPocketMode) {
             mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
             mProximity = mSensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY)
-            mSensorManager!!.registerListener(this, mProximity, SensorManager.SENSOR_DELAY_NORMAL)
+            mSensorManager!!.registerListener(this, mProximity, SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
         }
 
         //DND
@@ -299,7 +301,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
         //Edge Glow
         if (aoEdgeGlow) {
-            transitionTime = prefs.getInt("ao_glowDuration", 2000)
+            val transitionTime = prefs.getInt("ao_glowDuration", 2000)
             if (transitionTime >= 100) {
                 frame.background = when (prefs.getString("ao_glowStyle", "all")) {
                     "horizontal" -> ContextCompat.getDrawable(this, R.drawable.edge_glow_horizontal)
@@ -408,7 +410,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
             servicesRunning = true
 
             // Clock Handler
-            clockHandler.postDelayed(clockRunnable, clockDelay)
+            clockHandler.postDelayed(clockRunnable, CLOCK_DELAY)
 
             // Date Receiver
             registerReceiver(mDateChangedReceiver, dateFilter)

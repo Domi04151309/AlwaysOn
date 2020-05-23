@@ -79,8 +79,16 @@ class RulesActivity : AppCompatActivity(),
             }
 
             updateSummaries()
+        }
 
+        override fun onResume() {
+            super.onResume()
             prefs!!.registerOnSharedPreferenceChangeListener(spChanged)
+        }
+
+        override fun onStop() {
+            super.onStop()
+            prefs!!.unregisterOnSharedPreferenceChangeListener(spChanged)
         }
 
         private fun updateSummaries() {

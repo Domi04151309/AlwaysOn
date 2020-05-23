@@ -1,8 +1,9 @@
 package io.github.domi04151309.alwayson.receivers
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
+import android.content.*
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
+import android.os.BatteryManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.Headset
@@ -18,6 +19,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
     companion object {
         var isScreenOn: Boolean = true
         var isAlwaysOnRunning: Boolean = false
+        val format = SimpleDateFormat("H:mm")
     }
 
     override fun onReceive(c: Context, intent: Intent) {
@@ -53,7 +55,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                         c.startActivity(Intent(c, TurnOnScreen::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                         isAlwaysOnRunning = false
                     } else {
-                        c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                        if (checkRules(c, prefs)) c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                     }
                 }
             }
@@ -61,5 +63,17 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                 isScreenOn = true
             }
         }
+    }
+
+    private fun checkRules(c: Context, prefs: SharedPreferences): Boolean {
+        val batteryStatus: Intent = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter -> c.registerReceiver(null, filter)!! }
+        val ruleChargingState = prefs.getString("rules_charging_state", "always")
+        val chargePlug: Int = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
+        val now = Calendar.getInstance()
+        val nowMinute = now.get(Calendar.MINUTE)
+        val nowTime = format.parse(now.get(Calendar.HOUR_OF_DAY).toString() + ":" + if (nowMinute < 10) "0$nowMinute" else nowMinute.toString())
+        return (batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) > prefs.getInt("rules_battery_level", 0))
+                && ((ruleChargingState == "charging" && chargePlug > 0) || (ruleChargingState == "discharging" && chargePlug == 0) || (ruleChargingState == "always"))
+                && (nowTime.after(format.parse(prefs.getString("rules_time_start", "0:00"))) && nowTime.before(format.parse(prefs.getString("rules_time_end", "23:59"))))
     }
 }
