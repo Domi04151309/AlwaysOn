@@ -143,7 +143,6 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="pref_look_and_feel_rules_time">Time period</string>
     <string name="pref_look_and_feel_rules_time_summary">Show from %1$s to %2$s</string>
     <string name="pref_look_and_feel_rules_timeout">Timeout</string>
-    <string name="pref_look_and_feel_rules_timeout_summary">Stop after %1$d minutes</string>
     <string name="pref_look_and_feel_rules_timeout_summary_zero">No timeout has been set</string>
 
     <string name="pref_permissions">Permissions</string>

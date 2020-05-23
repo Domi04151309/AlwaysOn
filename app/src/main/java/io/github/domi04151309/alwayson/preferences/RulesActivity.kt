@@ -99,7 +99,7 @@ class RulesActivity : AppCompatActivity(),
                     if (rulesBatteryLevelValue > 0) resources.getString(R.string.pref_look_and_feel_rules_battery_level_summary, rulesBatteryLevelValue)
                     else resources.getString(R.string.pref_look_and_feel_rules_battery_level_summary_zero)
             rulesTimeout!!.summary =
-                    if (rulesTimeoutValue > 0) resources.getString(R.string.pref_look_and_feel_rules_timeout_summary, rulesTimeoutValue)
+                    if (rulesTimeoutValue > 0) resources.getQuantityString(R.plurals.pref_look_and_feel_rules_timeout_summary, rulesTimeoutValue, rulesTimeoutValue)
                     else resources.getString(R.string.pref_look_and_feel_rules_timeout_summary_zero)
         }
 
