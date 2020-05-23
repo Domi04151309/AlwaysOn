@@ -4,7 +4,6 @@ import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.InputType
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -12,7 +11,6 @@ import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Theme
 import java.lang.Integer.parseInt
-
 
 class RulesActivity : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -62,9 +60,6 @@ class RulesActivity : AppCompatActivity(),
             rulesTime = findPreference("rules_time")
             rulesTimeout = findPreference("rules_timeout")
 
-            rulesBatteryLevel!!.setOnBindEditTextListener { editText ->
-                editText.inputType = InputType.TYPE_CLASS_NUMBER
-            }
             rulesTime!!.setOnPreferenceClickListener {
                 TimePickerDialog(context, OnTimeSetListener { _, selectedStartHour, selectedStartMinute ->
                     prefs!!.edit().putString("rules_time_start", formatTime(selectedStartHour, selectedStartMinute)).apply()
@@ -73,9 +68,6 @@ class RulesActivity : AppCompatActivity(),
                     }, parseInt(rulesTimeEndValue.substringBefore(":")), parseInt(rulesTimeEndValue.substringAfter(":")), true).show()
                 }, parseInt(rulesTimeStartValue.substringBefore(":")), parseInt(rulesTimeStartValue.substringAfter(":")), true).show()
                 true
-            }
-            rulesTimeout!!.setOnBindEditTextListener { editText ->
-                editText.inputType = InputType.TYPE_CLASS_NUMBER
             }
 
             updateSummaries()

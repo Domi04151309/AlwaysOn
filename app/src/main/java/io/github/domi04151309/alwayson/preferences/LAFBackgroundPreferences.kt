@@ -2,7 +2,6 @@ package io.github.domi04151309.alwayson.preferences
 
 import android.os.Build
 import android.os.Bundle
-import android.text.InputType
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -40,9 +39,6 @@ class LAFBackgroundPreferences : AppCompatActivity(),
             addPreferencesFromResource(R.xml.pref_laf_background)
             if (Build.VERSION.SDK_INT < 28)
                 preferenceScreen.removePreference(findPreference("hide_display_cutouts"))
-            findPreference<EditIntegerPreference>("ao_glowDuration")!!.setOnBindEditTextListener { editText ->
-                editText.inputType = InputType.TYPE_CLASS_NUMBER
-            }
         }
     }
 }
