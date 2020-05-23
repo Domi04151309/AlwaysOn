@@ -46,6 +46,13 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         c.startActivity(i)
                     }
+                } else if (prefs.getString("rules_charging_state", "always") == "charging") {
+                    c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                }
+            }
+            Intent.ACTION_POWER_DISCONNECTED -> {
+                if (prefs.getString("rules_charging_state", "always") == "discharging") {
+                    c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 }
             }
             Intent.ACTION_SCREEN_OFF -> {

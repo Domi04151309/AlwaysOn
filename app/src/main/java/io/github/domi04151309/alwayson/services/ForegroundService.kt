@@ -22,6 +22,7 @@ class ForegroundService : Service() {
         super.onCreate()
         val filter = IntentFilter(Intent.ACTION_HEADSET_PLUG)
         filter.addAction(Intent.ACTION_POWER_CONNECTED)
+        filter.addAction(Intent.ACTION_POWER_DISCONNECTED)
         filter.addAction(Intent.ACTION_SCREEN_OFF)
         filter.addAction(Intent.ACTION_SCREEN_ON)
         registerReceiver(combinedServiceReceiver, filter)
