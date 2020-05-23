@@ -418,7 +418,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         localManager!!.registerReceiver(mStopReceiver, IntentFilter(Global.REQUEST_STOP))
 
         //Rules
-        rulesChargingState = prefs.getString("rules_charging_state", "always") ?: "alwayson"
+        rulesChargingState = prefs.getString("rules_charging_state", "always") ?: "always"
         rulesBattery = prefs.getInt("rules_battery_level", 0)
 
         val rulesEndTime = prefs.getString("rules_time_end", "23:59")!!
