@@ -1,7 +1,6 @@
 package io.github.domi04151309.alwayson.receivers
 
 import android.content.*
-import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.BatteryManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -12,6 +11,7 @@ import io.github.domi04151309.alwayson.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.charging.Circle
 import io.github.domi04151309.alwayson.charging.Flash
 import io.github.domi04151309.alwayson.charging.IOS
+import io.github.domi04151309.alwayson.helpers.Date
 import io.github.domi04151309.alwayson.objects.Global
 
 class CombinedServiceReceiver : BroadcastReceiver() {
@@ -20,7 +20,6 @@ class CombinedServiceReceiver : BroadcastReceiver() {
         var isScreenOn: Boolean = true
         var isAlwaysOnRunning: Boolean = false
         var hasRequestedStop: Boolean = false
-        val format = SimpleDateFormat("H:mm")
     }
 
     override fun onReceive(c: Context, intent: Intent) {
@@ -80,12 +79,9 @@ class CombinedServiceReceiver : BroadcastReceiver() {
     private fun checkRules(c: Context, prefs: SharedPreferences): Boolean {
         val batteryStatus: Intent = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter -> c.registerReceiver(null, filter)!! }
         val ruleChargingState = prefs.getString("rules_charging_state", "always")
-        val chargePlug: Int = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
-        val now = Calendar.getInstance()
-        val nowMinute = now.get(Calendar.MINUTE)
-        val nowTime = format.parse(now.get(Calendar.HOUR_OF_DAY).toString() + ":" + if (nowMinute < 10) "0$nowMinute" else nowMinute.toString())
+        val chargingState: Int = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
         return (batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) > prefs.getInt("rules_battery_level", 0))
-                && ((ruleChargingState == "charging" && chargePlug > 0) || (ruleChargingState == "discharging" && chargePlug == 0) || (ruleChargingState == "always"))
-                && (nowTime.after(format.parse(prefs.getString("rules_time_start", "0:00"))) && nowTime.before(format.parse(prefs.getString("rules_time_end", "23:59"))))
+                && ((ruleChargingState == "charging" && chargingState > 0) || (ruleChargingState == "discharging" && chargingState == 0) || (ruleChargingState == "always"))
+                && (Date(prefs).isInRange())
     }
 }

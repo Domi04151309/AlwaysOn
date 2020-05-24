@@ -32,6 +32,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.OffActivity
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.adapters.NotificationGridAdapter
+import io.github.domi04151309.alwayson.helpers.Date
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.objects.Root
 import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
@@ -421,15 +422,9 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         rulesChargingState = prefs.getString("rules_charging_state", "always") ?: "always"
         rulesBattery = prefs.getInt("rules_battery_level", 0)
 
-        val rulesEndTime = prefs.getString("rules_time_end", "23:59")!!
-        val end = Calendar.getInstance()
-        end[Calendar.MILLISECOND] = 0
-        end[Calendar.SECOND] = 0
-        end[Calendar.MINUTE] = rulesEndTime.substringAfter(":").toInt()
-        end[Calendar.HOUR_OF_DAY] = rulesEndTime.substringBefore(":").toInt()
         Handler().postDelayed({
             stopAndOff()
-        }, end.time.time - Calendar.getInstance().time.time)
+        }, Date(prefs).milliSecsTillEnd())
 
         val rulesTimeout = prefs.getInt("rules_timeout", 0)
         if (rulesTimeout != 0) {
