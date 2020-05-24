@@ -1,13 +1,18 @@
 package io.github.domi04151309.alwayson.helpers
 
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.icu.util.Calendar
+import android.os.BatteryManager
 
-class Date(prefs: SharedPreferences) {
+class Rules(private val c: Context, private val prefs: SharedPreferences) {
 
     private var now = Calendar.getInstance()
     private var start = Calendar.getInstance()
     private var end = Calendar.getInstance()
+    private val batteryStatus: Intent = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter -> c.registerReceiver(null, filter)!! }
 
     init {
         val startString = prefs.getString("rules_time_start", "0:00") ?: "0:00"
@@ -23,11 +28,21 @@ class Date(prefs: SharedPreferences) {
         if (start.after(end)) end.add(Calendar.DATE, 1)
     }
 
-    fun isInRange(): Boolean {
+    fun matchesChargingState(): Boolean {
+        val chargingState: Int = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
+        val ruleChargingState = prefs.getString("rules_charging_state", "always")
+        return (ruleChargingState == "charging" && chargingState > 0) || (ruleChargingState == "discharging" && chargingState == 0) || (ruleChargingState == "always")
+    }
+
+    fun matchesBatteryPercentage(): Boolean {
+        return batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) > prefs.getInt("rules_battery_level", 0)
+    }
+
+    fun isInTimePeriod(): Boolean {
         return now.after(start) && now.before(end)
     }
 
-    fun milliSecsTillEnd(): Long {
+    fun millisTillEnd(): Long {
         return end.time.time - now.time.time
     }
 }

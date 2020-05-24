@@ -1,8 +1,6 @@
 package io.github.domi04151309.alwayson.receivers
 
 import android.content.*
-import android.icu.util.Calendar
-import android.os.BatteryManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.Headset
@@ -11,7 +9,7 @@ import io.github.domi04151309.alwayson.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.charging.Circle
 import io.github.domi04151309.alwayson.charging.Flash
 import io.github.domi04151309.alwayson.charging.IOS
-import io.github.domi04151309.alwayson.helpers.Date
+import io.github.domi04151309.alwayson.helpers.Rules
 import io.github.domi04151309.alwayson.objects.Global
 
 class CombinedServiceReceiver : BroadcastReceiver() {
@@ -24,6 +22,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
 
     override fun onReceive(c: Context, intent: Intent) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(c)
+        val rules = Rules(c, prefs)
 
         when (intent.action) {
             Intent.ACTION_HEADSET_PLUG -> {
@@ -46,12 +45,12 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         c.startActivity(i)
                     }
-                } else if (prefs.getString("rules_charging_state", "always") == "charging") {
+                } else if (rules.matchesBatteryPercentage() && rules.isInTimePeriod() && !isScreenOn) {
                     c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 }
             }
             Intent.ACTION_POWER_DISCONNECTED -> {
-                if (prefs.getString("rules_charging_state", "always") == "discharging") {
+                if (rules.matchesBatteryPercentage() && rules.isInTimePeriod() && !isScreenOn) {
                     c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 }
             }
@@ -62,7 +61,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                     if (isAlwaysOnRunning) {
                         c.startActivity(Intent(c, TurnOnScreen::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                         isAlwaysOnRunning = false
-                    } else if (checkRules(c, prefs)) {
+                    } else if (rules.matchesChargingState() && rules.matchesBatteryPercentage() && rules.isInTimePeriod()) {
                         c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                     }
                 } else if (alwaysOn && hasRequestedStop) {
@@ -74,14 +73,5 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                 isScreenOn = true
             }
         }
-    }
-
-    private fun checkRules(c: Context, prefs: SharedPreferences): Boolean {
-        val batteryStatus: Intent = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter -> c.registerReceiver(null, filter)!! }
-        val ruleChargingState = prefs.getString("rules_charging_state", "always")
-        val chargingState: Int = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
-        return (batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) > prefs.getInt("rules_battery_level", 0))
-                && ((ruleChargingState == "charging" && chargingState > 0) || (ruleChargingState == "discharging" && chargingState == 0) || (ruleChargingState == "always"))
-                && (Date(prefs).isInRange())
     }
 }

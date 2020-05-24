@@ -32,7 +32,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.OffActivity
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.adapters.NotificationGridAdapter
-import io.github.domi04151309.alwayson.helpers.Date
+import io.github.domi04151309.alwayson.helpers.Rules
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.objects.Root
 import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
@@ -424,7 +424,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
         Handler().postDelayed({
             stopAndOff()
-        }, Date(prefs).milliSecsTillEnd())
+        }, Rules(this, prefs).millisTillEnd())
 
         val rulesTimeout = prefs.getInt("rules_timeout", 0)
         if (rulesTimeout != 0) {
