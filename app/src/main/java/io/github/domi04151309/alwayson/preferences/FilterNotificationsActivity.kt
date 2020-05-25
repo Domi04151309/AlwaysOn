@@ -90,8 +90,8 @@ class FilterNotificationsActivity : AppCompatActivity(),
             empty!!.summary = requireContext().resources.getString(R.string.pref_look_and_feel_filter_notifications_empty_summary)
         }
 
-        override fun onResume() {
-            super.onResume()
+        override fun onStart() {
+            super.onStart()
             blockedArray = JSONArray(prefs!!.getString("blocked_notifications", "[]"))
             if (!JSON.isEmpty(blockedArray)) {
                 blocked!!.removeAll()
@@ -105,8 +105,8 @@ class FilterNotificationsActivity : AppCompatActivity(),
             localManager.sendBroadcast(Intent(Global.REQUEST_DETAILED_NOTIFICATIONS))
         }
 
-        override fun onPause() {
-            super.onPause()
+        override fun onStop() {
+            super.onStop()
             prefs!!.edit().putString("blocked_notifications", blockedArray.toString()).apply()
         }
 

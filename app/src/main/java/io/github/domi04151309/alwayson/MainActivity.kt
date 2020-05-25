@@ -133,8 +133,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         if (!isDeviceAdminOrRoot) buildDialog(1)
         if (!isNotificationServiceEnabled) buildDialog(2)
         if (!Settings.canDrawOverlays(this)) buildDialog(3)

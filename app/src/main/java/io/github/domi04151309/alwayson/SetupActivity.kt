@@ -81,8 +81,8 @@ class SetupActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         if (isActionRequired) {
             when (currentFragment) {
                 MODE_FRAGMENT -> {
