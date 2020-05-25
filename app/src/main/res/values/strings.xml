@@ -109,7 +109,7 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="pref_ao_dnd">Do not disturb</string>
     <string name="pref_ao_dnd_summary">Turns on do not disturb mode while the always on display is running</string>
     <string name="pref_ao_power_saving">Power saving mode (root)</string>
-    <string name="pref_ao_power_saving_summary">Saves power when the always on display is enabled</string>
+    <string name="pref_ao_power_saving_summary">Turns on the system\'s power saver mode when the always on display is enabled</string>
     <string name="pref_ao_double_tap_disabled">Disable double-tap</string>
     <string name="pref_ao_double_tap_disabled_summary">Disables double-tap to exit the AOD (not recommended)</string>
 
