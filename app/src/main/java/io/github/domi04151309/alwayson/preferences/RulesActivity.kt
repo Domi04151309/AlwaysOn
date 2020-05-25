@@ -59,22 +59,23 @@ class RulesActivity : AppCompatActivity(),
             rulesBatteryLevel = findPreference("rules_battery_level")
             rulesTime = findPreference("rules_time")
             rulesTimeout = findPreference("rules_timeout")
+            val is24Hour = !prefs!!.getBoolean("hour", false)
 
             rulesTime!!.setOnPreferenceClickListener {
                 TimePickerDialog(context, OnTimeSetListener { _, selectedStartHour, selectedStartMinute ->
                     prefs!!.edit().putString("rules_time_start", formatTime(selectedStartHour, selectedStartMinute)).apply()
                     TimePickerDialog(context, OnTimeSetListener { _, selectedEndHour, selectedEndMinute ->
                         prefs!!.edit().putString("rules_time_end", formatTime(selectedEndHour, selectedEndMinute)).apply()
-                    }, parseInt(rulesTimeEndValue.substringBefore(":")), parseInt(rulesTimeEndValue.substringAfter(":")), true).show()
-                }, parseInt(rulesTimeStartValue.substringBefore(":")), parseInt(rulesTimeStartValue.substringAfter(":")), true).show()
+                    }, parseInt(rulesTimeEndValue.substringBefore(":")), parseInt(rulesTimeEndValue.substringAfter(":")), is24Hour).show()
+                }, parseInt(rulesTimeStartValue.substringBefore(":")), parseInt(rulesTimeStartValue.substringAfter(":")), is24Hour).show()
                 true
             }
 
             updateSummaries()
         }
 
-        override fun onResume() {
-            super.onResume()
+        override fun onStart() {
+            super.onStart()
             prefs!!.registerOnSharedPreferenceChangeListener(spChanged)
         }
 
