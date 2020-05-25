@@ -454,16 +454,21 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         screenSize = getScreenSize()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         hideUI()
         CombinedServiceReceiver.isAlwaysOnRunning = true
         startServices()
+        if (aoDND && notificationAccess) mNotificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+        if (aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 0")
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
         stopServices()
+        if (aoDND && notificationAccess) mNotificationManager!!.setInterruptionFilter(userDND)
+        if (rootMode && powerSaving && !userPowerSaving) Root.shell("settings put global low_power 0")
+        if (aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 1")
     }
 
     override fun onDestroy() {
@@ -472,10 +477,8 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         if (aoPocketMode) mSensorManager!!.unregisterListener(this)
         if (aoEdgeGlow) aoEdgeGlowThread.interrupt()
         animationThread.interrupt()
-        if (rootMode && powerSaving && !userPowerSaving) Root.shell("settings put global low_power 0")
         localManager!!.unregisterReceiver(mStopReceiver)
     }
-
 
     private fun hideUI() {
         content!!.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
@@ -515,12 +518,6 @@ class AlwaysOn : OffActivity(), SensorEventListener {
                 localManager!!.registerReceiver(mNotificationReceiver, IntentFilter(Global.NOTIFICATIONS))
                 localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
             }
-
-            // DND
-            if (aoDND && notificationAccess) mNotificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
-
-            // Heads Up
-            if (aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 0")
         }
     }
 
@@ -539,12 +536,6 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
             // Notification Listener
             if (aoNotifications || aoNotificationIcons || aoEdgeGlow) localManager!!.unregisterReceiver(mNotificationReceiver)
-
-            // DND
-            if (aoDND && notificationAccess) mNotificationManager!!.setInterruptionFilter(userDND)
-
-            // Heads Up
-            if (aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 1")
         }
     }
 }
