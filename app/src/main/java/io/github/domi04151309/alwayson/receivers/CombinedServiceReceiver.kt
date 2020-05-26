@@ -45,12 +45,18 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         c.startActivity(i)
                     }
-                } else if (rules.matchesBatteryPercentage() && rules.isInTimePeriod() && !isScreenOn) {
+                } else if (rules.isAlwaysOnDisplayEnabled()
+                        && rules.matchesBatteryPercentage()
+                        && rules.isInTimePeriod()
+                        && !isScreenOn) {
                     c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 }
             }
             Intent.ACTION_POWER_DISCONNECTED -> {
-                if (rules.matchesBatteryPercentage() && rules.isInTimePeriod() && !isScreenOn) {
+                if (rules.isAlwaysOnDisplayEnabled()
+                        && rules.matchesBatteryPercentage()
+                        && rules.isInTimePeriod()
+                        && !isScreenOn) {
                     c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 }
             }

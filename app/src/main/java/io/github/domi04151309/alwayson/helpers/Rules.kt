@@ -28,6 +28,10 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
         if (start.after(end)) end.add(Calendar.DATE, 1)
     }
 
+    fun isAlwaysOnDisplayEnabled(): Boolean {
+        return prefs.getBoolean("always_on", false)
+    }
+
     fun matchesChargingState(): Boolean {
         val chargingState: Int = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
         val ruleChargingState = prefs.getString("rules_charging_state", "always")
