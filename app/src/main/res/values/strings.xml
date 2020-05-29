@@ -9,7 +9,7 @@
 
     <string name="setup_header">Setup</string>
     <string name="setup_choose_mode">Choose a mode</string>
-    <string name="setup_choose_mode_summary">You need to choose a mode for the app. If you are not sure about what you need to choose, leave this setting as is. If your device is rooted, choose root.</string>
+    <string name="setup_choose_mode_summary">You need to choose a mode for the app. If you are not sure about what you need to choose, leave this setting as is. If your device is rooted, choose root.\n\nPlease note that you have to deactivate the app\'s device admin privileges before uninstalling it.</string>
     <string name="setup_device_admin">Device Admin</string>
     <string name="setup_root">Root</string>
     <string name="setup_root_failed">Root request failed! Please try again or switch mode!</string>
