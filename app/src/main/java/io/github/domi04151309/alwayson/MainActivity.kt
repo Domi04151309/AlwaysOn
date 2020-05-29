@@ -27,6 +27,7 @@ import io.github.domi04151309.alwayson.preferences.PermissionPreferences
 import io.github.domi04151309.alwayson.preferences.Preferences
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import io.github.domi04151309.alwayson.services.ForegroundService
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -107,16 +108,16 @@ class MainActivity : AppCompatActivity() {
         clockTxt = findViewById(R.id.clockTxt)
         dateTxt = findViewById(R.id.dateTxt)
 
-        clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
-        dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
+        clockTxt!!.text = SimpleDateFormat(dateFormat, Locale.getDefault()).format(Calendar.getInstance())
+        dateTxt!!.text = SimpleDateFormat("EEEE, MMM d", Locale.getDefault()).format(Calendar.getInstance())
         object : Thread() {
             override fun run() {
                 try {
                     while (!isInterrupted) {
                         sleep(1000)
                         runOnUiThread {
-                            dateTxt!!.text = SimpleDateFormat("EEEE, MMM d").format(Calendar.getInstance())
-                            clockTxt!!.text = SimpleDateFormat(dateFormat).format(Calendar.getInstance())
+                            dateTxt!!.text = SimpleDateFormat("EEEE, MMM d", Locale.getDefault()).format(Calendar.getInstance())
+                            clockTxt!!.text = SimpleDateFormat(dateFormat, Locale.getDefault()).format(Calendar.getInstance())
                         }
                     }
                 } catch (e: Exception) {

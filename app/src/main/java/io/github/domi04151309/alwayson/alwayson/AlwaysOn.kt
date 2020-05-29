@@ -36,6 +36,7 @@ import io.github.domi04151309.alwayson.helpers.Rules
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.objects.Root
 import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
+import java.util.*
 
 class AlwaysOn : OffActivity(), SensorEventListener {
 
@@ -68,7 +69,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
     //Time
     private var clockTxt: TextView? = null
-    private var clockFormat: SimpleDateFormat = SimpleDateFormat()
+    private var clockFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
     private val clockHandler = Handler()
     private val clockRunnable = object : Runnable {
         override fun run() {
@@ -79,7 +80,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
     //Date
     private var dateTxt: TextView? = null
-    private var dateFormat: SimpleDateFormat = SimpleDateFormat()
+    private var dateFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
     private val mDateChangedReceiver = object : BroadcastReceiver() {
         override fun onReceive(c: Context, intent: Intent) {
             dateTxt!!.text = dateFormat.format(Calendar.getInstance())
@@ -158,7 +159,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
             }
 
             if (aoNotificationIcons) {
-                val itemArray: java.util.ArrayList<Icon> = intent.getParcelableArrayListExtra("icons") ?: arrayListOf()
+                val itemArray: ArrayList<Icon> = intent.getParcelableArrayListExtra("icons") ?: arrayListOf()
                 notificationGrid!!.adapter = NotificationGridAdapter(itemArray)
             }
 
@@ -254,14 +255,14 @@ class AlwaysOn : OffActivity(), SensorEventListener {
                         if (amPm) "h:mm a"
                         else "h:mm"
                     } else "H:mm"
-                }
+                }, Locale.getDefault()
         )
         dateFormat = SimpleDateFormat(
                 if (userTheme == "samsung2") {
                     "EEE, MMMM d"
                 } else {
                     "EEE, MMM d"
-                }
+                }, Locale.getDefault()
         )
 
         //Brightness
