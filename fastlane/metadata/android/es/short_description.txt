@@ -1,0 +1,1 @@
+Una aplicación para Android que añade "always on display". Gratis, sin anuncios y de código abierto.
