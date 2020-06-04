@@ -16,7 +16,7 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
 
     init {
         val startString = prefs.getString("rules_time_start", "0:00") ?: "0:00"
-        val endString = prefs.getString("rules_time_end", "23:59") ?: "23:59"
+        val endString = prefs.getString("rules_time_end", "0:00") ?: "0:00"
         start[Calendar.MILLISECOND] = 0
         start[Calendar.SECOND] = 0
         start[Calendar.MINUTE] = startString.substringAfter(":").toInt()
@@ -43,10 +43,12 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
     }
 
     fun isInTimePeriod(): Boolean {
-        return now.after(start) && now.before(end)
+        return if (start == end) true
+        else now.after(start) && now.before(end)
     }
 
     fun millisTillEnd(): Long {
-        return end.time.time - now.time.time
+        return if (start == end) -1
+        else end.time.time - now.time.time
     }
 }

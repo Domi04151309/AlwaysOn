@@ -422,10 +422,11 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         //Rules
         rulesChargingState = prefs.getString("rules_charging_state", "always") ?: "always"
         rulesBattery = prefs.getInt("rules_battery_level", 0)
+        val millisTillEnd = Rules(this, prefs).millisTillEnd()
 
-        Handler().postDelayed({
+        if (millisTillEnd > -1L) Handler().postDelayed({
             stopAndOff()
-        }, Rules(this, prefs).millisTillEnd())
+        }, millisTillEnd)
 
         val rulesTimeout = prefs.getInt("rules_timeout", 0)
         if (rulesTimeout != 0) {
