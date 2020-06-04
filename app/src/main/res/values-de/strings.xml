@@ -9,15 +9,15 @@
 
     <string name="setup_header">Setup</string>
     <string name="setup_choose_mode">Wähle einen Modus</string>
-    <string name="setup_choose_mode_summary">Sie müssen einen Modus für die App auswählen. Wenn Sie sich nicht sicher sind, was Sie auswählen sollen, lassen Sie diese Einstellung unverändert. Wenn Ihr Gerät gerootet ist, wählen Sie root.</string>
+    <string name="setup_choose_mode_summary">Sie müssen einen Modus für die App auswählen. Wenn Sie sich nicht sicher sind, was Sie auswählen sollen, lassen Sie diese Einstellung unverändert. Wenn Ihr Gerät gerootet ist, wählen Sie root.\n\nBitte beachten Sie, dass sie den Geräteadministrator vor dem deinstallieren wieder deaktivieren müssen.</string>
     <string name="setup_device_admin">Geräteadministrator</string>
     <string name="setup_root">Root</string>
     <string name="setup_root_failed">Root-Anfrage fehlgeschlagen! Bitte versuchen Sie es erneut oder wechseln Sie den Modus!</string>
     <string name="device_admin">Geräteadministrator</string>
     <string name="device_admin_summary">Sie müssen diesen Geräteadministrator aktivieren oder in den Root-Modus wechseln, damit diese App funktioniert.</string>
-    <string name="notification_listener_service">Benachrichtigungsservice</string>
-    <string name="notification_listener_service_summary">Sie müssen den Benachrichtigungsdienst für die App aktivieren, damit eine Benachrichtigungsanzahl auf dem Always On Display angezeigt wird.</string>
-    <string name="setup_draw_over_other_apps">Über andere Apps zeichnen</string>
+    <string name="notification_listener_service">Benachrichtigungszugriff</string>
+    <string name="notification_listener_service_summary">Sie müssen den Benachrichtigungszugriff für die App aktivieren, damit ihre Benachrichtigungen auf dem Always On Display angezeigt werden.</string>
+    <string name="setup_draw_over_other_apps">Über anderen Apps anzeigen</string>
     <string name="setup_draw_over_other_apps_summary">Diese Berechtigung ist erforderlich, um das Always On Display anzuzeigen.</string>
     <string name="setup_finish">Setup beenden</string>
     <string name="setup_finish_summary">Alles ist eingerichtet. Bitte klicken Sie auf Weiter, um die Einrichtung abzuschließen.</string>
@@ -59,6 +59,16 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="pref_categories">Kategorien</string>
     <string name="pref_look_and_feel">Erscheinungsbild</string>
     <string name="pref_look_and_feel_summary">Einstellungen in Bezug auf das Erscheinungsbild</string>
+
+    <string name="pref_ao_watch_face">Zifferblatt</string>
+    <string name="pref_ao_watch_face_summary">Einstellungen bezüglich des Zifferblatts</string>
+    <string name="pref_ao_background">Hintergrund</string>
+    <string name="pref_ao_background_summary">Einstellungen bezüglich des Hintergrunds</string>
+    <string name="pref_ao_behavior">Verhalten</string>
+    <string name="pref_ao_behavior_summary">Einstellungen bezüglich des Verhaltens</string>
+    <string name="pref_ao_other">Andere Einstellungen</string>
+    <string name="pref_ao_other_summary">Andere Einstellungen der App</string>
+
     <string name="pref_look_and_feel_light">Heller Modus</string>
     <string name="pref_look_and_feel_light_summary">Ändert das Aussehen der App zu einem hellem Stil</string>
     <string name="pref_look_and_feel_hour">12-Stunden-Format verwenden</string>
@@ -73,19 +83,18 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="pref_look_and_feel_ao_array_display_1">Samsung-ähnlicher Stil</string>
     <string name="pref_look_and_feel_ao_array_display_2">Zweiter Samsung-ähnlicher Stil</string>
     <string name="pref_look_and_feel_ao_array_display_3">OnePlus-ähnlicher Stil</string>
-    <string name="pref_ao_watch_face">Zifferblatt</string>
     <string name="pref_ao_showClock">Zeit anzeigen</string>
     <string name="pref_ao_showDate">Datum anzeigen</string>
     <string name="pref_ao_showBatteryIcn">Batterieicon anzeigen</string>
     <string name="pref_ao_showBattery">Batterieladung anzeigen</string>
     <string name="pref_ao_showNotifications">Benachrichtigungszähler anzeigen</string>
     <string name="pref_ao_showNotificationIcons">Benachrichtigungsicons anzeigen</string>
-    <string name="pref_ao_background">Hintergrund</string>
     <string name="pref_ao_edgeGlow">Leuchtende Kanten</string>
     <string name="pref_ao_edgeGlow_summary">Leuchtende Kanten, wenn eine Benachrichtigung eingeht</string>
     <string name="pref_ao_glowDuration">Leuchtdauer (in Millisekunden)</string>
     <string name="pref_ao_glowDuration_summary">Dauer, welche die Kanten leuchten</string>
-    <string name="pref_ao_behavior">Verhalten</string>
+    <string name="pref_ao_glowStyle">Kantenleuchtstil</string>
+    <string name="pref_ao_glowStyle_summary">Ändert, wie die leuchtenden Kanten aussehen</string>
     <string name="pref_ao_vibration">Vibrationsdauer (in Millisekunden)</string>
     <string name="pref_ao_vibration_summary">Dauer, die das Telefon vibriert, wenn Sie zweimal auf den Bildschirm tippen</string>
     <string name="pref_ao_animation_delay">Animationsverzögerung (in Minuten)</string>
@@ -99,7 +108,7 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="pref_ao_dnd">Nicht stören</string>
     <string name="pref_ao_dnd_summary">Schaltet den Nicht-stören-Modus ein, während das Always On Display läuft</string>
     <string name="pref_ao_power_saving">Energiesparmodus (root)</string>
-    <string name="pref_ao_power_saving_summary">Spart Strom, wenn das Always On Display aktiviert ist</string>
+    <string name="pref_ao_power_saving_summary">Schaltet den Energiesparmodus ein, während das Always On Display aktiviert ist</string>
     <string name="pref_ao_double_tap_disabled">Doppel-tippen deaktivieren</string>
     <string name="pref_ao_double_tap_disabled_summary">Deaktiviert doppeltes Tippen um das Always On Display zu schließen (nicht empfohlen)</string>
 
@@ -110,6 +119,30 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="pref_look_and_feel_charging_array_display_2">iOS Stil</string>
     <string name="pref_look_and_feel_hide_display_cutouts">Bildschirmausschnitte ausblenden</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Verstecken von Bildschirmausschnitten im Vollbildmodus</string>
+    <string name="pref_look_and_feel_orientation">Drehung</string>
+    <string name="pref_look_and_feel_orientation_summary">Ändert die Ausrichtung des Bildschirms</string>
+    <string name="pref_look_and_feel_heads_up">Pop-up-Benachrichtigungen verstecken (root)</string>
+    <string name="pref_look_and_feel_heads_up_summary">Verhindert, dass Pop-up-Benachrichtigungen angezeigt werden (experimentell)</string>
+
+    <string name="pref_look_and_feel_filter_notifications">Benachrichtigungen filtern</string>
+    <string name="pref_look_and_feel_filter_notifications_summary">Wähle aus, welche Benachrichtigungen nicht angezeigt werden sollen</string>
+    <string name="pref_look_and_feel_filter_notifications_explanation">Tippe auf die Einträge, um sie zu blockieren oder freizugeben</string>
+    <string name="pref_look_and_feel_filter_notifications_blocked">Blockiere Benachrichtigungen von</string>
+    <string name="pref_look_and_feel_filter_notifications_shown">Benachrichtigungen verfügbar von</string>
+    <string name="pref_look_and_feel_filter_notifications_empty">Keine Benachrichtigungen verfügbar</string>
+    <string name="pref_look_and_feel_filter_notifications_empty_summary">Es sieht so aus, als gäbe es nichts anzuzeigen</string>
+    <string name="pref_look_and_feel_filter_notifications_unknown">Unbekannte App</string>
+
+    <string name="pref_look_and_feel_rules">Regeln</string>
+    <string name="pref_look_and_feel_rules_summary">Wann das Always On Display angezeigt werden soll</string>
+    <string name="pref_look_and_feel_rules_charging_state">Ladezustand</string>
+    <string name="pref_look_and_feel_rules_battery_level">Akkustand</string>
+    <string name="pref_look_and_feel_rules_battery_level_summary">Nur über %1$d%% anzeigen</string>
+    <string name="pref_look_and_feel_rules_battery_level_summary_zero">Bei jedem Akkustand anzeigen</string>
+    <string name="pref_look_and_feel_rules_time">Zeit</string>
+    <string name="pref_look_and_feel_rules_time_summary">Von %1$s bis %2$s anzeigen</string>
+    <string name="pref_look_and_feel_rules_timeout">Timeout</string>
+    <string name="pref_look_and_feel_rules_timeout_summary_zero">Es wurde kein Timeout gesetzt</string>
 
     <string name="pref_permissions">Berechtigungen</string>
     <string name="pref_permissions_summary">Einstellungen in Bezug auf Berechtigungen</string>
@@ -126,6 +159,7 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
 
     <string name="select">Auswählen</string>
     <string name="save">Speichern</string>
+    <string name="loading">Lädt</string>
 
     <string name="about">Über</string>
     <string name="about_summary">Über die App</string>
@@ -134,4 +168,21 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="about_license">Diese App wird unter den Bedingungen der <a href="https://github.com/Domi04151309/AlwaysOn/blob/master/LICENSE">GNU General Public License v3.0</a> zur Verfügung gestellt.</string>
     <string name="about_damage">Ich bin nicht für Schäden an Ihrem Gerät verantwortlich.</string>
     <string name="about_icons">Icons von <a href="https://icons8.com/">Icons8</a> und <a href="https://material.io/resources/icons/">Google</a>.</string>
+
+    <string-array name="pref_look_and_feel_rules_charging_state_display">
+        <item>Bei jedem Ladezustand anzeigen</item>
+        <item>Nur während dem Laden anzeigen</item>
+        <item>Nur während dem Entladen anzeigen</item>
+    </string-array>
+
+    <string-array name="pref_look_and_feel_orientation_display">
+        <item>Automatisch sperren</item>
+        <item>Hochformat</item>
+        <item>Querformat</item>
+    </string-array>
+
+    <string-array name="pref_ao_glowStyle_display">
+        <item>Alle Seiten</item>
+        <item>Linke und rechte Seite</item>
+    </string-array>
 </resources>
