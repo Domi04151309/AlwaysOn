@@ -1,5 +1,6 @@
 package io.github.domi04151309.alwayson.services
 
+import android.app.Notification
 import android.content.*
 import android.graphics.drawable.Icon
 import android.os.Handler
@@ -11,7 +12,6 @@ import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.objects.JSON
 import org.json.JSONArray
-import java.lang.Exception
 
 class NotificationService : NotificationListenerService() {
 
@@ -66,7 +66,7 @@ class NotificationService : NotificationListenerService() {
                 val notifications = activeNotifications
                 for (notification in notifications) {
                     if (!notification.isOngoing && !JSON.contains(JSONArray(prefs!!.getString("blocked_notifications", "[]")), notification.packageName)) {
-                        count++
+                        if (notification.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0) count++
                         if (!apps.contains(notification.packageName)) {
                             apps += notification.packageName
                             icons += notification.notification.smallIcon
