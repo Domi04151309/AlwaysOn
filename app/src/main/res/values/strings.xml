@@ -175,7 +175,7 @@ You can customize your always on display and toggle it on or off with quick tile
         <item>Show only while charging</item>
         <item>Show only while discharging</item>
     </string-array>
-    <string-array name="pref_look_and_feel_rules_charging_state_values">
+    <string-array name="pref_look_and_feel_rules_charging_state_values" translatable="false">
         <item>always</item>
         <item>charging</item>
         <item>discharging</item>
@@ -186,7 +186,7 @@ You can customize your always on display and toggle it on or off with quick tile
         <item>Portrait</item>
         <item>Landscape</item>
     </string-array>
-    <string-array name="pref_look_and_feel_orientation_values">
+    <string-array name="pref_look_and_feel_orientation_values" translatable="false">
         <item>locked</item>
         <item>portrait</item>
         <item>landscape</item>
@@ -196,7 +196,7 @@ You can customize your always on display and toggle it on or off with quick tile
         <item>All sides</item>
         <item>Left and right sides</item>
     </string-array>
-    <string-array name="pref_ao_glowStyle_values">
+    <string-array name="pref_ao_glowStyle_values" translatable="false">
         <item>all</item>
         <item>horizontal</item>
     </string-array>

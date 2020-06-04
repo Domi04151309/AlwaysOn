@@ -172,29 +172,15 @@
         <item>Mostrar sólo mientras se carga</item>
         <item>Muestra sólo mientras se descarga</item>
     </string-array>
-    <string-array name="pref_look_and_feel_rules_charging_state_values">
-        <item>siempre</item>
-        <item>cargando</item>
-        <item>descargando</item>
-    </string-array>
 
     <string-array name="pref_look_and_feel_orientation_display">
         <item>Autobloquear</item>
         <item>Retrato</item>
         <item>Paisaje</item>
     </string-array>
-    <string-array name="pref_look_and_feel_orientation_values">
-        <item>bloqueado</item>
-        <item>retrato</item>
-        <item>paisaje</item>
-    </string-array>
 
     <string-array name="pref_ao_glowStyle_display">
         <item>Todos los lados</item>
         <item>Lateral izquierdo y derecho</item>
-    </string-array>
-    <string-array name="pref_ao_glowStyle_values">
-        <item>todos</item>
-        <item>horizontal</item>
     </string-array>
 </resources>
