@@ -9,7 +9,7 @@
 
     <string name="setup_header">Configuración</string>
     <string name="setup_choose_mode">Elige un modo</string>
-    <string name="setup_choose_mode_summary">Tienes que elegir un modo para la aplicación. Si no estás seguro de lo que necesitas elegir, deja esta configuración como está. Si su dispositivo tiene privilegios de acceso, elija root.\\n\\nPor favor, tenga en cuenta que tiene que desactivar los privilegios de administrador de la aplicación antes de desinstalarla.</string>
+    <string name="setup_choose_mode_summary">Tienes que elegir un modo para la aplicación. Si no estás seguro de lo que necesitas elegir, deja esta configuración como está. Si su dispositivo tiene privilegios de acceso, elija root.\n\nPor favor, tenga en cuenta que tiene que desactivar los privilegios de administrador de la aplicación antes de desinstalarla.</string>
     <string name="setup_device_admin">Administración del dispositivo</string>
     <string name="setup_root">Root</string>
     <string name="setup_root_failed">¡Solicitud de root fallida! ¡Por favor, inténtelo de nuevo o cambie de modo!</string>
@@ -32,14 +32,14 @@
     <string name="Charging">Cargando animación</string>
 
     <string name="chargingState_error">No se puede mostrar el estado de carga</string>
-    <string name="battery">\\??%</string>
+    <string name="battery">\??%</string>
     <string name="clock">H:mm</string>
-    <string name="clock2">HH\\nMM</string>
+    <string name="clock2">HH\nMM</string>
     <string name="date">EEE, MMM d</string>
     <string name="date2">EEEE, MMM d</string>
     <string name="feature">-</string>
     <string name="percent">%1$d%%</string>
-    <string name="charged">%1$d%%% cargado</string>
+    <string name="charged">%1$d%% cargado</string>
 
     <string name="shortcut_disabled">Desactivado</string>
 
@@ -135,7 +135,7 @@
     <string name="pref_look_and_feel_rules_summary">Controla cuando mostrar el AOD</string>
     <string name="pref_look_and_feel_rules_charging_state">Estado de carga</string>
     <string name="pref_look_and_feel_rules_battery_level">Nivel de la batería</string>
-    <string name="pref_look_and_feel_rules_battery_level_summary">Muestra sólo por encima de 1$d%%%</string>
+    <string name="pref_look_and_feel_rules_battery_level_summary">Muestra sólo por encima de %1$d%%</string>
     <string name="pref_look_and_feel_rules_battery_level_summary_zero">Muestra en cualquier nivel de la batería</string>
     <string name="pref_look_and_feel_rules_time">Período de tiempo</string>
     <string name="pref_look_and_feel_rules_time_summary">Muestra de %1$s a %2$s</string>
