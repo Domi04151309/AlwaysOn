@@ -1,0 +1,5 @@
+- Add rules
+- Update German translation
+- Add Spanish translation
+- Fix notification count
+- Performance improvements
