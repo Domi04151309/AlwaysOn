@@ -215,6 +215,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         val amPm = prefs.getBoolean("am_pm", false)
         val aoForceBrightness = prefs.getBoolean("ao_force_brightness", false)
         val aoDoubleTapDisabled = prefs.getBoolean("ao_double_tap_disabled", false)
+        val aoMessage = prefs.getString("ao_message", "")
 
         //Cutouts
         if (prefs.getBoolean("hide_display_cutouts", false))
@@ -236,6 +237,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         batteryTxt = findViewById(R.id.batteryTxt)
         notifications = findViewById(R.id.notifications)
         notificationGrid = findViewById(R.id.notifications_grid)
+        val message = findViewById<TextView>(R.id.message)
 
         if (!aoClock) clockTxt!!.visibility = View.GONE
         if (!aoDate) dateTxt!!.visibility = View.GONE
@@ -243,6 +245,10 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         if (!aoBattery) batteryTxt!!.visibility = View.GONE
         if (!aoNotifications) notifications!!.visibility = View.GONE
         if (!aoNotificationIcons) notificationGrid!!.visibility = View.GONE
+        if (aoMessage != "") {
+            message.visibility = View.VISIBLE
+            message.text = aoMessage
+        }
 
         clockFormat = SimpleDateFormat(
                 if (userTheme == "samsung" || userTheme == "oneplus") {

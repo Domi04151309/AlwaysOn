@@ -60,6 +60,14 @@
         android:key="am_pm"
         android:summary="@string/pref_look_and_feel_am_pm_summary"
         android:title="@string/pref_look_and_feel_am_pm" />
+    <EditTextPreference
+        android:icon="@drawable/ic_short_text"
+        android:defaultValue=""
+        android:key="ao_message"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="@string/pref_ao_message_summary"
+        android:title="@string/pref_ao_message" />
     <Preference
         android:icon="@drawable/ic_notification"
         android:key="pref_filter_notifications"
