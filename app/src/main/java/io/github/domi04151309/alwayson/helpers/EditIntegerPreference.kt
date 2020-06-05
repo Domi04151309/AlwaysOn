@@ -1,4 +1,4 @@
-package io.github.domi04151309.alwayson.preferences
+package io.github.domi04151309.alwayson.helpers
 
 import android.content.Context
 import android.text.InputType

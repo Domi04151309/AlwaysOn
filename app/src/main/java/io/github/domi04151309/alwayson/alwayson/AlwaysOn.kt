@@ -22,13 +22,10 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.OffActivity
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.adapters.NotificationGridAdapter
@@ -46,10 +43,10 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     }
 
     private var localManager: LocalBroadcastManager? = null
-    private var content: View? = null
     private var rootMode: Boolean = false
     private var servicesRunning: Boolean = false
     private var screenSize: Float = 0F
+    private lateinit var viewHolder: AlwaysOnViewHolder
 
     //Threads
     private var aoEdgeGlowThread: Thread = Thread()
@@ -68,29 +65,25 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     private var aoHeadsUp: Boolean = false
 
     //Time
-    private var clockTxt: TextView? = null
     private var clockFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
     private val clockHandler = Handler()
     private val clockRunnable = object : Runnable {
         override fun run() {
-            clockTxt!!.text = clockFormat.format(Calendar.getInstance())
+            viewHolder.clockTxt.text = clockFormat.format(Calendar.getInstance())
             clockHandler.postDelayed(this, CLOCK_DELAY)
         }
     }
 
     //Date
-    private var dateTxt: TextView? = null
     private var dateFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
     private val mDateChangedReceiver = object : BroadcastReceiver() {
         override fun onReceive(c: Context, intent: Intent) {
-            dateTxt!!.text = dateFormat.format(Calendar.getInstance())
+            viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
         }
     }
     private val dateFilter = IntentFilter()
 
     //Battery
-    private var batteryIcn: ImageView? = null
-    private var batteryTxt: TextView? = null
     private var batteryFilter = IntentFilter()
     private val mBatInfoReceiver = object : BroadcastReceiver() {
         override fun onReceive(c: Context, intent: Intent) {
@@ -104,31 +97,31 @@ class AlwaysOn : OffActivity(), SensorEventListener {
                         return
                     }
 
-                    if (aoBattery) batteryTxt!!.text = resources.getString(R.string.percent, level)
+                    if (aoBattery) viewHolder.batteryTxt.text = resources.getString(R.string.percent, level)
                     if (status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL) {
                         if (aoBatteryIcn) when {
-                            level >= 100 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_100_charging)
-                            level >= 90 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_90_charging)
-                            level >= 80 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_80_charging)
-                            level >= 60 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_60_charging)
-                            level >= 50 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_50_charging)
-                            level >= 30 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_30_charging)
-                            level >= 20 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_20_charging)
-                            level >= 0 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_0_charging)
-                            else -> batteryIcn!!.setImageResource(R.drawable.ic_battery_unknown_charging)
+                            level >= 100 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_100_charging)
+                            level >= 90 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_90_charging)
+                            level >= 80 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_80_charging)
+                            level >= 60 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_60_charging)
+                            level >= 50 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_50_charging)
+                            level >= 30 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_30_charging)
+                            level >= 20 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_20_charging)
+                            level >= 0 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_0_charging)
+                            else -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_unknown_charging)
                         }
                     } else {
                         if (aoBatteryIcn) when {
-                            level >= 100 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_100)
-                            level >= 90 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_90)
-                            level >= 80 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_80)
-                            level >= 60 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_60)
-                            level >= 50 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_50)
-                            level >= 30 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_30)
-                            level >= 20 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_20)
-                            level >= 10 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_20_orange)
-                            level >= 0 -> batteryIcn!!.setImageResource(R.drawable.ic_battery_0)
-                            else -> batteryIcn!!.setImageResource(R.drawable.ic_battery_unknown)
+                            level >= 100 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_100)
+                            level >= 90 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_90)
+                            level >= 80 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_80)
+                            level >= 60 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_60)
+                            level >= 50 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_50)
+                            level >= 30 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_30)
+                            level >= 20 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_20)
+                            level >= 10 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_20_orange)
+                            level >= 0 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_0)
+                            else -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_unknown)
                         }
                     }
                 }
@@ -145,22 +138,20 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     //Notifications
     private var transition: TransitionDrawable? = null
     private var notificationAvailable: Boolean = false
-    private var notifications: TextView? = null
-    private var notificationGrid: RecyclerView? = null
     private val mNotificationReceiver = object : BroadcastReceiver() {
 
         override fun onReceive(c: Context, intent: Intent) {
             val count = intent.getIntExtra("count", 0)
             if (aoNotifications) {
                 if (count == 0)
-                    notifications!!.text = ""
+                    viewHolder.notificationCount.text = ""
                 else
-                    notifications!!.text = count.toString()
+                    viewHolder.notificationCount.text = count.toString()
             }
 
             if (aoNotificationIcons) {
                 val itemArray: ArrayList<Icon> = intent.getParcelableArrayListExtra("icons") ?: arrayListOf()
-                notificationGrid!!.adapter = NotificationGridAdapter(itemArray)
+                viewHolder.notificationGrid.adapter = NotificationGridAdapter(itemArray)
             }
 
             if (aoEdgeGlow) {
@@ -230,24 +221,18 @@ class AlwaysOn : OffActivity(), SensorEventListener {
             "oneplus" -> setContentView(R.layout.activity_ao_oneplus)
         }
 
-        //Watch face
-        clockTxt = findViewById(R.id.clockTxt)
-        dateTxt = findViewById(R.id.dateTxt)
-        batteryIcn = findViewById(R.id.batteryIcn)
-        batteryTxt = findViewById(R.id.batteryTxt)
-        notifications = findViewById(R.id.notifications)
-        notificationGrid = findViewById(R.id.notifications_grid)
-        val message = findViewById<TextView>(R.id.message)
+        //View
+        viewHolder = AlwaysOnViewHolder(this)
 
-        if (!aoClock) clockTxt!!.visibility = View.GONE
-        if (!aoDate) dateTxt!!.visibility = View.GONE
-        if (!aoBatteryIcn) batteryIcn!!.visibility = View.GONE
-        if (!aoBattery) batteryTxt!!.visibility = View.GONE
-        if (!aoNotifications) notifications!!.visibility = View.GONE
-        if (!aoNotificationIcons) notificationGrid!!.visibility = View.GONE
+        if (!aoClock) viewHolder.clockTxt.visibility = View.GONE
+        if (!aoDate) viewHolder.dateTxt.visibility = View.GONE
+        if (!aoBatteryIcn) viewHolder.batteryIcn.visibility = View.GONE
+        if (!aoBattery) viewHolder.batteryTxt.visibility = View.GONE
+        if (!aoNotifications) viewHolder.notificationCount.visibility = View.GONE
+        if (!aoNotificationIcons) viewHolder.notificationGrid.visibility = View.GONE
         if (aoMessage != "") {
-            message.visibility = View.VISIBLE
-            message.text = aoMessage
+            viewHolder.messageTxt.visibility = View.VISIBLE
+            viewHolder.messageTxt.text = aoMessage
         }
 
         clockFormat = SimpleDateFormat(
@@ -281,8 +266,6 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
         //Variables
         localManager = LocalBroadcastManager.getInstance(this)
-        val frame = findViewById<View>(R.id.frame)
-        content = findViewById(R.id.fullscreen_content)
         userPowerSaving = (getSystemService(Context.POWER_SERVICE) as PowerManager).isPowerSaveMode
 
         //Show on lock screen
@@ -301,11 +284,11 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         }
 
         //Time
-        if (aoClock) clockTxt!!.text = clockFormat.format(Calendar.getInstance())
+        if (aoClock) viewHolder.clockTxt.text = clockFormat.format(Calendar.getInstance())
 
         //Date
         if (aoDate) {
-            dateTxt!!.text = dateFormat.format(Calendar.getInstance())
+            viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
             dateFilter.addAction(Intent.ACTION_DATE_CHANGED)
             dateFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
         }
@@ -319,7 +302,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         if(aoNotificationIcons) {
             val layoutManager = LinearLayoutManager(this)
             layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-            notificationGrid!!.layoutManager = layoutManager
+            viewHolder.notificationGrid.layoutManager = layoutManager
         }
 
         //Proximity
@@ -340,11 +323,11 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         if (aoEdgeGlow) {
             val transitionTime = prefs.getInt("ao_glowDuration", 2000)
             if (transitionTime >= 100) {
-                frame.background = when (prefs.getString("ao_glowStyle", "all")) {
+                viewHolder.frame.background = when (prefs.getString("ao_glowStyle", "all")) {
                     "horizontal" -> ContextCompat.getDrawable(this, R.drawable.edge_glow_horizontal)
                     else -> ContextCompat.getDrawable(this, R.drawable.edge_glow)
                 }
-                transition = frame.background as TransitionDrawable
+                transition = viewHolder.frame.background as TransitionDrawable
                 aoEdgeGlowThread = object : Thread() {
                     override fun run() {
                         try {
@@ -379,14 +362,14 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         animationThread = object : Thread() {
             override fun run() {
                 try {
-                    while (content!!.height == 0) sleep(10)
+                    while (viewHolder.fullscreenContent.height == 0) sleep(10)
                     screenSize = getScreenSize()
-                    content!!.animate().translationY(screenSize / 4).duration = 0
+                    viewHolder.fullscreenContent.animate().translationY(screenSize / 4).duration = 0
                     while (!isInterrupted) {
                         sleep(animationDelay)
-                        content!!.animate().translationY(screenSize / 2).duration = animationDuration
+                        viewHolder.fullscreenContent.animate().translationY(screenSize / 2).duration = animationDuration
                         sleep(animationDelay)
-                        content!!.animate().translationY(screenSize / 4).duration = animationDuration
+                        viewHolder.fullscreenContent.animate().translationY(screenSize / 4).duration = animationDuration
                     }
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
@@ -397,7 +380,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
         //DoubleTap
         if (!aoDoubleTapDisabled) {
-            frame.setOnTouchListener(object : View.OnTouchListener {
+            viewHolder.frame.setOnTouchListener(object : View.OnTouchListener {
                 private val gestureDetector = GestureDetector(this@AlwaysOn, object : GestureDetector.SimpleOnGestureListener() {
                     override fun onDoubleTap(e: MotionEvent): Boolean {
                         val duration = prefs.getInt("ao_vibration", 64).toLong()
@@ -446,10 +429,10 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     override fun onSensorChanged(p0: SensorEvent?) {
         if (p0!!.sensor.type == Sensor.TYPE_PROXIMITY) {
             if (p0.values[0] == p0.sensor.maximumRange) {
-                content!!.animate().alpha(1F).duration = 1000L
+                viewHolder.fullscreenContent.animate().alpha(1F).duration = 1000L
                 startServices()
             } else {
-                content!!.animate().alpha(0F).duration = 1000L
+                viewHolder.fullscreenContent.animate().alpha(0F).duration = 1000L
                 stopServices()
             }
         }
@@ -489,7 +472,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     }
 
     private fun hideUI() {
-        content!!.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
+        viewHolder.fullscreenContent.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
@@ -500,7 +483,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     private fun getScreenSize(): Float {
         val size = Point()
         windowManager.defaultDisplay.getSize(size)
-        return  (size.y - content!!.height).toFloat()
+        return  (size.y - viewHolder.fullscreenContent.height).toFloat()
     }
 
     private fun stopAndOff() {

@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.github.domi04151309.alwayson.helpers.CustomFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frame"
@@ -66,7 +66,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/message"
+            android:id="@+id/messageTxt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/aod_spacing_2"
@@ -77,7 +77,7 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/notifications"
+            android:id="@+id/notification_count"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/aod_spacing"
@@ -88,11 +88,11 @@
             android:textSize="20sp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/notifications_grid"
+            android:id="@+id/notification_grid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/aod_spacing"
             android:layout_marginBottom="@dimen/aod_spacing"
             android:layout_gravity="center" />
     </LinearLayout>
-</FrameLayout>
+</io.github.domi04151309.alwayson.helpers.CustomFrameLayout>

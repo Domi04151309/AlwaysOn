@@ -9,6 +9,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.helpers.EditIntegerPreference
 import io.github.domi04151309.alwayson.objects.Theme
 import java.lang.Integer.parseInt
 
