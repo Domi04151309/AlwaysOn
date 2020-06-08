@@ -76,52 +76,101 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
     //Date
     private var dateFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
-    private val dateChangedReceiver = object : BroadcastReceiver() {
-        override fun onReceive(c: Context, intent: Intent) {
-            viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
-        }
-    }
-    private val dateFilter = IntentFilter()
 
-    //Battery
-    private var batteryFilter = IntentFilter()
-    private val batInfoReceiver = object : BroadcastReceiver() {
+    //Notifications
+    private var notificationAvailable: Boolean = false
+
+    //Battery saver
+    private var powerSaving: Boolean = false
+    private var userPowerSaving: Boolean = false
+
+    //Proximity
+    private var sensorManager: SensorManager? = null
+
+    //DND
+    private var notificationManager: NotificationManager? = null
+    private var notificationAccess: Boolean = false
+    private var userDND: Int = 0
+
+    //Rules
+    private var rulesChargingState: String = ""
+    private var rulesBattery: Int = 0
+
+    //BroadcastReceivers
+    private val localFilter: IntentFilter = IntentFilter()
+    private val localReceiver = object : BroadcastReceiver() {
+
         override fun onReceive(c: Context, intent: Intent) {
             when (intent.action) {
+                Global.NOTIFICATIONS -> {
+                    if (!servicesRunning) return
+                    val notificationCount = intent.getIntExtra("count", 0)
+                    if (aoNotifications) {
+                        if (notificationCount == 0)
+                            viewHolder.notificationCount.text = ""
+                        else
+                            viewHolder.notificationCount.text = notificationCount.toString()
+                    }
+
+                    if (aoNotificationIcons) {
+                        val itemArray: ArrayList<Icon> = intent.getParcelableArrayListExtra("icons") ?: arrayListOf()
+                        viewHolder.notificationGrid.adapter = NotificationGridAdapter(itemArray)
+                    }
+
+                    if (aoEdgeGlow) {
+                        notificationAvailable = notificationCount != 0
+                    }
+                }
+                Global.REQUEST_STOP -> {
+                    finish()
+                }
+            }
+        }
+    }
+    private val systemFilter: IntentFilter = IntentFilter()
+    private val systemReceiver = object : BroadcastReceiver() {
+
+        override fun onReceive(c: Context, intent: Intent) {
+            when (intent.action) {
+                Intent.ACTION_DATE_CHANGED, Intent.ACTION_TIMEZONE_CHANGED -> {
+                    if (!servicesRunning) viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
+                }
                 Intent.ACTION_BATTERY_CHANGED -> {
                     val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
                     val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
-
                     if (level <= rulesBattery) {
                         stopAndOff()
                         return
+                    } else if (!servicesRunning) {
+                        return
                     }
-
                     if (aoBattery) viewHolder.batteryTxt.text = resources.getString(R.string.percent, level)
-                    if (status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL) {
-                        if (aoBatteryIcn) when {
-                            level >= 100 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_100_charging)
-                            level >= 90 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_90_charging)
-                            level >= 80 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_80_charging)
-                            level >= 60 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_60_charging)
-                            level >= 50 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_50_charging)
-                            level >= 30 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_30_charging)
-                            level >= 20 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_20_charging)
-                            level >= 0 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_0_charging)
-                            else -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_unknown_charging)
-                        }
-                    } else {
-                        if (aoBatteryIcn) when {
-                            level >= 100 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_100)
-                            level >= 90 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_90)
-                            level >= 80 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_80)
-                            level >= 60 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_60)
-                            level >= 50 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_50)
-                            level >= 30 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_30)
-                            level >= 20 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_20)
-                            level >= 10 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_20_orange)
-                            level >= 0 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_0)
-                            else -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_unknown)
+                    if (aoBatteryIcn) {
+                        if (status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL) {
+                            when {
+                                level >= 100 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_100_charging)
+                                level >= 90 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_90_charging)
+                                level >= 80 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_80_charging)
+                                level >= 60 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_60_charging)
+                                level >= 50 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_50_charging)
+                                level >= 30 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_30_charging)
+                                level >= 20 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_20_charging)
+                                level >= 0 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_0_charging)
+                                else -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_unknown_charging)
+                            }
+                        } else {
+                            when {
+                                level >= 100 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_100)
+                                level >= 90 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_90)
+                                level >= 80 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_80)
+                                level >= 60 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_60)
+                                level >= 50 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_50)
+                                level >= 30 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_30)
+                                level >= 20 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_20)
+                                level >= 10 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_20_orange)
+                                level >= 0 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_0)
+                                else -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_unknown)
+                            }
                         }
                     }
                 }
@@ -134,55 +183,6 @@ class AlwaysOn : OffActivity(), SensorEventListener {
             }
         }
     }
-
-    //Notifications
-    private var transition: TransitionDrawable? = null
-    private var notificationAvailable: Boolean = false
-    private val notificationReceiver = object : BroadcastReceiver() {
-
-        override fun onReceive(c: Context, intent: Intent) {
-            val count = intent.getIntExtra("count", 0)
-            if (aoNotifications) {
-                if (count == 0)
-                    viewHolder.notificationCount.text = ""
-                else
-                    viewHolder.notificationCount.text = count.toString()
-            }
-
-            if (aoNotificationIcons) {
-                val itemArray: ArrayList<Icon> = intent.getParcelableArrayListExtra("icons") ?: arrayListOf()
-                viewHolder.notificationGrid.adapter = NotificationGridAdapter(itemArray)
-            }
-
-            if (aoEdgeGlow) {
-                notificationAvailable = count != 0
-            }
-        }
-    }
-
-    //Battery saver
-    private var powerSaving: Boolean = false
-    private var userPowerSaving: Boolean = false
-
-    //Proximity
-    private var sensorManager: SensorManager? = null
-    private var proximity: Sensor? = null
-
-    //DND
-    private var notificationManager: NotificationManager? = null
-    private var notificationAccess: Boolean = false
-    private var userDND: Int = 0
-
-    //Stop
-    private val stopReceiver = object : BroadcastReceiver() {
-        override fun onReceive(c: Context, intent: Intent) {
-            finish()
-        }
-    }
-
-    //Rules
-    private var rulesChargingState: String = ""
-    private var rulesBattery: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -289,16 +289,19 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         //Date
         if (aoDate) {
             viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
-            dateFilter.addAction(Intent.ACTION_DATE_CHANGED)
-            dateFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
+            systemFilter.addAction(Intent.ACTION_DATE_CHANGED)
+            systemFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
         }
 
         //Battery
-        batteryFilter.addAction(Intent.ACTION_BATTERY_CHANGED)
-        batteryFilter.addAction(Intent.ACTION_POWER_CONNECTED)
-        batteryFilter.addAction(Intent.ACTION_POWER_DISCONNECTED)
+        systemFilter.addAction(Intent.ACTION_BATTERY_CHANGED)
+        systemFilter.addAction(Intent.ACTION_POWER_CONNECTED)
+        systemFilter.addAction(Intent.ACTION_POWER_DISCONNECTED)
 
         //Notifications
+        if (aoNotifications || aoNotificationIcons) {
+            localFilter.addAction(Global.NOTIFICATIONS)
+        }
         if(aoNotificationIcons) {
             val layoutManager = LinearLayoutManager(this)
             layoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -308,8 +311,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         //Proximity
         if (aoPocketMode) {
             sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-            proximity = sensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY)
-            sensorManager!!.registerListener(this, proximity, SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
+            sensorManager!!.registerListener(this, sensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY), SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
         }
 
         //DND
@@ -327,15 +329,15 @@ class AlwaysOn : OffActivity(), SensorEventListener {
                     "horizontal" -> ContextCompat.getDrawable(this, R.drawable.edge_glow_horizontal)
                     else -> ContextCompat.getDrawable(this, R.drawable.edge_glow)
                 }
-                transition = viewHolder.frame.background as TransitionDrawable
+                val transition = viewHolder.frame.background as TransitionDrawable
                 aoEdgeGlowThread = object : Thread() {
                     override fun run() {
                         try {
                             while (!isInterrupted) {
                                 if (notificationAvailable) {
-                                    runOnUiThread { transition!!.startTransition(transitionTime) }
+                                    runOnUiThread { transition.startTransition(transitionTime) }
                                     sleep(transitionTime.toLong())
-                                    runOnUiThread { transition!!.reverseTransition(transitionTime) }
+                                    runOnUiThread { transition.reverseTransition(transitionTime) }
                                     sleep(transitionTime.toLong())
                                 } else
                                     sleep(1000)
@@ -406,7 +408,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         }
 
         //Stop
-        localManager!!.registerReceiver(stopReceiver, IntentFilter(Global.REQUEST_STOP))
+        localFilter.addAction(Global.REQUEST_STOP)
 
         //Rules
         rulesChargingState = prefs.getString("rules_charging_state", "always") ?: "always"
@@ -423,6 +425,10 @@ class AlwaysOn : OffActivity(), SensorEventListener {
                 stopAndOff()
             }, rulesTimeout * 60000L)
         }
+
+        //Broadcast Receivers
+        localManager!!.registerReceiver(localReceiver, localFilter)
+        registerReceiver(systemReceiver, systemFilter)
     }
 
     //Proximity
@@ -468,7 +474,8 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         if (aoPocketMode) sensorManager!!.unregisterListener(this)
         if (aoEdgeGlow) aoEdgeGlowThread.interrupt()
         animationThread.interrupt()
-        localManager!!.unregisterReceiver(stopReceiver)
+        localManager!!.unregisterReceiver(localReceiver)
+        unregisterReceiver(systemReceiver)
     }
 
     private fun hideUI() {
@@ -498,15 +505,8 @@ class AlwaysOn : OffActivity(), SensorEventListener {
             // Clock Handler
             if (aoClock) clockHandler.postDelayed(clockRunnable, CLOCK_DELAY)
 
-            // Date Receiver
-            if (aoDate) registerReceiver(dateChangedReceiver, dateFilter)
-
-            // Battery Receiver
-            registerReceiver(batInfoReceiver, batteryFilter)
-
             // Notification Listener
             if (aoNotifications || aoNotificationIcons || aoEdgeGlow) {
-                localManager!!.registerReceiver(notificationReceiver, IntentFilter(Global.NOTIFICATIONS))
                 localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
             }
         }
@@ -518,15 +518,6 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
             // Clock Handler
             if (aoClock) clockHandler.removeCallbacksAndMessages(null)
-
-            // Date Receiver
-            if (aoDate) unregisterReceiver(dateChangedReceiver)
-
-            // Battery Receiver
-            unregisterReceiver(batInfoReceiver)
-
-            // Notification Listener
-            if (aoNotifications || aoNotificationIcons || aoEdgeGlow) localManager!!.unregisterReceiver(notificationReceiver)
         }
     }
 }
