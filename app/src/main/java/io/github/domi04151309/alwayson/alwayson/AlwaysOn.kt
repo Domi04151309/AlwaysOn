@@ -76,7 +76,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
     //Date
     private var dateFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
-    private val mDateChangedReceiver = object : BroadcastReceiver() {
+    private val dateChangedReceiver = object : BroadcastReceiver() {
         override fun onReceive(c: Context, intent: Intent) {
             viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
         }
@@ -85,7 +85,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
     //Battery
     private var batteryFilter = IntentFilter()
-    private val mBatInfoReceiver = object : BroadcastReceiver() {
+    private val batInfoReceiver = object : BroadcastReceiver() {
         override fun onReceive(c: Context, intent: Intent) {
             when (intent.action) {
                 Intent.ACTION_BATTERY_CHANGED -> {
@@ -138,7 +138,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     //Notifications
     private var transition: TransitionDrawable? = null
     private var notificationAvailable: Boolean = false
-    private val mNotificationReceiver = object : BroadcastReceiver() {
+    private val notificationReceiver = object : BroadcastReceiver() {
 
         override fun onReceive(c: Context, intent: Intent) {
             val count = intent.getIntExtra("count", 0)
@@ -165,16 +165,16 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     private var userPowerSaving: Boolean = false
 
     //Proximity
-    private var mSensorManager: SensorManager? = null
-    private var mProximity: Sensor? = null
+    private var sensorManager: SensorManager? = null
+    private var proximity: Sensor? = null
 
     //DND
-    private var mNotificationManager: NotificationManager? = null
+    private var notificationManager: NotificationManager? = null
     private var notificationAccess: Boolean = false
     private var userDND: Int = 0
 
     //Stop
-    private val mStopReceiver = object : BroadcastReceiver() {
+    private val stopReceiver = object : BroadcastReceiver() {
         override fun onReceive(c: Context, intent: Intent) {
             finish()
         }
@@ -307,16 +307,16 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
         //Proximity
         if (aoPocketMode) {
-            mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-            mProximity = mSensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY)
-            mSensorManager!!.registerListener(this, mProximity, SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
+            sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+            proximity = sensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY)
+            sensorManager!!.registerListener(this, proximity, SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
         }
 
         //DND
         if (aoDND) {
-            mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationAccess = mNotificationManager!!.isNotificationPolicyAccessGranted
-            if(notificationAccess) userDND = mNotificationManager!!.currentInterruptionFilter
+            notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationAccess = notificationManager!!.isNotificationPolicyAccessGranted
+            if(notificationAccess) userDND = notificationManager!!.currentInterruptionFilter
         }
 
         //Edge Glow
@@ -406,7 +406,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         }
 
         //Stop
-        localManager!!.registerReceiver(mStopReceiver, IntentFilter(Global.REQUEST_STOP))
+        localManager!!.registerReceiver(stopReceiver, IntentFilter(Global.REQUEST_STOP))
 
         //Rules
         rulesChargingState = prefs.getString("rules_charging_state", "always") ?: "always"
@@ -450,14 +450,14 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         hideUI()
         CombinedServiceReceiver.isAlwaysOnRunning = true
         startServices()
-        if (aoDND && notificationAccess) mNotificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+        if (aoDND && notificationAccess) notificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
         if (aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 0")
     }
 
     override fun onStop() {
         super.onStop()
         stopServices()
-        if (aoDND && notificationAccess) mNotificationManager!!.setInterruptionFilter(userDND)
+        if (aoDND && notificationAccess) notificationManager!!.setInterruptionFilter(userDND)
         if (rootMode && powerSaving && !userPowerSaving) Root.shell("settings put global low_power 0")
         if (aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 1")
     }
@@ -465,10 +465,10 @@ class AlwaysOn : OffActivity(), SensorEventListener {
     override fun onDestroy() {
         super.onDestroy()
         CombinedServiceReceiver.isAlwaysOnRunning = false
-        if (aoPocketMode) mSensorManager!!.unregisterListener(this)
+        if (aoPocketMode) sensorManager!!.unregisterListener(this)
         if (aoEdgeGlow) aoEdgeGlowThread.interrupt()
         animationThread.interrupt()
-        localManager!!.unregisterReceiver(mStopReceiver)
+        localManager!!.unregisterReceiver(stopReceiver)
     }
 
     private fun hideUI() {
@@ -499,14 +499,14 @@ class AlwaysOn : OffActivity(), SensorEventListener {
             if (aoClock) clockHandler.postDelayed(clockRunnable, CLOCK_DELAY)
 
             // Date Receiver
-            if (aoDate) registerReceiver(mDateChangedReceiver, dateFilter)
+            if (aoDate) registerReceiver(dateChangedReceiver, dateFilter)
 
             // Battery Receiver
-            registerReceiver(mBatInfoReceiver, batteryFilter)
+            registerReceiver(batInfoReceiver, batteryFilter)
 
             // Notification Listener
             if (aoNotifications || aoNotificationIcons || aoEdgeGlow) {
-                localManager!!.registerReceiver(mNotificationReceiver, IntentFilter(Global.NOTIFICATIONS))
+                localManager!!.registerReceiver(notificationReceiver, IntentFilter(Global.NOTIFICATIONS))
                 localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
             }
         }
@@ -520,13 +520,13 @@ class AlwaysOn : OffActivity(), SensorEventListener {
             if (aoClock) clockHandler.removeCallbacksAndMessages(null)
 
             // Date Receiver
-            if (aoDate) unregisterReceiver(mDateChangedReceiver)
+            if (aoDate) unregisterReceiver(dateChangedReceiver)
 
             // Battery Receiver
-            unregisterReceiver(mBatInfoReceiver)
+            unregisterReceiver(batInfoReceiver)
 
             // Notification Listener
-            if (aoNotifications || aoNotificationIcons || aoEdgeGlow) localManager!!.unregisterReceiver(mNotificationReceiver)
+            if (aoNotifications || aoNotificationIcons || aoEdgeGlow) localManager!!.unregisterReceiver(notificationReceiver)
         }
     }
 }
