@@ -521,7 +521,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         hideUI()
         CombinedServiceReceiver.isAlwaysOnRunning = true
         startServices()
-        val millisTillEnd = rules!!.millisTillEnd()
+        val millisTillEnd = rules!!.millisTillEnd(Calendar.getInstance())
         if (millisTillEnd > -1L) rulesTimePeriodHandler.postDelayed({ stopAndOff() }, millisTillEnd)
         if (rulesTimeout != 0) rulesTimePeriodHandler.postDelayed({ stopAndOff() }, rulesTimeout * 60000L)
         if (aoDND && notificationAccess) notificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)

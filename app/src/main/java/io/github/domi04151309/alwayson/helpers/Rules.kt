@@ -9,7 +9,6 @@ import android.os.BatteryManager
 
 class Rules(private val c: Context, private val prefs: SharedPreferences) {
 
-    private var now = Calendar.getInstance()
     private var start = Calendar.getInstance()
     private var end = Calendar.getInstance()
     private val batteryStatus: Intent = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter -> c.registerReceiver(null, filter)!! }
@@ -42,12 +41,12 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
         return batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) > prefs.getInt("rules_battery_level", 0)
     }
 
-    fun isInTimePeriod(): Boolean {
+    fun isInTimePeriod(now: Calendar): Boolean {
         return if (start == end) true
         else now.after(start) && now.before(end)
     }
 
-    fun millisTillEnd(): Long {
+    fun millisTillEnd(now: Calendar): Long {
         return if (start == end) -1
         else end.time.time - now.time.time
     }

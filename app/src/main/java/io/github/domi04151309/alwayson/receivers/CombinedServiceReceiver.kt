@@ -1,6 +1,7 @@
 package io.github.domi04151309.alwayson.receivers
 
 import android.content.*
+import android.icu.util.Calendar
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.Headset
@@ -47,7 +48,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                     }
                 } else if (rules.isAlwaysOnDisplayEnabled()
                         && rules.matchesBatteryPercentage()
-                        && rules.isInTimePeriod()
+                        && rules.isInTimePeriod(Calendar.getInstance())
                         && !isScreenOn) {
                     c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 }
@@ -55,7 +56,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
             Intent.ACTION_POWER_DISCONNECTED -> {
                 if (rules.isAlwaysOnDisplayEnabled()
                         && rules.matchesBatteryPercentage()
-                        && rules.isInTimePeriod()
+                        && rules.isInTimePeriod(Calendar.getInstance())
                         && !isScreenOn) {
                     c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 }
@@ -67,7 +68,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                     if (isAlwaysOnRunning) {
                         c.startActivity(Intent(c, TurnOnScreen::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                         isAlwaysOnRunning = false
-                    } else if (rules.matchesChargingState() && rules.matchesBatteryPercentage() && rules.isInTimePeriod()) {
+                    } else if (rules.matchesChargingState() && rules.matchesBatteryPercentage() && rules.isInTimePeriod(Calendar.getInstance())) {
                         c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                     }
                 } else if (alwaysOn && hasRequestedStop) {
