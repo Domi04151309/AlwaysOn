@@ -166,6 +166,7 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="select">Auswählen</string>
     <string name="save">Speichern</string>
     <string name="loading">Lädt</string>
+    <string name="missing_permissions">Fehlende Berechtigungen</string>
 
     <string name="about">Über</string>
     <string name="about_summary">Über die App</string>

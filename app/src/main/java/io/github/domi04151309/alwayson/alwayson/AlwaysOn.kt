@@ -1,10 +1,7 @@
 package io.github.domi04151309.alwayson.alwayson
 
 import android.app.NotificationManager
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.res.Configuration
 import android.graphics.Point
 import android.graphics.drawable.Icon
@@ -15,6 +12,10 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
+import android.media.MediaMetadata
+import android.media.session.MediaController
+import android.media.session.MediaSessionManager
+import android.media.session.PlaybackState
 import android.os.*
 import android.provider.Settings
 import android.util.Log
@@ -33,9 +34,10 @@ import io.github.domi04151309.alwayson.helpers.Rules
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.objects.Root
 import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
+import io.github.domi04151309.alwayson.services.NotificationService
 import java.util.*
 
-class AlwaysOn : OffActivity(), SensorEventListener {
+class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiveSessionsChangedListener {
 
     companion object {
         private const val CLOCK_DELAY: Long = 60000
@@ -76,6 +78,10 @@ class AlwaysOn : OffActivity(), SensorEventListener {
 
     //Date
     private var dateFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
+
+    //Media Controls
+    private var localMediaController: MediaController? = null
+    private var mediaPlaybackState: Int = 0
 
     //Notifications
     private var notificationAvailable: Boolean = false
@@ -300,6 +306,37 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         systemFilter.addAction(Intent.ACTION_POWER_CONNECTED)
         systemFilter.addAction(Intent.ACTION_POWER_DISCONNECTED)
 
+        //Music Controls
+        if (aoMusicControls) {
+            val mediaSessionManager = getSystemService(Context.MEDIA_SESSION_SERVICE) as MediaSessionManager
+            val notificationListener = ComponentName(applicationContext, NotificationService::class.java.name)
+            try {
+                mediaSessionManager.addOnActiveSessionsChangedListener(this, notificationListener)
+                onActiveSessionsChanged(mediaSessionManager.getActiveSessions(notificationListener))
+            } catch (e: Exception) {
+                Log.e(Global.LOG_TAG, e.toString())
+                viewHolder.musicTxt.text = resources.getString(R.string.missing_permissions)
+            }
+            viewHolder.musicTxt.setOnClickListener {
+                if (mediaPlaybackState == PlaybackState.STATE_PLAYING) localMediaController!!.transportControls.pause()
+                else if (mediaPlaybackState == PlaybackState.STATE_PAUSED) localMediaController!!.transportControls.play()
+            }
+            viewHolder.musicPrev.setOnClickListener {
+                try {
+                    localMediaController!!.transportControls.skipToPrevious()
+                } catch (e: Exception) {
+                    Log.e(Global.LOG_TAG, e.toString())
+                }
+            }
+            viewHolder.musicNext.setOnClickListener {
+                try {
+                    localMediaController!!.transportControls.skipToNext()
+                } catch (e: Exception) {
+                    Log.e(Global.LOG_TAG, e.toString())
+                }
+            }
+        }
+
         //Notifications
         if (aoNotifications || aoNotificationIcons) {
             localFilter.addAction(Global.NOTIFICATIONS)
@@ -431,6 +468,38 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         //Broadcast Receivers
         localManager!!.registerReceiver(localReceiver, localFilter)
         registerReceiver(systemReceiver, systemFilter)
+    }
+
+    //Music Controls
+    override fun onActiveSessionsChanged(controllers: MutableList<MediaController>?) {
+        try {
+            localMediaController = controllers?.firstOrNull()
+            mediaPlaybackState = localMediaController?.playbackState?.state!!
+            updateMediaState()
+            localMediaController?.registerCallback(sessionCallback)
+        } catch (e: java.lang.Exception) {
+            Log.e(Global.LOG_TAG, e.toString())
+        }
+    }
+
+    private var sessionCallback: MediaController.Callback = object : MediaController.Callback() {
+        override fun onPlaybackStateChanged(state: PlaybackState?) {
+            super.onPlaybackStateChanged(state)
+            mediaPlaybackState = state!!.state
+        }
+
+        override fun onMetadataChanged(metadata: MediaMetadata?) {
+            super.onMetadataChanged(metadata)
+            updateMediaState()
+        }
+    }
+
+    private fun updateMediaState() {
+        viewHolder.musicTxt.text = resources.getString(
+                R.string.music,
+                localMediaController!!.metadata!!.getString(MediaMetadata.METADATA_KEY_ARTIST),
+                localMediaController!!.metadata!!.getString(MediaMetadata.METADATA_KEY_TITLE)
+        )
     }
 
     //Proximity
