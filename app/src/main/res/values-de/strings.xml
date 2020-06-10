@@ -90,7 +90,7 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="pref_ao_showDate">Datum anzeigen</string>
     <string name="pref_ao_showBatteryIcn">Batterieicon anzeigen</string>
     <string name="pref_ao_showBattery">Batterieladung anzeigen</string>
-    <string name="pref_ao_showMusicControls">Musiksteuerung anzeigen</string>
+    <string name="pref_ao_showMusicControls">Musiksteuerung anzeigen (experimentell)</string>
     <string name="pref_ao_showNotifications">Benachrichtigungszähler anzeigen</string>
     <string name="pref_ao_showNotificationIcons">Benachrichtigungsicons anzeigen</string>
     <string name="pref_ao_edgeGlow">Leuchtende Kanten</string>

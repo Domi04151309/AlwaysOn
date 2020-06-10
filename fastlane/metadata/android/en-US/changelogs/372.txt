@@ -1,0 +1,6 @@
+- Fix Spanish translation
+- Improvements to rules
+- Add ability to display a message on the AOD
+- Add ability to display music controls (experimental)
+- Fix unwanted behavior with the timeout rule
+- Performance improvements
