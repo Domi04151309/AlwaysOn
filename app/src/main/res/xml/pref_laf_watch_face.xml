@@ -35,6 +35,13 @@
         android:title="@string/pref_ao_showBattery" />
     <SwitchPreference
         android:defaultValue="false"
+        android:icon="@drawable/ic_music_note"
+        android:key="ao_musicControls"
+        android:summaryOff="@string/pref_disabled"
+        android:summaryOn="@string/pref_enabled"
+        android:title="@string/pref_ao_showMusicControls" />
+    <SwitchPreference
+        android:defaultValue="false"
         android:icon="@drawable/ic_notification"
         android:key="ao_notifications"
         android:summaryOff="@string/pref_disabled"

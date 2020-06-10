@@ -43,6 +43,9 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="feature">-</string>
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% Charged</string>
+    <string name="music">%1$s - %2$s</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
 
     <string name="shortcut_disabled">Disabled</string>
 
@@ -88,6 +91,7 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="pref_ao_showDate">Display the date</string>
     <string name="pref_ao_showBatteryIcn">Display a battery icon</string>
     <string name="pref_ao_showBattery">Display the battery percentage</string>
+    <string name="pref_ao_showMusicControls">Display music controls</string>
     <string name="pref_ao_showNotifications">Display a notification count</string>
     <string name="pref_ao_showNotificationIcons">Display notification icons</string>
     <string name="pref_ao_edgeGlow">Edge glow</string>

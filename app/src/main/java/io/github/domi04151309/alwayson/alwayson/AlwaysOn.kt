@@ -206,6 +206,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         val amPm = prefs.getBoolean("am_pm", false)
         val aoForceBrightness = prefs.getBoolean("ao_force_brightness", false)
         val aoDoubleTapDisabled = prefs.getBoolean("ao_double_tap_disabled", false)
+        val aoMusicControls = prefs.getBoolean("ao_musicControls", false)
         val aoMessage = prefs.getString("ao_message", "")
 
         //Cutouts
@@ -228,6 +229,7 @@ class AlwaysOn : OffActivity(), SensorEventListener {
         if (!aoDate) viewHolder.dateTxt.visibility = View.GONE
         if (!aoBatteryIcn) viewHolder.batteryIcn.visibility = View.GONE
         if (!aoBattery) viewHolder.batteryTxt.visibility = View.GONE
+        if (!aoMusicControls) viewHolder.musicLayout.visibility = View.GONE
         if (!aoNotifications) viewHolder.notificationCount.visibility = View.GONE
         if (!aoNotificationIcons) viewHolder.notificationGrid.visibility = View.GONE
         if (aoMessage != "") {

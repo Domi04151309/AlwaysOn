@@ -41,7 +41,10 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="date2">EEEE, MMM d</string>
     <string name="feature">-</string>
     <string name="percent">%1$d%%</string>
-    <string name="charged">%1$d%% Charged</string>
+    <string name="charged">%1$d%% geladen</string>
+    <string name="music">%1$s - %2$s</string>
+    <string name="previous">Vorheriger</string>
+    <string name="next">Nächster</string>
 
     <string name="shortcut_disabled">Deaktiviert</string>
 
@@ -87,6 +90,7 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="pref_ao_showDate">Datum anzeigen</string>
     <string name="pref_ao_showBatteryIcn">Batterieicon anzeigen</string>
     <string name="pref_ao_showBattery">Batterieladung anzeigen</string>
+    <string name="pref_ao_showMusicControls">Musiksteuerung anzeigen</string>
     <string name="pref_ao_showNotifications">Benachrichtigungszähler anzeigen</string>
     <string name="pref_ao_showNotificationIcons">Benachrichtigungsicons anzeigen</string>
     <string name="pref_ao_edgeGlow">Leuchtende Kanten</string>

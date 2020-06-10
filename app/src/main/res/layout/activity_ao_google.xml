@@ -1,5 +1,4 @@
 <io.github.domi04151309.alwayson.helpers.CustomFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frame"
     android:layout_width="match_parent"
@@ -51,17 +50,49 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/feature"
-                app:srcCompat="@drawable/ic_battery_unknown" />
+                android:src="@drawable/ic_battery_unknown" />
 
             <TextView
                 android:id="@+id/batteryTxt"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:fontFamily="@font/product_sans"
-                android:gravity="start"
                 android:text="@string/battery"
                 android:textSize="25sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/musicLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/aod_spacing_2"
+            android:layout_marginBottom="@dimen/aod_spacing_2"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/musicPrev"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/previous"
+                android:src="@drawable/ic_skip_previous" />
+
+            <TextView
+                android:id="@+id/musicTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/product_sans"
+                android:layout_gravity="center"
+                android:text="@string/music"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/musicNext"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/next"
+                android:src="@drawable/ic_skip_next" />
         </LinearLayout>
 
         <TextView
