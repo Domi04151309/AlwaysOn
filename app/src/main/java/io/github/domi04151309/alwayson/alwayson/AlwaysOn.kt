@@ -99,8 +99,12 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     private var userDND: Int = 0
 
     //Rules
+    private var rules: Rules? = null
     private var rulesChargingState: String = ""
     private var rulesBattery: Int = 0
+    private var rulesTimeout: Int = 0
+    private val rulesTimePeriodHandler: Handler = Handler()
+    private val rulesTimeoutHandler: Handler = Handler()
 
     //BroadcastReceivers
     private val localFilter: IntentFilter = IntentFilter()
@@ -450,20 +454,10 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         localFilter.addAction(Global.REQUEST_STOP)
 
         //Rules
+        rules = Rules(this, prefs)
         rulesChargingState = prefs.getString("rules_charging_state", "always") ?: "always"
         rulesBattery = prefs.getInt("rules_battery_level", 0)
-        val millisTillEnd = Rules(this, prefs).millisTillEnd()
-
-        if (millisTillEnd > -1L) Handler().postDelayed({
-            stopAndOff()
-        }, millisTillEnd)
-
-        val rulesTimeout = prefs.getInt("rules_timeout", 0)
-        if (rulesTimeout != 0) {
-            Handler().postDelayed({
-                stopAndOff()
-            }, rulesTimeout * 60000L)
-        }
+        rulesTimeout = prefs.getInt("rules_timeout", 0)
 
         //Broadcast Receivers
         localManager!!.registerReceiver(localReceiver, localFilter)
@@ -527,6 +521,9 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         hideUI()
         CombinedServiceReceiver.isAlwaysOnRunning = true
         startServices()
+        val millisTillEnd = rules!!.millisTillEnd()
+        if (millisTillEnd > -1L) rulesTimePeriodHandler.postDelayed({ stopAndOff() }, millisTillEnd)
+        if (rulesTimeout != 0) rulesTimePeriodHandler.postDelayed({ stopAndOff() }, rulesTimeout * 60000L)
         if (aoDND && notificationAccess) notificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
         if (aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 0")
     }
@@ -534,6 +531,8 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     override fun onStop() {
         super.onStop()
         stopServices()
+        rulesTimePeriodHandler.removeCallbacksAndMessages(null)
+        rulesTimeoutHandler.removeCallbacksAndMessages(null)
         if (aoDND && notificationAccess) notificationManager!!.setInterruptionFilter(userDND)
         if (rootMode && powerSaving && !userPowerSaving) Root.shell("settings put global low_power 0")
         if (aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 1")
