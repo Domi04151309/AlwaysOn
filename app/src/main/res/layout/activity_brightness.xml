@@ -26,20 +26,11 @@
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/saveBtn"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="?dialogPreferredPadding"
         android:layout_marginTop="?dialogPreferredPadding"
         android:layout_marginEnd="?dialogPreferredPadding"
         android:layout_marginBottom="?dialogPreferredPadding"
         android:max="100"
         android:progress="50" />
-
-    <Button
-        android:id="@+id/saveBtn"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="?dialogPreferredPadding"
-        android:text="@string/save"/>
-
 </RelativeLayout>

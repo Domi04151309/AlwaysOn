@@ -153,8 +153,6 @@
     <string name="pref_root_mode">Modo root</string>
     <string name="pref_root_mode_summary">Permite el desbloqueo con el escáner de huellas dactilares</string>
 
-    <string name="select">Seleccionar</string>
-    <string name="save">Guardar</string>
     <string name="loading">Cargando</string>
 
     <string name="about">Acerca de</string>

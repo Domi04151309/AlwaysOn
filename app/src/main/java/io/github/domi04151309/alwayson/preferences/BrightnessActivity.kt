@@ -1,7 +1,7 @@
 package io.github.domi04151309.alwayson.preferences
 
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.Button
 import android.widget.SeekBar
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
@@ -11,15 +11,19 @@ import io.github.domi04151309.alwayson.objects.Theme
 
 class BrightnessActivity : AppCompatActivity() {
 
+    private var savedBrightness: Int = 50
+    private lateinit var prefs: SharedPreferences
+    private lateinit var brightnessSwitch: Switch
+    private lateinit var seekBar: SeekBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brightness)
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        val brightnessSwitch = findViewById<Switch>(R.id.brightnessSwitch)
-        val seekBar = findViewById<SeekBar>(R.id.seekBar)
-        var savedBrightness = 50
+        prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        brightnessSwitch = findViewById(R.id.brightnessSwitch)
+        seekBar = findViewById(R.id.seekBar)
 
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
@@ -32,14 +36,17 @@ class BrightnessActivity : AppCompatActivity() {
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })
+    }
 
+    override fun onStart() {
+        super.onStart()
         brightnessSwitch.isChecked = prefs.getBoolean("ao_force_brightness", false)
         seekBar.progress = prefs.getInt("ao_force_brightness_value", savedBrightness)
+    }
 
-        findViewById<Button>(R.id.saveBtn).setOnClickListener {
-            prefs.edit().putBoolean("ao_force_brightness", brightnessSwitch.isChecked).apply()
-            prefs.edit().putInt("ao_force_brightness_value", savedBrightness).apply()
-            finish()
-        }
+    override fun onStop() {
+        super.onStop()
+        prefs.edit().putBoolean("ao_force_brightness", brightnessSwitch.isChecked).apply()
+        prefs.edit().putInt("ao_force_brightness_value", savedBrightness).apply()
     }
 }

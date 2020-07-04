@@ -163,8 +163,6 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="pref_root_mode">Root-Modus</string>
     <string name="pref_root_mode_summary">Aktiviert das Entsperren mit dem Fingerabdruckscanner</string>
 
-    <string name="select">Auswählen</string>
-    <string name="save">Speichern</string>
     <string name="loading">Lädt</string>
     <string name="missing_permissions">Fehlende Berechtigungen</string>
 

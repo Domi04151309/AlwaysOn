@@ -17,7 +17,7 @@
         android:id="@+id/radio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/selectBtn"
+        android:layout_alignParentBottom="true"
         android:padding="?dialogPreferredPadding">
 
         <RadioButton
@@ -44,13 +44,4 @@
             android:layout_height="wrap_content"
             android:text="@string/pref_look_and_feel_ao_array_display_2"/>
     </RadioGroup>
-
-    <Button
-        android:id="@+id/selectBtn"
-        android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="?dialogPreferredPadding"
-        android:text="@string/select"/>
-
 </RelativeLayout>

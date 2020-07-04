@@ -122,9 +122,6 @@
     <string name="pref_root_mode">Root режим</string>
     <string name="pref_root_mode_summary">Разблокировка с помощью сканера отпечатков пальцев</string>
 
-    <string name="select">Выбрать</string>
-    <string name="save">Сохранить</string>
-
     <string name="about">О приложении</string>
     <string name="about_summary">О приложении</string>
     <string name="about_version">Версия %1$s</string>
