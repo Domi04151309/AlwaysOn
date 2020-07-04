@@ -102,19 +102,19 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
                 Global.NOTIFICATIONS -> {
                     if (!servicesRunning) return
                     val notificationCount = intent.getIntExtra("count", 0)
-                    if (prefHolder.aoNotifications) {
+                    if (prefHolder.showNotificationCount) {
                         if (notificationCount == 0)
                             viewHolder.notificationCount.text = ""
                         else
                             viewHolder.notificationCount.text = notificationCount.toString()
                     }
 
-                    if (prefHolder.aoNotificationIcons) {
+                    if (prefHolder.showNotificationIcons) {
                         val itemArray: ArrayList<Icon> = intent.getParcelableArrayListExtra("icons") ?: arrayListOf()
                         viewHolder.notificationGrid.adapter = NotificationGridAdapter(itemArray)
                     }
 
-                    if (prefHolder.aoEdgeGlow) {
+                    if (prefHolder.edgeGlow) {
                         notificationAvailable = notificationCount != 0
                     }
                 }
@@ -141,8 +141,8 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
                     } else if (!servicesRunning) {
                         return
                     }
-                    if (prefHolder.aoBattery) viewHolder.batteryTxt.text = resources.getString(R.string.percent, level)
-                    if (prefHolder.aoBatteryIcn) {
+                    if (prefHolder.showBatteryPercentage) viewHolder.batteryTxt.text = resources.getString(R.string.percent, level)
+                    if (prefHolder.showBatteryIcon) {
                         if (status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL) {
                             when {
                                 level >= 100 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_100_charging)
@@ -204,27 +204,27 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         //View
         viewHolder = AlwaysOnViewHolder(this)
 
-        if (!prefHolder.aoClock) viewHolder.clockTxt.visibility = View.GONE
-        if (!prefHolder.aoDate) viewHolder.dateTxt.visibility = View.GONE
-        if (!prefHolder.aoBatteryIcn) viewHolder.batteryIcn.visibility = View.GONE
-        if (!prefHolder.aoBattery) viewHolder.batteryTxt.visibility = View.GONE
-        if (!prefHolder.aoMusicControls) viewHolder.musicLayout.visibility = View.GONE
-        if (!prefHolder.aoNotifications) viewHolder.notificationCount.visibility = View.GONE
-        if (!prefHolder.aoNotificationIcons) viewHolder.notificationGrid.visibility = View.GONE
-        if (prefHolder.aoMessage != "") {
+        if (!prefHolder.showClock) viewHolder.clockTxt.visibility = View.GONE
+        if (!prefHolder.showDate) viewHolder.dateTxt.visibility = View.GONE
+        if (!prefHolder.showBatteryIcon) viewHolder.batteryIcn.visibility = View.GONE
+        if (!prefHolder.showBatteryPercentage) viewHolder.batteryTxt.visibility = View.GONE
+        if (!prefHolder.showMusicControls) viewHolder.musicLayout.visibility = View.GONE
+        if (!prefHolder.showNotificationCount) viewHolder.notificationCount.visibility = View.GONE
+        if (!prefHolder.showNotificationIcons) viewHolder.notificationGrid.visibility = View.GONE
+        if (prefHolder.message != "") {
             viewHolder.messageTxt.visibility = View.VISIBLE
-            viewHolder.messageTxt.text = prefHolder.aoMessage
+            viewHolder.messageTxt.text = prefHolder.message
         }
 
         clockFormat = SimpleDateFormat(
                 if (prefHolder.userTheme == "samsung" || prefHolder.userTheme == "oneplus") {
-                    if (prefHolder.clock) {
-                        if (prefHolder.amPm) "hh\nmm\na"
+                    if (prefHolder.use12HourClock) {
+                        if (prefHolder.showAmPm) "hh\nmm\na"
                         else "hh\nmm"
                     } else "HH\nmm"
                 } else {
-                    if (prefHolder.clock) {
-                        if (prefHolder.amPm) "h:mm a"
+                    if (prefHolder.use12HourClock) {
+                        if (prefHolder.showAmPm) "h:mm a"
                         else "h:mm"
                     } else "H:mm"
                 }, Locale.getDefault()
@@ -238,10 +238,9 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         )
 
         //Brightness
-        if (prefHolder.aoForceBrightness) {
-            val brightness: Float = prefs.getInt("ao_force_brightness_value", 50) / 255.toFloat()
+        if (prefHolder.forceBrightness) {
             val lp = window.attributes
-            lp.screenBrightness = brightness
+            lp.screenBrightness = prefs.getInt("ao_force_brightness_value", 50) / 255.toFloat()
             window.attributes = lp
         }
 
@@ -265,10 +264,10 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         }
 
         //Time
-        if (prefHolder.aoClock) viewHolder.clockTxt.text = clockFormat.format(Calendar.getInstance())
+        if (prefHolder.showClock) viewHolder.clockTxt.text = clockFormat.format(Calendar.getInstance())
 
         //Date
-        if (prefHolder.aoDate) {
+        if (prefHolder.showDate) {
             viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
             systemFilter.addAction(Intent.ACTION_DATE_CHANGED)
             systemFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
@@ -280,7 +279,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         systemFilter.addAction(Intent.ACTION_POWER_DISCONNECTED)
 
         //Music Controls
-        if (prefHolder.aoMusicControls) {
+        if (prefHolder.showMusicControls) {
             val mediaSessionManager = getSystemService(Context.MEDIA_SESSION_SERVICE) as MediaSessionManager
             val notificationListener = ComponentName(applicationContext, NotificationService::class.java.name)
             try {
@@ -315,30 +314,30 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         }
 
         //Notifications
-        if (prefHolder.aoNotifications || prefHolder.aoNotificationIcons) {
+        if (prefHolder.showNotificationCount || prefHolder.showNotificationIcons) {
             localFilter.addAction(Global.NOTIFICATIONS)
         }
-        if(prefHolder.aoNotificationIcons) {
+        if(prefHolder.showNotificationIcons) {
             val layoutManager = LinearLayoutManager(this)
             layoutManager.orientation = LinearLayoutManager.HORIZONTAL
             viewHolder.notificationGrid.layoutManager = layoutManager
         }
 
         //Proximity
-        if (prefHolder.aoPocketMode) {
+        if (prefHolder.pocketMode) {
             sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
             sensorManager!!.registerListener(this, sensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY), SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
         }
 
         //DND
-        if (prefHolder.aoDND) {
+        if (prefHolder.dnd) {
             notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationAccess = notificationManager!!.isNotificationPolicyAccessGranted
             if(notificationAccess) userDND = notificationManager!!.currentInterruptionFilter
         }
 
         //Edge Glow
-        if (prefHolder.aoEdgeGlow) {
+        if (prefHolder.edgeGlow) {
             val transitionTime = prefs.getInt("ao_glowDuration", 2000)
             if (transitionTime >= 100) {
                 viewHolder.frame.background = when (prefs.getString("ao_glowStyle", "all")) {
@@ -368,7 +367,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         }
 
         // Power saving mode
-        if (prefHolder.rootMode && prefHolder.powerSaving) {
+        if (prefHolder.rootMode && prefHolder.powerSavingMode) {
             Root.shell("settings put global low_power 1")
             Root.shell("dumpsys deviceidle force-idle")
         }
@@ -397,7 +396,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         animationThread.start()
 
         //DoubleTap
-        if (!prefHolder.aoDoubleTapDisabled) {
+        if (!prefHolder.doubleTapDisabled) {
             viewHolder.frame.setOnTouchListener(object : View.OnTouchListener {
                 private val gestureDetector = GestureDetector(this@AlwaysOn, object : GestureDetector.SimpleOnGestureListener() {
                     override fun onDoubleTap(e: MotionEvent): Boolean {
@@ -501,8 +500,8 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         val millisTillEnd = rules!!.millisTillEnd(Calendar.getInstance())
         if (millisTillEnd > -1L) rulesTimePeriodHandler.postDelayed({ stopAndOff() }, millisTillEnd)
         if (rulesTimeout != 0) rulesTimePeriodHandler.postDelayed({ stopAndOff() }, rulesTimeout * 60000L)
-        if (prefHolder.aoDND && notificationAccess) notificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
-        if (prefHolder.aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 0")
+        if (prefHolder.dnd && notificationAccess) notificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+        if (prefHolder.disableHeadsUpNotifications) Root.shell("settings put global heads_up_notifications_enabled 0")
     }
 
     override fun onStop() {
@@ -510,16 +509,16 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         stopServices()
         rulesTimePeriodHandler.removeCallbacksAndMessages(null)
         rulesTimeoutHandler.removeCallbacksAndMessages(null)
-        if (prefHolder.aoDND && notificationAccess) notificationManager!!.setInterruptionFilter(userDND)
-        if (prefHolder.rootMode && prefHolder.powerSaving && !userPowerSaving) Root.shell("settings put global low_power 0")
-        if (prefHolder.aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 1")
+        if (prefHolder.dnd && notificationAccess) notificationManager!!.setInterruptionFilter(userDND)
+        if (prefHolder.rootMode && prefHolder.powerSavingMode && !userPowerSaving) Root.shell("settings put global low_power 0")
+        if (prefHolder.disableHeadsUpNotifications) Root.shell("settings put global heads_up_notifications_enabled 1")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         CombinedServiceReceiver.isAlwaysOnRunning = false
-        if (prefHolder.aoPocketMode) sensorManager!!.unregisterListener(this)
-        if (prefHolder.aoEdgeGlow) aoEdgeGlowThread.interrupt()
+        if (prefHolder.pocketMode) sensorManager!!.unregisterListener(this)
+        if (prefHolder.edgeGlow) aoEdgeGlowThread.interrupt()
         animationThread.interrupt()
         localManager!!.unregisterReceiver(localReceiver)
         unregisterReceiver(systemReceiver)
@@ -550,10 +549,10 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
             servicesRunning = true
 
             // Clock Handler
-            if (prefHolder.aoClock) clockHandler.postDelayed(clockRunnable, CLOCK_DELAY)
+            if (prefHolder.showClock) clockHandler.postDelayed(clockRunnable, CLOCK_DELAY)
 
             // Notification Listener
-            if (prefHolder.aoNotifications || prefHolder.aoNotificationIcons || prefHolder.aoEdgeGlow) {
+            if (prefHolder.showNotificationCount || prefHolder.showNotificationIcons || prefHolder.edgeGlow) {
                 localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
             }
         }
@@ -564,7 +563,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
             servicesRunning = false
 
             // Clock Handler
-            if (prefHolder.aoClock) clockHandler.removeCallbacksAndMessages(null)
+            if (prefHolder.showClock) clockHandler.removeCallbacksAndMessages(null)
         }
     }
 }
