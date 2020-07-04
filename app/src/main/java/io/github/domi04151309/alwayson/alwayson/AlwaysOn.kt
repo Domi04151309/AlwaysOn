@@ -16,7 +16,6 @@ import android.media.MediaMetadata
 import android.media.session.MediaController
 import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
-import android.opengl.Visibility
 import android.os.*
 import android.provider.Settings
 import android.util.Log
@@ -46,26 +45,14 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     }
 
     private var localManager: LocalBroadcastManager? = null
-    private var rootMode: Boolean = false
     private var servicesRunning: Boolean = false
     private var screenSize: Float = 0F
     private lateinit var viewHolder: AlwaysOnViewHolder
+    private lateinit var prefHolder: AlwaysOnPreferenceHolder
 
     //Threads
     private var aoEdgeGlowThread: Thread = Thread()
     private var animationThread: Thread = Thread()
-
-    //Settings
-    private var aoClock: Boolean = true
-    private var aoDate: Boolean = true
-    private var aoBatteryIcn: Boolean = true
-    private var aoBattery: Boolean = true
-    private var aoNotifications: Boolean = true
-    private var aoNotificationIcons: Boolean = false
-    private var aoEdgeGlow: Boolean = true
-    private var aoPocketMode: Boolean = false
-    private var aoDND: Boolean = false
-    private var aoHeadsUp: Boolean = false
 
     //Time
     private var clockFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
@@ -88,7 +75,6 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     private var notificationAvailable: Boolean = false
 
     //Battery saver
-    private var powerSaving: Boolean = false
     private var userPowerSaving: Boolean = false
 
     //Proximity
@@ -116,19 +102,19 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
                 Global.NOTIFICATIONS -> {
                     if (!servicesRunning) return
                     val notificationCount = intent.getIntExtra("count", 0)
-                    if (aoNotifications) {
+                    if (prefHolder.aoNotifications) {
                         if (notificationCount == 0)
                             viewHolder.notificationCount.text = ""
                         else
                             viewHolder.notificationCount.text = notificationCount.toString()
                     }
 
-                    if (aoNotificationIcons) {
+                    if (prefHolder.aoNotificationIcons) {
                         val itemArray: ArrayList<Icon> = intent.getParcelableArrayListExtra("icons") ?: arrayListOf()
                         viewHolder.notificationGrid.adapter = NotificationGridAdapter(itemArray)
                     }
 
-                    if (aoEdgeGlow) {
+                    if (prefHolder.aoEdgeGlow) {
                         notificationAvailable = notificationCount != 0
                     }
                 }
@@ -155,8 +141,8 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
                     } else if (!servicesRunning) {
                         return
                     }
-                    if (aoBattery) viewHolder.batteryTxt.text = resources.getString(R.string.percent, level)
-                    if (aoBatteryIcn) {
+                    if (prefHolder.aoBattery) viewHolder.batteryTxt.text = resources.getString(R.string.percent, level)
+                    if (prefHolder.aoBatteryIcn) {
                         if (status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL) {
                             when {
                                 level >= 100 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_100_charging)
@@ -200,25 +186,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
 
         //Check prefs
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        rootMode = prefs.getBoolean("root_mode", false)
-        powerSaving = prefs.getBoolean("ao_power_saving", false)
-        val userTheme = prefs.getString("ao_style", "google")
-        aoClock = prefs.getBoolean("ao_clock", true)
-        aoDate = prefs.getBoolean("ao_date", true)
-        aoBatteryIcn = prefs.getBoolean("ao_batteryIcn", true)
-        aoBattery = prefs.getBoolean("ao_battery", true)
-        aoNotifications = prefs.getBoolean("ao_notifications", false)
-        aoNotificationIcons = prefs.getBoolean("ao_notification_icons", true)
-        aoEdgeGlow = prefs.getBoolean("ao_edgeGlow", false)
-        aoPocketMode = prefs.getBoolean("ao_pocket_mode", false)
-        aoDND = prefs.getBoolean("ao_dnd", false)
-        aoHeadsUp = prefs.getBoolean("heads_up", false)
-        val clock = prefs.getBoolean("hour", false)
-        val amPm = prefs.getBoolean("am_pm", false)
-        val aoForceBrightness = prefs.getBoolean("ao_force_brightness", false)
-        val aoDoubleTapDisabled = prefs.getBoolean("ao_double_tap_disabled", false)
-        val aoMusicControls = prefs.getBoolean("ao_musicControls", false)
-        val aoMessage = prefs.getString("ao_message", "")
+        prefHolder = AlwaysOnPreferenceHolder(prefs)
 
         //Cutouts
         if (prefs.getBoolean("hide_display_cutouts", false))
@@ -226,7 +194,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         else
             setTheme(R.style.CutoutIgnore)
 
-        when (userTheme) {
+        when (prefHolder.userTheme) {
             "google" -> setContentView(R.layout.activity_ao_google)
             "samsung" -> setContentView(R.layout.activity_ao_samsung)
             "samsung2" -> setContentView(R.layout.activity_ao_samsung_2)
@@ -236,33 +204,33 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         //View
         viewHolder = AlwaysOnViewHolder(this)
 
-        if (!aoClock) viewHolder.clockTxt.visibility = View.GONE
-        if (!aoDate) viewHolder.dateTxt.visibility = View.GONE
-        if (!aoBatteryIcn) viewHolder.batteryIcn.visibility = View.GONE
-        if (!aoBattery) viewHolder.batteryTxt.visibility = View.GONE
-        if (!aoMusicControls) viewHolder.musicLayout.visibility = View.GONE
-        if (!aoNotifications) viewHolder.notificationCount.visibility = View.GONE
-        if (!aoNotificationIcons) viewHolder.notificationGrid.visibility = View.GONE
-        if (aoMessage != "") {
+        if (!prefHolder.aoClock) viewHolder.clockTxt.visibility = View.GONE
+        if (!prefHolder.aoDate) viewHolder.dateTxt.visibility = View.GONE
+        if (!prefHolder.aoBatteryIcn) viewHolder.batteryIcn.visibility = View.GONE
+        if (!prefHolder.aoBattery) viewHolder.batteryTxt.visibility = View.GONE
+        if (!prefHolder.aoMusicControls) viewHolder.musicLayout.visibility = View.GONE
+        if (!prefHolder.aoNotifications) viewHolder.notificationCount.visibility = View.GONE
+        if (!prefHolder.aoNotificationIcons) viewHolder.notificationGrid.visibility = View.GONE
+        if (prefHolder.aoMessage != "") {
             viewHolder.messageTxt.visibility = View.VISIBLE
-            viewHolder.messageTxt.text = aoMessage
+            viewHolder.messageTxt.text = prefHolder.aoMessage
         }
 
         clockFormat = SimpleDateFormat(
-                if (userTheme == "samsung" || userTheme == "oneplus") {
-                    if (clock) {
-                        if (amPm) "hh\nmm\na"
+                if (prefHolder.userTheme == "samsung" || prefHolder.userTheme == "oneplus") {
+                    if (prefHolder.clock) {
+                        if (prefHolder.amPm) "hh\nmm\na"
                         else "hh\nmm"
                     } else "HH\nmm"
                 } else {
-                    if (clock) {
-                        if (amPm) "h:mm a"
+                    if (prefHolder.clock) {
+                        if (prefHolder.amPm) "h:mm a"
                         else "h:mm"
                     } else "H:mm"
                 }, Locale.getDefault()
         )
         dateFormat = SimpleDateFormat(
-                if (userTheme == "samsung2") {
+                if (prefHolder.userTheme == "samsung2") {
                     "EEE, MMMM d"
                 } else {
                     "EEE, MMM d"
@@ -270,7 +238,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         )
 
         //Brightness
-        if (aoForceBrightness) {
+        if (prefHolder.aoForceBrightness) {
             val brightness: Float = prefs.getInt("ao_force_brightness_value", 50) / 255.toFloat()
             val lp = window.attributes
             lp.screenBrightness = brightness
@@ -297,10 +265,10 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         }
 
         //Time
-        if (aoClock) viewHolder.clockTxt.text = clockFormat.format(Calendar.getInstance())
+        if (prefHolder.aoClock) viewHolder.clockTxt.text = clockFormat.format(Calendar.getInstance())
 
         //Date
-        if (aoDate) {
+        if (prefHolder.aoDate) {
             viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
             systemFilter.addAction(Intent.ACTION_DATE_CHANGED)
             systemFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
@@ -312,7 +280,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         systemFilter.addAction(Intent.ACTION_POWER_DISCONNECTED)
 
         //Music Controls
-        if (aoMusicControls) {
+        if (prefHolder.aoMusicControls) {
             val mediaSessionManager = getSystemService(Context.MEDIA_SESSION_SERVICE) as MediaSessionManager
             val notificationListener = ComponentName(applicationContext, NotificationService::class.java.name)
             try {
@@ -335,7 +303,6 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
                     localMediaController!!.transportControls.skipToPrevious()
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
-                    Log.e(Global.LOG_TAG, "Playback: " + mediaPlaybackState.toString())
                 }
             }
             viewHolder.musicNext.setOnClickListener {
@@ -348,30 +315,30 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         }
 
         //Notifications
-        if (aoNotifications || aoNotificationIcons) {
+        if (prefHolder.aoNotifications || prefHolder.aoNotificationIcons) {
             localFilter.addAction(Global.NOTIFICATIONS)
         }
-        if(aoNotificationIcons) {
+        if(prefHolder.aoNotificationIcons) {
             val layoutManager = LinearLayoutManager(this)
             layoutManager.orientation = LinearLayoutManager.HORIZONTAL
             viewHolder.notificationGrid.layoutManager = layoutManager
         }
 
         //Proximity
-        if (aoPocketMode) {
+        if (prefHolder.aoPocketMode) {
             sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
             sensorManager!!.registerListener(this, sensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY), SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
         }
 
         //DND
-        if (aoDND) {
+        if (prefHolder.aoDND) {
             notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationAccess = notificationManager!!.isNotificationPolicyAccessGranted
             if(notificationAccess) userDND = notificationManager!!.currentInterruptionFilter
         }
 
         //Edge Glow
-        if (aoEdgeGlow) {
+        if (prefHolder.aoEdgeGlow) {
             val transitionTime = prefs.getInt("ao_glowDuration", 2000)
             if (transitionTime >= 100) {
                 viewHolder.frame.background = when (prefs.getString("ao_glowStyle", "all")) {
@@ -401,7 +368,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         }
 
         // Power saving mode
-        if (rootMode && powerSaving) {
+        if (prefHolder.rootMode && prefHolder.powerSaving) {
             Root.shell("settings put global low_power 1")
             Root.shell("dumpsys deviceidle force-idle")
         }
@@ -430,7 +397,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         animationThread.start()
 
         //DoubleTap
-        if (!aoDoubleTapDisabled) {
+        if (!prefHolder.aoDoubleTapDisabled) {
             viewHolder.frame.setOnTouchListener(object : View.OnTouchListener {
                 private val gestureDetector = GestureDetector(this@AlwaysOn, object : GestureDetector.SimpleOnGestureListener() {
                     override fun onDoubleTap(e: MotionEvent): Boolean {
@@ -475,7 +442,6 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         try {
             localMediaController = controllers?.firstOrNull()
             mediaPlaybackState = localMediaController?.playbackState!!.state
-            Log.e(Global.LOG_TAG, "Playback: " + mediaPlaybackState.toString())
             updateMediaState()
             localMediaController?.registerCallback(sessionCallback)
         } catch (e: java.lang.Exception) {
@@ -535,8 +501,8 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         val millisTillEnd = rules!!.millisTillEnd(Calendar.getInstance())
         if (millisTillEnd > -1L) rulesTimePeriodHandler.postDelayed({ stopAndOff() }, millisTillEnd)
         if (rulesTimeout != 0) rulesTimePeriodHandler.postDelayed({ stopAndOff() }, rulesTimeout * 60000L)
-        if (aoDND && notificationAccess) notificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
-        if (aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 0")
+        if (prefHolder.aoDND && notificationAccess) notificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+        if (prefHolder.aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 0")
     }
 
     override fun onStop() {
@@ -544,16 +510,16 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         stopServices()
         rulesTimePeriodHandler.removeCallbacksAndMessages(null)
         rulesTimeoutHandler.removeCallbacksAndMessages(null)
-        if (aoDND && notificationAccess) notificationManager!!.setInterruptionFilter(userDND)
-        if (rootMode && powerSaving && !userPowerSaving) Root.shell("settings put global low_power 0")
-        if (aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 1")
+        if (prefHolder.aoDND && notificationAccess) notificationManager!!.setInterruptionFilter(userDND)
+        if (prefHolder.rootMode && prefHolder.powerSaving && !userPowerSaving) Root.shell("settings put global low_power 0")
+        if (prefHolder.aoHeadsUp) Root.shell("settings put global heads_up_notifications_enabled 1")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         CombinedServiceReceiver.isAlwaysOnRunning = false
-        if (aoPocketMode) sensorManager!!.unregisterListener(this)
-        if (aoEdgeGlow) aoEdgeGlowThread.interrupt()
+        if (prefHolder.aoPocketMode) sensorManager!!.unregisterListener(this)
+        if (prefHolder.aoEdgeGlow) aoEdgeGlowThread.interrupt()
         animationThread.interrupt()
         localManager!!.unregisterReceiver(localReceiver)
         unregisterReceiver(systemReceiver)
@@ -584,10 +550,10 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
             servicesRunning = true
 
             // Clock Handler
-            if (aoClock) clockHandler.postDelayed(clockRunnable, CLOCK_DELAY)
+            if (prefHolder.aoClock) clockHandler.postDelayed(clockRunnable, CLOCK_DELAY)
 
             // Notification Listener
-            if (aoNotifications || aoNotificationIcons || aoEdgeGlow) {
+            if (prefHolder.aoNotifications || prefHolder.aoNotificationIcons || prefHolder.aoEdgeGlow) {
                 localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
             }
         }
@@ -598,7 +564,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
             servicesRunning = false
 
             // Clock Handler
-            if (aoClock) clockHandler.removeCallbacksAndMessages(null)
+            if (prefHolder.aoClock) clockHandler.removeCallbacksAndMessages(null)
         }
     }
 }
