@@ -22,13 +22,14 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:text="@string/app_by"
-                android:textStyle="bold" />
+                android:textColor="?android:attr/textColorPrimary" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:text="@string/description" />
+                android:text="@string/description"
+                android:textColor="?android:attr/textColorSecondary" />
         </LinearLayout>
     </ScrollView>
 
