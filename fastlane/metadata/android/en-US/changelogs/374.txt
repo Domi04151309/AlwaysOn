@@ -1,0 +1,1 @@
+The settings app will now be displayed in light mode by default, but you can enable the old dark mode in the settings. This version includes UX and UI improvements as well as bug fixes and performance improvements.
