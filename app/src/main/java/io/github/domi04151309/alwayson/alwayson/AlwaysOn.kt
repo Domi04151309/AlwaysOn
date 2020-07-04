@@ -4,7 +4,6 @@ import android.app.NotificationManager
 import android.content.*
 import android.content.res.Configuration
 import android.graphics.Point
-import android.graphics.drawable.Icon
 import android.graphics.drawable.TransitionDrawable
 import android.hardware.Sensor
 import android.hardware.SensorEvent
@@ -110,8 +109,9 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
                     }
 
                     if (prefHolder.showNotificationIcons) {
-                        val itemArray: ArrayList<Icon> = intent.getParcelableArrayListExtra("icons") ?: arrayListOf()
-                        viewHolder.notificationGrid.adapter = NotificationGridAdapter(itemArray)
+                        viewHolder.notificationGrid.adapter = NotificationGridAdapter(
+                                intent.getParcelableArrayListExtra("icons") ?: arrayListOf()
+                        )
                     }
 
                     if (prefHolder.edgeGlow) {
@@ -494,7 +494,6 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
 
     override fun onStart() {
         super.onStart()
-        hideUI()
         CombinedServiceReceiver.isAlwaysOnRunning = true
         startServices()
         val millisTillEnd = rules!!.millisTillEnd(Calendar.getInstance())
