@@ -16,6 +16,7 @@ import android.media.MediaMetadata
 import android.media.session.MediaController
 import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
+import android.opengl.Visibility
 import android.os.*
 import android.provider.Settings
 import android.util.Log
@@ -322,14 +323,19 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
                 viewHolder.musicTxt.text = resources.getString(R.string.missing_permissions)
             }
             viewHolder.musicTxt.setOnClickListener {
-                if (mediaPlaybackState == PlaybackState.STATE_PLAYING) localMediaController!!.transportControls.pause()
-                else if (mediaPlaybackState == PlaybackState.STATE_PAUSED) localMediaController!!.transportControls.play()
+                try {
+                    if (mediaPlaybackState == PlaybackState.STATE_PLAYING) localMediaController!!.transportControls.pause()
+                    else if (mediaPlaybackState == PlaybackState.STATE_PAUSED) localMediaController!!.transportControls.play()
+                } catch (e: Exception) {
+                    Log.e(Global.LOG_TAG, e.toString())
+                }
             }
             viewHolder.musicPrev.setOnClickListener {
                 try {
                     localMediaController!!.transportControls.skipToPrevious()
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
+                    Log.e(Global.LOG_TAG, "Playback: " + mediaPlaybackState.toString())
                 }
             }
             viewHolder.musicNext.setOnClickListener {
@@ -468,7 +474,8 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     override fun onActiveSessionsChanged(controllers: MutableList<MediaController>?) {
         try {
             localMediaController = controllers?.firstOrNull()
-            mediaPlaybackState = localMediaController?.playbackState?.state!!
+            mediaPlaybackState = localMediaController?.playbackState!!.state
+            Log.e(Global.LOG_TAG, "Playback: " + mediaPlaybackState.toString())
             updateMediaState()
             localMediaController?.registerCallback(sessionCallback)
         } catch (e: java.lang.Exception) {
@@ -489,11 +496,15 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     }
 
     private fun updateMediaState() {
-        viewHolder.musicTxt.text = resources.getString(
-                R.string.music,
-                localMediaController!!.metadata!!.getString(MediaMetadata.METADATA_KEY_ARTIST),
-                localMediaController!!.metadata!!.getString(MediaMetadata.METADATA_KEY_TITLE)
-        )
+        try {
+            viewHolder.musicTxt.text = resources.getString(
+                    R.string.music,
+                    localMediaController?.metadata!!.getString(MediaMetadata.METADATA_KEY_ARTIST),
+                    localMediaController?.metadata!!.getString(MediaMetadata.METADATA_KEY_TITLE)
+            )
+        } catch (e: java.lang.Exception) {
+            viewHolder.musicTxt.text = resources.getString(R.string.error)
+        }
     }
 
     //Proximity
