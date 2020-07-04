@@ -3,10 +3,10 @@
     <item android:height="@dimen/icon_size"
         android:width="@dimen/icon_size">
         <shape android:shape="oval">
-            <solid android:color="@android:color/black" />
+            <solid android:color="@android:color/white" />
         </shape>
     </item>
-    <item android:drawable="@drawable/ic_always_on_white"
+    <item android:drawable="@drawable/ic_always_on_black"
         android:top="@dimen/icon_margin"
         android:left="@dimen/icon_margin"
         android:bottom="@dimen/icon_margin"

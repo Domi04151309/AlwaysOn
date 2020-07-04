@@ -38,7 +38,7 @@ class ForegroundService : Service() {
         createNotificationChannel()
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentText(resources.getString(R.string.service_text))
-                .setSmallIcon(R.drawable.ic_always_on_white)
+                .setSmallIcon(R.drawable.ic_always_on_black)
                 .setShowWhen(false)
                 .build()
         startForeground(1, notification)
