@@ -73,8 +73,8 @@ You can customize your always on display and toggle it on or off with quick tile
     <string name="pref_ao_other">Other settings</string>
     <string name="pref_ao_other_summary">Other settings of the app</string>
 
-    <string name="pref_look_and_feel_light">Light mode</string>
-    <string name="pref_look_and_feel_light_summary">Changes the look of the app to a light style</string>
+    <string name="pref_look_and_feel_dark">Dark mode</string>
+    <string name="pref_look_and_feel_dark_summary">Changes the look of the app to a dark style</string>
     <string name="pref_look_and_feel_hour">Use 12-hour clock</string>
     <string name="pref_look_and_feel_hour_summary_on">Currently used: 12-hour clock</string>
     <string name="pref_look_and_feel_hour_summary_off">Currently used: 24-hour clock</string>

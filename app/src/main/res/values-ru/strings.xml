@@ -59,8 +59,6 @@
     <string name="pref_categories">Категории</string>
     <string name="pref_look_and_feel">Внешний вид</string>
     <string name="pref_look_and_feel_summary">Настройки относящиеся к внешнему виду</string>
-    <string name="pref_look_and_feel_light">Светлый режим</string>
-    <string name="pref_look_and_feel_light_summary">Изменяет внешний вид приложения на светлый стиль</string>
     <string name="pref_look_and_feel_hour">Использовть 12-часовой формат</string>
     <string name="pref_look_and_feel_hour_summary_on">Сейчас используется: 12-часовой формат</string>
     <string name="pref_look_and_feel_hour_summary_off">Сейчас используется: 24-часовой формат</string>

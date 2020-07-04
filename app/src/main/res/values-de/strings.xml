@@ -72,8 +72,8 @@ Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets e
     <string name="pref_ao_other">Andere Einstellungen</string>
     <string name="pref_ao_other_summary">Andere Einstellungen der App</string>
 
-    <string name="pref_look_and_feel_light">Heller Modus</string>
-    <string name="pref_look_and_feel_light_summary">Ändert das Aussehen der App zu einem hellem Stil</string>
+    <string name="pref_look_and_feel_dark">Dunkler Modus</string>
+    <string name="pref_look_and_feel_dark_summary">Ändert das Aussehen der App zu einem dunklen Stil</string>
     <string name="pref_look_and_feel_hour">12-Stunden-Format verwenden</string>
     <string name="pref_look_and_feel_hour_summary_on">Derzeit verwendet: 12-Stunden-Uhr</string>
     <string name="pref_look_and_feel_hour_summary_off">Derzeit verwendet: 24-Stunden-Uhr</string>

@@ -38,7 +38,7 @@ class LAFOtherPreferences : AppCompatActivity(),
     class PreferenceFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_other)
-            findPreference<Preference>("light_mode")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("dark_mode")!!.setOnPreferenceClickListener {
                 startActivity(Intent(context, MainActivity::class.java))
                 true
             }

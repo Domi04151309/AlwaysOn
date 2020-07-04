@@ -4,9 +4,9 @@
     <SwitchPreference
         android:defaultValue="false"
         android:icon="@drawable/ic_palette"
-        android:key="light_mode"
-        android:summary="@string/pref_look_and_feel_light_summary"
-        android:title="@string/pref_look_and_feel_light" />
+        android:key="dark_mode"
+        android:summary="@string/pref_look_and_feel_dark_summary"
+        android:title="@string/pref_look_and_feel_dark" />
     <Preference
         android:icon="@drawable/ic_charging"
         android:key="charging_style"

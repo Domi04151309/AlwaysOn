@@ -59,8 +59,6 @@ Je kunt het altijdaan-scherm naar eigen inzicht aanpassen met tegels en widgets.
     <string name="pref_categories">Categorieën</string>
     <string name="pref_look_and_feel">Uiterlijk</string>
     <string name="pref_look_and_feel_summary">Pas het uiterlijk van het altijdaan-scherm aan</string>
-    <string name="pref_look_and_feel_light">Licht thema</string>
-    <string name="pref_look_and_feel_light_summary">Gebruik het lichte thema</string>
     <string name="pref_look_and_feel_hour">12-uursklok gebruiken</string>
     <string name="pref_look_and_feel_hour_summary_on">Huidige instelling: 12-uursklok</string>
     <string name="pref_look_and_feel_hour_summary_off">Huidige instelling: 24-uursklok</string>

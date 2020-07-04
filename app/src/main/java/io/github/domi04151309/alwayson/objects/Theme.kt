@@ -11,12 +11,12 @@ import io.github.domi04151309.alwayson.R
 internal object Theme {
 
     fun set(context: Context) {
-        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("light_mode", false)) {
-            context.setTheme(R.style.AppTheme_Light)
+        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("dark_mode", false)) {
+            context.setTheme(R.style.AppTheme_Dark)
             val taskDescription = ActivityManager.TaskDescription(
                     context.getString(R.string.app_name),
                     BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher),
-                    ContextCompat.getColor(context, android.R.color.white)
+                    ContextCompat.getColor(context, android.R.color.black)
             )
             (context as Activity).setTaskDescription(taskDescription)
         }
