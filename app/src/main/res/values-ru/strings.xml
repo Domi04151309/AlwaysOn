@@ -117,10 +117,7 @@
     <string name="pref_draw_over_other_apps_summary">Включить или отключить это разрешение</string>
     <string name="pref_admin">Администратор устройства</string>
     <string name="pref_admin_summary">Активируйте эту настройку для нормального режима</string>
-    <string name="pref_root">Запросить root-доступ</string>
-    <string name="pref_root_summary">Включить root-доступ для root режима</string>
     <string name="pref_root_mode">Root режим</string>
-    <string name="pref_root_mode_summary">Разблокировка с помощью сканера отпечатков пальцев</string>
 
     <string name="about">О приложении</string>
     <string name="about_summary">О приложении</string>

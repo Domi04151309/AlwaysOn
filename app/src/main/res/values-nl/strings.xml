@@ -117,10 +117,7 @@ Je kunt het altijdaan-scherm naar eigen inzicht aanpassen met tegels en widgets.
     <string name="pref_draw_over_other_apps_summary">Schakel weergeven vóór andere apps in of uit</string>
     <string name="pref_admin">Apparaatbeheerder</string>
     <string name="pref_admin_summary">Schakel apparaatbeheerder in voor de reguliere modus</string>
-    <string name="pref_root">Roottoegangsverzoek</string>
-    <string name="pref_root_summary">Schakel roottoegang in of uit voor de rootmodus</string>
     <string name="pref_root_mode">Rootmodus</string>
-    <string name="pref_root_mode_summary">Schakel ontgrendelen met de vingerafdrukscanner in</string>
 
     <string name="about">Over</string>
     <string name="about_summary">Over de app</string>

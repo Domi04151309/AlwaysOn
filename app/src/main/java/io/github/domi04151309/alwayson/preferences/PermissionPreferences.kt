@@ -1,13 +1,15 @@
 package io.github.domi04151309.alwayson.preferences
 
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import io.github.domi04151309.alwayson.*
-import io.github.domi04151309.alwayson.objects.Theme
+import androidx.preference.SwitchPreference
+import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Root
+import io.github.domi04151309.alwayson.objects.Theme
 
 class PermissionPreferences : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -38,11 +40,13 @@ class PermissionPreferences : AppCompatActivity(),
     class PreferencePermissions : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_permissions)
-            findPreference<Preference>("request_root")!!.setOnPreferenceClickListener {
-                if (Root.request())
-                    Toast.makeText(context, "Success!", Toast.LENGTH_LONG).show()
-                else
-                    Toast.makeText(context, "Request failed!", Toast.LENGTH_LONG).show()
+            findPreference<Preference>("root_mode")!!.setOnPreferenceClickListener {
+                if (!Root.request()) {
+                    val toast = Toast.makeText(context, R.string.setup_root_failed, Toast.LENGTH_LONG)
+                    toast.setGravity(Gravity.CENTER, 0, 0)
+                    toast.show()
+                    (it as SwitchPreference).isChecked = false
+                }
                 true
             }
         }

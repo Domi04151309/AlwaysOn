@@ -148,10 +148,7 @@
     <string name="pref_draw_over_other_apps_summary">Activar o desactivar este permiso</string>
     <string name="pref_admin">Administrador del dispositivo</string>
     <string name="pref_admin_summary">Activa este dispositivo admin para el modo normal</string>
-    <string name="pref_root">Solicitar acceso root</string>
-    <string name="pref_root_summary">Habilitar el acceso privilegiado para el modo root</string>
     <string name="pref_root_mode">Modo root</string>
-    <string name="pref_root_mode_summary">Permite el desbloqueo con el escáner de huellas dactilares</string>
 
     <string name="loading">Cargando</string>
 
