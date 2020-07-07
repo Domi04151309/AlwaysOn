@@ -35,7 +35,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:drawableStart="@drawable/ic_charging"
             android:text="@string/battery"
             android:textSize="25sp" />
     </LinearLayout>

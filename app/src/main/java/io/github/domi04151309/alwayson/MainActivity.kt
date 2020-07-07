@@ -29,35 +29,35 @@ import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import io.github.domi04151309.alwayson.services.ForegroundService
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
 
-    private var clockTxt: TextView? = null
-    private var dateTxt: TextView? = null
-    private var batteryTxt: TextView? = null
+    companion object {
+        private const val DEVICE_ADMIN_DIALOG: Byte = 0
+        private const val NOTIFICATION_ACCESS_DIALOG: Byte = 1
+        private const val DISPLAY_OVER_OTHER_APPS_DIALOG: Byte = 2
+    }
 
-    private val mBatInfoReceiver = object : BroadcastReceiver() {
+    private lateinit var clockTxt: TextView
+    private lateinit var dateTxt: TextView
+    private lateinit var batteryTxt: TextView
+    private var clockThread: Thread = Thread()
+
+    private val batteryReceiver = object : BroadcastReceiver() {
 
         override fun onReceive(ctxt: Context, intent: Intent) {
-            val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
-            batteryTxt!!.text = resources.getString(R.string.percent, level)
-            val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
-            val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL
-            if (isCharging) batteryTxt!!.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_charging, 0, 0, 0)
-            else batteryTxt!!.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            batteryTxt.text = resources.getString(R.string.percent, intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0))
         }
     }
 
     private val isNotificationServiceEnabled: Boolean
         get() {
-            val pkgName = packageName
             val flat = Settings.Secure.getString(contentResolver, "enabled_notification_listeners")
             if (!TextUtils.isEmpty(flat)) {
                 val names = flat.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                 for (name in names) {
                     val cn = ComponentName.unflattenFromString(name)
                     if (cn != null) {
-                        if (TextUtils.equals(pkgName, cn.packageName)) {
+                        if (TextUtils.equals(packageName, cn.packageName)) {
                             return true
                         }
                     }
@@ -90,41 +90,40 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, R.string.err_service_failed, Toast.LENGTH_LONG).show()
         }
 
+        clockTxt = findViewById(R.id.clockTxt)
+        dateTxt = findViewById(R.id.dateTxt)
+        batteryTxt = findViewById(R.id.batteryTxt)
         findViewById<Button>(R.id.pref).setOnClickListener { startActivity(Intent(this@MainActivity, Preferences::class.java)) }
 
         //Battery
-        batteryTxt = findViewById(R.id.batteryTxt)
-        registerReceiver(mBatInfoReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        registerReceiver(batteryReceiver, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
 
         //Date and time updates
-        val clock = prefs.getBoolean("hour", false)
-        val amPm = prefs.getBoolean("am_pm", false)
-        val dateFormat = if (clock) {
-            if (amPm) "h:mm a"
+        val timeFormat = if (prefs.getBoolean("hour", false)) {
+            if (prefs.getBoolean("am_pm", false)) "h:mm a"
             else "h:mm"
         }
         else "H:mm"
 
-        clockTxt = findViewById(R.id.clockTxt)
-        dateTxt = findViewById(R.id.dateTxt)
+        clockTxt.text = SimpleDateFormat(timeFormat, Locale.getDefault()).format(Calendar.getInstance())
+        dateTxt.text = SimpleDateFormat("EEEE, MMM d", Locale.getDefault()).format(Calendar.getInstance())
 
-        clockTxt!!.text = SimpleDateFormat(dateFormat, Locale.getDefault()).format(Calendar.getInstance())
-        dateTxt!!.text = SimpleDateFormat("EEEE, MMM d", Locale.getDefault()).format(Calendar.getInstance())
-        object : Thread() {
+        clockThread = object : Thread() {
             override fun run() {
                 try {
                     while (!isInterrupted) {
                         sleep(1000)
                         runOnUiThread {
-                            dateTxt!!.text = SimpleDateFormat("EEEE, MMM d", Locale.getDefault()).format(Calendar.getInstance())
-                            clockTxt!!.text = SimpleDateFormat(dateFormat, Locale.getDefault()).format(Calendar.getInstance())
+                            dateTxt.text = SimpleDateFormat("EEEE, MMM d", Locale.getDefault()).format(Calendar.getInstance())
+                            clockTxt.text = SimpleDateFormat(timeFormat, Locale.getDefault()).format(Calendar.getInstance())
                         }
                     }
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
                 }
             }
-        }.start()
+        }
+        clockThread.start()
 
         if (applicationContext.checkSelfPermission(Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -136,28 +135,30 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        if (!isDeviceAdminOrRoot) buildDialog(1)
-        if (!isNotificationServiceEnabled) buildDialog(2)
-        if (!Settings.canDrawOverlays(this)) buildDialog(3)
+        if (!isDeviceAdminOrRoot) buildDialog(DEVICE_ADMIN_DIALOG)
+        if (!isNotificationServiceEnabled) buildDialog(NOTIFICATION_ACCESS_DIALOG)
+        if (!Settings.canDrawOverlays(this)) buildDialog(DISPLAY_OVER_OTHER_APPS_DIALOG)
     }
 
-    private fun buildDialog(case: Int) {
+    private fun buildDialog(dialogType: Byte) {
         val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.DialogTheme))
 
-        when (case) {
-            1 -> {
+        when (dialogType) {
+            DEVICE_ADMIN_DIALOG -> {
                 builder.setTitle(R.string.device_admin)
                 builder.setMessage(R.string.device_admin_summary)
                 builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
                     startActivity(Intent(this@MainActivity, PermissionPreferences::class.java))
                 }
-            } 2-> {
+            }
+            NOTIFICATION_ACCESS_DIALOG-> {
                 builder.setTitle(R.string.notification_listener_service)
                 builder.setMessage(R.string.notification_listener_service_summary)
                 builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
                     startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
                 }
-            } 3-> {
+            }
+            DISPLAY_OVER_OTHER_APPS_DIALOG-> {
                 builder.setTitle(R.string.setup_draw_over_other_apps)
                 builder.setMessage(R.string.setup_draw_over_other_apps_summary)
                 builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
@@ -184,8 +185,8 @@ class MainActivity : AppCompatActivity() {
 
     public override fun onDestroy() {
         super.onDestroy()
-        unregisterReceiver(mBatInfoReceiver)
+        unregisterReceiver(batteryReceiver)
+        clockThread.interrupt()
     }
-
 }
 
