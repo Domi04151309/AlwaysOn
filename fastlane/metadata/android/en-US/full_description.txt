@@ -1,19 +1,23 @@
-AlwaysOn is an app for every device with an AMOLED or OLED display. It keeps your screen on while the time and battery percentage are displayed but it does not drain your battery.
-Also, icons appear when you plug in your headphones or start charging your device.
-You can customize your always on display and toggle it on or off with quick tiles and widgets.
+AlwaysOn is an app for every device with an AMOLED or OLED display.
+It adds an always-on display with various customization options regarding the watch face, the behavior, and the background.
+Take a look at your phone and have everything you need in one place: the time, the date, the battery state, your notifications, and more.
+As an additional feature you can enable charging and headphones animations that appear when plugging in headphones or your charging cable.
 
 <font color="#2467d6"><b>Features</b></font>
 - Always on display
+- Multiple watch faces
 - View your notifications
-- Move content to prevent burn-ins
+- View what you are listening to
+- Edge glow
+- Rules
 - Double tap to wake
-- Customizable
-- Power saver mode [for root]
 - Pocket mode
 - Do not disturb mode
 - Adjustable brightness
 - Quick tiles
 - Widgets
+- Power saver mode [for root]
+- Moves content to prevent burn-ins
 - Minimal permissions
 
 <font color="#2467d6"><b>Related Links</b></font>
