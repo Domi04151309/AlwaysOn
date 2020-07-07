@@ -19,8 +19,7 @@ class Flash : OffActivity() {
             override fun run() {
                 try {
                     sleep(1500)
-                    val image = findViewById<ImageView>(R.id.chargingImage)
-                    image.animate().alpha(0f).duration = 1000
+                    findViewById<ImageView>(R.id.chargingImage).animate().alpha(0f).duration = 1000
                     sleep(1000)
                     runOnUiThread {
                         Global.close(this@Flash)

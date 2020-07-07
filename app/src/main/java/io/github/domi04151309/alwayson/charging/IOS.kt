@@ -20,13 +20,11 @@ class IOS : OffActivity() {
 
         val content = findViewById<LinearLayout>(R.id.content)
         val batteryIcn = findViewById<ImageView>(R.id.batteryIcn)
-        val batteryTxt = findViewById<TextView>(R.id.batteryTxt)
 
         Global.fullscreen(this, content)
 
-        val batteryStatus: Intent? = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-        val level = batteryStatus?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) ?: 0
-        batteryTxt.text = resources.getString(R.string.charged, level)
+        val level = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) ?: 0
+        findViewById<TextView>(R.id.batteryTxt).text = resources.getString(R.string.charged, level)
         when {
             level >= 100 -> batteryIcn.setImageResource(R.drawable.ic_battery_100_charging)
             level >= 90 -> batteryIcn.setImageResource(R.drawable.ic_battery_90_charging)

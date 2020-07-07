@@ -16,15 +16,11 @@ class Circle : OffActivity() {
         setContentView(R.layout.activity_charging_circle)
 
         val content = findViewById<RelativeLayout>(R.id.content)
-        val batteryTxt = findViewById<TextView>(R.id.batteryTxt)
-        val chargingProgress = findViewById<ProgressBar>(R.id.chargingProgress)
-
         Global.fullscreen(this, content)
 
-        val batteryStatus: Intent? = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-        val level = batteryStatus?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) ?: 0
-        batteryTxt!!.text = resources.getString(R.string.percent, level)
-        chargingProgress!!.progress = level
+        val level = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) ?: 0
+        findViewById<TextView>(R.id.batteryTxt).text = resources.getString(R.string.percent, level)
+        findViewById<ProgressBar>(R.id.chargingProgress).progress = level
 
         object : Thread() {
             override fun run() {
