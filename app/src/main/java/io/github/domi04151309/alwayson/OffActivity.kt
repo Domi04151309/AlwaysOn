@@ -3,12 +3,17 @@ package io.github.domi04151309.alwayson
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
+import android.app.admin.DevicePolicyManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.media.AudioManager
 import android.os.Bundle
 import android.view.KeyEvent
+import android.widget.Toast
 import androidx.preference.PreferenceManager
+import io.github.domi04151309.alwayson.objects.Root
+import io.github.domi04151309.alwayson.receivers.AdminReceiver
 
 @SuppressLint("Registered")
 open class OffActivity : Activity() {
@@ -42,8 +47,21 @@ open class OffActivity : Activity() {
 
     override fun onPause() {
         super.onPause()
-        val activityManager = applicationContext
-                .getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         activityManager.moveTaskToFront(taskId, 0)
+    }
+
+    open fun finishAndOff() {
+        if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode", false)) {
+            Root.shell("input keyevent KEYCODE_POWER")
+        } else {
+            val policyManager = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+            if (policyManager.isAdminActive(ComponentName(this, AdminReceiver::class.java))) {
+                policyManager.lockNow()
+            } else {
+                Toast.makeText(this, R.string.pref_admin_summary, Toast.LENGTH_SHORT).show()
+            }
+        }
+        finish()
     }
 }

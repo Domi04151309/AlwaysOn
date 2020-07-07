@@ -1,19 +1,15 @@
 package io.github.domi04151309.alwayson.objects
 
-import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import androidx.preference.PreferenceManager
 import android.service.quicksettings.TileService
-import android.widget.Toast
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
-import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import android.app.Activity
 import android.view.View
 import android.view.WindowManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import io.github.domi04151309.alwayson.R
 
 object Global {
 
@@ -39,21 +35,6 @@ object Global {
         TileService.requestListeningState(context, ComponentName(context ,AlwaysOnQS::class.java))
         LocalBroadcastManager.getInstance(context).sendBroadcast(Intent().setAction(ALWAYS_ON_STATE_CHANGED))
         return value
-    }
-
-    fun close(context: Context) {
-        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("root_mode", false)) {
-            Root.shell("input keyevent KEYCODE_POWER")
-        } else {
-            val policyManager = context
-                    .getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-            if (policyManager.isAdminActive(ComponentName(context, AdminReceiver::class.java))) {
-                policyManager.lockNow()
-            } else {
-                Toast.makeText(context, R.string.pref_admin_summary, Toast.LENGTH_SHORT).show()
-            }
-        }
-        (context as Activity).finish()
     }
 
     fun fullscreen(context: Context, rootLayout: View) {

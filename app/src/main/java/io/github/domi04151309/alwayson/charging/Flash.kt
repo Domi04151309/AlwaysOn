@@ -22,7 +22,7 @@ class Flash : OffActivity() {
                     findViewById<ImageView>(R.id.chargingImage).animate().alpha(0f).duration = 1000
                     sleep(1000)
                     runOnUiThread {
-                        Global.close(this@Flash)
+                        finishAndOff()
                     }
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())

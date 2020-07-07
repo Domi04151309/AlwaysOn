@@ -136,7 +136,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
                     val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
                     val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
                     if (level <= rulesBattery) {
-                        stopAndOff()
+                        finishAndOff()
                         return
                     } else if (!servicesRunning) {
                         return
@@ -172,10 +172,10 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
                     }
                 }
                 Intent.ACTION_POWER_CONNECTED -> {
-                    if (rulesChargingState == "discharging") stopAndOff()
+                    if (rulesChargingState == "discharging") finishAndOff()
                 }
                 Intent.ACTION_POWER_DISCONNECTED -> {
-                    if (rulesChargingState == "charging") stopAndOff()
+                    if (rulesChargingState == "charging") finishAndOff()
                 }
             }
         }
@@ -497,8 +497,8 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         CombinedServiceReceiver.isAlwaysOnRunning = true
         startServices()
         val millisTillEnd = rules!!.millisTillEnd(Calendar.getInstance())
-        if (millisTillEnd > -1L) rulesTimePeriodHandler.postDelayed({ stopAndOff() }, millisTillEnd)
-        if (rulesTimeout != 0) rulesTimePeriodHandler.postDelayed({ stopAndOff() }, rulesTimeout * 60000L)
+        if (millisTillEnd > -1L) rulesTimePeriodHandler.postDelayed({ finishAndOff() }, millisTillEnd)
+        if (rulesTimeout != 0) rulesTimePeriodHandler.postDelayed({ finishAndOff() }, rulesTimeout * 60000L)
         if (prefHolder.dnd && notificationAccess) notificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
         if (prefHolder.disableHeadsUpNotifications) Root.shell("settings put global heads_up_notifications_enabled 0")
     }
@@ -523,6 +523,11 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         unregisterReceiver(systemReceiver)
     }
 
+    override fun finishAndOff() {
+        CombinedServiceReceiver.hasRequestedStop = true
+        super.finishAndOff()
+    }
+
     private fun hideUI() {
         viewHolder.fullscreenContent.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -536,11 +541,6 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         val size = Point()
         windowManager.defaultDisplay.getSize(size)
         return  (size.y - viewHolder.fullscreenContent.height).toFloat()
-    }
-
-    private fun stopAndOff() {
-        CombinedServiceReceiver.hasRequestedStop = true
-        Global.close(this)
     }
 
     private fun startServices() {

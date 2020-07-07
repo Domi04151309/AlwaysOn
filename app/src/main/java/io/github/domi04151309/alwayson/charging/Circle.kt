@@ -29,7 +29,7 @@ class Circle : OffActivity() {
                     content.animate().alpha(0f).duration = 1000
                     sleep(1000)
                     runOnUiThread {
-                        Global.close(this@Circle)
+                        finishAndOff()
                     }
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())

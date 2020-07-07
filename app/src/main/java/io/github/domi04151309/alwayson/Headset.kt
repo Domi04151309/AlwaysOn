@@ -20,7 +20,7 @@ class Headset : OffActivity() {
                     findViewById<ImageView>(R.id.headsetImage).animate().alpha(0f).duration = 1000
                     sleep(1000)
                     runOnUiThread {
-                        Global.close(this@Headset)
+                        finishAndOff()
                     }
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())

@@ -145,8 +145,7 @@ class SetupActivity : AppCompatActivity() {
 
     private val isDeviceAdmin: Boolean
         get() {
-            val policyManager = this
-                    .getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+            val policyManager = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
             return policyManager.isAdminActive(ComponentName(this, AdminReceiver::class.java))
         }
 
