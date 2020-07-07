@@ -25,7 +25,6 @@
     <string name="setup_error">¡Algo salió mal! ¡Por favor, inténtalo de nuevo!</string>
 
     <string name="app_by">AlwaysOn por Domi</string>
-    <string name="description">AlwaysOn es una aplicación para cada dispositivo con pantalla AMOLED u OLED. Mantiene la pantalla encendida mientras se muestra la hora y el porcentaje de batería, pero no agota la batería.\nAdemás, los iconos aparecen cuando te conectas los auriculares o empiezas a cargar el dispositivo.\nPuedes personalizar la pantalla siempre encendida (always on display) al activarla o desactivarla con accesos rápidos y widgets.</string>
 
     <string name="AlwaysOn">Siempre en pantalla</string>
     <string name="Headset">Animación de auriculares</string>

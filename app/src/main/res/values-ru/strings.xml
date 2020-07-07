@@ -25,9 +25,6 @@
     <string name="setup_error">Что-то пошло не так! Пожалуйста, попробуйте еще раз!</string>
 
     <string name="app_by">AlwaysOn создано Domi04151309</string>
-    <string name="description">AlwaysOn - это приложение для устройств с AMOLED и OLED дисплеями. Приложение включает Always On Dispaly, отображает время и процент заряда батареи, но не разряжает батарею.
-Кроме того, значки появляются, когда вы подключаете наушники или начинаете зарядку устройства.
-Вы можете настроить свой Always On Display и включать или выключать его с помощью панели быстрых настроек и виджетов.</string>
 
     <string name="AlwaysOn">Always on display</string>
     <string name="Headset">Анимация подключения наушников</string>

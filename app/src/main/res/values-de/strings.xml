@@ -25,9 +25,10 @@
     <string name="setup_error">Etwas ist schief gelaufen! Bitte versuchen Sie es erneut!</string>
 
     <string name="app_by">AlwaysOn von Domi04151309</string>
-    <string name="description">AlwaysOn ist eine App für jedes Gerät mit AMOLED- oder OLED-Display. Der Bildschirm bleibt eingeschaltet, während die Uhrzeit und die Akkuladung angezeigt werden.
-Außerdem werden Symbole angezeigt, wenn Sie Ihren Kopfhörer anschließen oder das Gerät aufladen.
-Sie können die Anzeige jederzeit anpassen und sie mit Quick Tiles und Widgets ein- und ausschalten.</string>
+    <string name="description">AlwaysOn ist eine App für jedes Gerät mit AMOLED- oder OLED-Display.
+Sie fügt ein Always-On-Display mit verschiedenen Anpassungsoptionen in Bezug auf das Zifferblatt, das Verhalten und den Hintergrund hinzu.
+Schauen Sie auf ihr Handy und haben Sie alles, was Sie brauchen, an einem Ort: Uhrzeit, Datum, Akkustatus, Benachrichtigungen und mehr.
+Als zusätzliche Funktion können Sie Lade- und Kopfhöreranimationen aktivieren, die beim Anschließen von Kopfhörern oder Ladekabeln angezeigt werden.</string>
 
     <string name="AlwaysOn">Always On Display</string>
     <string name="Headset">Kopfhöreranimation</string>

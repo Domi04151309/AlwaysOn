@@ -25,9 +25,6 @@
     <string name="setup_error">Er is iets misgegaan! Probeer het opnieuw.</string>
 
     <string name="app_by">AlwaysOn, gemaakt door @Domi04151309</string>
-    <string name="description">AlwaysOn is een app voor elk apparaat met een AMOLED- of OLED-scherm. De app zorgt er voor dat je scherm aan blijft, en toont een klok en het accupercentage, maar slurpt geen energie.
-Daarnaast toont het een pictogram bij het inpluggen van je koptelefoon en het opladen.
-Je kunt het altijdaan-scherm naar eigen inzicht aanpassen met tegels en widgets.</string>
 
     <string name="AlwaysOn">Altijdaan-scherm</string>
     <string name="Headset">Koptelefoonanimatie</string>
