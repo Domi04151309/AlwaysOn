@@ -439,23 +439,21 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     override fun onActiveSessionsChanged(controllers: MutableList<MediaController>?) {
         try {
             localMediaController = controllers?.firstOrNull()
-            mediaPlaybackState = localMediaController?.playbackState!!.state
+            mediaPlaybackState = localMediaController?.playbackState?.state ?: 0
             updateMediaState()
-            localMediaController?.registerCallback(sessionCallback)
+            localMediaController?.registerCallback(object : MediaController.Callback() {
+                override fun onPlaybackStateChanged(state: PlaybackState?) {
+                    super.onPlaybackStateChanged(state)
+                    mediaPlaybackState = state!!.state
+                }
+
+                override fun onMetadataChanged(metadata: MediaMetadata?) {
+                    super.onMetadataChanged(metadata)
+                    updateMediaState()
+                }
+            })
         } catch (e: java.lang.Exception) {
             Log.e(Global.LOG_TAG, e.toString())
-        }
-    }
-
-    private var sessionCallback: MediaController.Callback = object : MediaController.Callback() {
-        override fun onPlaybackStateChanged(state: PlaybackState?) {
-            super.onPlaybackStateChanged(state)
-            mediaPlaybackState = state!!.state
-        }
-
-        override fun onMetadataChanged(metadata: MediaMetadata?) {
-            super.onMetadataChanged(metadata)
-            updateMediaState()
         }
     }
 
