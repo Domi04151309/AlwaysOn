@@ -71,6 +71,7 @@
             android:layout_marginBottom="@dimen/aod_spacing_2"
             android:layout_gravity="center"
             android:orientation="horizontal"
+            android:visibility="gone"
             tools:ignore="UseCompoundDrawables">
 
             <ImageView

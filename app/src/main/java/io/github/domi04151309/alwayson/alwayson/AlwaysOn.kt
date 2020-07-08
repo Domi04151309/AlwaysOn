@@ -208,7 +208,6 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         if (!prefHolder.showDate) viewHolder.dateTxt.visibility = View.GONE
         if (!prefHolder.showBatteryIcon) viewHolder.batteryIcn.visibility = View.GONE
         if (!prefHolder.showBatteryPercentage) viewHolder.batteryTxt.visibility = View.GONE
-        if (!prefHolder.showMusicControls) viewHolder.musicLayout.visibility = View.GONE
         if (!prefHolder.showNotificationCount) viewHolder.notificationCount.visibility = View.GONE
         if (!prefHolder.showNotificationIcons) viewHolder.notificationGrid.visibility = View.GONE
         if (prefHolder.message != "") {
@@ -462,6 +461,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
 
     private fun updateMediaState() {
         try {
+            viewHolder.musicLayout.visibility = View.VISIBLE
             viewHolder.musicTxt.text = resources.getString(
                     R.string.music,
                     localMediaController?.metadata!!.getString(MediaMetadata.METADATA_KEY_ARTIST),
@@ -473,9 +473,9 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     }
 
     //Proximity
-    override fun onSensorChanged(p0: SensorEvent?) {
-        if (p0!!.sensor.type == Sensor.TYPE_PROXIMITY) {
-            if (p0.values[0] == p0.sensor.maximumRange) {
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (event!!.sensor.type == Sensor.TYPE_PROXIMITY) {
+            if (event.values[0] == event.sensor.maximumRange) {
                 viewHolder.fullscreenContent.animate().alpha(1F).duration = 1000L
                 startServices()
             } else {
@@ -485,7 +485,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         }
     }
 
-    override fun onAccuracyChanged(p0: Sensor?, p1: Int) {}
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
@@ -546,11 +546,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     private fun startServices() {
         if (!servicesRunning) {
             servicesRunning = true
-
-            // Clock Handler
             if (prefHolder.showClock) clockHandler.postDelayed(clockRunnable, CLOCK_DELAY)
-
-            // Notification Listener
             if (prefHolder.showNotificationCount || prefHolder.showNotificationIcons || prefHolder.edgeGlow) {
                 localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
             }
@@ -560,8 +556,6 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     private fun stopServices() {
         if (servicesRunning) {
             servicesRunning = false
-
-            // Clock Handler
             if (prefHolder.showClock) clockHandler.removeCallbacksAndMessages(null)
         }
     }
