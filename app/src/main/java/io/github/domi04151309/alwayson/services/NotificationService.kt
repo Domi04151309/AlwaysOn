@@ -15,17 +15,17 @@ import org.json.JSONArray
 
 class NotificationService : NotificationListenerService() {
 
-    private var cache: Int = -1
-    private var localManager: LocalBroadcastManager? = null
-    private var prefs: SharedPreferences? = null
+    private lateinit var localManager: LocalBroadcastManager
+    private lateinit var prefs: SharedPreferences
     private var sentRecently: Boolean = false
+    private var cache: Int = -1
 
     private val actionReceiver = object : BroadcastReceiver() {
 
         override fun onReceive(c: Context, intent: Intent) {
             when (intent.action) {
                 Global.REQUEST_DETAILED_NOTIFICATIONS -> {
-                    localManager!!.sendBroadcast(Intent(Global.DETAILED_NOTIFICATIONS).putExtra("notifications", activeNotifications))
+                    localManager.sendBroadcast(Intent(Global.DETAILED_NOTIFICATIONS).putExtra("notifications", activeNotifications))
                 }
                 Global.REQUEST_NOTIFICATIONS -> {
                     sendCount(true)
@@ -40,12 +40,12 @@ class NotificationService : NotificationListenerService() {
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
         val filter = IntentFilter(Global.REQUEST_DETAILED_NOTIFICATIONS)
         filter.addAction(Global.REQUEST_NOTIFICATIONS)
-        localManager!!.registerReceiver(actionReceiver, filter)
+        localManager.registerReceiver(actionReceiver, filter)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        localManager!!.unregisterReceiver(actionReceiver)
+        localManager.unregisterReceiver(actionReceiver)
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
@@ -65,7 +65,7 @@ class NotificationService : NotificationListenerService() {
             try {
                 val notifications = activeNotifications
                 for (notification in notifications) {
-                    if (!notification.isOngoing && !JSON.contains(JSONArray(prefs!!.getString("blocked_notifications", "[]")), notification.packageName)) {
+                    if (!notification.isOngoing && !JSON.contains(JSONArray(prefs.getString("blocked_notifications", "[]")), notification.packageName)) {
                         if (notification.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0) count++
                         if (!apps.contains(notification.packageName)) {
                             apps += notification.packageName
@@ -78,7 +78,7 @@ class NotificationService : NotificationListenerService() {
             }
             if (cache != count || force) {
                 cache = count
-                localManager!!.sendBroadcast(Intent(Global.NOTIFICATIONS).putExtra("count", count).putExtra("icons", icons))
+                localManager.sendBroadcast(Intent(Global.NOTIFICATIONS).putExtra("count", count).putExtra("icons", icons))
             }
             Handler().postDelayed({ sentRecently = false }, 100)
         }

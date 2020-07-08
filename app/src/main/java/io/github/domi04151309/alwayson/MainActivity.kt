@@ -71,8 +71,8 @@ class MainActivity : AppCompatActivity() {
             return if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode", false)) {
                 true
             } else {
-                val policyManager = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-                policyManager.isAdminActive(ComponentName(this, AdminReceiver::class.java))
+                (getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager)
+                        .isAdminActive(ComponentName(this, AdminReceiver::class.java))
             }
         }
 

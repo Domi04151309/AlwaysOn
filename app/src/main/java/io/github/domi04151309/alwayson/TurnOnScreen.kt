@@ -17,10 +17,7 @@ class TurnOnScreen : Activity() {
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON)
 
         Handler().postDelayed({
-            val intent = Intent(Intent.ACTION_MAIN)
-            intent.addCategory(Intent.CATEGORY_HOME)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
+            startActivity(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
             finish()
         }, 10)
     }

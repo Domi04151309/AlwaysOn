@@ -36,12 +36,12 @@ class ForegroundService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         createNotificationChannel()
-        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+        startForeground(1,
+                NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentText(resources.getString(R.string.service_text))
                 .setSmallIcon(R.drawable.ic_always_on_black)
                 .setShowWhen(false)
-                .build()
-        startForeground(1, notification)
+                .build())
         return START_REDELIVER_INTENT
     }
 
@@ -51,12 +51,13 @@ class ForegroundService : Service() {
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val serviceChannel = NotificationChannel(
-                    CHANNEL_ID,
-                    resources.getString(R.string.service_channel),
-                    NotificationManager.IMPORTANCE_LOW
+            getSystemService(NotificationManager::class.java)?.createNotificationChannel(
+                    NotificationChannel(
+                            CHANNEL_ID,
+                            resources.getString(R.string.service_channel),
+                            NotificationManager.IMPORTANCE_LOW
+                    )
             )
-            getSystemService(NotificationManager::class.java)?.createNotificationChannel(serviceChannel)
         }
     }
 

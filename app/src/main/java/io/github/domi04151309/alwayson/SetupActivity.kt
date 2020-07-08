@@ -21,18 +21,18 @@ import io.github.domi04151309.alwayson.setup.*
 class SetupActivity : AppCompatActivity() {
 
     private var currentFragment = MODE_FRAGMENT
-    var rootMode = false
     private var isActionRequired = false
+    var rootMode = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup)
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val prefsEditor = PreferenceManager.getDefaultSharedPreferences(this).edit()
         swapContentFragment(ModeFragment(), MODE_FRAGMENT)
 
-        if (DateFormat.is24HourFormat(this)) prefs.edit().putBoolean("hour", false).apply()
-        else prefs.edit().putBoolean("hour", true).apply()
+        if (DateFormat.is24HourFormat(this)) prefsEditor.putBoolean("hour", false).apply()
+        else prefsEditor.putBoolean("hour", true).apply()
 
         findViewById<Button>(R.id.continueBtn).setOnClickListener {
             when (currentFragment) {
@@ -42,13 +42,13 @@ class SetupActivity : AppCompatActivity() {
                 MODE_FRAGMENT -> {
                     if (rootMode) {
                         if (Root.request()) {
-                            prefs.edit().putBoolean("root_mode", true).apply()
+                            prefsEditor.putBoolean("root_mode", true).apply()
                             swapContentFragment(NotificationListenerFragment(), NOTIFICATION_LISTENER_FRAGMENT)
                         } else {
                             Toast.makeText(this, R.string.setup_root_failed, Toast.LENGTH_LONG).show()
                         }
                     } else {
-                        prefs.edit().putBoolean("root_mode", false).apply()
+                        prefsEditor.putBoolean("root_mode", false).apply()
                         if (isDeviceAdmin) {
                             swapContentFragment(NotificationListenerFragment(), NOTIFICATION_LISTENER_FRAGMENT)
                         } else {
@@ -74,7 +74,7 @@ class SetupActivity : AppCompatActivity() {
                     }
                 }
                 FINISH_FRAGMENT -> {
-                    prefs.edit().putBoolean("setup_complete", true).apply()
+                    prefsEditor.putBoolean("setup_complete", true).apply()
                     startActivity(Intent(this, MainActivity::class.java))
                 }
             }
@@ -127,14 +127,13 @@ class SetupActivity : AppCompatActivity() {
 
     private val isNotificationServiceEnabled: Boolean
         get() {
-            val pkgName = packageName
             val flat = Settings.Secure.getString(contentResolver, "enabled_notification_listeners")
             if (!TextUtils.isEmpty(flat)) {
                 val names = flat.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                 for (name in names) {
                     val cn = ComponentName.unflattenFromString(name)
                     if (cn != null) {
-                        if (TextUtils.equals(pkgName, cn.packageName)) {
+                        if (TextUtils.equals(packageName, cn.packageName)) {
                             return true
                         }
                     }
@@ -145,8 +144,8 @@ class SetupActivity : AppCompatActivity() {
 
     private val isDeviceAdmin: Boolean
         get() {
-            val policyManager = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
-            return policyManager.isAdminActive(ComponentName(this, AdminReceiver::class.java))
+            return (getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager)
+                    .isAdminActive(ComponentName(this, AdminReceiver::class.java))
         }
 
     companion object {

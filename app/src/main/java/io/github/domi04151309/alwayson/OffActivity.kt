@@ -32,13 +32,13 @@ open class OffActivity : Activity() {
         val audio = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         return when (keyCode) {
             KeyEvent.KEYCODE_VOLUME_UP -> {
-                audio.adjustStreamVolume(AudioManager.STREAM_MUSIC,
-                        AudioManager.ADJUST_RAISE, 0)
+                (getSystemService(Context.AUDIO_SERVICE) as AudioManager)
+                        .adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, 0)
                 true
             }
             KeyEvent.KEYCODE_VOLUME_DOWN -> {
-                audio.adjustStreamVolume(AudioManager.STREAM_MUSIC,
-                        AudioManager.ADJUST_LOWER, 0)
+                (getSystemService(Context.AUDIO_SERVICE) as AudioManager)
+                        .adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, 0)
                 true
             }
             else -> true
@@ -47,8 +47,8 @@ open class OffActivity : Activity() {
 
     override fun onPause() {
         super.onPause()
-        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        activityManager.moveTaskToFront(taskId, 0)
+        (getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
+                .moveTaskToFront(taskId, 0)
     }
 
     open fun finishAndOff() {
