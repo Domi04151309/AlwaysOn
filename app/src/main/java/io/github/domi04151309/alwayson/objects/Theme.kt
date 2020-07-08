@@ -12,7 +12,7 @@ internal object Theme {
 
     fun set(context: Context) {
         if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("dark_mode", false)) {
-            context.setTheme(R.style.AppTheme_Dark)
+            context.setTheme(R.style.AppThemeDark)
             val taskDescription = ActivityManager.TaskDescription(
                     context.getString(R.string.app_name),
                     BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher),
