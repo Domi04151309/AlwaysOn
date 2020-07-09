@@ -17,7 +17,6 @@ import io.github.domi04151309.alwayson.objects.Theme
 import org.json.JSONArray
 import java.lang.Exception
 
-
 class FilterNotificationsActivity : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
@@ -46,17 +45,17 @@ class FilterNotificationsActivity : AppCompatActivity(),
 
     class PreferenceFragment : PreferenceFragmentCompat() {
 
-        private var prefs: SharedPreferences? = null
-        private var blocked: PreferenceCategory? = null
-        private var shown: PreferenceCategory? = null
         private var blockedArray = JSONArray()
-        private var packageManager: PackageManager? = null
-        private var empty: Preference? = null
+        private lateinit var prefs: SharedPreferences
+        private lateinit var blocked: PreferenceCategory
+        private lateinit var shown: PreferenceCategory
+        private lateinit var packageManager: PackageManager
+        private lateinit var empty: Preference
 
         private val notificationReceiver = object : BroadcastReceiver() {
 
             override fun onReceive(c: Context, intent: Intent) {
-                shown!!.removeAll()
+                shown.removeAll()
                 val notifications = intent.getParcelableArrayExtra("notifications") ?: arrayOf()
                 val apps: ArrayList<String> = arrayListOf()
                 var pref: Preference
@@ -72,7 +71,7 @@ class FilterNotificationsActivity : AppCompatActivity(),
                             }
                             true
                         }
-                        shown!!.addPreference(pref)
+                        shown.addPreference(pref)
                     }
                 }
             }
@@ -81,20 +80,20 @@ class FilterNotificationsActivity : AppCompatActivity(),
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_filter_notifications)
             prefs = PreferenceManager.getDefaultSharedPreferences(context)
-            blocked = findPreference("blocked")
-            shown = findPreference("shown")
+            blocked = findPreference("blocked") ?: return
+            shown = findPreference("shown") ?: return
             packageManager = requireContext().packageManager
             empty = Preference(preferenceScreen.context)
-            empty!!.setIcon(R.drawable.ic_notification)
-            empty!!.title = requireContext().resources.getString(R.string.pref_look_and_feel_filter_notifications_empty)
-            empty!!.summary = requireContext().resources.getString(R.string.pref_look_and_feel_filter_notifications_empty_summary)
+            empty.setIcon(R.drawable.ic_notification)
+            empty.title = requireContext().resources.getString(R.string.pref_look_and_feel_filter_notifications_empty)
+            empty.summary = requireContext().resources.getString(R.string.pref_look_and_feel_filter_notifications_empty_summary)
         }
 
         override fun onStart() {
             super.onStart()
-            blockedArray = JSONArray(prefs!!.getString("blocked_notifications", "[]"))
+            blockedArray = JSONArray(prefs.getString("blocked_notifications", "[]"))
             if (!JSON.isEmpty(blockedArray)) {
-                blocked!!.removeAll()
+                blocked.removeAll()
                 for (i in 0 until blockedArray.length()) {
                     addToList(blockedArray.getString(i))
                 }
@@ -107,26 +106,26 @@ class FilterNotificationsActivity : AppCompatActivity(),
 
         override fun onStop() {
             super.onStop()
-            prefs!!.edit().putString("blocked_notifications", blockedArray.toString()).apply()
+            prefs.edit().putString("blocked_notifications", blockedArray.toString()).apply()
         }
 
         private fun addToList(packageName: String) {
-            if (JSON.isEmpty(blockedArray)) blocked!!.removeAll()
+            if (JSON.isEmpty(blockedArray)) blocked.removeAll()
             val pref = generatePref(packageName)
             pref.setOnPreferenceClickListener {
                 JSON.remove(blockedArray, packageName)
-                blocked!!.removePreference(it)
-                if (JSON.isEmpty(blockedArray)) blocked!!.addPreference(empty)
+                blocked.removePreference(it)
+                if (JSON.isEmpty(blockedArray)) blocked.addPreference(empty)
                 true
             }
-            blocked!!.addPreference(pref)
+            blocked.addPreference(pref)
         }
 
         private fun generatePref(packageName: String): Preference {
             val pref = Preference(preferenceScreen.context)
             pref.setIcon(R.drawable.ic_notification)
             pref.title = try {
-                packageManager!!.getApplicationLabel(packageManager!!.getApplicationInfo(packageName, PackageManager.GET_META_DATA)) as String
+                packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)) as String
             } catch (e: Exception) {
                 resources.getString(R.string.pref_look_and_feel_filter_notifications_unknown)
             }
