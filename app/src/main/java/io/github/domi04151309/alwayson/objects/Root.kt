@@ -3,7 +3,7 @@ package io.github.domi04151309.alwayson.objects
 import android.util.Log
 import java.io.DataOutputStream
 
-object Root {
+internal object Root {
 
     fun request(): Boolean {
         val p: Process

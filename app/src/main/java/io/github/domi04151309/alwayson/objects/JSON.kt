@@ -2,7 +2,7 @@ package io.github.domi04151309.alwayson.objects
 
 import org.json.JSONArray
 
-object JSON {
+internal object JSON {
 
     fun contains(jsonArray: JSONArray, key: String): Boolean {
         for (i in 0 until jsonArray.length()) {

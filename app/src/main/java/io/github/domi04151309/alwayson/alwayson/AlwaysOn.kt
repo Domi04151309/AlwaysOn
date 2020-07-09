@@ -43,19 +43,19 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         private const val SENSOR_DELAY_SLOW: Int = 1000000
     }
 
-    private var servicesRunning: Boolean = false
-    private var screenSize: Float = 0F
+    protected var servicesRunning: Boolean = false
+    protected var screenSize: Float = 0F
+    protected lateinit var viewHolder: AlwaysOnViewHolder
+    protected lateinit var prefHolder: AlwaysOnPreferenceHolder
     private lateinit var localManager: LocalBroadcastManager
-    private lateinit var viewHolder: AlwaysOnViewHolder
-    private lateinit var prefHolder: AlwaysOnPreferenceHolder
 
     //Threads
     private var aoEdgeGlowThread: Thread = Thread()
     private var animationThread: Thread = Thread()
 
     //Time
-    private var clockFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
-    private val clockHandler = Handler()
+    protected var clockFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
+    protected val clockHandler: Handler = Handler()
     private val clockRunnable = object : Runnable {
         override fun run() {
             viewHolder.clockTxt.text = clockFormat.format(Calendar.getInstance())
@@ -64,14 +64,14 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     }
 
     //Date
-    private var dateFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
+    protected var dateFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
 
     //Media Controls
     private var localMediaController: MediaController? = null
-    private var mediaPlaybackState: Int = 0
+    protected var mediaPlaybackState: Int = 0
 
     //Notifications
-    private var notificationAvailable: Boolean = false
+    protected var notificationAvailable: Boolean = false
 
     //Battery saver
     private var userPowerSaving: Boolean = false
@@ -86,8 +86,8 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
 
     //Rules
     private var rules: Rules? = null
-    private var rulesChargingState: String = ""
-    private var rulesBattery: Int = 0
+    protected var rulesChargingState: String = ""
+    protected var rulesBattery: Int = 0
     private var rulesTimeout: Int = 0
     private val rulesTimePeriodHandler: Handler = Handler()
     private val rulesTimeoutHandler: Handler = Handler()
@@ -379,7 +379,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
             override fun run() {
                 try {
                     while (viewHolder.fullscreenContent.height == 0) sleep(10)
-                    screenSize = getScreenSize()
+                    screenSize = calculateScreenSize()
                     viewHolder.fullscreenContent.animate().translationY(screenSize / 4).duration = 0
                     while (!isInterrupted) {
                         sleep(animationDelay)
@@ -457,7 +457,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         }
     }
 
-    private fun updateMediaState() {
+    protected fun updateMediaState() {
         try {
             viewHolder.musicLayout.visibility = View.VISIBLE
             viewHolder.musicTxt.text = resources.getString(
@@ -487,7 +487,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        screenSize = getScreenSize()
+        screenSize = calculateScreenSize()
     }
 
     override fun onStart() {
@@ -535,10 +535,10 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
     }
 
-    private fun getScreenSize(): Float {
+    protected fun calculateScreenSize(): Float {
         val size = Point()
         windowManager.defaultDisplay.getSize(size)
-        return  (size.y - viewHolder.fullscreenContent.height).toFloat()
+        return (size.y - viewHolder.fullscreenContent.height).toFloat()
     }
 
     private fun startServices() {

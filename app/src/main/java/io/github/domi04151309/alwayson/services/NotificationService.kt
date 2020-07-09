@@ -15,7 +15,7 @@ import org.json.JSONArray
 
 class NotificationService : NotificationListenerService() {
 
-    private lateinit var localManager: LocalBroadcastManager
+    protected lateinit var localManager: LocalBroadcastManager
     private lateinit var prefs: SharedPreferences
     private var sentRecently: Boolean = false
     private var cache: Int = -1
@@ -56,7 +56,7 @@ class NotificationService : NotificationListenerService() {
         sendCount()
     }
 
-    private fun sendCount(force: Boolean = false) {
+    protected fun sendCount(force: Boolean = false) {
         if (!sentRecently) {
             sentRecently = true
             var count = 0

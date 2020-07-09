@@ -11,7 +11,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
-object Global {
+internal object Global {
 
     const val LOG_TAG: String = "AlwaysOn"
 

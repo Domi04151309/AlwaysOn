@@ -37,9 +37,9 @@ class MainActivity : AppCompatActivity() {
         private const val DISPLAY_OVER_OTHER_APPS_DIALOG: Byte = 2
     }
 
-    private lateinit var clockTxt: TextView
-    private lateinit var dateTxt: TextView
-    private lateinit var batteryTxt: TextView
+    protected lateinit var clockTxt: TextView
+    protected lateinit var dateTxt: TextView
+    protected lateinit var batteryTxt: TextView
     private var clockThread: Thread = Thread()
 
     private val batteryReceiver = object : BroadcastReceiver() {
