@@ -20,5 +20,5 @@ class NotificationGridAdapter(private val itemArray: ArrayList<Icon>) : Recycler
         holder.view.findViewById<ImageView>(R.id.drawable).setImageIcon(itemArray[position])
     }
 
-    override fun getItemCount() = itemArray.size
+    override fun getItemCount(): Int = itemArray.size
 }

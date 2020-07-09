@@ -22,7 +22,7 @@ class SetupActivity : AppCompatActivity() {
 
     private var currentFragment = MODE_FRAGMENT
     private var isActionRequired = false
-    var rootMode = false
+    var rootMode: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -149,10 +149,10 @@ class SetupActivity : AppCompatActivity() {
         }
 
     companion object {
-        const val NO_FRAGMENT = 0
-        const val MODE_FRAGMENT = 1
-        const val NOTIFICATION_LISTENER_FRAGMENT = 2
-        const val DRAW_OVER_OTHER_APPS_FRAGMENT = 3
-        const val FINISH_FRAGMENT = 4
+        const val NO_FRAGMENT: Int = 0
+        const val MODE_FRAGMENT: Int = 1
+        const val NOTIFICATION_LISTENER_FRAGMENT: Int = 2
+        const val DRAW_OVER_OTHER_APPS_FRAGMENT: Int = 3
+        const val FINISH_FRAGMENT: Int = 4
     }
 }

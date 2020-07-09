@@ -13,16 +13,16 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 object Global {
 
-    const val LOG_TAG = "AlwaysOn"
+    const val LOG_TAG: String = "AlwaysOn"
 
-    const val REQUEST_DETAILED_NOTIFICATIONS = "io.github.domi04151309.alwayson.REQUEST_DETAILED_NOTIFICATIONS"
-    const val DETAILED_NOTIFICATIONS = "io.github.domi04151309.alwayson.DETAILED_NOTIFICATIONS"
-    const val REQUEST_NOTIFICATIONS = "io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"
-    const val NOTIFICATIONS = "io.github.domi04151309.alwayson.NOTIFICATIONS"
+    const val REQUEST_DETAILED_NOTIFICATIONS: String = "io.github.domi04151309.alwayson.REQUEST_DETAILED_NOTIFICATIONS"
+    const val DETAILED_NOTIFICATIONS: String = "io.github.domi04151309.alwayson.DETAILED_NOTIFICATIONS"
+    const val REQUEST_NOTIFICATIONS: String = "io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"
+    const val NOTIFICATIONS: String = "io.github.domi04151309.alwayson.NOTIFICATIONS"
 
-    const val REQUEST_STOP = "io.github.domi04151309.alwayson.REQUEST_STOP"
+    const val REQUEST_STOP: String = "io.github.domi04151309.alwayson.REQUEST_STOP"
 
-    const val ALWAYS_ON_STATE_CHANGED = "io.github.domi04151309.alwayson.ALWAYS_ON_STATE_CHANGED"
+    const val ALWAYS_ON_STATE_CHANGED: String = "io.github.domi04151309.alwayson.ALWAYS_ON_STATE_CHANGED"
 
     fun currentAlwaysOnState(context: Context): Boolean{
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("always_on", false)

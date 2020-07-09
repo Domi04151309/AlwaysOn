@@ -111,8 +111,8 @@ class RulesActivity : AppCompatActivity(),
         }
 
         companion object {
-            const val DEFAULT_START_TIME = "0:00"
-            const val DEFAULT_END_TIME = "0:00"
+            const val DEFAULT_START_TIME: String = "0:00"
+            const val DEFAULT_END_TIME: String = "0:00"
         }
     }
 }

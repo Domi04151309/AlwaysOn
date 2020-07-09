@@ -62,6 +62,6 @@ class ForegroundService : Service() {
     }
 
     companion object {
-        const val CHANNEL_ID = "service_channel"
+        const val CHANNEL_ID: String = "service_channel"
     }
 }
