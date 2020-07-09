@@ -43,9 +43,9 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         private const val SENSOR_DELAY_SLOW: Int = 1000000
     }
 
-    private var localManager: LocalBroadcastManager? = null
     private var servicesRunning: Boolean = false
     private var screenSize: Float = 0F
+    private lateinit var localManager: LocalBroadcastManager
     private lateinit var viewHolder: AlwaysOnViewHolder
     private lateinit var prefHolder: AlwaysOnPreferenceHolder
 
@@ -431,7 +431,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         rulesTimeout = prefs.getInt("rules_timeout", 0)
 
         //Broadcast Receivers
-        localManager!!.registerReceiver(localReceiver, localFilter)
+        localManager.registerReceiver(localReceiver, localFilter)
         registerReceiver(systemReceiver, systemFilter)
     }
 
@@ -517,7 +517,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         if (prefHolder.pocketMode) sensorManager!!.unregisterListener(this)
         if (prefHolder.edgeGlow) aoEdgeGlowThread.interrupt()
         animationThread.interrupt()
-        localManager!!.unregisterReceiver(localReceiver)
+        localManager.unregisterReceiver(localReceiver)
         unregisterReceiver(systemReceiver)
     }
 
@@ -546,7 +546,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
             servicesRunning = true
             if (prefHolder.showClock) clockHandler.postDelayed(clockRunnable, CLOCK_DELAY)
             if (prefHolder.showNotificationCount || prefHolder.showNotificationIcons || prefHolder.edgeGlow) {
-                localManager!!.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
+                localManager.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
             }
         }
     }
