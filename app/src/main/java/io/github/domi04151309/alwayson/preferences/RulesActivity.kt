@@ -41,13 +41,13 @@ class RulesActivity : AppCompatActivity(),
 
     class PreferenceFragment : PreferenceFragmentCompat() {
 
-        private var prefs: SharedPreferences? = null
-        private var rulesBatteryLevel: EditIntegerPreference? = null
-        private var rulesTime: Preference? = null
-        private var rulesTimeout: EditIntegerPreference? = null
-
         private var rulesTimeStartValue = DEFAULT_START_TIME
         private var rulesTimeEndValue = DEFAULT_END_TIME
+
+        private lateinit var prefs: SharedPreferences
+        private lateinit var rulesBatteryLevel: EditIntegerPreference
+        private lateinit var rulesTime: Preference
+        private lateinit var rulesTimeout: EditIntegerPreference
 
         private val spChanged: SharedPreferences.OnSharedPreferenceChangeListener =
                 SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
@@ -57,16 +57,16 @@ class RulesActivity : AppCompatActivity(),
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_rules)
             prefs = PreferenceManager.getDefaultSharedPreferences(context)
-            rulesBatteryLevel = findPreference("rules_battery_level")
-            rulesTime = findPreference("rules_time")
-            rulesTimeout = findPreference("rules_timeout")
-            val is24Hour = !prefs!!.getBoolean("hour", false)
+            rulesBatteryLevel = findPreference("rules_battery_level") ?: return
+            rulesTime = findPreference("rules_time") ?: return
+            rulesTimeout = findPreference("rules_timeout") ?: return
+            val is24Hour = !prefs.getBoolean("hour", false)
 
-            rulesTime!!.setOnPreferenceClickListener {
+            rulesTime.setOnPreferenceClickListener {
                 TimePickerDialog(context, OnTimeSetListener { _, selectedStartHour, selectedStartMinute ->
-                    prefs!!.edit().putString("rules_time_start", formatTime(selectedStartHour, selectedStartMinute)).apply()
+                    prefs.edit().putString("rules_time_start", formatTime(selectedStartHour, selectedStartMinute)).apply()
                     TimePickerDialog(context, OnTimeSetListener { _, selectedEndHour, selectedEndMinute ->
-                        prefs!!.edit().putString("rules_time_end", formatTime(selectedEndHour, selectedEndMinute)).apply()
+                        prefs.edit().putString("rules_time_end", formatTime(selectedEndHour, selectedEndMinute)).apply()
                     }, parseInt(rulesTimeEndValue.substringBefore(":")), parseInt(rulesTimeEndValue.substringAfter(":")), is24Hour).show()
                 }, parseInt(rulesTimeStartValue.substringBefore(":")), parseInt(rulesTimeStartValue.substringAfter(":")), is24Hour).show()
                 true
@@ -77,30 +77,30 @@ class RulesActivity : AppCompatActivity(),
 
         override fun onStart() {
             super.onStart()
-            prefs!!.registerOnSharedPreferenceChangeListener(spChanged)
+            prefs.registerOnSharedPreferenceChangeListener(spChanged)
         }
 
         override fun onStop() {
             super.onStop()
-            prefs!!.unregisterOnSharedPreferenceChangeListener(spChanged)
+            prefs.unregisterOnSharedPreferenceChangeListener(spChanged)
         }
 
         private fun updateSummaries() {
-            val rulesBatteryLevelValue = prefs!!.getInt("rules_battery_level", 0)
-            rulesTimeStartValue = prefs!!.getString("rules_time_start", DEFAULT_START_TIME) ?: DEFAULT_START_TIME
-            rulesTimeEndValue = prefs!!.getString("rules_time_end", DEFAULT_END_TIME) ?: DEFAULT_END_TIME
-            val rulesTimeoutValue = prefs!!.getInt("rules_timeout", 0)
+            val rulesBatteryLevelValue = prefs.getInt("rules_battery_level", 0)
+            rulesTimeStartValue = prefs.getString("rules_time_start", DEFAULT_START_TIME) ?: DEFAULT_START_TIME
+            rulesTimeEndValue = prefs.getString("rules_time_end", DEFAULT_END_TIME) ?: DEFAULT_END_TIME
+            val rulesTimeoutValue = prefs.getInt("rules_timeout", 0)
 
             if (rulesBatteryLevelValue > 100) {
-                prefs!!.edit().putInt("rules_battery_level", 100).apply()
+                prefs.edit().putInt("rules_battery_level", 100).apply()
                 return
             }
 
-            rulesTime!!.summary = resources.getString(R.string.pref_look_and_feel_rules_time_summary, rulesTimeStartValue, rulesTimeEndValue)
-            rulesBatteryLevel!!.summary =
+            rulesTime.summary = resources.getString(R.string.pref_look_and_feel_rules_time_summary, rulesTimeStartValue, rulesTimeEndValue)
+            rulesBatteryLevel.summary =
                     if (rulesBatteryLevelValue > 0) resources.getString(R.string.pref_look_and_feel_rules_battery_level_summary, rulesBatteryLevelValue)
                     else resources.getString(R.string.pref_look_and_feel_rules_battery_level_summary_zero)
-            rulesTimeout!!.summary =
+            rulesTimeout.summary =
                     if (rulesTimeoutValue > 0) resources.getQuantityString(R.plurals.pref_look_and_feel_rules_timeout_summary, rulesTimeoutValue, rulesTimeoutValue)
                     else resources.getString(R.string.pref_look_and_feel_rules_timeout_summary_zero)
         }
