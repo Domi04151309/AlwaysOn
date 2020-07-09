@@ -42,20 +42,20 @@ class Preferences : AppCompatActivity(),
     class GeneralPreferenceFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_general)
-            findPreference<Preference>("always_on")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("always_on")?.setOnPreferenceClickListener {
                 TileService.requestListeningState(context, ComponentName(requireContext(), AlwaysOnQS::class.java))
                 LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(Intent().setAction(Global.ALWAYS_ON_STATE_CHANGED))
                 true
             }
-            findPreference<Preference>("pref_look_and_feel")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("pref_look_and_feel")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, LookAndFeelPreferences::class.java))
                 true
             }
-            findPreference<Preference>("pref_permissions")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("pref_permissions")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, PermissionPreferences::class.java))
                 true
             }
-            findPreference<Preference>("pref_about")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("pref_about")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, AboutActivity::class.java))
                 true
             }

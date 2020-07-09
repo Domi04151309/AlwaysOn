@@ -37,23 +37,23 @@ class LookAndFeelPreferences : AppCompatActivity(),
     class PreferenceLookAndFeel : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_look_and_feel)
-            findPreference<Preference>("pref_watch_face")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("pref_watch_face")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, LAFWatchFacePreferences::class.java))
                 true
             }
-            findPreference<Preference>("pref_background")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("pref_background")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, LAFBackgroundPreferences::class.java))
                 true
             }
-            findPreference<Preference>("rules")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("rules")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, RulesActivity::class.java))
                 true
             }
-            findPreference<Preference>("pref_behavior")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("pref_behavior")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, LAFBehaviorPreferences::class.java))
                 true
             }
-            findPreference<Preference>("pref_other")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("pref_other")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, LAFOtherPreferences::class.java))
                 true
             }

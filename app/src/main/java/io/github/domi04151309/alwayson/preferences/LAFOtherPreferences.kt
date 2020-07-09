@@ -38,11 +38,11 @@ class LAFOtherPreferences : AppCompatActivity(),
     class PreferenceFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_other)
-            findPreference<Preference>("dark_mode")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("dark_mode")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, MainActivity::class.java))
                 true
             }
-            findPreference<Preference>("charging_style")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("charging_style")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, ChargingLookActivity::class.java))
                 true
             }

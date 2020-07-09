@@ -39,13 +39,13 @@ class LAFBehaviorPreferences : AppCompatActivity(),
     class PreferenceFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_behavior)
-            findPreference<Preference>("ao_force_brightness")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("ao_force_brightness")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, BrightnessActivity::class.java))
                 true
             }
             if(!PreferenceManager.getDefaultSharedPreferences(context).getBoolean("root_mode", false)) {
-                findPreference<SwitchPreference>("ao_power_saving")!!.isEnabled = false
-                findPreference<SwitchPreference>("heads_up")!!.isEnabled = false
+                findPreference<SwitchPreference>("ao_power_saving")?.isEnabled = false
+                findPreference<SwitchPreference>("heads_up")?.isEnabled = false
             }
         }
     }

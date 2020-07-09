@@ -40,7 +40,7 @@ class PermissionPreferences : AppCompatActivity(),
     class PreferencePermissions : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_permissions)
-            findPreference<Preference>("root_mode")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("root_mode")?.setOnPreferenceClickListener {
                 if (!Root.request()) {
                     val toast = Toast.makeText(context, R.string.setup_root_failed, Toast.LENGTH_LONG)
                     toast.setGravity(Gravity.CENTER, 0, 0)

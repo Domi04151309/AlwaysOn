@@ -37,11 +37,11 @@ class LAFWatchFacePreferences : AppCompatActivity(),
     class PreferenceFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_watch_face)
-            findPreference<Preference>("ao_style")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("ao_style")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, AlwaysOnLookActivity::class.java))
                 true
             }
-            findPreference<Preference>("pref_filter_notifications")!!.setOnPreferenceClickListener {
+            findPreference<Preference>("pref_filter_notifications")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, FilterNotificationsActivity::class.java))
                 true
             }
