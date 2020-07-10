@@ -116,7 +116,7 @@ class SetupActivity : AppCompatActivity() {
         if (currentFragment > NO_FRAGMENT) currentFragment--
     }
 
-    private fun swapContentFragment(fragment: Fragment, id: Int) {
+    private fun swapContentFragment(fragment: Fragment, id: Byte) {
         currentFragment = id
         supportFragmentManager.beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -149,10 +149,10 @@ class SetupActivity : AppCompatActivity() {
         }
 
     companion object {
-        const val NO_FRAGMENT: Int = 0
-        const val MODE_FRAGMENT: Int = 1
-        const val NOTIFICATION_LISTENER_FRAGMENT: Int = 2
-        const val DRAW_OVER_OTHER_APPS_FRAGMENT: Int = 3
-        const val FINISH_FRAGMENT: Int = 4
+        const val NO_FRAGMENT: Byte = 0
+        const val MODE_FRAGMENT: Byte = 1
+        const val NOTIFICATION_LISTENER_FRAGMENT: Byte = 2
+        const val DRAW_OVER_OTHER_APPS_FRAGMENT: Byte = 3
+        const val FINISH_FRAGMENT: Byte = 4
     }
 }

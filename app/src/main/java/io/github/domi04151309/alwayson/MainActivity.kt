@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     private val batteryReceiver = object : BroadcastReceiver() {
 
-        override fun onReceive(ctxt: Context, intent: Intent) {
+        override fun onReceive(c: Context, intent: Intent) {
             batteryTxt.text = resources.getString(R.string.percent, intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0))
         }
     }

@@ -11,7 +11,7 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
 
     private var start = Calendar.getInstance()
     private var end = Calendar.getInstance()
-    private val batteryStatus: Intent = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter -> c.registerReceiver(null, filter)!! }
+    private val batteryStatus: Intent? = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter -> c.registerReceiver(null, filter) }
 
     init {
         val startString = prefs.getString("rules_time_start", "0:00") ?: "0:00"
@@ -32,13 +32,13 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
     }
 
     fun matchesChargingState(): Boolean {
-        val chargingState: Int = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
+        val chargingState: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: return true
         val ruleChargingState = prefs.getString("rules_charging_state", "always")
         return (ruleChargingState == "charging" && chargingState > 0) || (ruleChargingState == "discharging" && chargingState == 0) || (ruleChargingState == "always")
     }
 
     fun matchesBatteryPercentage(): Boolean {
-        return batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) > prefs.getInt("rules_battery_level", 0)
+        return batteryStatus?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) ?: 100 > prefs.getInt("rules_battery_level", 0)
     }
 
     fun isInTimePeriod(now: Calendar): Boolean {

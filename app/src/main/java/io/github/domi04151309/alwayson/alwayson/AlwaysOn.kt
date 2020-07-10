@@ -82,7 +82,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     //DND
     private var notificationManager: NotificationManager? = null
     private var notificationAccess: Boolean = false
-    private var userDND: Int = 0
+    private var userDND: Int = NotificationManager.INTERRUPTION_FILTER_ALL
 
     //Rules
     private var rules: Rules? = null
@@ -290,22 +290,22 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
             }
             viewHolder.musicTxt.setOnClickListener {
                 try {
-                    if (mediaPlaybackState == PlaybackState.STATE_PLAYING) localMediaController!!.transportControls.pause()
-                    else if (mediaPlaybackState == PlaybackState.STATE_PAUSED) localMediaController!!.transportControls.play()
+                    if (mediaPlaybackState == PlaybackState.STATE_PLAYING) localMediaController?.transportControls?.pause()
+                    else if (mediaPlaybackState == PlaybackState.STATE_PAUSED) localMediaController?.transportControls?.play()
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
                 }
             }
             viewHolder.musicPrev.setOnClickListener {
                 try {
-                    localMediaController!!.transportControls.skipToPrevious()
+                    localMediaController?.transportControls?.skipToPrevious()
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
                 }
             }
             viewHolder.musicNext.setOnClickListener {
                 try {
-                    localMediaController!!.transportControls.skipToNext()
+                    localMediaController?.transportControls?.skipToNext()
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
                 }
@@ -325,14 +325,14 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         //Proximity
         if (prefHolder.pocketMode) {
             sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-            sensorManager!!.registerListener(this, sensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY), SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
+            sensorManager?.registerListener(this, sensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY), SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
         }
 
         //DND
         if (prefHolder.dnd) {
             notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationAccess = notificationManager!!.isNotificationPolicyAccessGranted
-            if(notificationAccess) userDND = notificationManager!!.currentInterruptionFilter
+            notificationAccess = notificationManager?.isNotificationPolicyAccessGranted ?: false
+            if(notificationAccess) userDND = notificationManager?.currentInterruptionFilter ?: NotificationManager.INTERRUPTION_FILTER_ALL
         }
 
         //Edge Glow
@@ -374,7 +374,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         //Animation
         val animationDuration = 10000L
         val animationScale = Settings.Global.getFloat(contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1.0f)
-        val animationDelay = (prefs!!.getInt("ao_animation_delay", 2) * 60000 + animationDuration * animationScale + 1000).toLong()
+        val animationDelay = (prefs.getInt("ao_animation_delay", 2) * 60000 + animationDuration * animationScale + 1000).toLong()
         animationThread = object : Thread() {
             override fun run() {
                 try {
@@ -444,7 +444,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
             localMediaController?.registerCallback(object : MediaController.Callback() {
                 override fun onPlaybackStateChanged(state: PlaybackState?) {
                     super.onPlaybackStateChanged(state)
-                    mediaPlaybackState = state!!.state
+                    mediaPlaybackState = state?.state ?: 0
                 }
 
                 override fun onMetadataChanged(metadata: MediaMetadata?) {
@@ -458,15 +458,15 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     }
 
     protected fun updateMediaState() {
-        try {
+        if (localMediaController != null) {
             viewHolder.musicLayout.visibility = View.VISIBLE
             viewHolder.musicTxt.text = resources.getString(
                     R.string.music,
-                    localMediaController?.metadata!!.getString(MediaMetadata.METADATA_KEY_ARTIST),
-                    localMediaController?.metadata!!.getString(MediaMetadata.METADATA_KEY_TITLE)
+                    localMediaController?.metadata?.getString(MediaMetadata.METADATA_KEY_ARTIST),
+                    localMediaController?.metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
             )
-        } catch (e: java.lang.Exception) {
-            viewHolder.musicTxt.text = resources.getString(R.string.error)
+        } else {
+            viewHolder.musicLayout.visibility = View.GONE
         }
     }
 
@@ -494,10 +494,10 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         super.onStart()
         CombinedServiceReceiver.isAlwaysOnRunning = true
         startServices()
-        val millisTillEnd = rules!!.millisTillEnd(Calendar.getInstance())
+        val millisTillEnd: Long = rules?.millisTillEnd(Calendar.getInstance()) ?: -1
         if (millisTillEnd > -1L) rulesTimePeriodHandler.postDelayed({ finishAndOff() }, millisTillEnd)
         if (rulesTimeout != 0) rulesTimePeriodHandler.postDelayed({ finishAndOff() }, rulesTimeout * 60000L)
-        if (prefHolder.dnd && notificationAccess) notificationManager!!.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+        if (prefHolder.dnd && notificationAccess) notificationManager?.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
         if (prefHolder.disableHeadsUpNotifications) Root.shell("settings put global heads_up_notifications_enabled 0")
     }
 
@@ -506,7 +506,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         stopServices()
         rulesTimePeriodHandler.removeCallbacksAndMessages(null)
         rulesTimeoutHandler.removeCallbacksAndMessages(null)
-        if (prefHolder.dnd && notificationAccess) notificationManager!!.setInterruptionFilter(userDND)
+        if (prefHolder.dnd && notificationAccess) notificationManager?.setInterruptionFilter(userDND)
         if (prefHolder.rootMode && prefHolder.powerSavingMode && !userPowerSaving) Root.shell("settings put global low_power 0")
         if (prefHolder.disableHeadsUpNotifications) Root.shell("settings put global heads_up_notifications_enabled 1")
     }
@@ -514,7 +514,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     override fun onDestroy() {
         super.onDestroy()
         CombinedServiceReceiver.isAlwaysOnRunning = false
-        if (prefHolder.pocketMode) sensorManager!!.unregisterListener(this)
+        if (prefHolder.pocketMode) sensorManager?.unregisterListener(this)
         if (prefHolder.edgeGlow) aoEdgeGlowThread.interrupt()
         animationThread.interrupt()
         localManager.unregisterReceiver(localReceiver)
