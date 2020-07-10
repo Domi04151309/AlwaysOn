@@ -15,7 +15,6 @@ import android.view.ContextThemeWrapper
 import android.view.KeyEvent
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -83,11 +82,7 @@ class MainActivity : AppCompatActivity() {
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
 
-        try {
-            ContextCompat.startForegroundService(this, Intent(this, ForegroundService::class.java))
-        } catch (e: Exception) {
-            Toast.makeText(this, R.string.err_service_failed, Toast.LENGTH_LONG).show()
-        }
+        ContextCompat.startForegroundService(this, Intent(this, ForegroundService::class.java))
 
         clockTxt = findViewById(R.id.clockTxt)
         dateTxt = findViewById(R.id.dateTxt)

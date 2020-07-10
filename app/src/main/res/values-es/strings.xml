@@ -5,8 +5,6 @@
     <string name="service_text">AlwaysOn está corriendo en el fondo</string>
     <string name="service_channel">Canal de servicio</string>
 
-    <string name="err_service_failed">¡Falló el servicio de arranque!</string>
-
     <string name="setup_header">Configuración</string>
     <string name="setup_choose_mode">Elige un modo</string>
     <string name="setup_choose_mode_summary">Tienes que elegir un modo para la aplicación. Si no estás seguro de lo que necesitas elegir, deja esta configuración como está. Si su dispositivo tiene privilegios de acceso, elija root.\n\nPor favor, tenga en cuenta que tiene que desactivar los privilegios de administrador de la aplicación antes de desinstalarla.</string>

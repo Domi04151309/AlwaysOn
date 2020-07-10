@@ -5,8 +5,6 @@
     <string name="service_text">AlwaysOn работает в фоновом режиме</string>
     <string name="service_channel">Сервисный канал</string>
 
-    <string name="err_service_failed">Не удалось запустить сервис!</string>
-
     <string name="setup_header">Настройка</string>
     <string name="setup_choose_mode">Выберите режим</string>
     <string name="setup_choose_mode_summary">Вам нужно выбрать режим работы приложения. Если вы не уверены, в нужном вам режиме, оставьте этот параметр как есть. Если ваше устройство имеет root-права, выберите root.</string>

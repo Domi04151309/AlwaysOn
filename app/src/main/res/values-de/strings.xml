@@ -5,8 +5,6 @@
     <string name="service_text">AlwaysOn läuft im Hintergrund</string>
     <string name="service_channel">Servicekanal</string>
 
-    <string name="err_service_failed">Starten des Services fehlgeschlagen!</string>
-
     <string name="setup_header">Setup</string>
     <string name="setup_choose_mode">Wähle einen Modus</string>
     <string name="setup_choose_mode_summary">Sie müssen einen Modus für die App auswählen. Wenn Sie sich nicht sicher sind, was Sie auswählen sollen, lassen Sie diese Einstellung unverändert. Wenn Ihr Gerät gerootet ist, wählen Sie root.\n\nBitte beachten Sie, dass sie den Geräteadministrator vor dem deinstallieren wieder deaktivieren müssen.</string>
@@ -163,7 +161,6 @@ Als zusätzliche Funktion können Sie Lade- und Kopfhöreranimationen aktivieren
     <string name="pref_root_mode_summary">Aktiviert Root-Funktionalitäten</string>
 
     <string name="loading">Lädt</string>
-    <string name="error">Fehler</string>
     <string name="missing_permissions">Fehlende Berechtigungen</string>
 
     <string name="about">Über</string>

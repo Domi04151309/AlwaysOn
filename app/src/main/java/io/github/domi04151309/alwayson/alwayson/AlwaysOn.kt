@@ -289,26 +289,14 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
                 viewHolder.musicTxt.text = resources.getString(R.string.missing_permissions)
             }
             viewHolder.musicTxt.setOnClickListener {
-                try {
-                    if (mediaPlaybackState == PlaybackState.STATE_PLAYING) localMediaController?.transportControls?.pause()
-                    else if (mediaPlaybackState == PlaybackState.STATE_PAUSED) localMediaController?.transportControls?.play()
-                } catch (e: Exception) {
-                    Log.e(Global.LOG_TAG, e.toString())
-                }
+                if (mediaPlaybackState == PlaybackState.STATE_PLAYING) localMediaController?.transportControls?.pause()
+                else if (mediaPlaybackState == PlaybackState.STATE_PAUSED) localMediaController?.transportControls?.play()
             }
             viewHolder.musicPrev.setOnClickListener {
-                try {
-                    localMediaController?.transportControls?.skipToPrevious()
-                } catch (e: Exception) {
-                    Log.e(Global.LOG_TAG, e.toString())
-                }
+                localMediaController?.transportControls?.skipToPrevious()
             }
             viewHolder.musicNext.setOnClickListener {
-                try {
-                    localMediaController?.transportControls?.skipToNext()
-                } catch (e: Exception) {
-                    Log.e(Global.LOG_TAG, e.toString())
-                }
+                localMediaController?.transportControls?.skipToNext()
             }
         }
 
