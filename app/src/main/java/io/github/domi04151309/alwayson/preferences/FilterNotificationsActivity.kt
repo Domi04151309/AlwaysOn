@@ -57,7 +57,7 @@ class FilterNotificationsActivity : AppCompatActivity(),
             override fun onReceive(c: Context, intent: Intent) {
                 shown.removeAll()
                 val notifications = intent.getParcelableArrayExtra("notifications") ?: arrayOf()
-                val apps: ArrayList<String> = arrayListOf()
+                val apps: ArrayList<String> = ArrayList(notifications.size)
                 var pref: Preference
                 notifications.forEach {
                     val notification = it as StatusBarNotification

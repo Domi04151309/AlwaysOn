@@ -59,11 +59,11 @@ class NotificationService : NotificationListenerService() {
     protected fun sendCount(force: Boolean = false) {
         if (!sentRecently) {
             sentRecently = true
+            val notifications: Array<StatusBarNotification> = activeNotifications
             var count = 0
-            val apps: ArrayList<String> = arrayListOf()
-            val icons: ArrayList<Icon> = arrayListOf()
+            val apps: ArrayList<String> = ArrayList(notifications.size)
+            val icons: ArrayList<Icon> = ArrayList(notifications.size)
             try {
-                val notifications = activeNotifications
                 for (notification in notifications) {
                     if (!notification.isOngoing && !JSON.contains(JSONArray(prefs.getString("blocked_notifications", "[]")), notification.packageName)) {
                         if (notification.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0) count++
