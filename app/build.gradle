@@ -8,8 +8,8 @@ android {
         applicationId "io.github.domi04151309.alwayson"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 374
-        versionName "3.7.4"
+        versionCode 375
+        versionName "3.7.5"
     }
     buildTypes {
         debug {

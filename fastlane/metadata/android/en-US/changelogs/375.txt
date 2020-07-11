@@ -1,0 +1,1 @@
+This version includes a lot of performance improvements and under the hood changes to make the app run smoother.
