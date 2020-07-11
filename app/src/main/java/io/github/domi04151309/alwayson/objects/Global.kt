@@ -32,7 +32,7 @@ internal object Global {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val value = !prefs.getBoolean("always_on", false)
         prefs.edit().putBoolean("always_on", value).apply()
-        TileService.requestListeningState(context, ComponentName(context ,AlwaysOnQS::class.java))
+        TileService.requestListeningState(context, ComponentName(context, AlwaysOnQS::class.java))
         LocalBroadcastManager.getInstance(context).sendBroadcast(Intent().setAction(ALWAYS_ON_STATE_CHANGED))
         return value
     }

@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.SetupActivity
 
-
 class ModeFragment : Fragment() {
 
     override fun onCreateView(

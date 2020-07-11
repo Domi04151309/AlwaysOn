@@ -29,20 +29,17 @@ open class OffActivity : Activity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        val audio = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        return when (keyCode) {
+        when (keyCode) {
             KeyEvent.KEYCODE_VOLUME_UP -> {
                 (getSystemService(Context.AUDIO_SERVICE) as AudioManager)
                         .adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, 0)
-                true
             }
             KeyEvent.KEYCODE_VOLUME_DOWN -> {
                 (getSystemService(Context.AUDIO_SERVICE) as AudioManager)
                         .adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, 0)
-                true
             }
-            else -> true
         }
+        return true
     }
 
     override fun onPause() {
