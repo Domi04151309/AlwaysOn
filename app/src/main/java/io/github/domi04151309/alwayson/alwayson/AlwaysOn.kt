@@ -130,7 +130,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         override fun onReceive(c: Context, intent: Intent) {
             when (intent.action) {
                 Intent.ACTION_DATE_CHANGED, Intent.ACTION_TIMEZONE_CHANGED -> {
-                    if (!servicesRunning) viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
+                    if (servicesRunning) viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
                 }
                 Intent.ACTION_BATTERY_CHANGED -> {
                     val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
