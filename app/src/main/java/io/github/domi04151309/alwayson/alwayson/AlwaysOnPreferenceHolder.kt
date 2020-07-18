@@ -12,7 +12,7 @@ class AlwaysOnPreferenceHolder(prefs: SharedPreferences) {
     val showBatteryPercentage: Boolean = prefs.getBoolean("ao_battery", true)
     val showNotificationCount: Boolean = prefs.getBoolean("ao_notifications", false)
     val showNotificationIcons: Boolean = prefs.getBoolean("ao_notification_icons", true)
-    val displaySize: Float = (prefs.getInt("pref_aod_scale", 100) + 50) / 100F
+    val displaySize: Float = (prefs.getInt("pref_aod_scale", 50) + 50) / 100F
     val edgeGlow: Boolean = prefs.getBoolean("ao_edgeGlow", false)
     val pocketMode: Boolean = prefs.getBoolean("ao_pocket_mode", false)
     val dnd: Boolean = prefs.getBoolean("ao_dnd", false)
