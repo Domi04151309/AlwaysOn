@@ -138,6 +138,9 @@ Als zusätzliche Funktion können Sie Lade- und Kopfhöreranimationen aktivieren
     <string name="pref_look_and_feel_filter_notifications_empty_summary">Es sieht so aus, als gäbe es nichts anzuzeigen</string>
     <string name="pref_look_and_feel_filter_notifications_unknown">Unbekannte App</string>
 
+    <string name="pref_look_and_feel_display_size">Anzeigegröße</string>
+    <string name="pref_look_and_feel_display_size_summary">Die Anzeigegröße des AODs ist %1$d%%</string>
+
     <string name="pref_look_and_feel_rules">Regeln</string>
     <string name="pref_look_and_feel_rules_summary">Wann das Always On Display angezeigt werden soll</string>
     <string name="pref_look_and_feel_rules_charging_state">Ladezustand</string>

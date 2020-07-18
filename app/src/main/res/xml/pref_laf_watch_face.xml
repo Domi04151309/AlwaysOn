@@ -80,5 +80,12 @@
         android:key="pref_filter_notifications"
         android:summary="@string/pref_look_and_feel_filter_notifications_summary"
         android:title="@string/pref_look_and_feel_filter_notifications" />
+    <SeekBarPreference
+        android:icon="@drawable/ic_scale"
+        android:key="pref_aod_scale"
+        android:summary="@string/loading"
+        android:title="@string/pref_look_and_feel_display_size"
+        android:max="100"
+        android:defaultValue="50" />
 
 </PreferenceScreen>

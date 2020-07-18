@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SeekBarPreference
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Theme
 
@@ -43,6 +44,12 @@ class LAFWatchFacePreferences : AppCompatActivity(),
             }
             findPreference<Preference>("pref_filter_notifications")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, FilterNotificationsActivity::class.java))
+                true
+            }
+            val prefAodScale = findPreference<SeekBarPreference>("pref_aod_scale") ?: return
+            prefAodScale.summary = resources.getString(R.string.pref_look_and_feel_display_size_summary, prefAodScale.value + 50)
+            prefAodScale.setOnPreferenceChangeListener { preference, newValue ->
+                preference.summary = resources.getString(R.string.pref_look_and_feel_display_size_summary, (newValue as Int) + 50)
                 true
             }
         }

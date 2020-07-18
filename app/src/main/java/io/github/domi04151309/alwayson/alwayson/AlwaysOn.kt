@@ -215,6 +215,9 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
             viewHolder.messageTxt.text = prefHolder.message
         }
 
+        viewHolder.fullscreenContent.scaleX = prefHolder.displaySize
+        viewHolder.fullscreenContent.scaleY = prefHolder.displaySize
+
         clockFormat = SimpleDateFormat(
                 if (prefHolder.userTheme == "samsung" || prefHolder.userTheme == "oneplus") {
                     if (prefHolder.use12HourClock) {
