@@ -68,7 +68,11 @@ class NotificationService : NotificationListenerService() {
                 apps = ArrayList(notifications.size)
                 icons = ArrayList(notifications.size)
                 for (notification in notifications) {
-                    if (!notification.isOngoing && !JSON.contains(JSONArray(prefs.getString("blocked_notifications", "[]")), notification.packageName)) {
+                    if (
+                            !notification.isOngoing
+                            && !JSON.contains(JSONArray(prefs.getString("blocked_notifications", "[]")), notification.packageName)
+                            && notification.notification.priority <= 0
+                    ) {
                         if (notification.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0) count++
                         if (!apps.contains(notification.packageName)) {
                             apps += notification.packageName
