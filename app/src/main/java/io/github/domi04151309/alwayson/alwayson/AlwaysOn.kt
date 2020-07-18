@@ -313,7 +313,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         //Proximity
         if (prefHolder.pocketMode) {
             sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-            sensorManager?.registerListener(this, sensorManager!!.getDefaultSensor(Sensor.TYPE_PROXIMITY), SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
+            sensorManager?.registerListener(this, sensorManager?.getDefaultSensor(Sensor.TYPE_PROXIMITY), SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
         }
 
         //DND

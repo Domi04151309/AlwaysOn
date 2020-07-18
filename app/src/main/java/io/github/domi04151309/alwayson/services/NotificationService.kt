@@ -59,22 +59,27 @@ class NotificationService : NotificationListenerService() {
     protected fun sendCount(force: Boolean = false) {
         if (!sentRecently) {
             sentRecently = true
-            val notifications: Array<StatusBarNotification> = activeNotifications
+            val notifications: Array<StatusBarNotification>
+            val apps: ArrayList<String>
+            var icons: ArrayList<Icon>
             var count = 0
-            val apps: ArrayList<String> = ArrayList(notifications.size)
-            val icons: ArrayList<Icon> = ArrayList(notifications.size)
             try {
+                notifications = activeNotifications
+                apps = ArrayList(notifications.size)
+                icons = ArrayList(notifications.size)
                 for (notification in notifications) {
                     if (!notification.isOngoing && !JSON.contains(JSONArray(prefs.getString("blocked_notifications", "[]")), notification.packageName)) {
                         if (notification.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0) count++
                         if (!apps.contains(notification.packageName)) {
                             apps += notification.packageName
-                            icons += notification.notification.smallIcon
+                            icons.add(notification.notification.smallIcon)
                         }
                     }
                 }
             } catch (e: Exception) {
                 Log.e(Global.LOG_TAG, e.toString())
+                count = 0
+                icons = arrayListOf()
             }
             if (cache != count || force) {
                 cache = count
