@@ -71,7 +71,6 @@ class NotificationService : NotificationListenerService() {
                     if (
                             !notification.isOngoing
                             && !JSON.contains(JSONArray(prefs.getString("blocked_notifications", "[]")), notification.packageName)
-                            && notification.notification.priority <= 0
                     ) {
                         if (notification.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0) count++
                         if (!apps.contains(notification.packageName)) {
