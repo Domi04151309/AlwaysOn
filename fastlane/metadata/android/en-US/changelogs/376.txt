@@ -1,0 +1,1 @@
+You can now make the always-on display appear smaller or bigger, depending on your preferences. This version includes fixes for a bug related to the date and a crash related to notifications.
