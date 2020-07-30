@@ -15,6 +15,7 @@ import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
 import android.os.*
 import android.provider.Settings
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -216,6 +217,12 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
 
         viewHolder.fullscreenContent.scaleX = prefHolder.displaySize
         viewHolder.fullscreenContent.scaleY = prefHolder.displaySize
+        if (prefHolder.userTheme == "samsung2") {
+            val outMetrics = DisplayMetrics()
+            windowManager.defaultDisplay.getMetrics(outMetrics)
+            val dpWidth: Float = outMetrics.widthPixels / resources.displayMetrics.density
+            viewHolder.fullscreenContent.translationX = dpWidth * prefHolder.displaySize - dpWidth
+        }
 
         clockFormat = SimpleDateFormat(
                 if (prefHolder.userTheme == "samsung" || prefHolder.userTheme == "oneplus") {
