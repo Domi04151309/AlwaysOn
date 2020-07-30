@@ -241,9 +241,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
 
         //Brightness
         if (prefHolder.forceBrightness) {
-            val lp = window.attributes
-            lp.screenBrightness = prefs.getInt("ao_force_brightness_value", 50) / 255.toFloat()
-            window.attributes = lp
+            window.attributes.screenBrightness = prefs.getInt("ao_force_brightness_value", 50) / 255.toFloat()
         }
 
         //Variables
