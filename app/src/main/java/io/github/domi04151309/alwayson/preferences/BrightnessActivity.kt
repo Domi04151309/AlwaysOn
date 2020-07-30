@@ -11,7 +11,7 @@ import io.github.domi04151309.alwayson.objects.Theme
 
 class BrightnessActivity : AppCompatActivity() {
 
-    protected var savedBrightness: Int = 50
+    internal var savedBrightness: Int = 50
     private lateinit var prefs: SharedPreferences
     private lateinit var brightnessSwitch: Switch
     private lateinit var seekBar: SeekBar

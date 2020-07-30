@@ -45,10 +45,10 @@ class FilterNotificationsActivity : AppCompatActivity(),
 
     class PreferenceFragment : PreferenceFragmentCompat() {
 
-        protected var blockedArray: JSONArray = JSONArray()
+        internal var blockedArray: JSONArray = JSONArray()
         private lateinit var prefs: SharedPreferences
         private lateinit var blocked: PreferenceCategory
-        protected lateinit var shown: PreferenceCategory
+        internal lateinit var shown: PreferenceCategory
         private lateinit var packageManager: PackageManager
         private lateinit var empty: Preference
 
@@ -109,7 +109,7 @@ class FilterNotificationsActivity : AppCompatActivity(),
             prefs.edit().putString("blocked_notifications", blockedArray.toString()).apply()
         }
 
-        protected fun addToList(packageName: String) {
+        internal fun addToList(packageName: String) {
             if (JSON.isEmpty(blockedArray)) blocked.removeAll()
             val pref = generatePref(packageName)
             pref.setOnPreferenceClickListener {
@@ -121,7 +121,7 @@ class FilterNotificationsActivity : AppCompatActivity(),
             blocked.addPreference(pref)
         }
 
-        protected fun generatePref(packageName: String): Preference {
+        internal fun generatePref(packageName: String): Preference {
             val pref = Preference(preferenceScreen.context)
             pref.setIcon(R.drawable.ic_notification)
             pref.title = try {

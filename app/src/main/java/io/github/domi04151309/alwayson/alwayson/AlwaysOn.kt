@@ -43,10 +43,10 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         private const val SENSOR_DELAY_SLOW: Int = 1000000
     }
 
-    protected var servicesRunning: Boolean = false
-    protected var screenSize: Float = 0F
-    protected lateinit var viewHolder: AlwaysOnViewHolder
-    protected lateinit var prefHolder: AlwaysOnPreferenceHolder
+    internal var servicesRunning: Boolean = false
+    internal var screenSize: Float = 0F
+    internal lateinit var viewHolder: AlwaysOnViewHolder
+    internal lateinit var prefHolder: AlwaysOnPreferenceHolder
     private lateinit var localManager: LocalBroadcastManager
 
     //Threads
@@ -54,8 +54,8 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     private var animationThread: Thread = Thread()
 
     //Time
-    protected var clockFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
-    protected val clockHandler: Handler = Handler()
+    internal var clockFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
+    internal val clockHandler: Handler = Handler()
     private val clockRunnable = object : Runnable {
         override fun run() {
             viewHolder.clockTxt.text = clockFormat.format(Calendar.getInstance())
@@ -64,14 +64,14 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     }
 
     //Date
-    protected var dateFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
+    internal var dateFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
 
     //Media Controls
     private var localMediaController: MediaController? = null
-    protected var mediaPlaybackState: Int = 0
+    internal var mediaPlaybackState: Int = 0
 
     //Notifications
-    protected var notificationAvailable: Boolean = false
+    internal var notificationAvailable: Boolean = false
 
     //Battery saver
     private var userPowerSaving: Boolean = false
@@ -86,8 +86,8 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
 
     //Rules
     private var rules: Rules? = null
-    protected var rulesChargingState: String = ""
-    protected var rulesBattery: Int = 0
+    internal var rulesChargingState: String = ""
+    internal var rulesBattery: Int = 0
     private var rulesTimeout: Int = 0
     private val rulesTimePeriodHandler: Handler = Handler()
     private val rulesTimeoutHandler: Handler = Handler()
@@ -447,7 +447,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         }
     }
 
-    protected fun updateMediaState() {
+    internal fun updateMediaState() {
         if (localMediaController != null) {
             viewHolder.musicLayout.visibility = View.VISIBLE
             viewHolder.musicTxt.text = resources.getString(
@@ -525,7 +525,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
                 or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
     }
 
-    protected fun calculateScreenSize(): Float {
+    internal fun calculateScreenSize(): Float {
         val size = Point()
         windowManager.defaultDisplay.getSize(size)
         return (size.y - viewHolder.fullscreenContent.height).toFloat()
