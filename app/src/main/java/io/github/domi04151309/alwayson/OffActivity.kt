@@ -9,11 +9,14 @@ import android.content.Context
 import android.content.pm.ActivityInfo
 import android.media.AudioManager
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
 import androidx.preference.PreferenceManager
+import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.objects.Root
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
+import java.lang.Exception
 
 @SuppressLint("Registered")
 open class OffActivity : Activity() {
@@ -44,8 +47,12 @@ open class OffActivity : Activity() {
 
     override fun onPause() {
         super.onPause()
-        (getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
-                .moveTaskToFront(taskId, 0)
+        try {
+            (getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
+                    .moveTaskToFront(taskId, 0)
+        } catch (e: Exception) {
+            Log.w(Global.LOG_TAG, e.toString())
+        }
     }
 
     open fun finishAndOff() {

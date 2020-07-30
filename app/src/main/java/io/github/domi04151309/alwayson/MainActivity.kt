@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity() {
                 builder.setTitle(R.string.device_admin)
                 builder.setMessage(R.string.device_admin_summary)
                 builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
-                    startActivity(Intent(this@MainActivity, PermissionPreferences::class.java))
+                    startActivity(Intent(this, PermissionPreferences::class.java))
                 }
             }
             NOTIFICATION_ACCESS_DIALOG-> {

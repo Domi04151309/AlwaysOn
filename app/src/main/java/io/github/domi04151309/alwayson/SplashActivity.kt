@@ -10,9 +10,9 @@ class SplashActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("setup_complete", false))
-            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         else
-            startActivity(Intent(this@SplashActivity, SetupActivity::class.java))
+            startActivity(Intent(this, SetupActivity::class.java))
         finish()
     }
 }
