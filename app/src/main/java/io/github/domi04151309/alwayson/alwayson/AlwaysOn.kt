@@ -328,6 +328,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         if (prefHolder.edgeGlow) {
             val transitionTime = prefs.getInt("ao_glowDuration", 2000)
             if (transitionTime >= 100) {
+                val transitionDelay = prefs.getInt("ao_glowDelay", 2000)
                 viewHolder.frame.background = when (prefs.getString("ao_glowStyle", "all")) {
                     "horizontal" -> ContextCompat.getDrawable(this, R.drawable.edge_glow_horizontal)
                     else -> ContextCompat.getDrawable(this, R.drawable.edge_glow)
@@ -341,7 +342,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
                                     runOnUiThread { transition.startTransition(transitionTime) }
                                     sleep(transitionTime.toLong())
                                     runOnUiThread { transition.reverseTransition(transitionTime) }
-                                    sleep(transitionTime.toLong())
+                                    sleep((transitionTime + transitionDelay).toLong())
                                 } else
                                     sleep(1000)
                             }

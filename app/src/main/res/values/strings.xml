@@ -97,6 +97,8 @@ As an additional feature you can enable charging and headphones animations that 
     <string name="pref_ao_edgeGlow_summary">Glowing edges when a notification is received</string>
     <string name="pref_ao_glowDuration">Glowing duration (in milliseconds)</string>
     <string name="pref_ao_glowDuration_summary">Duration the edges are glowing</string>
+    <string name="pref_ao_glowDelay">Glowing delay (in milliseconds)</string>
+    <string name="pref_ao_glowDelay_summary">Interval between the glows</string>
     <string name="pref_ao_glowStyle">Edge glow style</string>
     <string name="pref_ao_glowStyle_summary">Changes the look of the glowing edges</string>
     <string name="pref_ao_vibration">Vibration duration (in milliseconds)</string>

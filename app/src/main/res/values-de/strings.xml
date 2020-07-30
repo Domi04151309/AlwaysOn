@@ -96,6 +96,8 @@ Als zusätzliche Funktion können Sie Lade- und Kopfhöreranimationen aktivieren
     <string name="pref_ao_edgeGlow_summary">Leuchtende Kanten, wenn eine Benachrichtigung eingeht</string>
     <string name="pref_ao_glowDuration">Leuchtdauer (in Millisekunden)</string>
     <string name="pref_ao_glowDuration_summary">Dauer, welche die Kanten leuchten</string>
+    <string name="pref_ao_glowDelay">Leuchtpausen (in Millisekunden)</string>
+    <string name="pref_ao_glowDelay_summary">Intervall zwischen dem Aufleuchten</string>
     <string name="pref_ao_glowStyle">Kantenleuchtstil</string>
     <string name="pref_ao_glowStyle_summary">Ändert, wie die leuchtenden Kanten aussehen</string>
     <string name="pref_ao_vibration">Vibrationsdauer (in Millisekunden)</string>
