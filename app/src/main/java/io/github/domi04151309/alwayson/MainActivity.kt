@@ -128,8 +128,6 @@ class MainActivity : AppCompatActivity() {
                     arrayOf(Manifest.permission.READ_PHONE_STATE),
                     0)
         }
-
-        startActivity(Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).setData(Uri.parse("package:$packageName")))
     }
 
     override fun onStart() {
