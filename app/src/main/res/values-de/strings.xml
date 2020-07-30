@@ -89,7 +89,7 @@ Als zusätzliche Funktion können Sie Lade- und Kopfhöreranimationen aktivieren
     <string name="pref_ao_showDate">Datum anzeigen</string>
     <string name="pref_ao_showBatteryIcn">Batterieicon anzeigen</string>
     <string name="pref_ao_showBattery">Batterieladung anzeigen</string>
-    <string name="pref_ao_showMusicControls">Musiksteuerung anzeigen (experimentell)</string>
+    <string name="pref_ao_showMusicControls">Musiksteuerung anzeigen</string>
     <string name="pref_ao_showNotifications">Benachrichtigungszähler anzeigen</string>
     <string name="pref_ao_showNotificationIcons">Benachrichtigungsicons anzeigen</string>
     <string name="pref_ao_edgeGlow">Leuchtende Kanten</string>

@@ -6,8 +6,6 @@ import android.content.res.Configuration
 import android.graphics.Point
 import android.graphics.drawable.TransitionDrawable
 import android.hardware.Sensor
-import android.hardware.SensorEvent
-import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
@@ -36,7 +34,7 @@ import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 import io.github.domi04151309.alwayson.services.NotificationService
 import java.util.*
 
-class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiveSessionsChangedListener {
+class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListener {
 
     companion object {
         private const val CLOCK_DELAY: Long = 60000
@@ -78,6 +76,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
 
     //Proximity
     private var sensorManager: SensorManager? = null
+    private var sensorEventListener: AlwaysOnSensorEventListener? = null
 
     //DND
     private var notificationManager: NotificationManager? = null
@@ -314,7 +313,7 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         //Proximity
         if (prefHolder.pocketMode) {
             sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-            sensorManager?.registerListener(this, sensorManager?.getDefaultSensor(Sensor.TYPE_PROXIMITY), SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
+            sensorEventListener = AlwaysOnSensorEventListener(viewHolder)
         }
 
         //DND
@@ -460,21 +459,6 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         }
     }
 
-    //Proximity
-    override fun onSensorChanged(event: SensorEvent) {
-        if (event.sensor.type == Sensor.TYPE_PROXIMITY) {
-            if (event.values[0] == event.sensor.maximumRange) {
-                viewHolder.fullscreenContent.animate().alpha(1F).duration = 1000L
-                startServices()
-            } else {
-                viewHolder.fullscreenContent.animate().alpha(0F).duration = 1000L
-                stopServices()
-            }
-        }
-    }
-
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
-
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         screenSize = calculateScreenSize()
@@ -483,28 +467,34 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
     override fun onStart() {
         super.onStart()
         CombinedServiceReceiver.isAlwaysOnRunning = true
-        startServices()
+        servicesRunning = true
+        if (prefHolder.showClock) clockHandler.postDelayed(clockRunnable, CLOCK_DELAY)
+        if (prefHolder.showNotificationCount || prefHolder.showNotificationIcons || prefHolder.edgeGlow) {
+            localManager.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
+        }
         val millisTillEnd: Long = rules?.millisTillEnd(Calendar.getInstance()) ?: -1
         if (millisTillEnd > -1L) rulesTimePeriodHandler.postDelayed({ finishAndOff() }, millisTillEnd)
         if (rulesTimeout != 0) rulesTimePeriodHandler.postDelayed({ finishAndOff() }, rulesTimeout * 60000L)
         if (prefHolder.dnd && notificationAccess) notificationManager?.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
         if (prefHolder.disableHeadsUpNotifications) Root.shell("settings put global heads_up_notifications_enabled 0")
+        if (prefHolder.pocketMode) sensorManager?.registerListener(sensorEventListener, sensorManager?.getDefaultSensor(Sensor.TYPE_PROXIMITY), SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
     }
 
     override fun onStop() {
         super.onStop()
-        stopServices()
+        servicesRunning = false
+        if (prefHolder.showClock) clockHandler.removeCallbacksAndMessages(null)
         rulesTimePeriodHandler.removeCallbacksAndMessages(null)
         rulesTimeoutHandler.removeCallbacksAndMessages(null)
         if (prefHolder.dnd && notificationAccess) notificationManager?.setInterruptionFilter(userDND)
         if (prefHolder.rootMode && prefHolder.powerSavingMode && !userPowerSaving) Root.shell("settings put global low_power 0")
         if (prefHolder.disableHeadsUpNotifications) Root.shell("settings put global heads_up_notifications_enabled 1")
+        if (prefHolder.pocketMode) sensorManager?.unregisterListener(sensorEventListener)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         CombinedServiceReceiver.isAlwaysOnRunning = false
-        if (prefHolder.pocketMode) sensorManager?.unregisterListener(this)
         if (prefHolder.edgeGlow) aoEdgeGlowThread.interrupt()
         animationThread.interrupt()
         localManager.unregisterReceiver(localReceiver)
@@ -529,22 +519,5 @@ class AlwaysOn : OffActivity(), SensorEventListener, MediaSessionManager.OnActiv
         val size = Point()
         windowManager.defaultDisplay.getSize(size)
         return (size.y - viewHolder.fullscreenContent.height).toFloat()
-    }
-
-    private fun startServices() {
-        if (!servicesRunning) {
-            servicesRunning = true
-            if (prefHolder.showClock) clockHandler.postDelayed(clockRunnable, CLOCK_DELAY)
-            if (prefHolder.showNotificationCount || prefHolder.showNotificationIcons || prefHolder.edgeGlow) {
-                localManager.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
-            }
-        }
-    }
-
-    private fun stopServices() {
-        if (servicesRunning) {
-            servicesRunning = false
-            if (prefHolder.showClock) clockHandler.removeCallbacksAndMessages(null)
-        }
     }
 }
