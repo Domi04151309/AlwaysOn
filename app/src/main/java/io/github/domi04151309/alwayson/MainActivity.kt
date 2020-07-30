@@ -1,13 +1,11 @@
 package io.github.domi04151309.alwayson
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.admin.DevicePolicyManager
 import android.content.*
 import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
-import android.net.Uri
 import android.os.BatteryManager
 import android.os.Bundle
 import android.provider.Settings
@@ -77,7 +75,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    @SuppressLint("BatteryLife")
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
