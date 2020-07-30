@@ -1,6 +1,8 @@
 package io.github.domi04151309.alwayson.preferences
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +42,10 @@ class PermissionPreferences : AppCompatActivity(),
     class PreferencePermissions : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_permissions)
+            findPreference<Preference>("ignore_battery_optimizations")?.setOnPreferenceClickListener {
+                startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
+                true
+            }
             findPreference<Preference>("root_mode")?.setOnPreferenceClickListener {
                 if (!Root.request()) {
                     val toast = Toast.makeText(context, R.string.setup_root_failed, Toast.LENGTH_LONG)

@@ -156,6 +156,8 @@ Als zusätzliche Funktion können Sie Lade- und Kopfhöreranimationen aktivieren
 
     <string name="pref_permissions">Berechtigungen</string>
     <string name="pref_permissions_summary">Einstellungen in Bezug auf Berechtigungen</string>
+    <string name="pref_ignore_battery_optimizations">Akku-Optimierung ignorieren</string>
+    <string name="pref_ignore_battery_optimizations_summary">Verhindert vom System verursachte Verzögerungen</string>
     <string name="pref_notification">Benachrichtigungszugriff</string>
     <string name="pref_notification_summary">Aktivieren oder deaktivieren Sie den Benachrichtigungszugriff</string>
     <string name="pref_draw_over_other_apps">Über anderen Apps anzeigen</string>

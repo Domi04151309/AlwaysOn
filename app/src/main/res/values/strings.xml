@@ -157,6 +157,8 @@ As an additional feature you can enable charging and headphones animations that 
 
     <string name="pref_permissions">Permissions</string>
     <string name="pref_permissions_summary">Settings related to permissions</string>
+    <string name="pref_ignore_battery_optimizations">Ignore battery optimizations</string>
+    <string name="pref_ignore_battery_optimizations_summary">Prevents delays caused by the system</string>
     <string name="pref_notification">Notification access</string>
     <string name="pref_notification_summary">Enable or disable notification access</string>
     <string name="pref_draw_over_other_apps">Display over other apps</string>

@@ -2,6 +2,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
+        android:icon="@drawable/ic_battery"
+        android:key="ignore_battery_optimizations"
+        android:summary="@string/pref_ignore_battery_optimizations_summary"
+        android:title="@string/pref_ignore_battery_optimizations" />
+    <Preference
         android:icon="@drawable/ic_notification"
         android:summary="@string/pref_notification_summary"
         android:title="@string/pref_notification">
