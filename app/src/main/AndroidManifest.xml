@@ -136,7 +136,7 @@
             android:launchMode="singleInstance"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:theme="@style/AppThemeScreenOffBright" />
+            android:theme="@style/AppThemeScreenOff" />
         <activity
             android:name=".charging.Circle"
             android:configChanges="orientation|screenSize"
@@ -144,7 +144,7 @@
             android:launchMode="singleInstance"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:theme="@style/AppThemeScreenOffBright" />
+            android:theme="@style/AppThemeScreenOff" />
         <activity
             android:name=".Headset"
             android:configChanges="orientation|screenSize"
@@ -152,7 +152,7 @@
             android:launchMode="singleInstance"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:theme="@style/AppThemeScreenOffBright" />
+            android:theme="@style/AppThemeScreenOff" />
 
         <activity
             android:name=".MainActivity"
@@ -220,7 +220,7 @@
             android:launchMode="singleInstance"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:theme="@style/AppThemeScreenOffBright" />
+            android:theme="@style/AppThemeScreenOff" />
 
         <receiver
             android:name=".alwayson.AlwaysOnWidget"
