@@ -85,6 +85,14 @@ Als zusätzliche Funktion können Sie Lade- und Kopfhöreranimationen aktivieren
     <string name="pref_look_and_feel_ao_array_display_1">Samsung-ähnlicher Stil</string>
     <string name="pref_look_and_feel_ao_array_display_2">Zweiter Samsung-ähnlicher Stil</string>
     <string name="pref_look_and_feel_ao_array_display_3">OnePlus-ähnlicher Stil</string>
+    <string name="pref_look_and_feel_colors">Farben</string>
+    <string name="pref_look_and_feel_colors_summary">Wähle Farben für bestimmte Elemente</string>
+    <string name="pref_look_and_feel_colors_clock">Uhrenfarbe</string>
+    <string name="pref_look_and_feel_colors_date">Datumsfarbe</string>
+    <string name="pref_look_and_feel_colors_battery">Akkufarbe</string>
+    <string name="pref_look_and_feel_colors_music_controls">Musiksteuerungsfarbe</string>
+    <string name="pref_look_and_feel_colors_notification">Benachrichtigungsfarbe</string>
+    <string name="pref_look_and_feel_colors_message">Nachrichtenfarbe</string>
     <string name="pref_ao_showClock">Zeit anzeigen</string>
     <string name="pref_ao_showDate">Datum anzeigen</string>
     <string name="pref_ao_showBatteryIcn">Batterieicon anzeigen</string>

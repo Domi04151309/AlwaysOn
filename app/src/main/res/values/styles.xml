@@ -64,16 +64,14 @@
 
     <style name="DialogThemeLight" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
-        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarButtonStyle">@style/DialogButtonStyle</item>
         <item name="dialogCornerRadius">8dp</item>
         <item name="android:backgroundDimAmount">.32</item>
     </style>
 
     <style name="DialogThemeDark" parent="Theme.AppCompat.Dialog.Alert">
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
-        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarButtonStyle">@style/DialogButtonStyle</item>
         <item name="dialogCornerRadius">8dp</item>
         <item name="android:backgroundDimAmount">.32</item>
     </style>

@@ -1,10 +1,15 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
-        android:icon="@drawable/ic_palette"
+        android:icon="@drawable/ic_style"
         android:key="ao_style"
         android:summary="@string/pref_look_and_feel_ao_summary"
         android:title="@string/pref_look_and_feel_ao" />
+    <Preference
+        android:icon="@drawable/ic_palette"
+        android:key="ao_colors"
+        android:summary="@string/pref_look_and_feel_colors_summary"
+        android:title="@string/pref_look_and_feel_colors" />
     <SwitchPreference
         android:defaultValue="true"
         android:icon="@drawable/ic_clock"

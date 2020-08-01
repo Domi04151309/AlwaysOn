@@ -1,0 +1,52 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+        android:defaultValue="0xffffffff"
+        android:icon="@drawable/ic_clock"
+        android:key="display_color_clock"
+        android:title="@string/pref_look_and_feel_colors_clock"
+        app:cpv_showAlphaSlider="true"
+        app:cpv_showColorShades="false" />
+
+    <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+        android:defaultValue="0xffffffff"
+        android:icon="@drawable/ic_date"
+        android:key="display_color_date"
+        android:title="@string/pref_look_and_feel_colors_date"
+        app:cpv_showAlphaSlider="true"
+        app:cpv_showColorShades="false" />
+
+    <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+        android:defaultValue="0xffffffff"
+        android:icon="@drawable/ic_battery"
+        android:key="display_color_battery"
+        android:title="@string/pref_look_and_feel_colors_battery"
+        app:cpv_showAlphaSlider="true"
+        app:cpv_showColorShades="false" />
+
+    <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+        android:defaultValue="0xffffffff"
+        android:icon="@drawable/ic_music_note"
+        android:key="display_color_music_controls"
+        android:title="@string/pref_look_and_feel_colors_music_controls"
+        app:cpv_showAlphaSlider="true"
+        app:cpv_showColorShades="false" />
+
+    <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+        android:defaultValue="0xffffffff"
+        android:icon="@drawable/ic_notification"
+        android:key="display_color_notification"
+        android:title="@string/pref_look_and_feel_colors_notification"
+        app:cpv_showAlphaSlider="true"
+        app:cpv_showColorShades="false" />
+
+    <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+        android:defaultValue="0xffffffff"
+        android:icon="@drawable/ic_short_text"
+        android:key="display_color_message"
+        android:title="@string/pref_look_and_feel_colors_message"
+        app:cpv_showAlphaSlider="true"
+        app:cpv_showColorShades="false" />
+
+</PreferenceScreen>

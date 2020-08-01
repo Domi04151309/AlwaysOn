@@ -86,6 +86,14 @@ As an additional feature you can enable charging and headphones animations that 
     <string name="pref_look_and_feel_ao_array_display_1">Samsung like style</string>
     <string name="pref_look_and_feel_ao_array_display_2">Second Samsung like style</string>
     <string name="pref_look_and_feel_ao_array_display_3">OnePlus like style</string>
+    <string name="pref_look_and_feel_colors">Colors</string>
+    <string name="pref_look_and_feel_colors_summary">Select colors for certain elements</string>
+    <string name="pref_look_and_feel_colors_clock">Clock color</string>
+    <string name="pref_look_and_feel_colors_date">Date color</string>
+    <string name="pref_look_and_feel_colors_battery">Battery color</string>
+    <string name="pref_look_and_feel_colors_music_controls">Music controls color</string>
+    <string name="pref_look_and_feel_colors_notification">Notification color</string>
+    <string name="pref_look_and_feel_colors_message">Message color</string>
     <string name="pref_ao_showClock">Display the time</string>
     <string name="pref_ao_showDate">Display the date</string>
     <string name="pref_ao_showBatteryIcn">Display a battery icon</string>

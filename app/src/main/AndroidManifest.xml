@@ -65,6 +65,14 @@
                 android:value="io.github.domi04151309.alwayson.preferences.LAFWatchFacePreferences" />
         </activity>
         <activity
+            android:name=".preferences.LAFWFColorsPreferences"
+            android:label="@string/pref_look_and_feel_colors"
+            android:parentActivityName=".preferences.LAFWatchFacePreferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.preferences.LAFWatchFacePreferences" />
+        </activity>
+        <activity
             android:name=".TurnOnScreen"
             android:excludeFromRecents="true"
             android:showOnLockScreen="true"
