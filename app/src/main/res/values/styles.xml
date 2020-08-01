@@ -18,8 +18,8 @@
         <item name="android:textColorSecondary">@color/white128</item>
         <item name="buttonStyle">@style/Button</item>
         <item name="dialogCornerRadius">8dp</item>
-        <item name="alertDialogTheme">@style/DialogTheme</item>
-        <item name="dialogTheme">@style/DialogTheme</item>
+        <item name="alertDialogTheme">@style/DialogThemeDark</item>
+        <item name="dialogTheme">@style/DialogThemeDark</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
         <item name="android:listDivider">@null</item>
     </style>
@@ -33,8 +33,8 @@
         <item name="android:textColorSecondary">@color/black128</item>
         <item name="buttonStyle">@style/Button</item>
         <item name="dialogCornerRadius">8dp</item>
-        <item name="alertDialogTheme">@style/DialogTheme</item>
-        <item name="dialogTheme">@style/DialogTheme</item>
+        <item name="alertDialogTheme">@style/DialogThemeLight</item>
+        <item name="dialogTheme">@style/DialogThemeLight</item>
         <item name="android:navigationBarColor">@color/lightColorPrimary</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
         <item name="android:listDivider">@null</item>
@@ -59,12 +59,34 @@
         <item name="android:textColorAlertDialogListItem">@android:color/white</item>
         <item name="android:background">@color/colorAccent</item>
         <item name="dialogCornerRadius">8dp</item>
+        <item name="android:backgroundDimAmount">.32</item>
+    </style>
+
+    <style name="DialogThemeLight" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
+        <item name="dialogCornerRadius">8dp</item>
+        <item name="android:backgroundDimAmount">.32</item>
+    </style>
+
+    <style name="DialogThemeDark" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
+        <item name="dialogCornerRadius">8dp</item>
+        <item name="android:backgroundDimAmount">.32</item>
+    </style>
+
+    <style name="DialogButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
     <style name="TimePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="dialogCornerRadius">8dp</item>
+        <item name="android:backgroundDimAmount">.32</item>
     </style>
 
     <style name="AppThemeScreenOff" parent="Theme.AppCompat.NoActionBar">
