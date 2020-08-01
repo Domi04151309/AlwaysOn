@@ -228,27 +228,6 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
             viewHolder.fullscreenContent.translationX = dpWidth * prefHolder.displaySize - dpWidth
         }
 
-        clockFormat = SimpleDateFormat(
-                if (prefHolder.userTheme == "samsung" || prefHolder.userTheme == "oneplus") {
-                    if (prefHolder.use12HourClock) {
-                        if (prefHolder.showAmPm) "hh\nmm\na"
-                        else "hh\nmm"
-                    } else "HH\nmm"
-                } else {
-                    if (prefHolder.use12HourClock) {
-                        if (prefHolder.showAmPm) "h:mm a"
-                        else "h:mm"
-                    } else "H:mm"
-                }, Locale.getDefault()
-        )
-        dateFormat = SimpleDateFormat(
-                if (prefHolder.userTheme == "samsung2") {
-                    "EEE, MMMM d"
-                } else {
-                    "EEE, MMM d"
-                }, Locale.getDefault()
-        )
-
         //Brightness
         if (prefHolder.forceBrightness) {
             window.attributes.screenBrightness = prefs.getInt("ao_force_brightness_value", 50) / 255.toFloat()
@@ -275,12 +254,32 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
 
         //Time
         if (prefHolder.showClock) {
+            clockFormat = SimpleDateFormat(
+                    if (prefHolder.userTheme == "samsung" || prefHolder.userTheme == "oneplus") {
+                        if (prefHolder.use12HourClock) {
+                            if (prefHolder.showAmPm) "hh\nmm\na"
+                            else "hh\nmm"
+                        } else "HH\nmm"
+                    } else {
+                        if (prefHolder.use12HourClock) {
+                            if (prefHolder.showAmPm) "h:mm a"
+                            else "h:mm"
+                        } else "H:mm"
+                    }, Locale.getDefault()
+            )
             viewHolder.clockTxt.setTextColor(prefHolder.displayColorClock)
             viewHolder.clockTxt.text = clockFormat.format(Calendar.getInstance())
         }
 
         //Date
         if (prefHolder.showDate) {
+            dateFormat = SimpleDateFormat(
+                    if (prefHolder.userTheme == "samsung2") {
+                        "EEE, MMMM d"
+                    } else {
+                        "EEE, MMM d"
+                    }, Locale.getDefault()
+            )
             viewHolder.dateTxt.setTextColor(prefHolder.displayColorDate)
             viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
             systemFilter.addAction(Intent.ACTION_DATE_CHANGED)
