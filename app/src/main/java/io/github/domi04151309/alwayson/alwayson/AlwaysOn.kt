@@ -110,7 +110,8 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
 
                     if (prefHolder.showNotificationIcons) {
                         viewHolder.notificationGrid.adapter = NotificationGridAdapter(
-                                intent.getParcelableArrayListExtra("icons") ?: arrayListOf()
+                                intent.getParcelableArrayListExtra("icons") ?: arrayListOf(),
+                                prefHolder.displayColorNotification
                         )
                     }
 
@@ -144,6 +145,7 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
                     if (prefHolder.showBatteryPercentage) viewHolder.batteryTxt.text = resources.getString(R.string.percent, level)
                     if (prefHolder.showBatteryIcon) {
                         if (status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL) {
+                            viewHolder.batteryIcn.setColorFilter(c.resources.getColor(R.color.charging, c.theme))
                             when {
                                 level >= 100 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_100_charging)
                                 level >= 90 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_90_charging)
@@ -156,6 +158,7 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
                                 else -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_unknown_charging)
                             }
                         } else {
+                            viewHolder.batteryIcn.setColorFilter(prefHolder.displayColorBattery)
                             when {
                                 level >= 100 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_100)
                                 level >= 90 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_90)
@@ -212,6 +215,7 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
         if (!prefHolder.showNotificationIcons) viewHolder.notificationGrid.visibility = View.GONE
         if (prefHolder.message != "") {
             viewHolder.messageTxt.visibility = View.VISIBLE
+            viewHolder.messageTxt.setTextColor(prefHolder.displayColorMessage)
             viewHolder.messageTxt.text = prefHolder.message
         }
 
@@ -270,10 +274,14 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
         }
 
         //Time
-        if (prefHolder.showClock) viewHolder.clockTxt.text = clockFormat.format(Calendar.getInstance())
+        if (prefHolder.showClock) {
+            viewHolder.clockTxt.setTextColor(prefHolder.displayColorClock)
+            viewHolder.clockTxt.text = clockFormat.format(Calendar.getInstance())
+        }
 
         //Date
         if (prefHolder.showDate) {
+            viewHolder.dateTxt.setTextColor(prefHolder.displayColorDate)
             viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
             systemFilter.addAction(Intent.ACTION_DATE_CHANGED)
             systemFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
@@ -283,11 +291,15 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
         systemFilter.addAction(Intent.ACTION_BATTERY_CHANGED)
         systemFilter.addAction(Intent.ACTION_POWER_CONNECTED)
         systemFilter.addAction(Intent.ACTION_POWER_DISCONNECTED)
+        if (prefHolder.showBatteryPercentage) viewHolder.batteryTxt.setTextColor(prefHolder.displayColorBattery)
 
         //Music Controls
         if (prefHolder.showMusicControls) {
             val mediaSessionManager = getSystemService(Context.MEDIA_SESSION_SERVICE) as MediaSessionManager
             val notificationListener = ComponentName(applicationContext, NotificationService::class.java.name)
+            viewHolder.musicPrev.setColorFilter(prefHolder.displayColorMusicControls)
+            viewHolder.musicTxt.setTextColor(prefHolder.displayColorMusicControls)
+            viewHolder.musicNext.setColorFilter(prefHolder.displayColorMusicControls)
             try {
                 mediaSessionManager.addOnActiveSessionsChangedListener(this, notificationListener)
                 onActiveSessionsChanged(mediaSessionManager.getActiveSessions(notificationListener))
@@ -310,11 +322,14 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
         //Notifications
         if (prefHolder.showNotificationCount || prefHolder.showNotificationIcons) {
             localFilter.addAction(Global.NOTIFICATIONS)
-        }
-        if(prefHolder.showNotificationIcons) {
-            val layoutManager = LinearLayoutManager(this)
-            layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-            viewHolder.notificationGrid.layoutManager = layoutManager
+            if (prefHolder.showNotificationCount) {
+                viewHolder.notificationCount.setTextColor(prefHolder.displayColorNotification)
+            }
+            if (prefHolder.showNotificationIcons) {
+                val layoutManager = LinearLayoutManager(this)
+                layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+                viewHolder.notificationGrid.layoutManager = layoutManager
+            }
         }
 
         //Proximity

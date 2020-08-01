@@ -23,4 +23,10 @@ class AlwaysOnPreferenceHolder(prefs: SharedPreferences) {
     val doubleTapDisabled: Boolean = prefs.getBoolean("ao_double_tap_disabled", false)
     val showMusicControls: Boolean = prefs.getBoolean("ao_musicControls", false)
     val message: String = prefs.getString("ao_message", "") ?: ""
+    val displayColorClock: Int = prefs.getInt("display_color_clock", -1)
+    val displayColorDate: Int = prefs.getInt("display_color_date", -1)
+    val displayColorBattery: Int = prefs.getInt("display_color_battery", -1)
+    val displayColorMusicControls: Int = prefs.getInt("display_color_music_controls", -1)
+    val displayColorNotification: Int = prefs.getInt("display_color_notification", -1)
+    val displayColorMessage: Int = prefs.getInt("display_color_message", -1)
 }

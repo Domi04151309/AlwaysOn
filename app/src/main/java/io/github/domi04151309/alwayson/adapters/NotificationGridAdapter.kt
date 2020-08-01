@@ -8,7 +8,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.R
 
-class NotificationGridAdapter(private val itemArray: ArrayList<Icon>) : RecyclerView.Adapter<NotificationGridAdapter.ViewHolder>() {
+class NotificationGridAdapter(private val itemArray: ArrayList<Icon>, private val color: Int) : RecyclerView.Adapter<NotificationGridAdapter.ViewHolder>() {
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
@@ -17,7 +17,9 @@ class NotificationGridAdapter(private val itemArray: ArrayList<Icon>) : Recycler
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.view.findViewById<ImageView>(R.id.drawable).setImageIcon(itemArray[position])
+        val view = holder.view.findViewById<ImageView>(R.id.drawable)
+        view.setColorFilter(color)
+        view.setImageIcon(itemArray[position])
     }
 
     override fun getItemCount(): Int = itemArray.size
