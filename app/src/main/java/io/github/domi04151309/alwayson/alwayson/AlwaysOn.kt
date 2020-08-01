@@ -144,33 +144,21 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
                     }
                     if (prefHolder.showBatteryPercentage) viewHolder.batteryTxt.text = resources.getString(R.string.percent, level)
                     if (prefHolder.showBatteryIcon) {
+                        when {
+                            level >= 100 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_100)
+                            level >= 90 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_90)
+                            level >= 80 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_80)
+                            level >= 60 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_60)
+                            level >= 50 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_50)
+                            level >= 30 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_30)
+                            level >= 20 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_20)
+                            level >= 0 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_0)
+                            else -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_unknown)
+                        }
                         if (status == BatteryManager.BATTERY_STATUS_CHARGING || status == BatteryManager.BATTERY_STATUS_FULL) {
                             viewHolder.batteryIcn.setColorFilter(c.resources.getColor(R.color.charging, c.theme))
-                            when {
-                                level >= 100 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_100_charging)
-                                level >= 90 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_90_charging)
-                                level >= 80 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_80_charging)
-                                level >= 60 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_60_charging)
-                                level >= 50 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_50_charging)
-                                level >= 30 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_30_charging)
-                                level >= 20 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_20_charging)
-                                level >= 0 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_0_charging)
-                                else -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_unknown_charging)
-                            }
                         } else {
                             viewHolder.batteryIcn.setColorFilter(prefHolder.displayColorBattery)
-                            when {
-                                level >= 100 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_100)
-                                level >= 90 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_90)
-                                level >= 80 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_80)
-                                level >= 60 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_60)
-                                level >= 50 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_50)
-                                level >= 30 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_30)
-                                level >= 20 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_20)
-                                level >= 10 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_20_orange)
-                                level >= 0 -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_0)
-                                else -> viewHolder.batteryIcn.setImageResource(R.drawable.ic_battery_unknown)
-                            }
                         }
                     }
                 }

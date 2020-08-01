@@ -2,7 +2,6 @@
 <resources>
     <color name="black128">#80000000</color>
     <color name="white128">#80ffffff</color>
-    <color name="orange">#ff2902</color>
     <color name="colorAccent">#ff1369BF</color>
     <color name="navigationBarColor">#000001</color>
     <color name="charging">#55D769</color>

@@ -26,15 +26,15 @@ class IOS : OffActivity() {
         val level = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) ?: 0
         findViewById<TextView>(R.id.batteryTxt).text = resources.getString(R.string.charged, level)
         when {
-            level >= 100 -> batteryIcn.setImageResource(R.drawable.ic_battery_100_charging)
-            level >= 90 -> batteryIcn.setImageResource(R.drawable.ic_battery_90_charging)
-            level >= 80 -> batteryIcn.setImageResource(R.drawable.ic_battery_80_charging)
-            level >= 60 -> batteryIcn.setImageResource(R.drawable.ic_battery_60_charging)
-            level >= 50 -> batteryIcn.setImageResource(R.drawable.ic_battery_50_charging)
-            level >= 30 -> batteryIcn.setImageResource(R.drawable.ic_battery_30_charging)
-            level >= 20 -> batteryIcn.setImageResource(R.drawable.ic_battery_20_charging)
-            level >= 0 -> batteryIcn.setImageResource(R.drawable.ic_battery_0_charging)
-            else -> batteryIcn.setImageResource(R.drawable.ic_battery_unknown_charging)
+            level >= 100 -> batteryIcn.setImageResource(R.drawable.ic_battery_100)
+            level >= 90 -> batteryIcn.setImageResource(R.drawable.ic_battery_90)
+            level >= 80 -> batteryIcn.setImageResource(R.drawable.ic_battery_80)
+            level >= 60 -> batteryIcn.setImageResource(R.drawable.ic_battery_60)
+            level >= 50 -> batteryIcn.setImageResource(R.drawable.ic_battery_50)
+            level >= 30 -> batteryIcn.setImageResource(R.drawable.ic_battery_30)
+            level >= 20 -> batteryIcn.setImageResource(R.drawable.ic_battery_20)
+            level >= 0 -> batteryIcn.setImageResource(R.drawable.ic_battery_0)
+            else -> batteryIcn.setImageResource(R.drawable.ic_battery_unknown)
         }
 
         object : Thread() {
