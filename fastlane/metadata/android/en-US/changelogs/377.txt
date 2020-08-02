@@ -1,0 +1,1 @@
+This update includes performance improvements, crash fixes, bug fixes, better edge glow timing customization, and the all-new colors feature where you can select colors for the individual elements on your always-on display.
