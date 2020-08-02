@@ -378,7 +378,7 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
                 try {
                     while (viewHolder.fullscreenContent.height == 0) sleep(10)
                     screenSize = calculateScreenSize()
-                    viewHolder.fullscreenContent.animate().translationY(screenSize / 4).duration = 0
+                    viewHolder.fullscreenContent.translationY = screenSize / 4
                     while (!isInterrupted) {
                         sleep(animationDelay)
                         viewHolder.fullscreenContent.animate().translationY(screenSize / 2).duration = animationDuration
