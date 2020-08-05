@@ -9,8 +9,6 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
-import android.media.MediaMetadata
-import android.media.session.MediaController
 import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
 import android.os.*
@@ -35,7 +33,7 @@ import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 import io.github.domi04151309.alwayson.services.NotificationService
 import java.util.*
 
-class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListener {
+class AlwaysOn : OffActivity() {
 
     companion object {
         private const val CLOCK_DELAY: Long = 60000
@@ -66,8 +64,7 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
     internal var dateFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
 
     //Media Controls
-    private var localMediaController: MediaController? = null
-    internal var mediaPlaybackState: Int = 0
+    private var onActiveSessionsChangedListener: AlwaysOnOnActiveSessionsChangedListener? = null
 
     //Notifications
     internal var notificationAvailable: Boolean = false
@@ -276,22 +273,23 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
             viewHolder.musicPrev.setColorFilter(prefHolder.displayColorMusicControls)
             viewHolder.musicTxt.setTextColor(prefHolder.displayColorMusicControls)
             viewHolder.musicNext.setColorFilter(prefHolder.displayColorMusicControls)
+            onActiveSessionsChangedListener = AlwaysOnOnActiveSessionsChangedListener(viewHolder, resources)
             try {
-                mediaSessionManager.addOnActiveSessionsChangedListener(this, notificationListener)
-                onActiveSessionsChanged(mediaSessionManager.getActiveSessions(notificationListener))
+                mediaSessionManager.addOnActiveSessionsChangedListener(onActiveSessionsChangedListener ?: return, notificationListener)
+                onActiveSessionsChangedListener?.onActiveSessionsChanged(mediaSessionManager.getActiveSessions(notificationListener))
             } catch (e: Exception) {
                 Log.e(Global.LOG_TAG, e.toString())
                 viewHolder.musicTxt.text = resources.getString(R.string.missing_permissions)
             }
             viewHolder.musicTxt.setOnClickListener {
-                if (mediaPlaybackState == PlaybackState.STATE_PLAYING) localMediaController?.transportControls?.pause()
-                else if (mediaPlaybackState == PlaybackState.STATE_PAUSED) localMediaController?.transportControls?.play()
+                if (onActiveSessionsChangedListener?.state == PlaybackState.STATE_PLAYING) onActiveSessionsChangedListener?.controller?.transportControls?.pause()
+                else if (onActiveSessionsChangedListener?.state == PlaybackState.STATE_PAUSED) onActiveSessionsChangedListener?.controller?.transportControls?.play()
             }
             viewHolder.musicPrev.setOnClickListener {
-                localMediaController?.transportControls?.skipToPrevious()
+                onActiveSessionsChangedListener?.controller?.transportControls?.skipToPrevious()
             }
             viewHolder.musicNext.setOnClickListener {
-                localMediaController?.transportControls?.skipToNext()
+                onActiveSessionsChangedListener?.controller?.transportControls?.skipToNext()
             }
         }
 
@@ -427,41 +425,6 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
         //Broadcast Receivers
         localManager.registerReceiver(localReceiver, localFilter)
         registerReceiver(systemReceiver, systemFilter)
-    }
-
-    //Music Controls
-    override fun onActiveSessionsChanged(controllers: MutableList<MediaController>?) {
-        try {
-            localMediaController = controllers?.firstOrNull()
-            mediaPlaybackState = localMediaController?.playbackState?.state ?: 0
-            updateMediaState()
-            localMediaController?.registerCallback(object : MediaController.Callback() {
-                override fun onPlaybackStateChanged(state: PlaybackState?) {
-                    super.onPlaybackStateChanged(state)
-                    mediaPlaybackState = state?.state ?: 0
-                }
-
-                override fun onMetadataChanged(metadata: MediaMetadata?) {
-                    super.onMetadataChanged(metadata)
-                    updateMediaState()
-                }
-            })
-        } catch (e: java.lang.Exception) {
-            Log.e(Global.LOG_TAG, e.toString())
-        }
-    }
-
-    internal fun updateMediaState() {
-        if (localMediaController != null) {
-            viewHolder.musicLayout.visibility = View.VISIBLE
-            viewHolder.musicTxt.text = resources.getString(
-                    R.string.music,
-                    localMediaController?.metadata?.getString(MediaMetadata.METADATA_KEY_ARTIST),
-                    localMediaController?.metadata?.getString(MediaMetadata.METADATA_KEY_TITLE)
-            )
-        } else {
-            viewHolder.musicLayout.visibility = View.GONE
-        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
