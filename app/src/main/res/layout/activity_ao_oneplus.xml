@@ -87,6 +87,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/slate_medium"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:text="@string/music"
                 android:textSize="15sp" />
 

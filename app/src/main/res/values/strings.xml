@@ -43,6 +43,7 @@ As an additional feature you can enable charging and headphones animations that 
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% Charged</string>
     <string name="music">%1$s - %2$s</string>
+    <string name="music_long">%1$s\n%2$s</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
 
