@@ -303,15 +303,15 @@ class AlwaysOn : OffActivity() {
         //Notifications
         if (prefHolder.showNotificationCount || prefHolder.showNotificationIcons) {
             localFilter.addAction(Global.NOTIFICATIONS)
-            if (prefHolder.showNotificationCount) {
-                viewHolder.notificationCount.setTextColor(prefHolder.displayColorNotification)
-            } else viewHolder.notificationCount.visibility = View.GONE
-            if (prefHolder.showNotificationIcons) {
-                val layoutManager = LinearLayoutManager(this)
-                layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-                viewHolder.notificationGrid.layoutManager = layoutManager
-            } else viewHolder.notificationGrid.visibility = View.GONE
         }
+        if (prefHolder.showNotificationCount) {
+            viewHolder.notificationCount.setTextColor(prefHolder.displayColorNotification)
+        } else viewHolder.notificationCount.visibility = View.GONE
+        if (prefHolder.showNotificationIcons) {
+            val layoutManager = LinearLayoutManager(this)
+            layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+            viewHolder.notificationGrid.layoutManager = layoutManager
+        } else viewHolder.notificationGrid.visibility = View.GONE
 
         //Proximity
         if (prefHolder.pocketMode) {
