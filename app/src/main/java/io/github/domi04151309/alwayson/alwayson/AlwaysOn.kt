@@ -372,7 +372,7 @@ class AlwaysOn : OffActivity() {
                 try {
                     while (viewHolder.fullscreenContent.height == 0) sleep(10)
                     screenSize = calculateScreenSize()
-                    viewHolder.fullscreenContent.translationY = screenSize / 4
+                    runOnUiThread { viewHolder.fullscreenContent.translationY = screenSize / 4 }
                     while (!isInterrupted) {
                         sleep(animationDelay)
                         viewHolder.fullscreenContent.animate().translationY(screenSize / 2).duration = animationDuration

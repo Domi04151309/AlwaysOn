@@ -43,7 +43,7 @@ class IOS : OffActivity() {
                     while (content.height == 0) sleep(10)
                     val size = Point()
                     windowManager.defaultDisplay.getSize(size)
-                    content.translationY = (size.y - content.height).toFloat() / 8
+                    runOnUiThread { content.translationY = (size.y - content.height).toFloat() / 8 }
                     sleep(3000)
                     content.animate().alpha(0f).duration = 1000
                     sleep(1000)
