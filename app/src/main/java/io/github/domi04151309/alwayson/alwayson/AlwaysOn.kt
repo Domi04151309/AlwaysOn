@@ -194,19 +194,6 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
 
         //View
         viewHolder = AlwaysOnViewHolder(this)
-
-        if (!prefHolder.showClock) viewHolder.clockTxt.visibility = View.GONE
-        if (!prefHolder.showDate) viewHolder.dateTxt.visibility = View.GONE
-        if (!prefHolder.showBatteryIcon) viewHolder.batteryIcn.visibility = View.GONE
-        if (!prefHolder.showBatteryPercentage) viewHolder.batteryTxt.visibility = View.GONE
-        if (!prefHolder.showNotificationCount) viewHolder.notificationCount.visibility = View.GONE
-        if (!prefHolder.showNotificationIcons) viewHolder.notificationGrid.visibility = View.GONE
-        if (prefHolder.message != "") {
-            viewHolder.messageTxt.visibility = View.VISIBLE
-            viewHolder.messageTxt.setTextColor(prefHolder.displayColorMessage)
-            viewHolder.messageTxt.text = prefHolder.message
-        }
-
         viewHolder.fullscreenContent.scaleX = prefHolder.displaySize
         viewHolder.fullscreenContent.scaleY = prefHolder.displaySize
         if (prefHolder.userTheme == "samsung2") {
@@ -257,7 +244,7 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
             )
             viewHolder.clockTxt.setTextColor(prefHolder.displayColorClock)
             viewHolder.clockTxt.text = clockFormat.format(Calendar.getInstance())
-        }
+        } else viewHolder.clockTxt.visibility = View.GONE
 
         //Date
         if (prefHolder.showDate) {
@@ -272,13 +259,15 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
             viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
             systemFilter.addAction(Intent.ACTION_DATE_CHANGED)
             systemFilter.addAction(Intent.ACTION_TIMEZONE_CHANGED)
-        }
+        } else viewHolder.dateTxt.visibility = View.GONE
 
         //Battery
         systemFilter.addAction(Intent.ACTION_BATTERY_CHANGED)
         systemFilter.addAction(Intent.ACTION_POWER_CONNECTED)
         systemFilter.addAction(Intent.ACTION_POWER_DISCONNECTED)
+        if (!prefHolder.showBatteryIcon) viewHolder.batteryIcn.visibility = View.GONE
         if (prefHolder.showBatteryPercentage) viewHolder.batteryTxt.setTextColor(prefHolder.displayColorBattery)
+        else viewHolder.batteryTxt.visibility = View.GONE
 
         //Music Controls
         if (prefHolder.showMusicControls) {
@@ -306,17 +295,24 @@ class AlwaysOn : OffActivity(), MediaSessionManager.OnActiveSessionsChangedListe
             }
         }
 
+        //Message
+        if (prefHolder.message != "") {
+            viewHolder.messageTxt.visibility = View.VISIBLE
+            viewHolder.messageTxt.setTextColor(prefHolder.displayColorMessage)
+            viewHolder.messageTxt.text = prefHolder.message
+        }
+
         //Notifications
         if (prefHolder.showNotificationCount || prefHolder.showNotificationIcons) {
             localFilter.addAction(Global.NOTIFICATIONS)
             if (prefHolder.showNotificationCount) {
                 viewHolder.notificationCount.setTextColor(prefHolder.displayColorNotification)
-            }
+            } else viewHolder.notificationCount.visibility = View.GONE
             if (prefHolder.showNotificationIcons) {
                 val layoutManager = LinearLayoutManager(this)
                 layoutManager.orientation = LinearLayoutManager.HORIZONTAL
                 viewHolder.notificationGrid.layoutManager = layoutManager
-            }
+            } else viewHolder.notificationGrid.visibility = View.GONE
         }
 
         //Proximity
