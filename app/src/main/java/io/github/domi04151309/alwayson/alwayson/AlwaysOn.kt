@@ -15,10 +15,7 @@ import android.os.*
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.util.Log
-import android.view.GestureDetector
-import android.view.MotionEvent
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.PreferenceManager
@@ -313,6 +310,27 @@ class AlwaysOn : OffActivity() {
             viewHolder.notificationGrid.layoutManager = layoutManager
         } else viewHolder.notificationGrid.visibility = View.GONE
 
+        //Fingerprint icon
+        if (prefHolder.showFingerprintIcon) {
+            viewHolder.fingerprintIcn.visibility = View.VISIBLE
+            (viewHolder.fingerprintIcn.layoutParams as ViewGroup.MarginLayoutParams)
+                    .bottomMargin = prefHolder.fingerPrintMargin
+            viewHolder.fingerprintIcn.setColorFilter(prefHolder.displayColorFingerprint)
+            viewHolder.fingerprintIcn.setOnTouchListener(object : View.OnTouchListener {
+                private val gestureDetector = GestureDetector(this@AlwaysOn, object : GestureDetector.SimpleOnGestureListener() {
+                    override fun onLongPress(e: MotionEvent?) {
+                        super.onLongPress(e)
+                        finish()
+                    }
+                })
+
+                override fun onTouch(v: View, event: MotionEvent): Boolean {
+                    gestureDetector.onTouchEvent(event)
+                    return v.performClick()
+                }
+            })
+        }
+
         //Proximity
         if (prefHolder.pocketMode) {
             sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
@@ -376,8 +394,10 @@ class AlwaysOn : OffActivity() {
                     while (!isInterrupted) {
                         sleep(animationDelay)
                         viewHolder.fullscreenContent.animate().translationY(screenSize / 2).duration = animationDuration
+                        if (prefHolder.showFingerprintIcon) viewHolder.fingerprintIcn.animate().translationY(64F).duration = animationDuration
                         sleep(animationDelay)
                         viewHolder.fullscreenContent.animate().translationY(screenSize / 4).duration = animationDuration
+                        if (prefHolder.showFingerprintIcon) viewHolder.fingerprintIcn.animate().translationY(0F).duration = animationDuration
                     }
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
@@ -407,8 +427,7 @@ class AlwaysOn : OffActivity() {
 
                 override fun onTouch(v: View, event: MotionEvent): Boolean {
                     gestureDetector.onTouchEvent(event)
-                    v.performClick()
-                    return true
+                    return v.performClick()
                 }
             })
         }

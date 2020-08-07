@@ -93,7 +93,7 @@
         android:summary="@string/pref_look_and_feel_filter_notifications_summary"
         android:title="@string/pref_look_and_feel_filter_notifications" />
     <io.github.domi04151309.alwayson.helpers.EditIntegerPreference
-        android:defaultValue="64"
+        android:defaultValue="200"
         android:icon="@drawable/ic_fingerprint"
         android:key="ao_fingerprint_margin"
         android:summary="@string/pref_ao_fingerprint_margin_summary"

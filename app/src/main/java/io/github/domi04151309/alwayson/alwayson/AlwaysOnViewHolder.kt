@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.CustomFrameLayout
+import io.github.domi04151309.alwayson.helpers.CustomImageView
 
 class AlwaysOnViewHolder(activity: Activity) {
     val frame: CustomFrameLayout = activity.findViewById(R.id.frame)
@@ -22,4 +23,5 @@ class AlwaysOnViewHolder(activity: Activity) {
     val messageTxt: TextView = activity.findViewById(R.id.messageTxt)
     val notificationCount: TextView = activity.findViewById(R.id.notification_count)
     val notificationGrid: RecyclerView = activity.findViewById(R.id.notification_grid)
+    val fingerprintIcn: CustomImageView = activity.findViewById(R.id.fingerprintIcn)
 }

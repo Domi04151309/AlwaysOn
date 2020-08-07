@@ -12,6 +12,8 @@ class AlwaysOnPreferenceHolder(prefs: SharedPreferences) {
     val showBatteryPercentage: Boolean = prefs.getBoolean("ao_battery", true)
     val showNotificationCount: Boolean = prefs.getBoolean("ao_notifications", false)
     val showNotificationIcons: Boolean = prefs.getBoolean("ao_notification_icons", true)
+    val showFingerprintIcon: Boolean = prefs.getBoolean("ao_fingerprint", false)
+    val fingerPrintMargin: Int = prefs.getInt("ao_fingerprint_margin", 64)
     val displaySize: Float = (prefs.getInt("pref_aod_scale", 50) + 50) / 100F
     val edgeGlow: Boolean = prefs.getBoolean("ao_edgeGlow", false)
     val pocketMode: Boolean = prefs.getBoolean("ao_pocket_mode", false)
@@ -29,4 +31,5 @@ class AlwaysOnPreferenceHolder(prefs: SharedPreferences) {
     val displayColorMusicControls: Int = prefs.getInt("display_color_music_controls", -1)
     val displayColorNotification: Int = prefs.getInt("display_color_notification", -1)
     val displayColorMessage: Int = prefs.getInt("display_color_message", -1)
+    val displayColorFingerprint: Int = prefs.getInt("display_color_fingerprint", -1)
 }
