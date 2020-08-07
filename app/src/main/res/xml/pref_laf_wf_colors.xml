@@ -8,7 +8,6 @@
         android:title="@string/pref_look_and_feel_colors_clock"
         app:cpv_showAlphaSlider="true"
         app:cpv_showColorShades="false" />
-
     <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
         android:defaultValue="0xffffffff"
         android:icon="@drawable/ic_date"
@@ -16,7 +15,6 @@
         android:title="@string/pref_look_and_feel_colors_date"
         app:cpv_showAlphaSlider="true"
         app:cpv_showColorShades="false" />
-
     <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
         android:defaultValue="0xffffffff"
         android:icon="@drawable/ic_battery"
@@ -24,7 +22,6 @@
         android:title="@string/pref_look_and_feel_colors_battery"
         app:cpv_showAlphaSlider="true"
         app:cpv_showColorShades="false" />
-
     <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
         android:defaultValue="0xffffffff"
         android:icon="@drawable/ic_music_note"
@@ -32,7 +29,13 @@
         android:title="@string/pref_look_and_feel_colors_music_controls"
         app:cpv_showAlphaSlider="true"
         app:cpv_showColorShades="false" />
-
+    <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+        android:defaultValue="0xffffffff"
+        android:icon="@drawable/ic_short_text"
+        android:key="display_color_message"
+        android:title="@string/pref_look_and_feel_colors_message"
+        app:cpv_showAlphaSlider="true"
+        app:cpv_showColorShades="false" />
     <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
         android:defaultValue="0xffffffff"
         android:icon="@drawable/ic_notification"
@@ -40,12 +43,11 @@
         android:title="@string/pref_look_and_feel_colors_notification"
         app:cpv_showAlphaSlider="true"
         app:cpv_showColorShades="false" />
-
     <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
         android:defaultValue="0xffffffff"
-        android:icon="@drawable/ic_short_text"
-        android:key="display_color_message"
-        android:title="@string/pref_look_and_feel_colors_message"
+        android:icon="@drawable/ic_fingerprint"
+        android:key="display_color_fingerprint"
+        android:title="@string/pref_look_and_feel_colors_fingerprint"
         app:cpv_showAlphaSlider="true"
         app:cpv_showColorShades="false" />
 

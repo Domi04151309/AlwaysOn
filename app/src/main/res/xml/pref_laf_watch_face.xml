@@ -61,6 +61,13 @@
         android:title="@string/pref_ao_showNotificationIcons" />
     <SwitchPreference
         android:defaultValue="false"
+        android:icon="@drawable/ic_fingerprint"
+        android:key="ao_fingerprint"
+        android:summaryOff="@string/pref_disabled"
+        android:summaryOn="@string/pref_enabled"
+        android:title="@string/pref_ao_fingerprint" />
+    <SwitchPreference
+        android:defaultValue="false"
         android:icon="@drawable/ic_clock"
         android:key="hour"
         android:summaryOff="@string/pref_look_and_feel_hour_summary_off"
@@ -85,6 +92,12 @@
         android:key="pref_filter_notifications"
         android:summary="@string/pref_look_and_feel_filter_notifications_summary"
         android:title="@string/pref_look_and_feel_filter_notifications" />
+    <io.github.domi04151309.alwayson.helpers.EditIntegerPreference
+        android:defaultValue="64"
+        android:icon="@drawable/ic_fingerprint"
+        android:key="ao_fingerprint_margin"
+        android:summary="@string/pref_ao_fingerprint_margin_summary"
+        android:title="@string/pref_ao_fingerprint_margin" />
     <SeekBarPreference
         android:icon="@drawable/ic_scale"
         android:key="pref_aod_scale"

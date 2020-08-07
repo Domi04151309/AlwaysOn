@@ -91,8 +91,9 @@ Als zusätzliche Funktion können Sie Lade- und Kopfhöreranimationen aktivieren
     <string name="pref_look_and_feel_colors_date">Datumsfarbe</string>
     <string name="pref_look_and_feel_colors_battery">Akkufarbe</string>
     <string name="pref_look_and_feel_colors_music_controls">Musiksteuerungsfarbe</string>
-    <string name="pref_look_and_feel_colors_notification">Benachrichtigungsfarbe</string>
     <string name="pref_look_and_feel_colors_message">Nachrichtenfarbe</string>
+    <string name="pref_look_and_feel_colors_notification">Benachrichtigungsfarbe</string>
+    <string name="pref_look_and_feel_colors_fingerprint">Fingerabdrucksfarbe</string>
     <string name="pref_ao_showClock">Zeit anzeigen</string>
     <string name="pref_ao_showDate">Datum anzeigen</string>
     <string name="pref_ao_showBatteryIcn">Batterieicon anzeigen</string>
@@ -100,6 +101,9 @@ Als zusätzliche Funktion können Sie Lade- und Kopfhöreranimationen aktivieren
     <string name="pref_ao_showMusicControls">Musiksteuerung anzeigen</string>
     <string name="pref_ao_showNotifications">Benachrichtigungszähler anzeigen</string>
     <string name="pref_ao_showNotificationIcons">Benachrichtigungsicons anzeigen</string>
+    <string name="pref_ao_fingerprint">Fingerabdruckicon anzeigen</string>
+    <string name="pref_ao_fingerprint_margin">Fingerabdruckabstand</string>
+    <string name="pref_ao_fingerprint_margin_summary">Abstand unter dem Fingerabdruckicon</string>
     <string name="pref_ao_edgeGlow">Leuchtende Kanten</string>
     <string name="pref_ao_edgeGlow_summary">Leuchtende Kanten, wenn eine Benachrichtigung eingeht</string>
     <string name="pref_ao_glowDuration">Leuchtdauer (in Millisekunden)</string>
