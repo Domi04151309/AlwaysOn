@@ -46,5 +46,5 @@
         android:layout_marginBottom="?dialogPreferredPadding"
         android:layout_gravity="center"
         android:contentDescription="@null"
-        app:srcCompat="@drawable/ic_mode" />
+        app:srcCompat="@drawable/ic_color_mode" />
 </LinearLayout>

@@ -1,7 +1,6 @@
 package io.github.domi04151309.alwayson.preferences
 
 import android.app.TimePickerDialog
-import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

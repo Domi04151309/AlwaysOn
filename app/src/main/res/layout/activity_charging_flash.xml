@@ -12,5 +12,5 @@
         android:layout_height="96dp"
         android:contentDescription="@string/Charging"
         android:layout_centerInParent="true"
-        android:src="@drawable/ic_charging" />
+        android:src="@drawable/ic_charging_white" />
 </RelativeLayout>

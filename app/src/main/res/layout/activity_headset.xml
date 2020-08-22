@@ -12,5 +12,5 @@
         android:layout_height="96dp"
         android:contentDescription="@string/Headset"
         android:layout_centerInParent="true"
-        android:src="@drawable/ic_headset" />
+        android:src="@drawable/ic_headset_white" />
 </RelativeLayout>

@@ -25,5 +25,5 @@
         android:layout_marginBottom="?dialogPreferredPadding"
         android:layout_gravity="center"
         android:contentDescription="@null"
-        app:srcCompat="@drawable/ic_draw_over_other_apps" />
+        app:srcCompat="@drawable/ic_color_draw_over_other_apps" />
 </LinearLayout>

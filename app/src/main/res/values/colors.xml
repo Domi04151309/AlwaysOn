@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black128">#80000000</color>
     <color name="white128">#80ffffff</color>
     <color name="colorAccent">#ff1369BF</color>
     <color name="navigationBarColor">#000001</color>

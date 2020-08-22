@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/previous"
-                android:src="@drawable/ic_skip_previous" />
+                android:src="@drawable/ic_skip_previous_white" />
 
             <TextView
                 android:id="@+id/musicTxt"
@@ -95,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/next"
-                android:src="@drawable/ic_skip_next" />
+                android:src="@drawable/ic_skip_next_white" />
         </LinearLayout>
 
         <TextView
