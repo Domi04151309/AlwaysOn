@@ -33,7 +33,6 @@
     <string name="clock">Ч:мм</string>
     <string name="clock2">ЧЧ\nММ</string>
     <string name="date">ДДД, МММ д</string>
-    <string name="date2">ДДДД, МММ д</string>
     <string name="feature">-</string>
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% Заряжен</string>
@@ -43,7 +42,6 @@
     <!-- Strings related to Settings -->
     <string name="pref_int_failed">Это значение не может быть использовано</string>
 
-    <string name="pref">Настройки</string>
     <string name="pref_general">Общие настройки</string>
     <string name="pref_enabled">Сейчас Включено</string>
     <string name="pref_disabled">Сейчас Выключено</string>

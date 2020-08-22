@@ -1,21 +1,66 @@
 package io.github.domi04151309.alwayson.preferences
 
+import android.Manifest
+import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.provider.Settings
 import android.service.quicksettings.TileService
+import android.text.TextUtils
+import android.view.KeyEvent
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.app.ActivityCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.*
 import io.github.domi04151309.alwayson.objects.Theme
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
 import io.github.domi04151309.alwayson.objects.Global
+import io.github.domi04151309.alwayson.receivers.AdminReceiver
 
 class Preferences : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
+    companion object {
+        private const val DEVICE_ADMIN_DIALOG: Byte = 0
+        private const val NOTIFICATION_ACCESS_DIALOG: Byte = 1
+        private const val DISPLAY_OVER_OTHER_APPS_DIALOG: Byte = 2
+    }
+    
+    private val isNotificationServiceEnabled: Boolean
+        get() {
+            val flat = Settings.Secure.getString(contentResolver, "enabled_notification_listeners")
+            if (!TextUtils.isEmpty(flat)) {
+                val names = flat.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                for (name in names) {
+                    val cn = ComponentName.unflattenFromString(name)
+                    if (cn != null) {
+                        if (TextUtils.equals(packageName, cn.packageName)) {
+                            return true
+                        }
+                    }
+                }
+            }
+            return false
+        }
+
+    private val isDeviceAdminOrRoot: Boolean
+        get() {
+            return if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode", false)) {
+                true
+            } else {
+                (getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager)
+                        .isAdminActive(ComponentName(this, AdminReceiver::class.java))
+            }
+        }
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -24,6 +69,64 @@ class Preferences : AppCompatActivity(),
                 .beginTransaction()
                 .replace(R.id.settings, GeneralPreferenceFragment())
                 .commit()
+
+        if (applicationContext.checkSelfPermission(Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    arrayOf(Manifest.permission.READ_PHONE_STATE),
+                    0)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (!isDeviceAdminOrRoot) buildDialog(DEVICE_ADMIN_DIALOG)
+        if (!isNotificationServiceEnabled) buildDialog(NOTIFICATION_ACCESS_DIALOG)
+        if (!Settings.canDrawOverlays(this)) buildDialog(DISPLAY_OVER_OTHER_APPS_DIALOG)
+    }
+
+
+    private fun buildDialog(dialogType: Byte) {
+        val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.DialogTheme))
+
+        when (dialogType) {
+            DEVICE_ADMIN_DIALOG -> {
+                builder.setTitle(R.string.device_admin)
+                builder.setMessage(R.string.device_admin_summary)
+                builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
+                    startActivity(Intent(this, PermissionPreferences::class.java))
+                }
+            }
+            NOTIFICATION_ACCESS_DIALOG -> {
+                builder.setTitle(R.string.notification_listener_service)
+                builder.setMessage(R.string.notification_listener_service_summary)
+                builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
+                    startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
+                }
+            }
+            DISPLAY_OVER_OTHER_APPS_DIALOG -> {
+                builder.setTitle(R.string.setup_draw_over_other_apps)
+                builder.setMessage(R.string.setup_draw_over_other_apps_summary)
+                builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
+                    startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 1)
+                }
+            } else -> return
+        }
+
+        builder.setNegativeButton(resources.getString(android.R.string.cancel)) { dialog, _ -> dialog.cancel() }
+        builder.show()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            onBackPressed()
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
 
     override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {

@@ -162,10 +162,6 @@
             android:taskAffinity=""
             android:theme="@style/AppThemeScreenOff" />
 
-        <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTop" />
-
         <service
             android:name=".services.ForegroundService"
             android:enabled="true"
@@ -182,13 +178,7 @@
 
         <activity
             android:name=".preferences.Preferences"
-            android:label="@string/pref"
-            android:launchMode="singleTop"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.MainActivity" />
-        </activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".preferences.LookAndFeelPreferences"
             android:label="@string/pref_look_and_feel"

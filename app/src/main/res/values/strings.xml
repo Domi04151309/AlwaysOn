@@ -24,10 +24,6 @@
 
     <string name="app_name" translatable="false">AlwaysOn</string>
     <string name="app_by">AlwaysOn by Domi04151309</string>
-    <string name="description">AlwaysOn is an app for every device with an AMOLED or OLED display.
-It adds an always-on display with various customization options regarding the watch face, the behavior, and the background.
-Take a look at your phone and have everything you need in one place: the time, the date, the battery state, your notifications, and more.
-As an additional feature you can enable charging and headphones animations that appear when plugging in headphones or your charging cable.</string>
 
     <string name="AlwaysOn">Always on display</string>
     <string name="Headset">Headphone animation</string>
@@ -38,7 +34,6 @@ As an additional feature you can enable charging and headphones animations that 
     <string name="clock">H:mm</string>
     <string name="clock2">HH\nMM</string>
     <string name="date">EEE, MMM d</string>
-    <string name="date2">EEEE, MMM d</string>
     <string name="feature">-</string>
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% Charged</string>
@@ -52,7 +47,6 @@ As an additional feature you can enable charging and headphones animations that 
     <!-- Strings related to Settings -->
     <string name="pref_int_failed">This value cannot be used</string>
 
-    <string name="pref">Settings</string>
     <string name="pref_general">General settings</string>
     <string name="pref_enabled">Currently enabled</string>
     <string name="pref_disabled">Currently disabled</string>

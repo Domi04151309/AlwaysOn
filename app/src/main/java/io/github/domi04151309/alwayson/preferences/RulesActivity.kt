@@ -63,9 +63,9 @@ class RulesActivity : AppCompatActivity(),
             val is24Hour = !prefs.getBoolean("hour", false)
 
             rulesTime.setOnPreferenceClickListener {
-                TimePickerDialog(context, OnTimeSetListener { _, selectedStartHour, selectedStartMinute ->
+                TimePickerDialog(context, { _, selectedStartHour, selectedStartMinute ->
                     prefs.edit().putString("rules_time_start", formatTime(selectedStartHour, selectedStartMinute)).apply()
-                    TimePickerDialog(context, OnTimeSetListener { _, selectedEndHour, selectedEndMinute ->
+                    TimePickerDialog(context, { _, selectedEndHour, selectedEndMinute ->
                         prefs.edit().putString("rules_time_end", formatTime(selectedEndHour, selectedEndMinute)).apply()
                     }, parseInt(rulesTimeEndValue.substringBefore(":")), parseInt(rulesTimeEndValue.substringAfter(":")), is24Hour).show()
                 }, parseInt(rulesTimeStartValue.substringBefore(":")), parseInt(rulesTimeStartValue.substringAfter(":")), is24Hour).show()

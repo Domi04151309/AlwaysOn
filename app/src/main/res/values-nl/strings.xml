@@ -33,7 +33,6 @@
     <string name="clock">H:mm</string>
     <string name="clock2">HH\nMM</string>
     <string name="date">d MMM EEE</string>
-    <string name="date2">d MMM EEEE</string>
     <string name="feature">-</string>
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% opgeladen</string>
@@ -43,7 +42,6 @@
     <!-- Strings related to Settings -->
     <string name="pref_int_failed">Deze waarde kan niet worden gebruikt</string>
 
-    <string name="pref">Instellingen</string>
     <string name="pref_general">Algemeen</string>
     <string name="pref_enabled">Ingeschakeld</string>
     <string name="pref_disabled">Uitgeschakeld</string>

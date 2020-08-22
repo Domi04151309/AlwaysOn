@@ -23,10 +23,6 @@
     <string name="setup_error">Etwas ist schief gelaufen! Bitte versuchen Sie es erneut!</string>
 
     <string name="app_by">AlwaysOn von Domi04151309</string>
-    <string name="description">AlwaysOn ist eine App für jedes Gerät mit AMOLED- oder OLED-Display.
-Sie fügt ein Always-On-Display mit verschiedenen Anpassungsoptionen in Bezug auf das Zifferblatt, das Verhalten und den Hintergrund hinzu.
-Schauen Sie auf ihr Handy und haben Sie alles, was Sie brauchen, an einem Ort: Uhrzeit, Datum, Akkustatus, Benachrichtigungen und mehr.
-Als zusätzliche Funktion können Sie Lade- und Kopfhöreranimationen aktivieren, die beim Anschließen von Kopfhörern oder Ladekabeln angezeigt werden.</string>
 
     <string name="AlwaysOn">Always On Display</string>
     <string name="Headset">Kopfhöreranimation</string>
@@ -37,7 +33,6 @@ Als zusätzliche Funktion können Sie Lade- und Kopfhöreranimationen aktivieren
     <string name="clock">H:mm</string>
     <string name="clock2">HH\nMM</string>
     <string name="date">EEE, MMM d</string>
-    <string name="date2">EEEE, MMM d</string>
     <string name="feature">-</string>
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% geladen</string>
@@ -50,7 +45,6 @@ Als zusätzliche Funktion können Sie Lade- und Kopfhöreranimationen aktivieren
     <!-- Strings related to Settings -->
     <string name="pref_int_failed">Dieser Wert kann nicht benutzt werden.</string>
 
-    <string name="pref">Einstellungen</string>
     <string name="pref_general">Allgemeine Einstellungen</string>
     <string name="pref_enabled">Derzeit aktiviert</string>
     <string name="pref_disabled">Derzeit deaktiviert</string>

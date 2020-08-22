@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import io.github.domi04151309.alwayson.MainActivity
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Theme
 
@@ -39,7 +38,7 @@ class LAFOtherPreferences : AppCompatActivity(),
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_other)
             findPreference<Preference>("dark_mode")?.setOnPreferenceClickListener {
-                startActivity(Intent(context, MainActivity::class.java))
+                startActivity(Intent(context, Preferences::class.java))
                 true
             }
             findPreference<Preference>("charging_style")?.setOnPreferenceClickListener {
