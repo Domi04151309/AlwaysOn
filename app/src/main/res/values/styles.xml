@@ -10,6 +10,8 @@
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat">
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="actionBarTheme">@style/ActionBarTheme</item>
         <item name="colorPrimary">@android:color/black</item>
         <item name="colorPrimaryDark">@android:color/black</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -17,12 +19,13 @@
         <item name="dialogCornerRadius">8dp</item>
         <item name="alertDialogTheme">@style/DialogThemeDark</item>
         <item name="dialogTheme">@style/DialogThemeDark</item>
-        <item name="android:navigationBarColor">@color/navigationBarColor</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
         <item name="android:listDivider">@null</item>
     </style>
 
     <style name="AppThemeLight" parent="Theme.AppCompat.Light">
         <item name="android:windowLightStatusBar">true</item>
+        <item name="actionBarTheme">@style/ActionBarTheme</item>
         <item name="colorPrimary">@color/lightColorPrimary</item>
         <item name="colorPrimaryDark">@color/lightColorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -38,6 +41,10 @@
     <style name="AppThemeSplash" parent="AppThemeScreenOff">
         <item name="android:windowBackground">@drawable/splash</item>
         <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
+
+    <style name="ActionBarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">?android:attr/textColorSecondary</item>
     </style>
 
     <style name="DialogTheme" parent="Theme.AppCompat.Dialog.Alert">

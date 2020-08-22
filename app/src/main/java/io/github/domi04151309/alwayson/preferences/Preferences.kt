@@ -11,6 +11,8 @@ import android.provider.Settings
 import android.service.quicksettings.TileService
 import android.text.TextUtils
 import android.view.KeyEvent
+import android.view.View
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
@@ -65,6 +67,12 @@ class Preferences : AppCompatActivity(),
         Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+        val actionBar = supportActionBar ?: return
+        actionBar.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
+        actionBar.setDisplayShowCustomEnabled(true)
+        actionBar.setCustomView(R.layout.action_bar)
+        actionBar.elevation = 0f
+
         supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.settings, GeneralPreferenceFragment())
