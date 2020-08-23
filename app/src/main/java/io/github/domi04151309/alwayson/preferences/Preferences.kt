@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -26,6 +27,7 @@ import io.github.domi04151309.alwayson.objects.Theme
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
+import io.github.domi04151309.alwayson.services.ForegroundService
 
 class Preferences : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
@@ -84,6 +86,8 @@ class Preferences : AppCompatActivity(),
                     arrayOf(Manifest.permission.READ_PHONE_STATE),
                     0)
         }
+
+        ContextCompat.startForegroundService(this, Intent(this, ForegroundService::class.java))
     }
 
     override fun onStart() {
