@@ -1,9 +1,11 @@
 package io.github.domi04151309.alwayson
 
+import android.Manifest
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
@@ -11,6 +13,7 @@ import android.text.format.DateFormat
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.preference.PreferenceManager
@@ -68,10 +71,20 @@ class SetupActivity : AppCompatActivity() {
                 }
                 DRAW_OVER_OTHER_APPS_FRAGMENT -> {
                     if (Settings.canDrawOverlays(this)) {
-                        swapContentFragment(FinishFragment(), FINISH_FRAGMENT)
+                        swapContentFragment(PhoneStateFragment(), PHONE_STATE_FRAGMENT)
                     } else {
                         startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 1)
                         isActionRequired = true
+                    }
+                }
+                PHONE_STATE_FRAGMENT -> {
+                    if (applicationContext.checkSelfPermission(Manifest.permission.READ_PHONE_STATE)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this,
+                                arrayOf(Manifest.permission.READ_PHONE_STATE),
+                                0)
+                    } else {
+                        swapContentFragment(FinishFragment(), FINISH_FRAGMENT)
                     }
                 }
                 FINISH_FRAGMENT -> {
@@ -104,7 +117,7 @@ class SetupActivity : AppCompatActivity() {
                     if (!Settings.canDrawOverlays(this)) {
                         Toast.makeText(this, R.string.setup_error, Toast.LENGTH_LONG).show()
                     } else {
-                        swapContentFragment(FinishFragment(), FINISH_FRAGMENT)
+                        swapContentFragment(PhoneStateFragment(), PHONE_STATE_FRAGMENT)
                     }
                 }
             }
@@ -154,6 +167,7 @@ class SetupActivity : AppCompatActivity() {
         const val MODE_FRAGMENT: Byte = 1
         const val NOTIFICATION_LISTENER_FRAGMENT: Byte = 2
         const val DRAW_OVER_OTHER_APPS_FRAGMENT: Byte = 3
-        const val FINISH_FRAGMENT: Byte = 4
+        const val PHONE_STATE_FRAGMENT: Byte = 4
+        const val FINISH_FRAGMENT: Byte = 5
     }
 }

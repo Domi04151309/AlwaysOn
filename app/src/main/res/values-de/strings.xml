@@ -17,6 +17,8 @@
     <string name="notification_listener_service_summary">Sie müssen den Benachrichtigungszugriff für die App aktivieren, damit ihre Benachrichtigungen auf dem Always On Display angezeigt werden.</string>
     <string name="setup_draw_over_other_apps">Über anderen Apps anzeigen</string>
     <string name="setup_draw_over_other_apps_summary">Diese Berechtigung ist erforderlich, um das Always On Display anzuzeigen.</string>
+    <string name="setup_phone_state">Telefoniestatus abrufen</string>
+    <string name="setup_phone_state_summary">Diese Berechtigung ist erforderlich, um das Always On Display für eingehende Anrufe zu stoppen.</string>
     <string name="setup_finish">Setup beenden</string>
     <string name="setup_finish_summary">Alles ist eingerichtet. Bitte klicken Sie auf Weiter, um die Einrichtung abzuschließen.</string>
     <string name="setup_continue">Weiter</string>
