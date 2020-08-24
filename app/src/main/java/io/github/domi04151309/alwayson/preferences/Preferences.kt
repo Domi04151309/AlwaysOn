@@ -11,7 +11,6 @@ import android.provider.Settings
 import android.service.quicksettings.TileService
 import android.text.TextUtils
 import android.view.KeyEvent
-import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -168,6 +167,10 @@ class Preferences : AppCompatActivity(),
             }
             findPreference<Preference>("pref_permissions")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, PermissionPreferences::class.java))
+                true
+            }
+            findPreference<Preference>("pref_help")?.setOnPreferenceClickListener {
+                startActivity(Intent(context, HelpActivity::class.java))
                 true
             }
             findPreference<Preference>("pref_about")?.setOnPreferenceClickListener {

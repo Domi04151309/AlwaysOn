@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.USES_POLICY_FORCE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +23,13 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppThemeLight">
+        <activity android:name=".HelpActivity"
+            android:label="@string/help_center"
+            android:parentActivityName=".preferences.Preferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
+        </activity>
         <activity
             android:name=".preferences.RulesActivity"
             android:label="@string/pref_look_and_feel_rules"
@@ -197,7 +205,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
         </activity>
-
         <activity
             android:name=".SplashActivity"
             android:theme="@style/AppThemeSplash">

@@ -37,6 +37,11 @@
             android:summary="@string/pref_permissions_summary"
             android:title="@string/pref_permissions" />
         <Preference
+            android:icon="@drawable/ic_help"
+            android:key="pref_help"
+            android:summary="@string/help_center_summary"
+            android:title="@string/help_center" />
+        <Preference
             android:icon="@drawable/ic_info"
             android:key="pref_about"
             android:summary="@string/about_summary"

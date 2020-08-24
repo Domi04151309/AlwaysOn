@@ -177,6 +177,18 @@
     <string name="pref_root_mode">Root mode</string>
     <string name="pref_root_mode_summary">Enables root functionality</string>
 
+    <string name="help_center">Help center</string>
+    <string name="help_center_summary">Uninstalling, unresponsiveness, battery drain</string>
+    <string name="help_center_uninstall">How to uninstall</string>
+    <string name="help_center_uninstall_text">The uninstall process can fail due to a design flaw in the Android operating system. If the device admin permission was not disabled before uninstalling the process will fail. You have to disable the device admin permission before uninstalling.</string>
+    <string name="help_center_uninstall_button">Uninstall now</string>
+    <string name="help_center_delays">How to fix delays</string>
+    <string name="help_center_delays_text">Some manufacturers prefer battery life over app functionality which is why this app may only work with delays or not at all on some devices. If you are experiencing delays try disabling battery optimizations for the app or check other manufacturer specific settings.</string>
+    <string name="help_center_delays_button_one">Battery Settings</string>
+    <string name="help_center_delays_button_two">Manufacturer specific</string>
+    <string name="help_center_battery_drain">Figure out the source of battery drain</string>
+    <string name="help_center_battery_drain_text">One reason for battery drain could be that you are using a phone with an LCD display. This app is designed for phones with an OLED display that can turn off black pixels to save energy. LCD displays cannot turn off black pixels which will result in the display using a lot more energy when the always on display is enabled.Another reason could be that other apps are running in the background while the always on display is running. Android will display their battery consumption as part of AlwaysOn’s battery consumption.</string>
+
     <string name="loading">Loading</string>
     <string name="missing_permissions">Missing Permissions</string>
 
