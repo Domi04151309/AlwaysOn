@@ -175,6 +175,18 @@
     <string name="pref_root_mode">Root-Modus</string>
     <string name="pref_root_mode_summary">Aktiviert Root-Funktionalitäten</string>
 
+    <string name="help_center">Hilfe Center</string>
+    <string name="help_center_summary">Deinstallation, Verzögerungen, Batterieverbrauch</string>
+    <string name="help_center_uninstall">Deinstallieren</string>
+    <string name="help_center_uninstall_text">Der Deinstallationsprozess kann aufgrund eines Designfehlers im Android-Betriebssystem fehlschlagen. Wenn die Administratorberechtigung des Geräts vor der Deinstallation nicht deaktiviert wurde, schlägt der Prozess fehl. Sie müssen die Administratorrechte des Geräts deaktivieren, bevor Sie die App deinstallieren können.</string>
+    <string name="help_center_uninstall_button">Jetzt deinstallieren</string>
+    <string name="help_center_delays">Verzögerungen beheben</string>
+    <string name="help_center_delays_text">Einige Hersteller bevorzugen die Akkulaufzeit gegenüber der App-Funktionalität, weshalb diese App auf einigen Geräten möglicherweise nur mit Verzögerungen oder gar nicht funktioniert. Wenn Verzögerungen auftreten, deaktivieren Sie die Batterieoptimierungen für die App oder überprüfen Sie andere herstellerspezifische Einstellungen.</string>
+    <string name="help_center_delays_button_one">Batterieeinstellungen</string>
+    <string name="help_center_delays_button_two">Herstellerspezifisch</string>
+    <string name="help_center_battery_drain">Quelle des Akkuverbrauchs identifizieren</string>
+    <string name="help_center_battery_drain_text">Ein Grund für den Batterieverbrauch kann sein, dass Sie ein Telefon mit LCD-Display verwenden. Diese App wurde für Telefone mit einem OLED-Display entwickelt, das schwarze Pixel ausschalten kann, um Energie zu sparen. LCD-Anzeigen können schwarze Pixel nicht ausschalten, was dazu führt, dass die Anzeige viel mehr Energie verbraucht, wenn das Always On Display aktiviert ist. Ein weiterer Grund könnte sein, dass andere Apps im Hintergrund ausgeführt werden, während das Always On Display angezeigt wird. Android zeigt den Batterieverbrauch als Teil des Batterieverbrauchs von AlwaysOn an.</string>
+
     <string name="loading">Lädt</string>
     <string name="missing_permissions">Fehlende Berechtigungen</string>
 

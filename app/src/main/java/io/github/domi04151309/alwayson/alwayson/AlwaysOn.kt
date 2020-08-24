@@ -438,7 +438,7 @@ class AlwaysOn : OffActivity() {
 
         //Rules
         rules = Rules(this, prefs.prefs)
-        rulesChargingState = prefs.get("rules_charging_state", "always") ?: "always"
+        rulesChargingState = prefs.get("rules_charging_state", "always")
         rulesBattery = prefs.get("rules_battery_level", 0)
         rulesTimeout = prefs.get("rules_timeout", 0)
 
