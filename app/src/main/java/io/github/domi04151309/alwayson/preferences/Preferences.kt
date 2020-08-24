@@ -21,10 +21,12 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
-import io.github.domi04151309.alwayson.*
-import io.github.domi04151309.alwayson.objects.Theme
+import io.github.domi04151309.alwayson.AboutActivity
+import io.github.domi04151309.alwayson.HelpActivity
+import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
 import io.github.domi04151309.alwayson.objects.Global
+import io.github.domi04151309.alwayson.objects.Theme
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import io.github.domi04151309.alwayson.services.ForegroundService
 
@@ -95,7 +97,6 @@ class Preferences : AppCompatActivity(),
         if (!isNotificationServiceEnabled) buildDialog(NOTIFICATION_ACCESS_DIALOG)
         if (!Settings.canDrawOverlays(this)) buildDialog(DISPLAY_OVER_OTHER_APPS_DIALOG)
     }
-
 
     private fun buildDialog(dialogType: Byte) {
         val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.DialogTheme))
