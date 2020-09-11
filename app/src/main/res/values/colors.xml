@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white128">#80ffffff</color>
-    <color name="colorAccent">#ff1369BF</color>
+    <color name="colorAccent">#1369BF</color>
     <color name="navigationBarColor">#000001</color>
     <color name="charging">#55D769</color>
     <color name="progressBackground">#333</color>
-
-    <color name="lightColorPrimary">#fafafa</color>
 
     <color name="on">#0f0</color>
     <color name="off">#f00</color>

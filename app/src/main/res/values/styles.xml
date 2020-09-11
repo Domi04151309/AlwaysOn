@@ -26,13 +26,14 @@
     <style name="AppThemeLight" parent="Theme.AppCompat.Light">
         <item name="android:windowLightStatusBar">true</item>
         <item name="actionBarTheme">@style/ActionBarTheme</item>
-        <item name="colorPrimary">@color/lightColorPrimary</item>
-        <item name="colorPrimaryDark">@color/lightColorPrimary</item>
+        <item name="colorPrimary">@android:color/white</item>
+        <item name="colorPrimaryDark">@android:color/white</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@android:color/white</item>
         <item name="dialogCornerRadius">8dp</item>
         <item name="alertDialogTheme">@style/DialogThemeLight</item>
         <item name="dialogTheme">@style/DialogThemeLight</item>
-        <item name="android:navigationBarColor">@color/lightColorPrimary</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
         <item name="android:listDivider">@null</item>
         <item name="android:timePickerDialogTheme">@style/TimePickerDialogTheme</item>
