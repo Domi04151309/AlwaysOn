@@ -377,7 +377,7 @@ class AlwaysOn : OffActivity() {
         }
 
         // Power saving mode
-        if (prefs.get(P.ROOT_MODE, P.ROOT_MODE_DEFAULT) || prefs.get(P.POWER_SAVING_MODE, P.POWER_SAVING_MODE_DEFAULT)) {
+        if (prefs.get(P.ROOT_MODE, P.ROOT_MODE_DEFAULT) && prefs.get(P.POWER_SAVING_MODE, P.POWER_SAVING_MODE_DEFAULT)) {
             Root.shell("settings put global low_power 1")
             Root.shell("dumpsys deviceidle force-idle")
         }
