@@ -1,12 +1,9 @@
 package io.github.domi04151309.alwayson.alwayson
 
-import android.annotation.TargetApi
-import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import io.github.domi04151309.alwayson.objects.Global
 
-@TargetApi(Build.VERSION_CODES.N)
 class AlwaysOnQS : TileService() {
 
     override fun onStartListening() {
