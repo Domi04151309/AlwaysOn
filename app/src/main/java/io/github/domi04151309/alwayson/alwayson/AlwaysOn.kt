@@ -440,7 +440,7 @@ class AlwaysOn : OffActivity() {
         rules = Rules(this, prefs.prefs)
         rulesChargingState = prefs.get("rules_charging_state", "always")
         rulesBattery = prefs.get("rules_battery_level", 0)
-        rulesTimeout = prefs.get("rules_timeout", 0)
+        rulesTimeout = prefs.get("rules_timeout_sec", 0)
 
         //Broadcast Receivers
         localManager.registerReceiver(localReceiver, localFilter)
@@ -464,7 +464,7 @@ class AlwaysOn : OffActivity() {
         }
         val millisTillEnd: Long = rules?.millisTillEnd(Calendar.getInstance()) ?: -1
         if (millisTillEnd > -1L) rulesTimePeriodHandler.postDelayed({ finishAndOff() }, millisTillEnd)
-        if (rulesTimeout != 0) rulesTimePeriodHandler.postDelayed({ finishAndOff() }, rulesTimeout * 60000L)
+        if (rulesTimeout != 0) rulesTimePeriodHandler.postDelayed({ finishAndOff() }, rulesTimeout * 1000L)
         if (prefs.get(P.DO_NOT_DISTURB, P.DO_NOT_DISTURB_DEFAULT) && notificationAccess) notificationManager?.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
         if (prefs.get(P.DISABLE_HEADS_UP_NOTIFICATIONS, P.DISABLE_HEADS_UP_NOTIFICATIONS_DEFAULT)) Root.shell("settings put global heads_up_notifications_enabled 0")
         if (prefs.get(P.POCKET_MODE, P.POCKET_MODE_DEFAULT)) sensorManager?.registerListener(sensorEventListener, sensorManager?.getDefaultSensor(Sensor.TYPE_PROXIMITY), SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)

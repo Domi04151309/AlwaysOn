@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <plurals name="pref_look_and_feel_rules_timeout_summary">
-        <item quantity="one">Nach %d Minute anhalten</item>
-        <item quantity="other">Nach %d Minuten anhalten</item>
+        <item quantity="one">Nach %d Sekunde anhalten</item>
+        <item quantity="other">Nach %d Sekunden anhalten</item>
     </plurals>
 </resources>

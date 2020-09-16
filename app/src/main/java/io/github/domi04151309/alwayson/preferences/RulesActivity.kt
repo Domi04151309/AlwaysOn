@@ -58,7 +58,7 @@ class RulesActivity : AppCompatActivity(),
             prefs = PreferenceManager.getDefaultSharedPreferences(context)
             rulesBatteryLevel = findPreference("rules_battery_level") ?: return
             rulesTime = findPreference("rules_time") ?: return
-            rulesTimeout = findPreference("rules_timeout") ?: return
+            rulesTimeout = findPreference("rules_timeout_sec") ?: return
             val is24Hour = !prefs.getBoolean("hour", false)
 
             rulesTime.setOnPreferenceClickListener {
@@ -88,7 +88,7 @@ class RulesActivity : AppCompatActivity(),
             val rulesBatteryLevelValue = prefs.getInt("rules_battery_level", 0)
             rulesTimeStartValue = prefs.getString("rules_time_start", DEFAULT_START_TIME) ?: DEFAULT_START_TIME
             rulesTimeEndValue = prefs.getString("rules_time_end", DEFAULT_END_TIME) ?: DEFAULT_END_TIME
-            val rulesTimeoutValue = prefs.getInt("rules_timeout", 0)
+            val rulesTimeoutValue = prefs.getInt("rules_timeout_sec", 0)
 
             if (rulesBatteryLevelValue > 100) {
                 prefs.edit().putInt("rules_battery_level", 100).apply()
