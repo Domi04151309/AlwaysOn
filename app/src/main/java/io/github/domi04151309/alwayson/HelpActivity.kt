@@ -9,11 +9,12 @@ import android.os.Bundle
 import android.provider.Settings
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import io.github.domi04151309.alwayson.objects.Theme
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
-
 
 class HelpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_help)
 
