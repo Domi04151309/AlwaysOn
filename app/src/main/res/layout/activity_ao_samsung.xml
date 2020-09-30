@@ -137,6 +137,6 @@
         android:layout_height="@dimen/aod_fingerprint_size"
         android:layout_gravity="center_horizontal|bottom"
         android:contentDescription="@null"
-        android:src="@drawable/ic_fingerprint"
+        android:src="@drawable/ic_fingerprint_white"
         android:visibility="gone"/>
 </io.github.domi04151309.alwayson.helpers.CustomFrameLayout>
