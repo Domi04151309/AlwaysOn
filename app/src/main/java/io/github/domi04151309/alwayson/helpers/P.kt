@@ -39,6 +39,7 @@ internal class P(val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_NOTIFICATION = "display_color_notification"
         const val DISPLAY_COLOR_MESSAGE = "display_color_message"
         const val DISPLAY_COLOR_FINGERPRINT = "display_color_fingerprint"
+        const val DISPLAY_COLOR_EDGE_GLOW = "display_color_edge_glow"
 
         const val ROOT_MODE_DEFAULT = false
         const val POWER_SAVING_MODE_DEFAULT = false
@@ -68,5 +69,6 @@ internal class P(val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_NOTIFICATION_DEFAULT = -1
         const val DISPLAY_COLOR_MESSAGE_DEFAULT = -1
         const val DISPLAY_COLOR_FINGERPRINT_DEFAULT = -1
+        const val DISPLAY_COLOR_EDGE_GLOW_DEFAULT = -1
     }
 }

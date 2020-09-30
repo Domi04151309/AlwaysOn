@@ -354,6 +354,7 @@ class AlwaysOn : OffActivity() {
                     "horizontal" -> ContextCompat.getDrawable(this, R.drawable.edge_glow_horizontal)
                     else -> ContextCompat.getDrawable(this, R.drawable.edge_glow)
                 }
+                viewHolder.frame.background.setTint(prefs.get(P.DISPLAY_COLOR_EDGE_GLOW, P.DISPLAY_COLOR_EDGE_GLOW_DEFAULT))
                 val transition = viewHolder.frame.background as TransitionDrawable
                 aoEdgeGlowThread = object : Thread() {
                     override fun run() {

@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <SwitchPreference
         android:defaultValue="false"
@@ -32,5 +33,13 @@
         android:key="ao_glowStyle"
         android:summary="@string/pref_ao_glowStyle_summary"
         android:title="@string/pref_ao_glowStyle" />
+    <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+        android:defaultValue="0xffffffff"
+        android:icon="@drawable/ic_palette"
+        android:key="display_color_edge_glow"
+        android:summary="@string/pref_ao_glowColor_summary"
+        android:title="@string/pref_ao_glowColor"
+        app:cpv_showAlphaSlider="true"
+        app:cpv_showColorShades="false" />
 
 </PreferenceScreen>

@@ -110,6 +110,8 @@
     <string name="pref_ao_glowDelay_summary">Interval between the glows</string>
     <string name="pref_ao_glowStyle">Edge glow style</string>
     <string name="pref_ao_glowStyle_summary">Changes the look of the glowing edges</string>
+    <string name="pref_ao_glowColor">Edge glow color</string>
+    <string name="pref_ao_glowColor_summary">Changes the color of the glowing edges</string>
     <string name="pref_ao_vibration">Vibration duration (in milliseconds)</string>
     <string name="pref_ao_vibration_summary">Duration the phone vibrates when you double-tap the screen</string>
     <string name="pref_ao_animation_delay">Animation delay (in minutes)</string>

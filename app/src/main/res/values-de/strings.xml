@@ -108,6 +108,8 @@
     <string name="pref_ao_glowDelay_summary">Intervall zwischen dem Aufleuchten</string>
     <string name="pref_ao_glowStyle">Kantenleuchtstil</string>
     <string name="pref_ao_glowStyle_summary">Ändert, wie die leuchtenden Kanten aussehen</string>
+    <string name="pref_ao_glowColor">Kantenleuchtfarbe</string>
+    <string name="pref_ao_glowColor_summary">Ändert die Farbe der leuchtenden Kanten</string>
     <string name="pref_ao_vibration">Vibrationsdauer (in Millisekunden)</string>
     <string name="pref_ao_vibration_summary">Dauer, die das Telefon vibriert, wenn Sie zweimal auf den Bildschirm tippen</string>
     <string name="pref_ao_animation_delay">Animationsverzögerung (in Minuten)</string>
