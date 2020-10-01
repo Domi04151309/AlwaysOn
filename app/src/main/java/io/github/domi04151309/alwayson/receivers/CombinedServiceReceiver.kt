@@ -47,6 +47,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                         c.startActivity(i)
                     }
                 } else if (rules.isAlwaysOnDisplayEnabled()
+                        && !rules.isAmbientMode()
                         && rules.matchesBatteryPercentage()
                         && rules.isInTimePeriod(Calendar.getInstance())
                         && !isScreenOn) {
@@ -55,6 +56,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
             }
             Intent.ACTION_POWER_DISCONNECTED -> {
                 if (rules.isAlwaysOnDisplayEnabled()
+                        && !rules.isAmbientMode()
                         && rules.matchesBatteryPercentage()
                         && rules.isInTimePeriod(Calendar.getInstance())
                         && !isScreenOn) {
@@ -68,7 +70,10 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                     if (isAlwaysOnRunning) {
                         c.startActivity(Intent(c, TurnOnScreen::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                         isAlwaysOnRunning = false
-                    } else if (rules.matchesChargingState() && rules.matchesBatteryPercentage() && rules.isInTimePeriod(Calendar.getInstance())) {
+                    } else if (!rules.isAmbientMode()
+                            && rules.matchesChargingState()
+                            && rules.matchesBatteryPercentage()
+                            && rules.isInTimePeriod(Calendar.getInstance())) {
                         c.startActivity(Intent(c, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                     }
                 } else if (alwaysOn && hasRequestedStop) {

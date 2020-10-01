@@ -3,20 +3,25 @@ package io.github.domi04151309.alwayson.services
 import android.app.Notification
 import android.content.*
 import android.graphics.drawable.Icon
+import android.icu.util.Calendar
 import android.os.Handler
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.PreferenceManager
+import io.github.domi04151309.alwayson.alwayson.AlwaysOn
+import io.github.domi04151309.alwayson.helpers.Rules
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.objects.JSON
+import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 import org.json.JSONArray
 
 class NotificationService : NotificationListenerService() {
 
     internal lateinit var localManager: LocalBroadcastManager
     private lateinit var prefs: SharedPreferences
+    private lateinit var rules: Rules
     private var sentRecently: Boolean = false
     private var cache: Int = -1
 
@@ -38,6 +43,7 @@ class NotificationService : NotificationListenerService() {
         super.onCreate()
         localManager = LocalBroadcastManager.getInstance(this)
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        rules = Rules(this, prefs)
         val filter = IntentFilter(Global.REQUEST_DETAILED_NOTIFICATIONS)
         filter.addAction(Global.REQUEST_NOTIFICATIONS)
         localManager.registerReceiver(actionReceiver, filter)
@@ -50,6 +56,17 @@ class NotificationService : NotificationListenerService() {
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         sendCount()
+
+        if (!CombinedServiceReceiver.isScreenOn
+                && !CombinedServiceReceiver.isAlwaysOnRunning
+                && rules.isAlwaysOnDisplayEnabled()
+                && rules.isAmbientMode()
+                && rules.matchesChargingState()
+                && rules.matchesBatteryPercentage()
+                && rules.isInTimePeriod(Calendar.getInstance())
+        ) {
+            startActivity(Intent(this, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        }
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification) {

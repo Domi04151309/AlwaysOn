@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_notification"
+        android:key="rules_ambient_mode"
+        android:summary="@string/pref_look_and_feel_rules_ambient_mode_summary"
+        android:title="@string/pref_look_and_feel_rules_ambient_mode" />
+
     <ListPreference
         android:defaultValue="always"
         android:entries="@array/pref_look_and_feel_rules_charging_state_display"

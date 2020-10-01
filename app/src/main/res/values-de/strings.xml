@@ -163,6 +163,8 @@
     <string name="pref_look_and_feel_rules_time_summary">Von %1$s bis %2$s anzeigen</string>
     <string name="pref_look_and_feel_rules_timeout">Timeout</string>
     <string name="pref_look_and_feel_rules_timeout_summary_zero">Es wurde kein Timeout gesetzt</string>
+    <string name="pref_look_and_feel_rules_ambient_mode">Ambient Modus</string>
+    <string name="pref_look_and_feel_rules_ambient_mode_summary">Nur bei neuen Benachichtigungen anzeigen</string>
 
     <string name="pref_permissions">Berechtigungen</string>
     <string name="pref_permissions_summary">Einstellungen in Bezug auf Berechtigungen</string>

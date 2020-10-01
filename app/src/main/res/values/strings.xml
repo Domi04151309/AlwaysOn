@@ -165,6 +165,8 @@
     <string name="pref_look_and_feel_rules_time_summary">Show from %1$s to %2$s</string>
     <string name="pref_look_and_feel_rules_timeout">Timeout</string>
     <string name="pref_look_and_feel_rules_timeout_summary_zero">No timeout has been set</string>
+    <string name="pref_look_and_feel_rules_ambient_mode">Ambient mode</string>
+    <string name="pref_look_and_feel_rules_ambient_mode_summary">Only show after a notification was received</string>
 
     <string name="pref_permissions">Permissions</string>
     <string name="pref_permissions_summary">Settings related to permissions</string>

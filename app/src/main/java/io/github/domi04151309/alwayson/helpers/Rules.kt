@@ -31,6 +31,10 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
         return prefs.getBoolean("always_on", false)
     }
 
+    fun isAmbientMode(): Boolean {
+        return prefs.getBoolean("rules_ambient_mode", false)
+    }
+
     fun matchesChargingState(): Boolean {
         val chargingState: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: return true
         val ruleChargingState = prefs.getString("rules_charging_state", "always")
