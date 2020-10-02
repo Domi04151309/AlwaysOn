@@ -56,7 +56,9 @@ class SetupActivity : AppCompatActivity() {
                         if (isDeviceAdmin) {
                             swapContentFragment(NotificationListenerFragment(), NOTIFICATION_LISTENER_FRAGMENT)
                         } else {
-                            startActivity(Intent().setComponent( ComponentName("com.android.settings", "com.android.settings.Settings\$DeviceAdminSettingsActivity")))
+                            startActivityForResult(Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN).apply {
+                                putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, ComponentName(this@SetupActivity, AdminReceiver::class.java))
+                            }, 0)
                             isActionRequired = true
                         }
                     }
@@ -100,14 +102,14 @@ class SetupActivity : AppCompatActivity() {
         if (isActionRequired) {
             when (currentFragment) {
                 MODE_FRAGMENT -> {
-                    if(!rootMode && !isDeviceAdmin) {
+                    if (!rootMode && !isDeviceAdmin) {
                         Toast.makeText(this, R.string.setup_error, Toast.LENGTH_LONG).show()
                     } else {
                         swapContentFragment(NotificationListenerFragment(), NOTIFICATION_LISTENER_FRAGMENT)
                     }
                 }
                 NOTIFICATION_LISTENER_FRAGMENT -> {
-                    if(!isNotificationServiceEnabled) {
+                    if (!isNotificationServiceEnabled) {
                         Toast.makeText(this, R.string.setup_error, Toast.LENGTH_LONG).show()
                     } else {
                         swapContentFragment(DrawOverOtherAppsFragment(), DRAW_OVER_OTHER_APPS_FRAGMENT)
