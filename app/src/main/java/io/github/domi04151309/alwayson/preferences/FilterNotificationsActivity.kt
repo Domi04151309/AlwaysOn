@@ -9,7 +9,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.objects.Global
 import io.github.domi04151309.alwayson.objects.JSON
@@ -46,7 +45,6 @@ class FilterNotificationsActivity : AppCompatActivity(),
     class PreferenceFragment : PreferenceFragmentCompat() {
 
         internal var blockedArray: JSONArray = JSONArray()
-        private lateinit var prefs: SharedPreferences
         private lateinit var blocked: PreferenceCategory
         internal lateinit var shown: PreferenceCategory
         private lateinit var packageManager: PackageManager
@@ -79,7 +77,6 @@ class FilterNotificationsActivity : AppCompatActivity(),
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_filter_notifications)
-            prefs = PreferenceManager.getDefaultSharedPreferences(context)
             blocked = findPreference("blocked") ?: return
             shown = findPreference("shown") ?: return
             packageManager = requireContext().packageManager
@@ -91,7 +88,7 @@ class FilterNotificationsActivity : AppCompatActivity(),
 
         override fun onStart() {
             super.onStart()
-            blockedArray = JSONArray(prefs.getString("blocked_notifications", "[]"))
+            blockedArray = JSONArray(preferenceManager.sharedPreferences.getString("blocked_notifications", "[]"))
             if (!JSON.isEmpty(blockedArray)) {
                 blocked.removeAll()
                 for (i in 0 until blockedArray.length()) {
@@ -106,7 +103,7 @@ class FilterNotificationsActivity : AppCompatActivity(),
 
         override fun onStop() {
             super.onStop()
-            prefs.edit().putString("blocked_notifications", blockedArray.toString()).apply()
+            preferenceManager.sharedPreferences.edit().putString("blocked_notifications", blockedArray.toString()).apply()
         }
 
         internal fun addToList(packageName: String) {

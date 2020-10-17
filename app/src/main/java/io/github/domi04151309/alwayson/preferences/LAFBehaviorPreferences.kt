@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.objects.Theme
 
 class LAFBehaviorPreferences : AppCompatActivity(),
@@ -39,13 +39,13 @@ class LAFBehaviorPreferences : AppCompatActivity(),
     class PreferenceFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_behavior)
-            findPreference<Preference>("ao_force_brightness")?.setOnPreferenceClickListener {
+            findPreference<Preference>(P.FORCE_BRIGHTNESS)?.setOnPreferenceClickListener {
                 startActivity(Intent(context, BrightnessActivity::class.java))
                 true
             }
-            if(!PreferenceManager.getDefaultSharedPreferences(context).getBoolean("root_mode", false)) {
-                findPreference<SwitchPreference>("ao_power_saving")?.isEnabled = false
-                findPreference<SwitchPreference>("heads_up")?.isEnabled = false
+            if(!preferenceManager.sharedPreferences.getBoolean(P.ROOT_MODE, false)) {
+                findPreference<SwitchPreference>(P.POWER_SAVING_MODE)?.isEnabled = false
+                findPreference<SwitchPreference>(P.DISABLE_HEADS_UP_NOTIFICATIONS)?.isEnabled = false
             }
         }
     }
