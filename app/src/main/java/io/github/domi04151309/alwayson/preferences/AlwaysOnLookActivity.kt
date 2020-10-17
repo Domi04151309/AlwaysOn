@@ -17,8 +17,11 @@ class AlwaysOnLookActivity : AppCompatActivity() {
     private lateinit var preview: ImageView
     private lateinit var googleBtn: RadioButton
     private lateinit var samsungBtn: RadioButton
-    private lateinit var thirdSamsungBtn: RadioButton
     private lateinit var secondSamsungBtn: RadioButton
+    private lateinit var thirdSamsungBtn: RadioButton
+    private lateinit var gameBtn: RadioButton
+    private lateinit var handwrittenBtn: RadioButton
+    private lateinit var westernBtn: RadioButton
     private lateinit var oneplusBtn: RadioButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,28 +35,39 @@ class AlwaysOnLookActivity : AppCompatActivity() {
         samsungBtn = findViewById(R.id.samsungBtn)
         secondSamsungBtn = findViewById(R.id.secondSamsungBtn)
         thirdSamsungBtn = findViewById(R.id.thirdSamsungBtn)
+        gameBtn = findViewById(R.id.gameBtn)
+        handwrittenBtn = findViewById(R.id.handwrittenBtn)
+        westernBtn = findViewById(R.id.westernBtn)
         oneplusBtn = findViewById(R.id.oneplusBtn)
 
         googleBtn.setOnClickListener{
             preview.setImageResource(R.drawable.always_on_0)
             value = "google"
         }
-
         samsungBtn.setOnClickListener{
             preview.setImageResource(R.drawable.always_on_1)
             value = "samsung"
         }
-
         secondSamsungBtn.setOnClickListener{
             preview.setImageResource(R.drawable.always_on_2)
             value = "samsung2"
         }
-
         thirdSamsungBtn.setOnClickListener{
             preview.setImageResource(R.drawable.always_on_4)
             value = "samsung3"
         }
-
+        gameBtn.setOnClickListener{
+            preview.setImageResource(R.drawable.always_on_4)
+            value = "game"
+        }
+        handwrittenBtn.setOnClickListener{
+            preview.setImageResource(R.drawable.always_on_4)
+            value = "handwritten"
+        }
+        westernBtn.setOnClickListener{
+            preview.setImageResource(R.drawable.always_on_4)
+            value = "western"
+        }
         oneplusBtn.setOnClickListener{
             preview.setImageResource(R.drawable.always_on_3)
             value = "oneplus"
@@ -79,6 +93,18 @@ class AlwaysOnLookActivity : AppCompatActivity() {
             "samsung3" -> {
                 preview.setImageResource(R.drawable.always_on_4)
                 thirdSamsungBtn.isChecked = true
+            }
+            "game" -> {
+                preview.setImageResource(R.drawable.always_on_4)
+                gameBtn.isChecked = true
+            }
+            "handwritten" -> {
+                preview.setImageResource(R.drawable.always_on_4)
+                handwrittenBtn.isChecked = true
+            }
+            "western" -> {
+                preview.setImageResource(R.drawable.always_on_4)
+                westernBtn.isChecked = true
             }
             "oneplus" -> {
                 preview.setImageResource(R.drawable.always_on_3)

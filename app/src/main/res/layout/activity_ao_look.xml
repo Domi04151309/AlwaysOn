@@ -49,5 +49,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/pref_look_and_feel_ao_array_display_samsung3"/>
+
+        <RadioButton
+            android:id="@+id/gameBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_look_and_feel_ao_array_display_game"/>
+
+        <RadioButton
+            android:id="@+id/handwrittenBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_look_and_feel_ao_array_display_handwritten"/>
+
+        <RadioButton
+            android:id="@+id/westernBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_look_and_feel_ao_array_display_western"/>
     </RadioGroup>
 </RelativeLayout>

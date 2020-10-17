@@ -185,6 +185,9 @@ class AlwaysOn : OffActivity() {
             "samsung2" -> setContentView(R.layout.activity_ao_samsung_2)
             "samsung3" -> setContentView(R.layout.activity_ao_samsung_3)
             "oneplus" -> setContentView(R.layout.activity_ao_oneplus)
+            "game" -> setContentView(R.layout.activity_ao_game)
+            "handwritten" -> setContentView(R.layout.activity_ao_handwritten)
+            "western" -> setContentView(R.layout.activity_ao_western)
         }
 
         //View

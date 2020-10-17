@@ -84,6 +84,9 @@
     <string name="pref_look_and_feel_ao_array_display_samsung2">S-Style left-justified</string>
     <string name="pref_look_and_feel_ao_array_display_samsung3">S-Style split</string>
     <string name="pref_look_and_feel_ao_array_display_oneplus">O-Style vertical</string>
+    <string name="pref_look_and_feel_ao_array_display_game">Game-Style horizontal</string>
+    <string name="pref_look_and_feel_ao_array_display_handwritten">Handwritten-Style horizontal</string>
+    <string name="pref_look_and_feel_ao_array_display_western">Western-Style horizontal</string>
     <string name="pref_look_and_feel_colors">Colors</string>
     <string name="pref_look_and_feel_colors_summary">Select colors for certain elements</string>
     <string name="pref_look_and_feel_colors_clock">Clock color</string>
