@@ -80,6 +80,13 @@
         android:summary="@string/pref_look_and_feel_am_pm_summary"
         android:title="@string/pref_look_and_feel_am_pm" />
     <EditTextPreference
+        android:icon="@drawable/ic_date"
+        android:defaultValue="@string/date"
+        android:key="ao_date_format"
+        android:singleLine="true"
+        android:summary="@string/pref_ao_date_format_summary"
+        android:title="@string/pref_ao_date_format" />
+    <EditTextPreference
         android:icon="@drawable/ic_short_text"
         android:defaultValue=""
         android:key="ao_message"

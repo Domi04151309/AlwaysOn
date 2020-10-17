@@ -28,6 +28,7 @@ internal class P(val prefs: SharedPreferences) {
         const val DISABLE_HEADS_UP_NOTIFICATIONS = "heads_up"
         const val USE_12_HOUR_CLOCK = "hour"
         const val SHOW_AM_PM = "am_pm"
+        const val DATE_FORMAT = "ao_date_format"
         const val FORCE_BRIGHTNESS = "ao_force_brightness"
         const val DISABLE_DOUBLE_TAP = "ao_double_tap_disabled"
         const val SHOW_MUSIC_CONTROLS = "ao_musicControls"
@@ -58,6 +59,7 @@ internal class P(val prefs: SharedPreferences) {
         const val DISABLE_HEADS_UP_NOTIFICATIONS_DEFAULT = false
         const val USE_12_HOUR_CLOCK_DEFAULT = false
         const val SHOW_AM_PM_DEFAULT = false
+        const val DATE_FORMAT_DEFAULT = "EEE, MMMM d"
         const val FORCE_BRIGHTNESS_DEFAULT = false
         const val DISABLE_DOUBLE_TAP_DEFAULT = false
         const val SHOW_MUSIC_CONTROLS_DEFAULT = false

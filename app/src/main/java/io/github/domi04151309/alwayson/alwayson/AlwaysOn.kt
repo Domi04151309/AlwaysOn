@@ -242,13 +242,7 @@ class AlwaysOn : OffActivity() {
 
         //Date
         if (prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
-            dateFormat = SimpleDateFormat(
-                    if (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT) == "samsung2") {
-                        "EEE, MMMM d"
-                    } else {
-                        "EEE, MMM d"
-                    }, Locale.getDefault()
-            )
+            dateFormat = SimpleDateFormat(prefs.get(P.DATE_FORMAT, P.DATE_FORMAT_DEFAULT), Locale.getDefault())
             viewHolder.dateTxt.setTextColor(prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT))
             viewHolder.dateTxt.text = dateFormat.format(Calendar.getInstance())
             systemFilter.addAction(Intent.ACTION_DATE_CHANGED)
