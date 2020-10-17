@@ -44,12 +44,16 @@ class AlwaysOnLookActivity : AppCompatActivity() {
             preview.setImageResource(R.drawable.always_on_0)
             value = "google"
         }
-        samsungBtn.setOnClickListener{
+        oneplusBtn.setOnClickListener{
             preview.setImageResource(R.drawable.always_on_1)
+            value = "oneplus"
+        }
+        samsungBtn.setOnClickListener{
+            preview.setImageResource(R.drawable.always_on_2)
             value = "samsung"
         }
         secondSamsungBtn.setOnClickListener{
-            preview.setImageResource(R.drawable.always_on_2)
+            preview.setImageResource(R.drawable.always_on_3)
             value = "samsung2"
         }
         thirdSamsungBtn.setOnClickListener{
@@ -57,37 +61,37 @@ class AlwaysOnLookActivity : AppCompatActivity() {
             value = "samsung3"
         }
         gameBtn.setOnClickListener{
-            preview.setImageResource(R.drawable.always_on_4)
+            preview.setImageResource(R.drawable.always_on_5)
             value = "game"
         }
         handwrittenBtn.setOnClickListener{
-            preview.setImageResource(R.drawable.always_on_4)
+            preview.setImageResource(R.drawable.always_on_6)
             value = "handwritten"
         }
         westernBtn.setOnClickListener{
-            preview.setImageResource(R.drawable.always_on_4)
+            preview.setImageResource(R.drawable.always_on_7)
             value = "western"
-        }
-        oneplusBtn.setOnClickListener{
-            preview.setImageResource(R.drawable.always_on_3)
-            value = "oneplus"
         }
     }
 
     override fun onStart() {
         super.onStart()
-        value = prefs.getString("ao_style", "google") ?:"google"
+        value = prefs.getString(P.USER_THEME, P.USER_THEME_DEFAULT) ?: P.USER_THEME_DEFAULT
         when (value) {
             "google" -> {
                 preview.setImageResource(R.drawable.always_on_0)
                 googleBtn.isChecked = true
             }
-            "samsung" -> {
+            "oneplus" -> {
                 preview.setImageResource(R.drawable.always_on_1)
+                oneplusBtn.isChecked = true
+            }
+            "samsung" -> {
+                preview.setImageResource(R.drawable.always_on_2)
                 samsungBtn.isChecked = true
             }
             "samsung2" -> {
-                preview.setImageResource(R.drawable.always_on_2)
+                preview.setImageResource(R.drawable.always_on_3)
                 secondSamsungBtn.isChecked = true
             }
             "samsung3" -> {
@@ -95,26 +99,22 @@ class AlwaysOnLookActivity : AppCompatActivity() {
                 thirdSamsungBtn.isChecked = true
             }
             "game" -> {
-                preview.setImageResource(R.drawable.always_on_4)
+                preview.setImageResource(R.drawable.always_on_5)
                 gameBtn.isChecked = true
             }
             "handwritten" -> {
-                preview.setImageResource(R.drawable.always_on_4)
+                preview.setImageResource(R.drawable.always_on_6)
                 handwrittenBtn.isChecked = true
             }
             "western" -> {
-                preview.setImageResource(R.drawable.always_on_4)
+                preview.setImageResource(R.drawable.always_on_7)
                 westernBtn.isChecked = true
-            }
-            "oneplus" -> {
-                preview.setImageResource(R.drawable.always_on_3)
-                oneplusBtn.isChecked = true
             }
         }
     }
 
     override fun onStop() {
         super.onStop()
-        prefs.edit().putString("ao_style", value).apply()
+        prefs.edit().putString(P.USER_THEME, value).apply()
     }
 }
