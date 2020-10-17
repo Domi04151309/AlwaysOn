@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/aod_spacing_2"
-            android:fontFamily="@font/samsung_sans"
+            android:fontFamily="@font/roboto_light"
             android:includeFontPadding="false"
             android:text="@string/clock"
             android:textSize="36sp"/>
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/aod_spacing_2"
-            android:fontFamily="@font/samsung_sans"
+            android:fontFamily="@font/roboto_light"
             android:includeFontPadding="false"
             android:text="@string/date"
             android:textSize="36sp" />
@@ -47,7 +47,7 @@
                 android:id="@+id/batteryTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/samsung_sans"
+                android:fontFamily="@font/roboto_light"
                 android:includeFontPadding="false"
                 android:text="@string/battery"
                 android:textStyle="bold"
@@ -75,7 +75,7 @@
                 android:id="@+id/musicTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/samsung_sans"
+                android:fontFamily="@font/roboto_light"
                 android:layout_gravity="center"
                 android:text="@string/music"
                 android:textSize="16sp" />
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/aod_spacing_2"
             android:layout_marginBottom="@dimen/aod_spacing_2"
-            android:fontFamily="@font/samsung_sans"
+            android:fontFamily="@font/roboto_light"
             android:visibility="gone"
             android:textSize="16sp" />
 
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/aod_spacing"
-            android:fontFamily="@font/samsung_sans"
+            android:fontFamily="@font/roboto_light"
             android:includeFontPadding="false"
             android:text="@string/feature"
             android:textSize="18sp" />

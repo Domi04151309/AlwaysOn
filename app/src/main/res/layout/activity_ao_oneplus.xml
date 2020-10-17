@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/aod_spacing"
             android:layout_marginBottom="@dimen/aod_spacing_2"
-            android:fontFamily="@font/slate_medium"
+            android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:lineSpacingMultiplier="0.72"
             android:text="@string/clock2"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/aod_spacing_2"
             android:layout_marginBottom="@dimen/aod_spacing_2"
-            android:fontFamily="@font/slate_medium"
+            android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:text="@string/date"
             android:textSize="20sp" />
@@ -51,7 +51,7 @@
                 android:id="@+id/batteryTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/slate_medium"
+                android:fontFamily="@font/roboto_medium"
                 android:text="@string/battery"
                 android:textSize="20sp" />
 
@@ -85,7 +85,7 @@
                 android:id="@+id/musicTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:fontFamily="@font/slate_medium"
+                android:fontFamily="@font/roboto_medium"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="@string/music"
@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/aod_spacing_2"
             android:layout_marginBottom="@dimen/aod_spacing_2"
-            android:fontFamily="@font/slate_medium"
+            android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:visibility="gone"
             android:textSize="15sp" />
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/aod_spacing"
             android:layout_marginBottom="@dimen/aod_spacing"
-            android:fontFamily="@font/slate_medium"
+            android:fontFamily="@font/roboto_medium"
             android:gravity="center"
             android:text="@string/feature"
             android:textSize="20sp" />
