@@ -24,24 +24,30 @@
             android:id="@+id/googleBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_ao_array_display_0"/>
+            android:text="@string/pref_look_and_feel_ao_array_display_google"/>
 
         <RadioButton
             android:id="@+id/oneplusBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_ao_array_display_3" />
+            android:text="@string/pref_look_and_feel_ao_array_display_oneplus" />
 
         <RadioButton
             android:id="@+id/samsungBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_ao_array_display_1"/>
+            android:text="@string/pref_look_and_feel_ao_array_display_samsung"/>
 
         <RadioButton
             android:id="@+id/secondSamsungBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_ao_array_display_2"/>
+            android:text="@string/pref_look_and_feel_ao_array_display_samsung2"/>
+
+        <RadioButton
+            android:id="@+id/thirdSamsungBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pref_look_and_feel_ao_array_display_samsung3"/>
     </RadioGroup>
 </RelativeLayout>

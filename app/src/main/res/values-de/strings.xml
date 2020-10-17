@@ -77,10 +77,11 @@
 
     <string name="pref_look_and_feel_ao">Aussehen</string>
     <string name="pref_look_and_feel_ao_summary">Ändert das Aussehen des Always On Displays</string>
-    <string name="pref_look_and_feel_ao_array_display_0">Google-ähnlicher Stil</string>
-    <string name="pref_look_and_feel_ao_array_display_1">Samsung-ähnlicher Stil</string>
-    <string name="pref_look_and_feel_ao_array_display_2">Zweiter Samsung-ähnlicher Stil</string>
-    <string name="pref_look_and_feel_ao_array_display_3">OnePlus-ähnlicher Stil</string>
+    <string name="pref_look_and_feel_ao_array_display_google">Google-ähnlicher Stil</string>
+    <string name="pref_look_and_feel_ao_array_display_samsung">Samsung-ähnlicher Stil</string>
+    <string name="pref_look_and_feel_ao_array_display_samsung2">Zweiter Samsung-ähnlicher Stil</string>
+    <string name="pref_look_and_feel_ao_array_display_samsung3">Dritter Samsung-ähnlicher Stil</string>
+    <string name="pref_look_and_feel_ao_array_display_oneplus">OnePlus-ähnlicher Stil</string>
     <string name="pref_look_and_feel_colors">Farben</string>
     <string name="pref_look_and_feel_colors_summary">Wähle Farben für bestimmte Elemente</string>
     <string name="pref_look_and_feel_colors_clock">Uhrenfarbe</string>
