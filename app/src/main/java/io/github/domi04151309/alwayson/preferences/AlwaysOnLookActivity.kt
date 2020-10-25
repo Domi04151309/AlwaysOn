@@ -41,12 +41,12 @@ class AlwaysOnLookActivity : AppCompatActivity() {
                         ContextCompat.getDrawable(this, R.drawable.always_on_samsung),
                         ContextCompat.getDrawable(this, R.drawable.always_on_samsung2),
                         ContextCompat.getDrawable(this, R.drawable.always_on_samsung3),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_missingno),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_missingno),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_missingno),
+                        ContextCompat.getDrawable(this, R.drawable.always_on_80s),
+                        ContextCompat.getDrawable(this, R.drawable.always_on_fast),
+                        ContextCompat.getDrawable(this, R.drawable.always_on_flower),
                         ContextCompat.getDrawable(this, R.drawable.always_on_game),
                         ContextCompat.getDrawable(this, R.drawable.always_on_handwritten),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_missingno),
+                        ContextCompat.getDrawable(this, R.drawable.always_on_jungle),
                         ContextCompat.getDrawable(this, R.drawable.always_on_western)
                 ),
                 resources.getStringArray(R.array.pref_look_and_feel_ao_array_display),
@@ -74,15 +74,15 @@ class AlwaysOnLookActivity : AppCompatActivity() {
                                 value = P.USER_THEME_SAMSUNG3
                             }
                             ITEM_80S -> {
-                                preview.setImageResource(R.drawable.always_on_missingno)
+                                preview.setImageResource(R.drawable.always_on_80s)
                                 value = P.USER_THEME_80S
                             }
                             ITEM_FAST -> {
-                                preview.setImageResource(R.drawable.always_on_missingno)
+                                preview.setImageResource(R.drawable.always_on_fast)
                                 value = P.USER_THEME_FAST
                             }
                             ITEM_FLOWER -> {
-                                preview.setImageResource(R.drawable.always_on_missingno)
+                                preview.setImageResource(R.drawable.always_on_flower)
                                 value = P.USER_THEME_FLOWER
                             }
                             ITEM_GAME -> {
@@ -94,7 +94,7 @@ class AlwaysOnLookActivity : AppCompatActivity() {
                                 value = P.USER_THEME_HANDWRITTEN
                             }
                             ITEM_JUNGLE -> {
-                                preview.setImageResource(R.drawable.always_on_missingno)
+                                preview.setImageResource(R.drawable.always_on_jungle)
                                 value = P.USER_THEME_JUNGLE
                             }
                             ITEM_WESTERN -> {
@@ -133,15 +133,15 @@ class AlwaysOnLookActivity : AppCompatActivity() {
                 adapter.setSelectedItem(ITEM_SAMSUNG3)
             }
             P.USER_THEME_80S -> {
-                preview.setImageResource(R.drawable.always_on_missingno)
+                preview.setImageResource(R.drawable.always_on_80s)
                 adapter.setSelectedItem(ITEM_80S)
             }
             P.USER_THEME_FAST -> {
-                preview.setImageResource(R.drawable.always_on_missingno)
+                preview.setImageResource(R.drawable.always_on_fast)
                 adapter.setSelectedItem(ITEM_FAST)
             }
             P.USER_THEME_FLOWER -> {
-                preview.setImageResource(R.drawable.always_on_missingno)
+                preview.setImageResource(R.drawable.always_on_flower)
                 adapter.setSelectedItem(ITEM_FLOWER)
             }
             P.USER_THEME_GAME -> {
@@ -153,7 +153,7 @@ class AlwaysOnLookActivity : AppCompatActivity() {
                 adapter.setSelectedItem(ITEM_HANDWRITTEN)
             }
             P.USER_THEME_JUNGLE -> {
-                preview.setImageResource(R.drawable.always_on_missingno)
+                preview.setImageResource(R.drawable.always_on_jungle)
                 adapter.setSelectedItem(ITEM_JUNGLE)
             }
             P.USER_THEME_WESTERN -> {
