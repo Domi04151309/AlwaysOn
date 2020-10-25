@@ -79,14 +79,16 @@
 
     <string name="pref_look_and_feel_ao">Always on look</string>
     <string name="pref_look_and_feel_ao_summary">Changes the look of the always on display</string>
-    <string name="pref_look_and_feel_ao_array_display_google">G-Style horizontal</string>
-    <string name="pref_look_and_feel_ao_array_display_samsung">S-Style vertical</string>
-    <string name="pref_look_and_feel_ao_array_display_samsung2">S-Style left-justified</string>
-    <string name="pref_look_and_feel_ao_array_display_samsung3">S-Style split</string>
-    <string name="pref_look_and_feel_ao_array_display_oneplus">O-Style vertical</string>
-    <string name="pref_look_and_feel_ao_array_display_game">Game-Style horizontal</string>
-    <string name="pref_look_and_feel_ao_array_display_handwritten">Handwritten-Style horizontal</string>
-    <string name="pref_look_and_feel_ao_array_display_western">Western-Style horizontal</string>
+    <string-array name="pref_look_and_feel_ao_array_display">
+        <item>G-Style</item>
+        <item>O-Style</item>
+        <item>S-Vertical</item>
+        <item>S-Left-Justified</item>
+        <item>S-Split</item>
+        <item>Game</item>
+        <item>Handwritten</item>
+        <item>Western</item>
+    </string-array>
     <string name="pref_look_and_feel_colors">Colors</string>
     <string name="pref_look_and_feel_colors_summary">Select colors for certain elements</string>
     <string name="pref_look_and_feel_colors_clock">Clock color</string>

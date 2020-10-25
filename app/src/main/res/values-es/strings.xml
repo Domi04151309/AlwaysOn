@@ -70,10 +70,6 @@
 
     <string name="pref_look_and_feel_ao">Siempre a la vista</string>
     <string name="pref_look_and_feel_ao_summary">Cambia el aspecto de lo que siempre está en exhibición</string>
-    <string name="pref_look_and_feel_ao_array_display_google">Estilo tipo Google</string>
-    <string name="pref_look_and_feel_ao_array_display_samsung">Estilo tipo Samsung</string>
-    <string name="pref_look_and_feel_ao_array_display_samsung2">Estilo tipo Samsung </string>
-    <string name="pref_look_and_feel_ao_array_display_oneplus">Estilo tipo OnePlus</string>
     <string name="pref_ao_showClock">Muestra la hora</string>
     <string name="pref_ao_showDate">Muestra la fecha</string>
     <string name="pref_ao_showBatteryIcn">Muestra un icono de batería</string>

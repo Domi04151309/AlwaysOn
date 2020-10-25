@@ -3,26 +3,23 @@ package io.github.domi04151309.alwayson.preferences
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
-import android.widget.RadioButton
+import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.adapters.LayoutListAdapter
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.objects.Theme
 
 class AlwaysOnLookActivity : AppCompatActivity() {
 
-    private var value: String = P.USER_THEME_DEFAULT
     private lateinit var prefs: SharedPreferences
-    private lateinit var preview: ImageView
-    private lateinit var googleBtn: RadioButton
-    private lateinit var samsungBtn: RadioButton
-    private lateinit var secondSamsungBtn: RadioButton
-    private lateinit var thirdSamsungBtn: RadioButton
-    private lateinit var gameBtn: RadioButton
-    private lateinit var handwrittenBtn: RadioButton
-    private lateinit var westernBtn: RadioButton
-    private lateinit var oneplusBtn: RadioButton
+    internal var value: String = P.USER_THEME_DEFAULT
+    internal lateinit var preview: ImageView
+    private lateinit var layoutList: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
@@ -31,84 +28,101 @@ class AlwaysOnLookActivity : AppCompatActivity() {
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
         preview = findViewById(R.id.preview)
-        googleBtn = findViewById(R.id.googleBtn)
-        samsungBtn = findViewById(R.id.samsungBtn)
-        secondSamsungBtn = findViewById(R.id.secondSamsungBtn)
-        thirdSamsungBtn = findViewById(R.id.thirdSamsungBtn)
-        gameBtn = findViewById(R.id.gameBtn)
-        handwrittenBtn = findViewById(R.id.handwrittenBtn)
-        westernBtn = findViewById(R.id.westernBtn)
-        oneplusBtn = findViewById(R.id.oneplusBtn)
+        layoutList = findViewById(R.id.layout_list)
 
-        googleBtn.setOnClickListener{
-            preview.setImageResource(R.drawable.always_on_0)
-            value = "google"
+        layoutList.layoutManager = LinearLayoutManager(this).apply {
+            orientation = LinearLayoutManager.HORIZONTAL
         }
-        oneplusBtn.setOnClickListener{
-            preview.setImageResource(R.drawable.always_on_1)
-            value = "oneplus"
-        }
-        samsungBtn.setOnClickListener{
-            preview.setImageResource(R.drawable.always_on_2)
-            value = "samsung"
-        }
-        secondSamsungBtn.setOnClickListener{
-            preview.setImageResource(R.drawable.always_on_3)
-            value = "samsung2"
-        }
-        thirdSamsungBtn.setOnClickListener{
-            preview.setImageResource(R.drawable.always_on_4)
-            value = "samsung3"
-        }
-        gameBtn.setOnClickListener{
-            preview.setImageResource(R.drawable.always_on_5)
-            value = "game"
-        }
-        handwrittenBtn.setOnClickListener{
-            preview.setImageResource(R.drawable.always_on_6)
-            value = "handwritten"
-        }
-        westernBtn.setOnClickListener{
-            preview.setImageResource(R.drawable.always_on_7)
-            value = "western"
-        }
+        layoutList.adapter = LayoutListAdapter(
+                this,
+                arrayOf(
+                        ContextCompat.getDrawable(this, R.drawable.always_on_google),
+                        ContextCompat.getDrawable(this, R.drawable.always_on_oneplus),
+                        ContextCompat.getDrawable(this, R.drawable.always_on_samsung),
+                        ContextCompat.getDrawable(this, R.drawable.always_on_samsung2),
+                        ContextCompat.getDrawable(this, R.drawable.always_on_samsung3),
+                        ContextCompat.getDrawable(this, R.drawable.always_on_game),
+                        ContextCompat.getDrawable(this, R.drawable.always_on_handwritten),
+                        ContextCompat.getDrawable(this, R.drawable.always_on_western)
+                ),
+                resources.getStringArray(R.array.pref_look_and_feel_ao_array_display),
+                object : LayoutListAdapter.OnItemClickListener {
+                    override fun onItemClick(view: View, position: Int) {
+                        when (position) {
+                            0 -> {
+                                preview.setImageResource(R.drawable.always_on_google)
+                                value = "google"
+                            }
+                            1 -> {
+                                preview.setImageResource(R.drawable.always_on_oneplus)
+                                value = "oneplus"
+                            }
+                            2 -> {
+                                preview.setImageResource(R.drawable.always_on_samsung)
+                                value = "samsung"
+                            }
+                            3 -> {
+                                preview.setImageResource(R.drawable.always_on_samsung2)
+                                value = "samsung2"
+                            }
+                            4 -> {
+                                preview.setImageResource(R.drawable.always_on_samsung3)
+                                value = "samsung3"
+                            }
+                            5 -> {
+                                preview.setImageResource(R.drawable.always_on_game)
+                                value = "game"
+                            }
+                            6 -> {
+                                preview.setImageResource(R.drawable.always_on_handwritten)
+                                value = "handwritten"
+                            }
+                            7 -> {
+                                preview.setImageResource(R.drawable.always_on_western)
+                                value = "western"
+                            }
+                        }
+                    }
+                }
+        )
     }
 
     override fun onStart() {
         super.onStart()
         value = prefs.getString(P.USER_THEME, P.USER_THEME_DEFAULT) ?: P.USER_THEME_DEFAULT
+        val adapter = layoutList.adapter as LayoutListAdapter
         when (value) {
             "google" -> {
-                preview.setImageResource(R.drawable.always_on_0)
-                googleBtn.isChecked = true
+                preview.setImageResource(R.drawable.always_on_google)
+                adapter.setSelectedItem(0)
             }
             "oneplus" -> {
-                preview.setImageResource(R.drawable.always_on_1)
-                oneplusBtn.isChecked = true
+                preview.setImageResource(R.drawable.always_on_oneplus)
+                adapter.setSelectedItem(1)
             }
             "samsung" -> {
-                preview.setImageResource(R.drawable.always_on_2)
-                samsungBtn.isChecked = true
+                preview.setImageResource(R.drawable.always_on_samsung)
+                adapter.setSelectedItem(2)
             }
             "samsung2" -> {
-                preview.setImageResource(R.drawable.always_on_3)
-                secondSamsungBtn.isChecked = true
+                preview.setImageResource(R.drawable.always_on_samsung2)
+                adapter.setSelectedItem(3)
             }
             "samsung3" -> {
-                preview.setImageResource(R.drawable.always_on_4)
-                thirdSamsungBtn.isChecked = true
+                preview.setImageResource(R.drawable.always_on_samsung3)
+                adapter.setSelectedItem(4)
             }
             "game" -> {
-                preview.setImageResource(R.drawable.always_on_5)
-                gameBtn.isChecked = true
+                preview.setImageResource(R.drawable.always_on_game)
+                adapter.setSelectedItem(5)
             }
             "handwritten" -> {
-                preview.setImageResource(R.drawable.always_on_6)
-                handwrittenBtn.isChecked = true
+                preview.setImageResource(R.drawable.always_on_handwritten)
+                adapter.setSelectedItem(6)
             }
             "western" -> {
-                preview.setImageResource(R.drawable.always_on_7)
-                westernBtn.isChecked = true
+                preview.setImageResource(R.drawable.always_on_western)
+                adapter.setSelectedItem(7)
             }
         }
     }

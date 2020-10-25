@@ -8,64 +8,17 @@
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/radio"
+        android:layout_above="@id/layout_list"
         android:padding="?dialogPreferredPadding"
-        app:srcCompat="@drawable/always_on_0"
+        app:srcCompat="@drawable/always_on_google"
         android:contentDescription="@string/AlwaysOn" />
 
-    <RadioGroup
-        android:id="@+id/radio"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/layout_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="?dialogPreferredPadding">
-
-        <RadioButton
-            android:id="@+id/googleBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_ao_array_display_google"/>
-
-        <RadioButton
-            android:id="@+id/oneplusBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_ao_array_display_oneplus" />
-
-        <RadioButton
-            android:id="@+id/samsungBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_ao_array_display_samsung"/>
-
-        <RadioButton
-            android:id="@+id/secondSamsungBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_ao_array_display_samsung2"/>
-
-        <RadioButton
-            android:id="@+id/thirdSamsungBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_ao_array_display_samsung3"/>
-
-        <RadioButton
-            android:id="@+id/gameBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_ao_array_display_game"/>
-
-        <RadioButton
-            android:id="@+id/handwrittenBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_ao_array_display_handwritten"/>
-
-        <RadioButton
-            android:id="@+id/westernBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_ao_array_display_western"/>
-    </RadioGroup>
+        android:scrollbars="horizontal"
+        android:fadeScrollbars="false"/>
 </RelativeLayout>

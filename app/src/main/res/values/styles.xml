@@ -16,7 +16,7 @@
         <item name="colorPrimaryDark">@android:color/black</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@android:color/black</item>
-        <item name="dialogCornerRadius">8dp</item>
+        <item name="dialogCornerRadius">@dimen/common_corner_radius</item>
         <item name="alertDialogTheme">@style/DialogThemeDark</item>
         <item name="dialogTheme">@style/DialogThemeDark</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
@@ -30,7 +30,7 @@
         <item name="colorPrimaryDark">@android:color/white</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@android:color/white</item>
-        <item name="dialogCornerRadius">8dp</item>
+        <item name="dialogCornerRadius">@dimen/common_corner_radius</item>
         <item name="alertDialogTheme">@style/DialogThemeLight</item>
         <item name="dialogTheme">@style/DialogThemeLight</item>
         <item name="android:navigationBarColor">@android:color/white</item>
@@ -68,7 +68,7 @@
     <style name="DialogThemeDark" parent="Theme.AppCompat.Dialog.Alert">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="buttonBarButtonStyle">@style/DialogButtonStyle</item>
-        <item name="dialogCornerRadius">8dp</item>
+        <item name="dialogCornerRadius">@dimen/common_corner_radius</item>
         <item name="android:backgroundDimAmount">.32</item>
     </style>
 
@@ -79,7 +79,7 @@
     <style name="TimePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/colorAccent</item>
-        <item name="dialogCornerRadius">8dp</item>
+        <item name="dialogCornerRadius">@dimen/common_corner_radius</item>
         <item name="android:backgroundDimAmount">.32</item>
     </style>
 

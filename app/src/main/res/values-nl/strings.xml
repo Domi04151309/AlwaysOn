@@ -60,10 +60,6 @@
 
     <string name="pref_look_and_feel_ao">Uiterlijk</string>
     <string name="pref_look_and_feel_ao_summary">Pas het uiterlijk van het altijdaan-scherm aan</string>
-    <string name="pref_look_and_feel_ao_array_display_google">Google-achtige stijl</string>
-    <string name="pref_look_and_feel_ao_array_display_samsung">Samsung-achtige stijl</string>
-    <string name="pref_look_and_feel_ao_array_display_samsung2">Alternatieve Samsung-achtige stijl</string>
-    <string name="pref_look_and_feel_ao_array_display_oneplus">OnePlus-achtige stijl</string>
     <string name="pref_ao_watch_face">Uurwerk</string>
     <string name="pref_ao_showClock">Tijd tonen</string>
     <string name="pref_ao_showDate">Datum tonen</string>
