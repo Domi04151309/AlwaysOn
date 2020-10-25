@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="FontOverlayAkronim">
+        <item name="android:fontFamily">@font/akronim_regular</item>
+    </style>
+    <style name="FontOverlayEwert">
+        <item name="android:fontFamily">@font/ewert_regular</item>
+    </style>
+    <style name="FontOverlayFasterOne">
+        <item name="android:fontFamily">@font/faster_one_regular</item>
+    </style>
+    <style name="FontOverlayHanalei">
+        <item name="android:fontFamily">@font/hanalei_regular</item>
+    </style>
+    <style name="FontOverlayMonoton">
+        <item name="android:fontFamily">@font/monoton_regular</item>
+    </style>
+    <style name="FontOverlayPatrickHand">
+        <item name="android:fontFamily">@font/patrick_hand_regular</item>
+    </style>
+    <style name="FontOverlayRoboto">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+    <style name="FontOverlayVT323">
+        <item name="android:fontFamily">@font/vt323_regular</item>
+    </style>
+</resources>

@@ -85,8 +85,12 @@
         <item>S-Vertical</item>
         <item>S-Left-Justified</item>
         <item>S-Split</item>
+        <item>80s</item>
+        <item>Fast</item>
+        <item>Flower</item>
         <item>Game</item>
         <item>Handwritten</item>
+        <item>Jungle</item>
         <item>Western</item>
     </string-array>
     <string name="pref_look_and_feel_colors">Colors</string>

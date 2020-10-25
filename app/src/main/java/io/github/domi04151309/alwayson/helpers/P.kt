@@ -42,9 +42,22 @@ internal class P(val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_FINGERPRINT = "display_color_fingerprint"
         const val DISPLAY_COLOR_EDGE_GLOW = "display_color_edge_glow"
 
+        const val USER_THEME_GOOGLE = "google"
+        const val USER_THEME_ONEPLUS = "oneplus"
+        const val USER_THEME_SAMSUNG = "samsung"
+        const val USER_THEME_SAMSUNG2 = "samsung2"
+        const val USER_THEME_SAMSUNG3 = "samsung3"
+        const val USER_THEME_80S = "80s"
+        const val USER_THEME_FAST = "fast"
+        const val USER_THEME_FLOWER = "flower"
+        const val USER_THEME_GAME = "game"
+        const val USER_THEME_HANDWRITTEN = "handwritten"
+        const val USER_THEME_JUNGLE = "jungle"
+        const val USER_THEME_WESTERN = "western"
+
         const val ROOT_MODE_DEFAULT = false
         const val POWER_SAVING_MODE_DEFAULT = false
-        const val USER_THEME_DEFAULT = "google"
+        const val USER_THEME_DEFAULT = USER_THEME_GOOGLE
         const val SHOW_CLOCK_DEFAULT = true
         const val SHOW_DATE_DEFAULT = true
         const val SHOW_BATTERY_ICON_DEFAULT = true

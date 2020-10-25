@@ -180,21 +180,49 @@ class AlwaysOn : OffActivity() {
             setTheme(R.style.CutoutIgnore)
 
         when (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT)) {
-            "google" -> setContentView(R.layout.activity_ao_google)
-            "samsung" -> setContentView(R.layout.activity_ao_samsung)
-            "samsung2" -> setContentView(R.layout.activity_ao_samsung_2)
-            "samsung3" -> setContentView(R.layout.activity_ao_samsung_3)
-            "oneplus" -> setContentView(R.layout.activity_ao_oneplus)
-            "game" -> setContentView(R.layout.activity_ao_game)
-            "handwritten" -> setContentView(R.layout.activity_ao_handwritten)
-            "western" -> setContentView(R.layout.activity_ao_western)
+            P.USER_THEME_GOOGLE -> {
+                setTheme(R.style.FontOverlayRoboto)
+                setContentView(R.layout.activity_ao_google)
+            }
+            P.USER_THEME_ONEPLUS -> setContentView(R.layout.activity_ao_oneplus)
+            P.USER_THEME_SAMSUNG -> setContentView(R.layout.activity_ao_samsung)
+            P.USER_THEME_SAMSUNG2 -> setContentView(R.layout.activity_ao_samsung_2)
+            P.USER_THEME_SAMSUNG3 -> setContentView(R.layout.activity_ao_samsung_3)
+            P.USER_THEME_80S -> {
+                setTheme(R.style.FontOverlayMonoton)
+                setContentView(R.layout.activity_ao_google)
+            }
+            P.USER_THEME_FAST -> {
+                setTheme(R.style.FontOverlayFasterOne)
+                setContentView(R.layout.activity_ao_google)
+            }
+            P.USER_THEME_FLOWER -> {
+                setTheme(R.style.FontOverlayAkronim)
+                setContentView(R.layout.activity_ao_google)
+            }
+            P.USER_THEME_GAME -> {
+                setTheme(R.style.FontOverlayVT323)
+                setContentView(R.layout.activity_ao_google)
+            }
+            P.USER_THEME_HANDWRITTEN -> {
+                setTheme(R.style.FontOverlayPatrickHand)
+                setContentView(R.layout.activity_ao_google)
+            }
+            P.USER_THEME_JUNGLE -> {
+                setTheme(R.style.FontOverlayHanalei)
+                setContentView(R.layout.activity_ao_google)
+            }
+            P.USER_THEME_WESTERN -> {
+                setTheme(R.style.FontOverlayEwert)
+                setContentView(R.layout.activity_ao_google)
+            }
         }
 
         //View
         viewHolder = AlwaysOnViewHolder(this)
         viewHolder.fullscreenContent.scaleX = prefs.displayScale()
         viewHolder.fullscreenContent.scaleY = prefs.displayScale()
-        if (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT) == "samsung2") {
+        if (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT) == P.USER_THEME_SAMSUNG2) {
             val outMetrics = DisplayMetrics()
             windowManager.defaultDisplay.getMetrics(outMetrics)
             val dpWidth: Float = outMetrics.widthPixels / resources.displayMetrics.density
