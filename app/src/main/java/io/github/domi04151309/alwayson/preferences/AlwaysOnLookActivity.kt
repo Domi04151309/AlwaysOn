@@ -24,7 +24,7 @@ class AlwaysOnLookActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ao_look)
+        setContentView(R.layout.activity_layout_list)
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
         preview = findViewById(R.id.preview)
