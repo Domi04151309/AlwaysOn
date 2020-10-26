@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +20,21 @@ class AlwaysOnLookActivity : AppCompatActivity() {
     internal lateinit var preview: ImageView
     private lateinit var layoutList: RecyclerView
 
+    internal val drawables = arrayOf(
+            R.drawable.always_on_google,
+            R.drawable.always_on_oneplus,
+            R.drawable.always_on_samsung,
+            R.drawable.always_on_samsung2,
+            R.drawable.always_on_samsung3,
+            R.drawable.always_on_80s,
+            R.drawable.always_on_fast,
+            R.drawable.always_on_flower,
+            R.drawable.always_on_game,
+            R.drawable.always_on_handwritten,
+            R.drawable.always_on_jungle,
+            R.drawable.always_on_western
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -35,72 +49,24 @@ class AlwaysOnLookActivity : AppCompatActivity() {
         }
         layoutList.adapter = LayoutListAdapter(
                 this,
-                arrayOf(
-                        ContextCompat.getDrawable(this, R.drawable.always_on_google),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_oneplus),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_samsung),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_samsung2),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_samsung3),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_80s),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_fast),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_flower),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_game),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_handwritten),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_jungle),
-                        ContextCompat.getDrawable(this, R.drawable.always_on_western)
-                ),
+                drawables,
                 resources.getStringArray(R.array.pref_look_and_feel_ao_array_display),
                 object : LayoutListAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
+                        preview.setImageResource(drawables[position])
                         when (position) {
-                            ITEM_GOOGLE -> {
-                                preview.setImageResource(R.drawable.always_on_google)
-                                value = P.USER_THEME_GOOGLE
-                            }
-                            ITEM_ONEPLUS -> {
-                                preview.setImageResource(R.drawable.always_on_oneplus)
-                                value = P.USER_THEME_ONEPLUS
-                            }
-                            ITEM_SAMSUNG -> {
-                                preview.setImageResource(R.drawable.always_on_samsung)
-                                value = P.USER_THEME_SAMSUNG
-                            }
-                            ITEM_SAMSUNG2 -> {
-                                preview.setImageResource(R.drawable.always_on_samsung2)
-                                value = P.USER_THEME_SAMSUNG2
-                            }
-                            ITEM_SAMSUNG3 -> {
-                                preview.setImageResource(R.drawable.always_on_samsung3)
-                                value = P.USER_THEME_SAMSUNG3
-                            }
-                            ITEM_80S -> {
-                                preview.setImageResource(R.drawable.always_on_80s)
-                                value = P.USER_THEME_80S
-                            }
-                            ITEM_FAST -> {
-                                preview.setImageResource(R.drawable.always_on_fast)
-                                value = P.USER_THEME_FAST
-                            }
-                            ITEM_FLOWER -> {
-                                preview.setImageResource(R.drawable.always_on_flower)
-                                value = P.USER_THEME_FLOWER
-                            }
-                            ITEM_GAME -> {
-                                preview.setImageResource(R.drawable.always_on_game)
-                                value = P.USER_THEME_GAME
-                            }
-                            ITEM_HANDWRITTEN -> {
-                                preview.setImageResource(R.drawable.always_on_handwritten)
-                                value = P.USER_THEME_HANDWRITTEN
-                            }
-                            ITEM_JUNGLE -> {
-                                preview.setImageResource(R.drawable.always_on_jungle)
-                                value = P.USER_THEME_JUNGLE
-                            }
-                            ITEM_WESTERN -> {
-                                preview.setImageResource(R.drawable.always_on_western)
-                                value = P.USER_THEME_WESTERN
-                            }
+                            ITEM_GOOGLE -> value = P.USER_THEME_GOOGLE
+                            ITEM_ONEPLUS -> value = P.USER_THEME_ONEPLUS
+                            ITEM_SAMSUNG -> value = P.USER_THEME_SAMSUNG
+                            ITEM_SAMSUNG2 -> value = P.USER_THEME_SAMSUNG2
+                            ITEM_SAMSUNG3 -> value = P.USER_THEME_SAMSUNG3
+                            ITEM_80S -> value = P.USER_THEME_80S
+                            ITEM_FAST -> value = P.USER_THEME_FAST
+                            ITEM_FLOWER -> value = P.USER_THEME_FLOWER
+                            ITEM_GAME -> value = P.USER_THEME_GAME
+                            ITEM_HANDWRITTEN -> value = P.USER_THEME_HANDWRITTEN
+                            ITEM_JUNGLE -> value = P.USER_THEME_JUNGLE
+                            ITEM_WESTERN -> value = P.USER_THEME_WESTERN
                         }
                     }
                 }
@@ -112,60 +78,29 @@ class AlwaysOnLookActivity : AppCompatActivity() {
         value = prefs.getString(P.USER_THEME, P.USER_THEME_DEFAULT) ?: P.USER_THEME_DEFAULT
         val adapter = layoutList.adapter as LayoutListAdapter
         when (value) {
-            P.USER_THEME_GOOGLE -> {
-                preview.setImageResource(R.drawable.always_on_google)
-                adapter.setSelectedItem(ITEM_GOOGLE)
-            }
-            P.USER_THEME_ONEPLUS -> {
-                preview.setImageResource(R.drawable.always_on_oneplus)
-                adapter.setSelectedItem(ITEM_ONEPLUS)
-            }
-            P.USER_THEME_SAMSUNG -> {
-                preview.setImageResource(R.drawable.always_on_samsung)
-                adapter.setSelectedItem(ITEM_SAMSUNG)
-            }
-            P.USER_THEME_SAMSUNG2 -> {
-                preview.setImageResource(R.drawable.always_on_samsung2)
-                adapter.setSelectedItem(ITEM_SAMSUNG2)
-            }
-            P.USER_THEME_SAMSUNG3 -> {
-                preview.setImageResource(R.drawable.always_on_samsung3)
-                adapter.setSelectedItem(ITEM_SAMSUNG3)
-            }
-            P.USER_THEME_80S -> {
-                preview.setImageResource(R.drawable.always_on_80s)
-                adapter.setSelectedItem(ITEM_80S)
-            }
-            P.USER_THEME_FAST -> {
-                preview.setImageResource(R.drawable.always_on_fast)
-                adapter.setSelectedItem(ITEM_FAST)
-            }
-            P.USER_THEME_FLOWER -> {
-                preview.setImageResource(R.drawable.always_on_flower)
-                adapter.setSelectedItem(ITEM_FLOWER)
-            }
-            P.USER_THEME_GAME -> {
-                preview.setImageResource(R.drawable.always_on_game)
-                adapter.setSelectedItem(ITEM_GAME)
-            }
-            P.USER_THEME_HANDWRITTEN -> {
-                preview.setImageResource(R.drawable.always_on_handwritten)
-                adapter.setSelectedItem(ITEM_HANDWRITTEN)
-            }
-            P.USER_THEME_JUNGLE -> {
-                preview.setImageResource(R.drawable.always_on_jungle)
-                adapter.setSelectedItem(ITEM_JUNGLE)
-            }
-            P.USER_THEME_WESTERN -> {
-                preview.setImageResource(R.drawable.always_on_western)
-                adapter.setSelectedItem(ITEM_WESTERN)
-            }
+            P.USER_THEME_GOOGLE -> setSelectedItem(adapter, ITEM_GOOGLE)
+            P.USER_THEME_ONEPLUS -> setSelectedItem(adapter, ITEM_ONEPLUS)
+            P.USER_THEME_SAMSUNG -> setSelectedItem(adapter, ITEM_SAMSUNG)
+            P.USER_THEME_SAMSUNG2 -> setSelectedItem(adapter, ITEM_SAMSUNG2)
+            P.USER_THEME_SAMSUNG3 -> setSelectedItem(adapter, ITEM_SAMSUNG3)
+            P.USER_THEME_80S -> setSelectedItem(adapter, ITEM_80S)
+            P.USER_THEME_FAST -> setSelectedItem(adapter, ITEM_FAST)
+            P.USER_THEME_FLOWER -> setSelectedItem(adapter, ITEM_FLOWER)
+            P.USER_THEME_GAME -> setSelectedItem(adapter, ITEM_GAME)
+            P.USER_THEME_HANDWRITTEN -> setSelectedItem(adapter, ITEM_HANDWRITTEN)
+            P.USER_THEME_JUNGLE -> setSelectedItem(adapter, ITEM_JUNGLE)
+            P.USER_THEME_WESTERN -> setSelectedItem(adapter, ITEM_WESTERN)
         }
     }
 
     override fun onStop() {
         super.onStop()
         prefs.edit().putString(P.USER_THEME, value).apply()
+    }
+
+    private fun setSelectedItem(adapter: LayoutListAdapter, position: Int) {
+        preview.setImageResource(drawables[position])
+        adapter.setSelectedItem(position)
     }
 
     companion object {

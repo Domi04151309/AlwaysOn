@@ -17,7 +17,7 @@ import io.github.domi04151309.alwayson.R
 
 class LayoutListAdapter(
         private val context: Context,
-        private val drawables: Array<Drawable?>,
+        private val drawables: Array<Int>,
         private val titles: Array<String>,
         private val onItemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<LayoutListAdapter.ViewHolder>() {
@@ -45,7 +45,7 @@ class LayoutListAdapter(
         ) else {
             holder.view.findViewById<LinearLayout>(R.id.linearLayout).background = context.getAttr(R.attr.selectableItemBackground)
         }
-        holder.view.findViewById<ImageView>(R.id.drawable).setImageDrawable(drawables[position])
+        holder.view.findViewById<ImageView>(R.id.drawable).setImageDrawable(ContextCompat.getDrawable(context, drawables[position]))
         holder.view.findViewById<TextView>(R.id.title).text = titles[position]
     }
 

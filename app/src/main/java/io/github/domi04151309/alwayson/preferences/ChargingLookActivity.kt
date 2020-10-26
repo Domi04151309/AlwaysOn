@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +20,12 @@ class ChargingLookActivity : AppCompatActivity() {
     internal lateinit var preview: ImageView
     private lateinit var layoutList: RecyclerView
 
+    internal val drawables = arrayOf(
+            R.drawable.charging_circle,
+            R.drawable.charging_flash,
+            R.drawable.charging_ios
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -35,27 +40,15 @@ class ChargingLookActivity : AppCompatActivity() {
         }
         layoutList.adapter = LayoutListAdapter(
                 this,
-                arrayOf(
-                        ContextCompat.getDrawable(this, R.drawable.charging_circle),
-                        ContextCompat.getDrawable(this, R.drawable.charging_flash),
-                        ContextCompat.getDrawable(this, R.drawable.charging_ios)
-                ),
+                drawables,
                 resources.getStringArray(R.array.pref_look_and_feel_charging_array_display),
                 object : LayoutListAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
+                        preview.setImageResource(drawables[position])
                         when (position) {
-                            ITEM_CIRCLE -> {
-                                preview.setImageResource(R.drawable.charging_circle)
-                                value = P.CHARGING_STYLE_CIRCLE
-                            }
-                            ITEM_FLASH -> {
-                                preview.setImageResource(R.drawable.charging_flash)
-                                value = P.CHARGING_STYLE_FLASH
-                            }
-                            ITEM_IOS -> {
-                                preview.setImageResource(R.drawable.charging_ios)
-                                value = P.CHARGING_STYLE_IOS
-                            }
+                            ITEM_CIRCLE -> value = P.CHARGING_STYLE_CIRCLE
+                            ITEM_FLASH -> value = P.CHARGING_STYLE_FLASH
+                            ITEM_IOS -> value = P.CHARGING_STYLE_IOS
                         }
                     }
                 }
@@ -67,24 +60,20 @@ class ChargingLookActivity : AppCompatActivity() {
         value = prefs.getString(P.CHARGING_STYLE, P.CHARGING_STYLE_DEFAULT) ?: P.CHARGING_STYLE_DEFAULT
         val adapter = layoutList.adapter as LayoutListAdapter
         when (value) {
-            P.CHARGING_STYLE_CIRCLE -> {
-                preview.setImageResource(R.drawable.charging_circle)
-                adapter.setSelectedItem(ITEM_CIRCLE)
-            }
-            P.CHARGING_STYLE_FLASH -> {
-                preview.setImageResource(R.drawable.charging_flash)
-                adapter.setSelectedItem(ITEM_FLASH)
-            }
-            P.CHARGING_STYLE_IOS -> {
-                preview.setImageResource(R.drawable.charging_ios)
-                adapter.setSelectedItem(ITEM_IOS)
-            }
+            P.CHARGING_STYLE_CIRCLE -> setSelectedItem(adapter, ITEM_CIRCLE)
+            P.CHARGING_STYLE_FLASH -> setSelectedItem(adapter, ITEM_FLASH)
+            P.CHARGING_STYLE_IOS -> setSelectedItem(adapter, ITEM_IOS)
         }
     }
 
     override fun onStop() {
         super.onStop()
         prefs.edit().putString(P.CHARGING_STYLE, value).apply()
+    }
+
+    private fun setSelectedItem(adapter: LayoutListAdapter, position: Int) {
+        preview.setImageResource(drawables[position])
+        adapter.setSelectedItem(position)
     }
 
     companion object {
