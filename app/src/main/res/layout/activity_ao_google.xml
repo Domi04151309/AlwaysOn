@@ -5,15 +5,14 @@
     android:layout_height="match_parent"
     android:alpha=".5"
     android:keepScreenOn="true"
-    tools:context="io.github.domi04151309.alwayson.alwayson.AlwaysOn"
-    tools:ignore="MergeRootFrame">
+    tools:context="io.github.domi04151309.alwayson.alwayson.AlwaysOn">
 
     <LinearLayout
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="UselessParent">
+        android:padding="?dialogPreferredPadding"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/clockTxt"
