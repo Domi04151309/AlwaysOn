@@ -101,9 +101,6 @@
 
     <string name="pref_look_and_feel_charging">Mirada de animación de carga</string>
     <string name="pref_look_and_feel_charging_summary">Cambia el aspecto de la animación de carga</string>
-    <string name="pref_look_and_feel_charging_array_display_0">Estilo Círculo</string>
-    <string name="pref_look_and_feel_charging_array_display_1">Estilo Flash</string>
-    <string name="pref_look_and_feel_charging_array_display_2">Estilo iOS</string>
     <string name="pref_look_and_feel_hide_display_cutouts">Ocultar los recortes de la pantalla</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Ocultar recortes de pantalla en el contenido de la pantalla completa</string>
     <string name="pref_look_and_feel_orientation">Orientación</string>

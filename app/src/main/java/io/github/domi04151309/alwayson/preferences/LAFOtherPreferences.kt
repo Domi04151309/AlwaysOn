@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.objects.Theme
 
 class LAFOtherPreferences : AppCompatActivity(),
@@ -41,7 +42,7 @@ class LAFOtherPreferences : AppCompatActivity(),
                 startActivity(Intent(context, Preferences::class.java))
                 true
             }
-            findPreference<Preference>("charging_style")?.setOnPreferenceClickListener {
+            findPreference<Preference>(P.CHARGING_STYLE)?.setOnPreferenceClickListener {
                 startActivity(Intent(context, ChargingLookActivity::class.java))
                 true
             }

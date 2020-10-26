@@ -92,9 +92,6 @@
 
     <string name="pref_look_and_feel_charging">Oplaadanimatiestijl</string>
     <string name="pref_look_and_feel_charging_summary">Pas de stijl aan van de oplaadanimatie</string>
-    <string name="pref_look_and_feel_charging_array_display_0">Cirkelstijl</string>
-    <string name="pref_look_and_feel_charging_array_display_1">Knipperstijl</string>
-    <string name="pref_look_and_feel_charging_array_display_2">iOS-stijl</string>
     <string name="pref_look_and_feel_hide_display_cutouts">Scherminkepingen verbergen</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Verberg scherminkepingen bij beeldvullende inhoud</string>
 

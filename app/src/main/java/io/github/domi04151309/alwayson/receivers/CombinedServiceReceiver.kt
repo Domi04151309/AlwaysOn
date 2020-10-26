@@ -10,6 +10,7 @@ import io.github.domi04151309.alwayson.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.charging.Circle
 import io.github.domi04151309.alwayson.charging.Flash
 import io.github.domi04151309.alwayson.charging.IOS
+import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Rules
 import io.github.domi04151309.alwayson.objects.Global
 
@@ -38,10 +39,11 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                 if (prefs.getBoolean("charging_animation", false)) {
                     if (!isScreenOn || isAlwaysOnRunning) {
                         if (isAlwaysOnRunning) LocalBroadcastManager.getInstance(c).sendBroadcast(Intent(Global.REQUEST_STOP))
-                        val i: Intent = when (prefs.getString("charging_style", "circle")) {
-                            "ios" -> Intent(c, IOS::class.java)
-                            "circle" -> Intent(c, Circle::class.java)
-                            else -> Intent(c, Flash::class.java)
+                        val i: Intent = when (prefs.getString(P.CHARGING_STYLE, P.CHARGING_STYLE_DEFAULT) ?: P.CHARGING_STYLE_DEFAULT) {
+                            P.CHARGING_STYLE_CIRCLE -> Intent(c, Circle::class.java)
+                            P.CHARGING_STYLE_FLASH -> Intent(c, Flash::class.java)
+                            P.CHARGING_STYLE_IOS -> Intent(c, IOS::class.java)
+                            else -> return
                         }
                         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         c.startActivity(i)

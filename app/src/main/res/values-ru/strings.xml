@@ -92,9 +92,6 @@
 
     <string name="pref_look_and_feel_charging">Вид анимации зарядки</string>
     <string name="pref_look_and_feel_charging_summary">Изменяет внешний вид анимации зарядки</string>
-    <string name="pref_look_and_feel_charging_array_display_0">Круг</string>
-    <string name="pref_look_and_feel_charging_array_display_1">Молния</string>
-    <string name="pref_look_and_feel_charging_array_display_2">iOS</string>
     <string name="pref_look_and_feel_hide_display_cutouts">Скрыть вырезы на дисплее</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Скрыть вырезы в полноэкранном контенте</string>
 

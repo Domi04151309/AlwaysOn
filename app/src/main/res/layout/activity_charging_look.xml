@@ -8,34 +8,16 @@
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/radio"
+        android:layout_above="@id/layout_list"
         android:padding="?dialogPreferredPadding"
-        app:srcCompat="@drawable/charging_0"
+        app:srcCompat="@drawable/charging_circle"
         android:contentDescription="@string/Charging" />
 
-    <RadioGroup
-        android:id="@+id/radio"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/layout_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:padding="?dialogPreferredPadding">
-
-        <RadioButton
-            android:id="@+id/circleBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_charging_array_display_0"/>
-
-        <RadioButton
-            android:id="@+id/flashBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_charging_array_display_1"/>
-
-        <RadioButton
-            android:id="@+id/iosBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/pref_look_and_feel_charging_array_display_2"/>
-    </RadioGroup>
+        android:scrollbars="horizontal"
+        android:fadeScrollbars="false"/>
 </RelativeLayout>

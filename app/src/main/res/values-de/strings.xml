@@ -129,9 +129,6 @@
 
     <string name="pref_look_and_feel_charging">Aussehen der Ladeanimation</string>
     <string name="pref_look_and_feel_charging_summary">Ändert das Aussehen der Ladeanimation</string>
-    <string name="pref_look_and_feel_charging_array_display_0">Kreis Stil</string>
-    <string name="pref_look_and_feel_charging_array_display_1">Blitz Stil</string>
-    <string name="pref_look_and_feel_charging_array_display_2">iOS Stil</string>
     <string name="pref_look_and_feel_hide_display_cutouts">Bildschirmausschnitte ausblenden</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Verstecken von Bildschirmausschnitten im Vollbildmodus</string>
     <string name="pref_look_and_feel_orientation">Drehung</string>

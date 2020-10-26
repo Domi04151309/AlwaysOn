@@ -42,6 +42,8 @@ internal class P(val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_FINGERPRINT = "display_color_fingerprint"
         const val DISPLAY_COLOR_EDGE_GLOW = "display_color_edge_glow"
 
+        const val CHARGING_STYLE = "charging_style"
+
         const val USER_THEME_GOOGLE = "google"
         const val USER_THEME_ONEPLUS = "oneplus"
         const val USER_THEME_SAMSUNG = "samsung"
@@ -54,6 +56,10 @@ internal class P(val prefs: SharedPreferences) {
         const val USER_THEME_HANDWRITTEN = "handwritten"
         const val USER_THEME_JUNGLE = "jungle"
         const val USER_THEME_WESTERN = "western"
+
+        const val CHARGING_STYLE_CIRCLE = "circle"
+        const val CHARGING_STYLE_FLASH = "flash"
+        const val CHARGING_STYLE_IOS = "ios"
 
         const val ROOT_MODE_DEFAULT = false
         const val POWER_SAVING_MODE_DEFAULT = false
@@ -85,5 +91,7 @@ internal class P(val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_MESSAGE_DEFAULT = -1
         const val DISPLAY_COLOR_FINGERPRINT_DEFAULT = -1
         const val DISPLAY_COLOR_EDGE_GLOW_DEFAULT = -1
+
+        const val CHARGING_STYLE_DEFAULT = CHARGING_STYLE_CIRCLE
     }
 }
