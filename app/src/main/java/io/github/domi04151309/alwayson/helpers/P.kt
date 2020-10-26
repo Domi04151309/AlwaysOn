@@ -1,3 +1,5 @@
+@file:Suppress("HardCodedStringLiteral")
+
 package io.github.domi04151309.alwayson.helpers
 
 import android.content.SharedPreferences
@@ -22,6 +24,7 @@ internal class P(val prefs: SharedPreferences) {
         const val SHOW_NOTIFICATION_ICONS = "ao_notification_icons"
         const val SHOW_FINGERPRINT_ICON = "ao_fingerprint"
         const val FINGERPRINT_MARGIN = "ao_fingerprint_margin"
+        const val BACKGROUND_IMAGE = "ao_background_image"
         const val EDGE_GLOW = "ao_edgeGlow"
         const val POCKET_MODE = "ao_pocket_mode"
         const val DO_NOT_DISTURB = "ao_dnd"
@@ -57,6 +60,16 @@ internal class P(val prefs: SharedPreferences) {
         const val USER_THEME_JUNGLE = "jungle"
         const val USER_THEME_WESTERN = "western"
 
+        const val BACKGROUND_IMAGE_NONE = "none"
+        const val BACKGROUND_IMAGE_DANIEL_OLAH_1 = "daniel_olah_1"
+        const val BACKGROUND_IMAGE_DANIEL_OLAH_2 = "daniel_olah_2"
+        const val BACKGROUND_IMAGE_DANIEL_OLAH_3 = "daniel_olah_3"
+        const val BACKGROUND_IMAGE_DANIEL_OLAH_4 = "daniel_olah_4"
+        const val BACKGROUND_IMAGE_DANIEL_OLAH_5 = "daniel_olah_5"
+        const val BACKGROUND_IMAGE_DANIEL_OLAH_6 = "daniel_olah_6"
+        const val BACKGROUND_IMAGE_DANIEL_OLAH_7 = "daniel_olah_7"
+        const val BACKGROUND_IMAGE_DANIEL_OLAH_8 = "daniel_olah_8"
+
         const val CHARGING_STYLE_CIRCLE = "circle"
         const val CHARGING_STYLE_FLASH = "flash"
         const val CHARGING_STYLE_IOS = "ios"
@@ -72,6 +85,7 @@ internal class P(val prefs: SharedPreferences) {
         const val SHOW_NOTIFICATION_ICONS_DEFAULT = true
         const val SHOW_FINGERPRINT_ICON_DEFAULT = false
         const val FINGERPRINT_MARGIN_DEFAULT = 200
+        const val BACKGROUND_IMAGE_DEFAULT = BACKGROUND_IMAGE_NONE
         const val EDGE_GLOW_DEFAULT = false
         const val POCKET_MODE_DEFAULT = false
         const val DO_NOT_DISTURB_DEFAULT = false

@@ -129,6 +129,9 @@
 
     <string name="pref_look_and_feel_charging">Aussehen der Ladeanimation</string>
     <string name="pref_look_and_feel_charging_summary">Ändert das Aussehen der Ladeanimation</string>
+
+    <string name="pref_ao_background_image">Hintergrundbild</string>
+    <string name="pref_ao_background_image_summary">Ändert das Hintergurndbild des AODs</string>
     <string name="pref_look_and_feel_hide_display_cutouts">Bildschirmausschnitte ausblenden</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Verstecken von Bildschirmausschnitten im Vollbildmodus</string>
     <string name="pref_look_and_feel_orientation">Drehung</string>

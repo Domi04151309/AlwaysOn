@@ -1,6 +1,11 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <Preference
+        android:icon="@drawable/ic_image"
+        android:key="ao_background_image"
+        android:summary="@string/pref_ao_background_image_summary"
+        android:title="@string/pref_ao_background_image" />
     <SwitchPreference
         android:defaultValue="false"
         android:icon="@drawable/ic_smartphone"

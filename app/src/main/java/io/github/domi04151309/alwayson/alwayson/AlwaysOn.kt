@@ -253,6 +253,18 @@ class AlwaysOn : OffActivity() {
                 hideUI()
         }
 
+        //Background image
+        when (prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT)) {
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_1 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_1)
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_2 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_2)
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_3 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_3)
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_4 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_4)
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_5 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_5)
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_6 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_6)
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_7 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_7)
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_8 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_8)
+        }
+
         //Time
         if (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT)) {
             clockFormat = SimpleDateFormat(

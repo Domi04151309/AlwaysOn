@@ -264,6 +264,15 @@
                 android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
         </activity>
         <activity
+            android:name=".preferences.BackgroundImageActivity"
+            android:label="@string/pref_ao_background_image"
+            android:launchMode="singleTop"
+            android:parentActivityName=".preferences.LAFBackgroundPreferences">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.domi04151309.alwayson.preferences.LAFBackgroundPreferences" />
+        </activity>
+        <activity
             android:name=".preferences.LAFBehaviorPreferences"
             android:label="@string/pref_ao_behavior"
             android:launchMode="singleTop"
