@@ -27,7 +27,7 @@ class ForegroundService : Service() {
         filter.addAction(Intent.ACTION_SCREEN_OFF)
         filter.addAction(Intent.ACTION_SCREEN_ON)
         registerReceiver(combinedServiceReceiver, filter)
-        TileService.requestListeningState(this, ComponentName(this , AlwaysOnQS::class.java))
+        TileService.requestListeningState(this, ComponentName(this, AlwaysOnQS::class.java))
     }
 
     override fun onDestroy() {
@@ -39,11 +39,11 @@ class ForegroundService : Service() {
         createNotificationChannel()
         startForeground(1,
                 NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentText(resources.getString(R.string.service_text))
-                .setSmallIcon(R.drawable.ic_always_on_black)
-                .setColor(ContextCompat.getColor(this, R.color.colorAccent))
-                .setShowWhen(false)
-                .build())
+                        .setContentText(resources.getString(R.string.service_text))
+                        .setSmallIcon(R.drawable.ic_always_on_black)
+                        .setColor(ContextCompat.getColor(this, R.color.colorAccent))
+                        .setShowWhen(false)
+                        .build())
         return START_REDELIVER_INTENT
     }
 

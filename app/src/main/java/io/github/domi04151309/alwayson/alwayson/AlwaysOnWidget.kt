@@ -34,7 +34,7 @@ class AlwaysOnWidget : AppWidgetProvider() {
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
         try {
             LocalBroadcastManager.getInstance(context).registerReceiver(stateReceiver, IntentFilter(Global.ALWAYS_ON_STATE_CHANGED))
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Log.e(Global.LOG_TAG, e.toString())
         }
         val views = RemoteViews(context.packageName, R.layout.always_on_widget)

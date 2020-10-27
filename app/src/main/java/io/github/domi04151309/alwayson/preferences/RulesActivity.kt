@@ -83,8 +83,10 @@ class RulesActivity : AppCompatActivity(),
 
         private fun updateSummaries() {
             val rulesBatteryLevelValue = preferenceManager.sharedPreferences.getInt("rules_battery_level", 0)
-            rulesTimeStartValue = preferenceManager.sharedPreferences.getString("rules_time_start", DEFAULT_START_TIME) ?: DEFAULT_START_TIME
-            rulesTimeEndValue = preferenceManager.sharedPreferences.getString("rules_time_end", DEFAULT_END_TIME) ?: DEFAULT_END_TIME
+            rulesTimeStartValue = preferenceManager.sharedPreferences.getString("rules_time_start", DEFAULT_START_TIME)
+                    ?: DEFAULT_START_TIME
+            rulesTimeEndValue = preferenceManager.sharedPreferences.getString("rules_time_end", DEFAULT_END_TIME)
+                    ?: DEFAULT_END_TIME
             val rulesTimeoutValue = preferenceManager.sharedPreferences.getInt("rules_timeout_sec", 0)
 
             if (rulesBatteryLevelValue > 100) {

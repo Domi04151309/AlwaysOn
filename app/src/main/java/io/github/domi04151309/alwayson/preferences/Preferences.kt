@@ -38,7 +38,7 @@ class Preferences : AppCompatActivity(),
         private const val NOTIFICATION_ACCESS_DIALOG: Byte = 1
         private const val DISPLAY_OVER_OTHER_APPS_DIALOG: Byte = 2
     }
-    
+
     private val isNotificationServiceEnabled: Boolean
         get() {
             val flat = Settings.Secure.getString(contentResolver, "enabled_notification_listeners")
@@ -65,7 +65,7 @@ class Preferences : AppCompatActivity(),
                         .isAdminActive(ComponentName(this, AdminReceiver::class.java))
             }
         }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -122,7 +122,8 @@ class Preferences : AppCompatActivity(),
                 builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
                     startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 1)
                 }
-            } else -> return
+            }
+            else -> return
         }
 
         builder.setNegativeButton(resources.getString(android.R.string.cancel)) { dialog, _ -> dialog.cancel() }

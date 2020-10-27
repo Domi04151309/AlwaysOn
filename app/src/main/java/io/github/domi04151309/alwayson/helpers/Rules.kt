@@ -36,7 +36,8 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
     }
 
     fun matchesChargingState(): Boolean {
-        val chargingState: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: return true
+        val chargingState: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
+                ?: return true
         val ruleChargingState = prefs.getString("rules_charging_state", "always")
         return (ruleChargingState == "charging" && chargingState > 0) || (ruleChargingState == "discharging" && chargingState == 0) || (ruleChargingState == "always")
     }

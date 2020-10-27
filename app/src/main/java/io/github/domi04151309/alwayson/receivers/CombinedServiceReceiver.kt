@@ -39,7 +39,8 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                 if (prefs.getBoolean("charging_animation", false)) {
                     if (!isScreenOn || isAlwaysOnRunning) {
                         if (isAlwaysOnRunning) LocalBroadcastManager.getInstance(c).sendBroadcast(Intent(Global.REQUEST_STOP))
-                        val i: Intent = when (prefs.getString(P.CHARGING_STYLE, P.CHARGING_STYLE_DEFAULT) ?: P.CHARGING_STYLE_DEFAULT) {
+                        val i: Intent = when (prefs.getString(P.CHARGING_STYLE, P.CHARGING_STYLE_DEFAULT)
+                                ?: P.CHARGING_STYLE_DEFAULT) {
                             P.CHARGING_STYLE_CIRCLE -> Intent(c, Circle::class.java)
                             P.CHARGING_STYLE_FLASH -> Intent(c, Flash::class.java)
                             P.CHARGING_STYLE_IOS -> Intent(c, IOS::class.java)

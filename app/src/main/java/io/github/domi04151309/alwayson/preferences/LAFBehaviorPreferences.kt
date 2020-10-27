@@ -43,7 +43,7 @@ class LAFBehaviorPreferences : AppCompatActivity(),
                 startActivity(Intent(context, BrightnessActivity::class.java))
                 true
             }
-            if(!preferenceManager.sharedPreferences.getBoolean(P.ROOT_MODE, false)) {
+            if (!preferenceManager.sharedPreferences.getBoolean(P.ROOT_MODE, false)) {
                 findPreference<SwitchPreference>(P.POWER_SAVING_MODE)?.isEnabled = false
                 findPreference<SwitchPreference>(P.DISABLE_HEADS_UP_NOTIFICATIONS)?.isEnabled = false
             }

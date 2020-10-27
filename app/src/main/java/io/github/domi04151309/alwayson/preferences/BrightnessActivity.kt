@@ -33,6 +33,7 @@ class BrightnessActivity : AppCompatActivity() {
                 lp.screenBrightness = brightness
                 window.attributes = lp
             }
+
             override fun onStartTrackingTouch(seekBar: SeekBar) {}
             override fun onStopTrackingTouch(seekBar: SeekBar) {}
         })

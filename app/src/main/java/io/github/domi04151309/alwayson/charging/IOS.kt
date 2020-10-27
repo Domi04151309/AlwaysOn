@@ -23,7 +23,8 @@ class IOS : OffActivity() {
 
         Global.fullscreen(this, content)
 
-        val level = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) ?: 0
+        val level = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
+                ?: 0
         findViewById<TextView>(R.id.batteryTxt).text = resources.getString(R.string.charged, level)
         when {
             level >= 100 -> batteryIcn.setImageResource(R.drawable.ic_battery_100)

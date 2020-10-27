@@ -24,7 +24,7 @@ internal object Global {
 
     const val ALWAYS_ON_STATE_CHANGED: String = "io.github.domi04151309.alwayson.ALWAYS_ON_STATE_CHANGED"
 
-    fun currentAlwaysOnState(context: Context): Boolean{
+    fun currentAlwaysOnState(context: Context): Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("always_on", false)
     }
 

@@ -25,7 +25,7 @@ open class OffActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         requestedOrientation = when (PreferenceManager.getDefaultSharedPreferences(this).getString("orientation", "locked")) {
             "portrait" -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-            "landscape" ->  ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            "landscape" -> ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             else -> ActivityInfo.SCREEN_ORIENTATION_LOCKED
         }
         super.onCreate(savedInstanceState)

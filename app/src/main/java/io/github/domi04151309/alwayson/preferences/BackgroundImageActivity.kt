@@ -78,7 +78,8 @@ class BackgroundImageActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        value = prefs.getString(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT) ?: P.BACKGROUND_IMAGE_DEFAULT
+        value = prefs.getString(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT)
+                ?: P.BACKGROUND_IMAGE_DEFAULT
         val adapter = layoutList.adapter as LayoutListAdapter
         setSelectedItem(adapter, when (value) {
             P.BACKGROUND_IMAGE_NONE -> ITEM_NONE

@@ -135,10 +135,10 @@ class SetupActivity : AppCompatActivity() {
     private fun swapContentFragment(fragment: Fragment, id: Byte) {
         currentFragment = id
         supportFragmentManager.beginTransaction()
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-            .replace(R.id.content, fragment, null)
-            .addToBackStack(null)
-            .commitAllowingStateLoss()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .replace(R.id.content, fragment, null)
+                .addToBackStack(null)
+                .commitAllowingStateLoss()
     }
 
     private val isNotificationServiceEnabled: Boolean

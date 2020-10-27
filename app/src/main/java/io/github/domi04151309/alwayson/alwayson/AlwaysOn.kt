@@ -318,7 +318,8 @@ class AlwaysOn : OffActivity() {
             viewHolder.musicNext.setColorFilter(prefs.get(P.DISPLAY_COLOR_MUSIC_CONTROLS, P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT))
             onActiveSessionsChangedListener = AlwaysOnOnActiveSessionsChangedListener(viewHolder, resources)
             try {
-                mediaSessionManager.addOnActiveSessionsChangedListener(onActiveSessionsChangedListener ?: return, notificationListener)
+                mediaSessionManager.addOnActiveSessionsChangedListener(onActiveSessionsChangedListener
+                        ?: return, notificationListener)
                 onActiveSessionsChangedListener?.onActiveSessionsChanged(mediaSessionManager.getActiveSessions(notificationListener))
             } catch (e: Exception) {
                 Log.e(Global.LOG_TAG, e.toString())
@@ -387,7 +388,8 @@ class AlwaysOn : OffActivity() {
         if (prefs.get(P.DO_NOT_DISTURB, P.DO_NOT_DISTURB_DEFAULT)) {
             notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationAccess = notificationManager?.isNotificationPolicyAccessGranted ?: false
-            if(notificationAccess) userDND = notificationManager?.currentInterruptionFilter ?: NotificationManager.INTERRUPTION_FILTER_ALL
+            if (notificationAccess) userDND = notificationManager?.currentInterruptionFilter
+                    ?: NotificationManager.INTERRUPTION_FILTER_ALL
         }
 
         //Edge Glow

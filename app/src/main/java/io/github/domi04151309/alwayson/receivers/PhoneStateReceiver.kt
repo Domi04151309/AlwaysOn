@@ -11,7 +11,7 @@ import io.github.domi04151309.alwayson.objects.Global
 class PhoneStateReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        if(intent.action == "android.intent.action.PHONE_STATE") {
+        if (intent.action == "android.intent.action.PHONE_STATE") {
             try {
                 if (intent.getStringExtra(TelephonyManager.EXTRA_STATE) == TelephonyManager.EXTRA_STATE_RINGING) {
                     LocalBroadcastManager.getInstance(context).sendBroadcast(Intent(Global.REQUEST_STOP))

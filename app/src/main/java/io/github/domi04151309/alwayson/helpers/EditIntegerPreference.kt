@@ -9,19 +9,19 @@ import io.github.domi04151309.alwayson.R
 
 class EditIntegerPreference : EditTextPreference {
 
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int): super(context, attrs, defStyle) {
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
         setOnBindEditTextListener {
             it.inputType = InputType.TYPE_CLASS_NUMBER
         }
     }
 
-    constructor(context: Context, attrs: AttributeSet): super(context, attrs) {
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
         setOnBindEditTextListener {
             it.inputType = InputType.TYPE_CLASS_NUMBER
         }
     }
 
-    constructor(context: Context): super(context) {
+    constructor(context: Context) : super(context) {
         setOnBindEditTextListener {
             it.inputType = InputType.TYPE_CLASS_NUMBER
         }
