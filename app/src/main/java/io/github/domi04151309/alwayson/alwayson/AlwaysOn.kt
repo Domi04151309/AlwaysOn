@@ -263,6 +263,10 @@ class AlwaysOn : OffActivity() {
             P.BACKGROUND_IMAGE_DANIEL_OLAH_6 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_6)
             P.BACKGROUND_IMAGE_DANIEL_OLAH_7 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_7)
             P.BACKGROUND_IMAGE_DANIEL_OLAH_8 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_8)
+            P.BACKGROUND_IMAGE_FILIP_BAOTIC_1 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_filip_baotic_1)
+            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_tyler_lastovich_1)
+            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_tyler_lastovich_2)
+            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_tyler_lastovich_3)
         }
 
         //Time

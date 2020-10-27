@@ -29,7 +29,11 @@ class BackgroundImageActivity : AppCompatActivity() {
             R.drawable.unsplash_daniel_olah_5,
             R.drawable.unsplash_daniel_olah_6,
             R.drawable.unsplash_daniel_olah_7,
-            R.drawable.unsplash_daniel_olah_8
+            R.drawable.unsplash_daniel_olah_8,
+            R.drawable.unsplash_filip_baotic_1,
+            R.drawable.unsplash_tyler_lastovich_1,
+            R.drawable.unsplash_tyler_lastovich_2,
+            R.drawable.unsplash_tyler_lastovich_3
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +65,10 @@ class BackgroundImageActivity : AppCompatActivity() {
                             ITEM_DANIEL_OLAH_6 -> value = P.BACKGROUND_IMAGE_DANIEL_OLAH_6
                             ITEM_DANIEL_OLAH_7 -> value = P.BACKGROUND_IMAGE_DANIEL_OLAH_7
                             ITEM_DANIEL_OLAH_8 -> value = P.BACKGROUND_IMAGE_DANIEL_OLAH_8
+                            ITEM_FILIP_BAOTIC_1 -> value = P.BACKGROUND_IMAGE_FILIP_BAOTIC_1
+                            ITEM_TYLER_LASTOVICH_1 -> value = P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1
+                            ITEM_TYLER_LASTOVICH_2 -> value = P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2
+                            ITEM_TYLER_LASTOVICH_3 -> value = P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3
                         }
                     }
                 }
@@ -81,6 +89,10 @@ class BackgroundImageActivity : AppCompatActivity() {
             P.BACKGROUND_IMAGE_DANIEL_OLAH_6 -> setSelectedItem(adapter, ITEM_DANIEL_OLAH_6)
             P.BACKGROUND_IMAGE_DANIEL_OLAH_7 -> setSelectedItem(adapter, ITEM_DANIEL_OLAH_7)
             P.BACKGROUND_IMAGE_DANIEL_OLAH_8 -> setSelectedItem(adapter, ITEM_DANIEL_OLAH_8)
+            P.BACKGROUND_IMAGE_FILIP_BAOTIC_1 -> setSelectedItem(adapter, ITEM_FILIP_BAOTIC_1)
+            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1 -> setSelectedItem(adapter, ITEM_TYLER_LASTOVICH_1)
+            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2 -> setSelectedItem(adapter, ITEM_TYLER_LASTOVICH_2)
+            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3 -> setSelectedItem(adapter, ITEM_TYLER_LASTOVICH_3)
         }
     }
 
@@ -104,5 +116,9 @@ class BackgroundImageActivity : AppCompatActivity() {
         private const val ITEM_DANIEL_OLAH_6 = 6
         private const val ITEM_DANIEL_OLAH_7 = 7
         private const val ITEM_DANIEL_OLAH_8 = 8
+        private const val ITEM_FILIP_BAOTIC_1 = 9
+        private const val ITEM_TYLER_LASTOVICH_1 = 10
+        private const val ITEM_TYLER_LASTOVICH_2 = 11
+        private const val ITEM_TYLER_LASTOVICH_3 = 12
     }
 }

@@ -69,6 +69,10 @@ internal class P(val prefs: SharedPreferences) {
         const val BACKGROUND_IMAGE_DANIEL_OLAH_6 = "daniel_olah_6"
         const val BACKGROUND_IMAGE_DANIEL_OLAH_7 = "daniel_olah_7"
         const val BACKGROUND_IMAGE_DANIEL_OLAH_8 = "daniel_olah_8"
+        const val BACKGROUND_IMAGE_FILIP_BAOTIC_1 = "filip_baotic_1"
+        const val BACKGROUND_IMAGE_TYLER_LASTOVICH_1 = "tyler_lastovich_1"
+        const val BACKGROUND_IMAGE_TYLER_LASTOVICH_2 = "tyler_lastovich_2"
+        const val BACKGROUND_IMAGE_TYLER_LASTOVICH_3 = "tyler_lastovich_3"
 
         const val CHARGING_STYLE_CIRCLE = "circle"
         const val CHARGING_STYLE_FLASH = "flash"

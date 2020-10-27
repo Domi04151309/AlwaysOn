@@ -163,6 +163,10 @@
         <item>Daniel Olah 6</item>
         <item>Daniel Olah 7</item>
         <item>Daniel Olah 8</item>
+        <item>Filip Baotic 1</item>
+        <item>Tyler Lastovich 1</item>
+        <item>Tyler Lastovich 2</item>
+        <item>Tyler Lastovich 3</item>
     </string-array>
     <string name="pref_look_and_feel_hide_display_cutouts">Hide display cutouts</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Hide display cutouts on fullscreen content</string>
