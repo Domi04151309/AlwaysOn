@@ -55,20 +55,21 @@ class BackgroundImageActivity : AppCompatActivity() {
                 object : LayoutListAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
                         preview.setImageResource(drawables[position])
-                        when (position) {
-                            ITEM_NONE -> value = P.BACKGROUND_IMAGE_NONE
-                            ITEM_DANIEL_OLAH_1 -> value = P.BACKGROUND_IMAGE_DANIEL_OLAH_1
-                            ITEM_DANIEL_OLAH_2 -> value = P.BACKGROUND_IMAGE_DANIEL_OLAH_2
-                            ITEM_DANIEL_OLAH_3 -> value = P.BACKGROUND_IMAGE_DANIEL_OLAH_3
-                            ITEM_DANIEL_OLAH_4 -> value = P.BACKGROUND_IMAGE_DANIEL_OLAH_4
-                            ITEM_DANIEL_OLAH_5 -> value = P.BACKGROUND_IMAGE_DANIEL_OLAH_5
-                            ITEM_DANIEL_OLAH_6 -> value = P.BACKGROUND_IMAGE_DANIEL_OLAH_6
-                            ITEM_DANIEL_OLAH_7 -> value = P.BACKGROUND_IMAGE_DANIEL_OLAH_7
-                            ITEM_DANIEL_OLAH_8 -> value = P.BACKGROUND_IMAGE_DANIEL_OLAH_8
-                            ITEM_FILIP_BAOTIC_1 -> value = P.BACKGROUND_IMAGE_FILIP_BAOTIC_1
-                            ITEM_TYLER_LASTOVICH_1 -> value = P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1
-                            ITEM_TYLER_LASTOVICH_2 -> value = P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2
-                            ITEM_TYLER_LASTOVICH_3 -> value = P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3
+                        value = when (position) {
+                            ITEM_NONE -> P.BACKGROUND_IMAGE_NONE
+                            ITEM_DANIEL_OLAH_1 -> P.BACKGROUND_IMAGE_DANIEL_OLAH_1
+                            ITEM_DANIEL_OLAH_2 -> P.BACKGROUND_IMAGE_DANIEL_OLAH_2
+                            ITEM_DANIEL_OLAH_3 -> P.BACKGROUND_IMAGE_DANIEL_OLAH_3
+                            ITEM_DANIEL_OLAH_4 -> P.BACKGROUND_IMAGE_DANIEL_OLAH_4
+                            ITEM_DANIEL_OLAH_5 -> P.BACKGROUND_IMAGE_DANIEL_OLAH_5
+                            ITEM_DANIEL_OLAH_6 -> P.BACKGROUND_IMAGE_DANIEL_OLAH_6
+                            ITEM_DANIEL_OLAH_7 -> P.BACKGROUND_IMAGE_DANIEL_OLAH_7
+                            ITEM_DANIEL_OLAH_8 -> P.BACKGROUND_IMAGE_DANIEL_OLAH_8
+                            ITEM_FILIP_BAOTIC_1 -> P.BACKGROUND_IMAGE_FILIP_BAOTIC_1
+                            ITEM_TYLER_LASTOVICH_1 -> P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1
+                            ITEM_TYLER_LASTOVICH_2 -> P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2
+                            ITEM_TYLER_LASTOVICH_3 -> P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3
+                            else -> P.BACKGROUND_IMAGE_DEFAULT
                         }
                     }
                 }
@@ -79,21 +80,22 @@ class BackgroundImageActivity : AppCompatActivity() {
         super.onStart()
         value = prefs.getString(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT) ?: P.BACKGROUND_IMAGE_DEFAULT
         val adapter = layoutList.adapter as LayoutListAdapter
-        when (value) {
-            P.BACKGROUND_IMAGE_NONE -> setSelectedItem(adapter, ITEM_NONE)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_1 -> setSelectedItem(adapter, ITEM_DANIEL_OLAH_1)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_2 -> setSelectedItem(adapter, ITEM_DANIEL_OLAH_2)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_3 -> setSelectedItem(adapter, ITEM_DANIEL_OLAH_3)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_4 -> setSelectedItem(adapter, ITEM_DANIEL_OLAH_4)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_5 -> setSelectedItem(adapter, ITEM_DANIEL_OLAH_5)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_6 -> setSelectedItem(adapter, ITEM_DANIEL_OLAH_6)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_7 -> setSelectedItem(adapter, ITEM_DANIEL_OLAH_7)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_8 -> setSelectedItem(adapter, ITEM_DANIEL_OLAH_8)
-            P.BACKGROUND_IMAGE_FILIP_BAOTIC_1 -> setSelectedItem(adapter, ITEM_FILIP_BAOTIC_1)
-            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1 -> setSelectedItem(adapter, ITEM_TYLER_LASTOVICH_1)
-            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2 -> setSelectedItem(adapter, ITEM_TYLER_LASTOVICH_2)
-            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3 -> setSelectedItem(adapter, ITEM_TYLER_LASTOVICH_3)
-        }
+        setSelectedItem(adapter, when (value) {
+            P.BACKGROUND_IMAGE_NONE -> ITEM_NONE
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_1 -> ITEM_DANIEL_OLAH_1
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_2 -> ITEM_DANIEL_OLAH_2
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_3 -> ITEM_DANIEL_OLAH_3
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_4 -> ITEM_DANIEL_OLAH_4
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_5 -> ITEM_DANIEL_OLAH_5
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_6 -> ITEM_DANIEL_OLAH_6
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_7 -> ITEM_DANIEL_OLAH_7
+            P.BACKGROUND_IMAGE_DANIEL_OLAH_8 -> ITEM_DANIEL_OLAH_8
+            P.BACKGROUND_IMAGE_FILIP_BAOTIC_1 -> ITEM_FILIP_BAOTIC_1
+            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1 -> ITEM_TYLER_LASTOVICH_1
+            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2 -> ITEM_TYLER_LASTOVICH_2
+            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3 -> ITEM_TYLER_LASTOVICH_3
+            else -> ITEM_NONE
+        })
     }
 
     override fun onStop() {

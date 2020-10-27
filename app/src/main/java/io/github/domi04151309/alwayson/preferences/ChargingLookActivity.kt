@@ -45,10 +45,11 @@ class ChargingLookActivity : AppCompatActivity() {
                 object : LayoutListAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
                         preview.setImageResource(drawables[position])
-                        when (position) {
-                            ITEM_CIRCLE -> value = P.CHARGING_STYLE_CIRCLE
-                            ITEM_FLASH -> value = P.CHARGING_STYLE_FLASH
-                            ITEM_IOS -> value = P.CHARGING_STYLE_IOS
+                        value = when (position) {
+                            ITEM_CIRCLE -> P.CHARGING_STYLE_CIRCLE
+                            ITEM_FLASH -> P.CHARGING_STYLE_FLASH
+                            ITEM_IOS -> P.CHARGING_STYLE_IOS
+                            else -> P.CHARGING_STYLE_DEFAULT
                         }
                     }
                 }
@@ -59,11 +60,12 @@ class ChargingLookActivity : AppCompatActivity() {
         super.onStart()
         value = prefs.getString(P.CHARGING_STYLE, P.CHARGING_STYLE_DEFAULT) ?: P.CHARGING_STYLE_DEFAULT
         val adapter = layoutList.adapter as LayoutListAdapter
-        when (value) {
-            P.CHARGING_STYLE_CIRCLE -> setSelectedItem(adapter, ITEM_CIRCLE)
-            P.CHARGING_STYLE_FLASH -> setSelectedItem(adapter, ITEM_FLASH)
-            P.CHARGING_STYLE_IOS -> setSelectedItem(adapter, ITEM_IOS)
-        }
+        setSelectedItem(adapter, when (value) {
+            P.CHARGING_STYLE_CIRCLE -> ITEM_CIRCLE
+            P.CHARGING_STYLE_FLASH -> ITEM_FLASH
+            P.CHARGING_STYLE_IOS -> ITEM_IOS
+            else -> ITEM_CIRCLE
+        })
     }
 
     override fun onStop() {

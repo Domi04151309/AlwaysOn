@@ -155,18 +155,18 @@
     <string name="pref_ao_background_image_summary">Change the background image of the AOD</string>
     <string-array name="pref_ao_background_image_array_display">
         <item>None</item>
-        <item>Daniel Olah 1</item>
-        <item>Daniel Olah 2</item>
-        <item>Daniel Olah 3</item>
-        <item>Daniel Olah 4</item>
-        <item>Daniel Olah 5</item>
-        <item>Daniel Olah 6</item>
-        <item>Daniel Olah 7</item>
-        <item>Daniel Olah 8</item>
-        <item>Filip Baotic 1</item>
-        <item>Tyler Lastovich 1</item>
-        <item>Tyler Lastovich 2</item>
-        <item>Tyler Lastovich 3</item>
+        <item>Daniel Olah</item>
+        <item>Daniel Olah</item>
+        <item>Daniel Olah</item>
+        <item>Daniel Olah</item>
+        <item>Daniel Olah</item>
+        <item>Daniel Olah</item>
+        <item>Daniel Olah</item>
+        <item>Daniel Olah</item>
+        <item>Filip Baotic</item>
+        <item>Tyler Lastovich</item>
+        <item>Tyler Lastovich</item>
+        <item>Tyler Lastovich</item>
     </string-array>
     <string name="pref_look_and_feel_hide_display_cutouts">Hide display cutouts</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Hide display cutouts on fullscreen content</string>

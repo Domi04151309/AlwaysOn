@@ -254,25 +254,28 @@ class AlwaysOn : OffActivity() {
         }
 
         //Background image
-        when (prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT)) {
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_1 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_1)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_2 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_2)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_3 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_3)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_4 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_4)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_5 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_5)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_6 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_6)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_7 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_7)
-            P.BACKGROUND_IMAGE_DANIEL_OLAH_8 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_daniel_olah_8)
-            P.BACKGROUND_IMAGE_FILIP_BAOTIC_1 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_filip_baotic_1)
-            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_tyler_lastovich_1)
-            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_tyler_lastovich_2)
-            P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3 -> viewHolder.fullscreenContent.setBackgroundResource(R.drawable.unsplash_tyler_lastovich_3)
+        if (prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT) != P.BACKGROUND_IMAGE_NONE) {
+            viewHolder.fullscreenContent.setBackgroundResource(when (prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT)) {
+                P.BACKGROUND_IMAGE_DANIEL_OLAH_1 -> R.drawable.unsplash_daniel_olah_1
+                P.BACKGROUND_IMAGE_DANIEL_OLAH_2 -> R.drawable.unsplash_daniel_olah_2
+                P.BACKGROUND_IMAGE_DANIEL_OLAH_3 -> R.drawable.unsplash_daniel_olah_3
+                P.BACKGROUND_IMAGE_DANIEL_OLAH_4 -> R.drawable.unsplash_daniel_olah_4
+                P.BACKGROUND_IMAGE_DANIEL_OLAH_5 -> R.drawable.unsplash_daniel_olah_5
+                P.BACKGROUND_IMAGE_DANIEL_OLAH_6 -> R.drawable.unsplash_daniel_olah_6
+                P.BACKGROUND_IMAGE_DANIEL_OLAH_7 -> R.drawable.unsplash_daniel_olah_7
+                P.BACKGROUND_IMAGE_DANIEL_OLAH_8 -> R.drawable.unsplash_daniel_olah_8
+                P.BACKGROUND_IMAGE_FILIP_BAOTIC_1 -> R.drawable.unsplash_filip_baotic_1
+                P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1 -> R.drawable.unsplash_tyler_lastovich_1
+                P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2 -> R.drawable.unsplash_tyler_lastovich_2
+                P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3 -> R.drawable.unsplash_tyler_lastovich_3
+                else -> android.R.color.black
+            })
         }
 
         //Time
         if (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT)) {
             clockFormat = SimpleDateFormat(
-                    if (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT) == "samsung" || prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT) == "oneplus") {
+                    if (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT) == P.USER_THEME_SAMSUNG || prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT) == P.USER_THEME_ONEPLUS) {
                         if (prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
                             if (prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) "hh\nmm\na"
                             else "hh\nmm"

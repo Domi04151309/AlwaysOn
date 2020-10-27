@@ -54,19 +54,20 @@ class AlwaysOnLookActivity : AppCompatActivity() {
                 object : LayoutListAdapter.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
                         preview.setImageResource(drawables[position])
-                        when (position) {
-                            ITEM_GOOGLE -> value = P.USER_THEME_GOOGLE
-                            ITEM_ONEPLUS -> value = P.USER_THEME_ONEPLUS
-                            ITEM_SAMSUNG -> value = P.USER_THEME_SAMSUNG
-                            ITEM_SAMSUNG2 -> value = P.USER_THEME_SAMSUNG2
-                            ITEM_SAMSUNG3 -> value = P.USER_THEME_SAMSUNG3
-                            ITEM_80S -> value = P.USER_THEME_80S
-                            ITEM_FAST -> value = P.USER_THEME_FAST
-                            ITEM_FLOWER -> value = P.USER_THEME_FLOWER
-                            ITEM_GAME -> value = P.USER_THEME_GAME
-                            ITEM_HANDWRITTEN -> value = P.USER_THEME_HANDWRITTEN
-                            ITEM_JUNGLE -> value = P.USER_THEME_JUNGLE
-                            ITEM_WESTERN -> value = P.USER_THEME_WESTERN
+                        value = when (position) {
+                            ITEM_GOOGLE -> P.USER_THEME_GOOGLE
+                            ITEM_ONEPLUS -> P.USER_THEME_ONEPLUS
+                            ITEM_SAMSUNG -> P.USER_THEME_SAMSUNG
+                            ITEM_SAMSUNG2 -> P.USER_THEME_SAMSUNG2
+                            ITEM_SAMSUNG3 -> P.USER_THEME_SAMSUNG3
+                            ITEM_80S -> P.USER_THEME_80S
+                            ITEM_FAST -> P.USER_THEME_FAST
+                            ITEM_FLOWER -> P.USER_THEME_FLOWER
+                            ITEM_GAME -> P.USER_THEME_GAME
+                            ITEM_HANDWRITTEN -> P.USER_THEME_HANDWRITTEN
+                            ITEM_JUNGLE -> P.USER_THEME_JUNGLE
+                            ITEM_WESTERN -> P.USER_THEME_WESTERN
+                            else -> P.USER_THEME_DEFAULT
                         }
                     }
                 }
@@ -77,20 +78,21 @@ class AlwaysOnLookActivity : AppCompatActivity() {
         super.onStart()
         value = prefs.getString(P.USER_THEME, P.USER_THEME_DEFAULT) ?: P.USER_THEME_DEFAULT
         val adapter = layoutList.adapter as LayoutListAdapter
-        when (value) {
-            P.USER_THEME_GOOGLE -> setSelectedItem(adapter, ITEM_GOOGLE)
-            P.USER_THEME_ONEPLUS -> setSelectedItem(adapter, ITEM_ONEPLUS)
-            P.USER_THEME_SAMSUNG -> setSelectedItem(adapter, ITEM_SAMSUNG)
-            P.USER_THEME_SAMSUNG2 -> setSelectedItem(adapter, ITEM_SAMSUNG2)
-            P.USER_THEME_SAMSUNG3 -> setSelectedItem(adapter, ITEM_SAMSUNG3)
-            P.USER_THEME_80S -> setSelectedItem(adapter, ITEM_80S)
-            P.USER_THEME_FAST -> setSelectedItem(adapter, ITEM_FAST)
-            P.USER_THEME_FLOWER -> setSelectedItem(adapter, ITEM_FLOWER)
-            P.USER_THEME_GAME -> setSelectedItem(adapter, ITEM_GAME)
-            P.USER_THEME_HANDWRITTEN -> setSelectedItem(adapter, ITEM_HANDWRITTEN)
-            P.USER_THEME_JUNGLE -> setSelectedItem(adapter, ITEM_JUNGLE)
-            P.USER_THEME_WESTERN -> setSelectedItem(adapter, ITEM_WESTERN)
-        }
+        setSelectedItem(adapter, when (value) {
+            P.USER_THEME_GOOGLE -> ITEM_GOOGLE
+            P.USER_THEME_ONEPLUS -> ITEM_ONEPLUS
+            P.USER_THEME_SAMSUNG -> ITEM_SAMSUNG
+            P.USER_THEME_SAMSUNG2 -> ITEM_SAMSUNG2
+            P.USER_THEME_SAMSUNG3 -> ITEM_SAMSUNG3
+            P.USER_THEME_80S -> ITEM_80S
+            P.USER_THEME_FAST -> ITEM_FAST
+            P.USER_THEME_FLOWER -> ITEM_FLOWER
+            P.USER_THEME_GAME -> ITEM_GAME
+            P.USER_THEME_HANDWRITTEN -> ITEM_HANDWRITTEN
+            P.USER_THEME_JUNGLE -> ITEM_JUNGLE
+            P.USER_THEME_WESTERN -> ITEM_WESTERN
+            else -> ITEM_GOOGLE
+        })
     }
 
     override fun onStop() {
