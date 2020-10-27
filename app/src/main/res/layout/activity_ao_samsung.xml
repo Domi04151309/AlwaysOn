@@ -11,6 +11,7 @@
         android:id="@+id/fullscreen_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/edge_glow_width"
         android:padding="?dialogPreferredPadding"
         android:orientation="vertical">
 

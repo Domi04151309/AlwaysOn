@@ -10,6 +10,7 @@
     <dimen name="icon_margin">8dp</dimen>
     <dimen name="dot_size">12dp</dimen>
 
+    <dimen name="edge_glow_width">4dp</dimen>
     <dimen name="aod_spacing">16dp</dimen>
     <dimen name="aod_spacing_2">2dp</dimen>
     <dimen name="aod_spacing_8">8dp</dimen>
