@@ -126,6 +126,9 @@
     <string name="pref_ao_message_summary">Eine Nachricht die auf dem AOD angezeigt wird</string>
     <string name="pref_ao_date_format">Datumsformat</string>
     <string name="pref_ao_date_format_summary">Das Datumsformat, welches vom AOD genutzt wird</string>
+    <string name="pref_ao_date_format_dialog_text">Du musst einem bestimmten Muster folgen</string>
+    <string name="pref_ao_date_format_dialog_neutral">Mehr erfahren</string>
+    <string name="pref_ao_date_format_illegal">Illegales Format</string>
 
     <string name="pref_look_and_feel_charging">Aussehen der Ladeanimation</string>
     <string name="pref_look_and_feel_charging_summary">Ändert das Aussehen der Ladeanimation</string>

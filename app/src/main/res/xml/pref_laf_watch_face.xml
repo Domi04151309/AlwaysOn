@@ -79,11 +79,9 @@
         android:key="am_pm"
         android:summary="@string/pref_look_and_feel_am_pm_summary"
         android:title="@string/pref_look_and_feel_am_pm" />
-    <EditTextPreference
+    <Preference
         android:icon="@drawable/ic_date"
-        android:defaultValue="@string/date"
         android:key="ao_date_format"
-        android:singleLine="true"
         android:summary="@string/pref_ao_date_format_summary"
         android:title="@string/pref_ao_date_format" />
     <EditTextPreference
