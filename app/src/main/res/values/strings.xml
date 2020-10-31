@@ -28,8 +28,6 @@
     <string name="app_by">AlwaysOn by Domi04151309</string>
 
     <string name="AlwaysOn">Always on display</string>
-    <string name="Headset">Headphone animation</string>
-    <string name="Charging">Charging animation</string>
 
     <string name="chargingState_error">Unable to display charging state</string>
     <string name="battery">\??%</string>

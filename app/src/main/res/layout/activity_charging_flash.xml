@@ -10,7 +10,7 @@
         android:id="@+id/chargingImage"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:contentDescription="@string/Charging"
+        android:contentDescription="@null"
         android:layout_centerInParent="true"
         android:src="@drawable/ic_charging_white" />
 </RelativeLayout>

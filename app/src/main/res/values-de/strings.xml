@@ -27,8 +27,6 @@
     <string name="app_by">AlwaysOn von Domi04151309</string>
 
     <string name="AlwaysOn">Always On Display</string>
-    <string name="Headset">Kopfhöreranimation</string>
-    <string name="Charging">Ladeanimation</string>
 
     <string name="chargingState_error">Ladezustand kann nicht angezeigt werden</string>
     <string name="battery">\??%</string>

@@ -12,7 +12,7 @@
         android:id="@+id/batteryIcn"
         android:layout_width="match_parent"
         android:layout_height="192dp"
-        android:contentDescription="@string/Charging"
+        android:contentDescription="@null"
         android:rotation="90"
         android:tint="@color/charging"
         android:alpha=".5"

@@ -10,7 +10,7 @@
         android:id="@+id/headsetImage"
         android:layout_width="96dp"
         android:layout_height="96dp"
-        android:contentDescription="@string/Headset"
+        android:contentDescription="@null"
         android:layout_centerInParent="true"
         android:src="@drawable/ic_headset_white" />
 </RelativeLayout>

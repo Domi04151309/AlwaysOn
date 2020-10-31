@@ -1,6 +1,7 @@
 package io.github.domi04151309.alwayson.preferences
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
@@ -11,10 +12,11 @@ import android.provider.Settings
 import android.service.quicksettings.TileService
 import android.text.TextUtils
 import android.view.KeyEvent
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -38,6 +40,8 @@ class Preferences : AppCompatActivity(),
         private const val NOTIFICATION_ACCESS_DIALOG: Byte = 1
         private const val DISPLAY_OVER_OTHER_APPS_DIALOG: Byte = 2
     }
+
+    private var showsDialog = false
 
     private val isNotificationServiceEnabled: Boolean
         get() {
@@ -81,6 +85,7 @@ class Preferences : AppCompatActivity(),
                 .replace(R.id.settings, GeneralPreferenceFragment())
                 .commit()
 
+        if (!isNotificationServiceEnabled) buildDialog(NOTIFICATION_ACCESS_DIALOG)
         if (applicationContext.checkSelfPermission(Manifest.permission.READ_PHONE_STATE)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -93,41 +98,54 @@ class Preferences : AppCompatActivity(),
 
     override fun onStart() {
         super.onStart()
-        if (!isDeviceAdminOrRoot) buildDialog(DEVICE_ADMIN_DIALOG)
-        if (!isNotificationServiceEnabled) buildDialog(NOTIFICATION_ACCESS_DIALOG)
         if (!Settings.canDrawOverlays(this)) buildDialog(DISPLAY_OVER_OTHER_APPS_DIALOG)
+        if (!isDeviceAdminOrRoot) buildDialog(DEVICE_ADMIN_DIALOG)
     }
 
+    @SuppressLint("InflateParams")
     private fun buildDialog(dialogType: Byte) {
-        val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.DialogTheme))
+        if (!showsDialog) {
+            val builder = AlertDialog.Builder(this)
+            val view = layoutInflater.inflate(R.layout.dialog_permission, null, false)
+            val icon = view.findViewById<ImageView>(R.id.icon)
+            val title = view.findViewById<TextView>(R.id.title)
+            val message = view.findViewById<TextView>(R.id.message)
 
-        when (dialogType) {
-            DEVICE_ADMIN_DIALOG -> {
-                builder.setTitle(R.string.device_admin)
-                builder.setMessage(R.string.device_admin_summary)
-                builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
-                    startActivity(Intent(this, PermissionPreferences::class.java))
+            when (dialogType) {
+                DEVICE_ADMIN_DIALOG -> {
+                    icon.setImageResource(R.drawable.ic_color_mode)
+                    title.setText(R.string.device_admin)
+                    message.setText(R.string.device_admin_summary)
+                    builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
+                        startActivity(Intent(this, PermissionPreferences::class.java))
+                    }
                 }
-            }
-            NOTIFICATION_ACCESS_DIALOG -> {
-                builder.setTitle(R.string.notification_listener_service)
-                builder.setMessage(R.string.notification_listener_service_summary)
-                builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
-                    startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
+                DISPLAY_OVER_OTHER_APPS_DIALOG -> {
+                    icon.setImageResource(R.drawable.ic_color_draw_over_other_apps)
+                    title.setText(R.string.setup_draw_over_other_apps)
+                    message.setText(R.string.setup_draw_over_other_apps_summary)
+                    builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
+                        startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 1)
+                    }
                 }
-            }
-            DISPLAY_OVER_OTHER_APPS_DIALOG -> {
-                builder.setTitle(R.string.setup_draw_over_other_apps)
-                builder.setMessage(R.string.setup_draw_over_other_apps_summary)
-                builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
-                    startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 1)
+                NOTIFICATION_ACCESS_DIALOG -> {
+                    icon.setImageResource(R.drawable.ic_color_notification)
+                    title.setText(R.string.notification_listener_service)
+                    message.setText(R.string.notification_listener_service_summary)
+                    builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
+                        startActivity(Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS"))
+                    }
                 }
+                else -> return
             }
-            else -> return
+            builder.setView(view)
+            builder.setNegativeButton(resources.getString(android.R.string.cancel)) { dialog, _ -> dialog.cancel() }
+            builder.setOnDismissListener {
+                showsDialog = false
+            }
+            builder.show()
+            showsDialog = true
         }
-
-        builder.setNegativeButton(resources.getString(android.R.string.cancel)) { dialog, _ -> dialog.cancel() }
-        builder.show()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

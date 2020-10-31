@@ -25,8 +25,6 @@
     <string name="app_by">AlwaysOn создано Domi04151309</string>
 
     <string name="AlwaysOn">Always on display</string>
-    <string name="Headset">Анимация подключения наушников</string>
-    <string name="Charging">Анимация подключения зарядки</string>
 
     <string name="chargingState_error">Невозможно отобразить состояние зарядки</string>
     <string name="battery">\??%</string>

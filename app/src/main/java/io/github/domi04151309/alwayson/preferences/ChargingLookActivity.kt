@@ -58,7 +58,8 @@ class ChargingLookActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        value = prefs.getString(P.CHARGING_STYLE, P.CHARGING_STYLE_DEFAULT) ?: P.CHARGING_STYLE_DEFAULT
+        value = prefs.getString(P.CHARGING_STYLE, P.CHARGING_STYLE_DEFAULT)
+                ?: P.CHARGING_STYLE_DEFAULT
         val adapter = layoutList.adapter as LayoutListAdapter
         setSelectedItem(adapter, when (value) {
             P.CHARGING_STYLE_CIRCLE -> ITEM_CIRCLE

@@ -25,8 +25,6 @@
     <string name="app_by">AlwaysOn por Domi</string>
 
     <string name="AlwaysOn">Siempre en pantalla</string>
-    <string name="Headset">Animación de auriculares</string>
-    <string name="Charging">Cargando animación</string>
 
     <string name="chargingState_error">No se puede mostrar el estado de carga</string>
     <string name="battery">\??%</string>
