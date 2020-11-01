@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.adapters.LayoutListAdapter
 import io.github.domi04151309.alwayson.helpers.P
-import io.github.domi04151309.alwayson.objects.Theme
+import io.github.domi04151309.alwayson.helpers.Theme
 
 class ChargingLookActivity : AppCompatActivity() {
 

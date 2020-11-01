@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.helpers.EditIntegerPreference
-import io.github.domi04151309.alwayson.objects.Theme
+import io.github.domi04151309.alwayson.custom.EditIntegerPreference
+import io.github.domi04151309.alwayson.helpers.Theme
 import java.lang.Integer.parseInt
 
 class RulesActivity : AppCompatActivity(),

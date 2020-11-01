@@ -1,4 +1,4 @@
-package io.github.domi04151309.alwayson.objects
+package io.github.domi04151309.alwayson.helpers
 
 import android.util.Log
 import java.io.DataOutputStream

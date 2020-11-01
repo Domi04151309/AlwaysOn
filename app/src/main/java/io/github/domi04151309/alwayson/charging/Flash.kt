@@ -3,8 +3,8 @@ package io.github.domi04151309.alwayson.charging
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
-import io.github.domi04151309.alwayson.OffActivity
-import io.github.domi04151309.alwayson.objects.Global
+import io.github.domi04151309.alwayson.activities.OffActivity
+import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.R
 
 class Flash : OffActivity() {

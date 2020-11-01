@@ -23,7 +23,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppThemeLight">
-        <activity android:name=".HelpActivity"
+        <activity android:name=".activities.HelpActivity"
             android:label="@string/help_center"
             android:parentActivityName=".preferences.Preferences">
             <meta-data
@@ -81,12 +81,12 @@
                 android:value="io.github.domi04151309.alwayson.preferences.LAFWatchFacePreferences" />
         </activity>
         <activity
-            android:name=".TurnOnScreen"
+            android:name=".activities.TurnOnScreenActivity"
             android:excludeFromRecents="true"
             android:showOnLockScreen="true"
             android:theme="@style/AppThemeScreenOff" />
         <activity
-            android:name=".AboutActivity"
+            android:name=".activities.AboutActivity"
             android:label="@string/about"
             android:parentActivityName=".preferences.Preferences">
             <meta-data
@@ -94,7 +94,7 @@
                 android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
         </activity>
         <activity
-            android:name=".SetupActivity"
+            android:name=".activities.SetupActivity"
             android:theme="@style/SetupTheme" />
 
         <receiver
@@ -137,7 +137,7 @@
         </service>
 
         <receiver
-            android:name=".receivers.AutoStart"
+            android:name=".receivers.BootCompletedReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -163,7 +163,7 @@
             android:taskAffinity=""
             android:theme="@style/AppThemeScreenOff" />
         <activity
-            android:name=".Headset"
+            android:name=".activities.Headset"
             android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
@@ -207,7 +207,7 @@
                 android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
         </activity>
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:theme="@style/AppThemeSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

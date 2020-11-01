@@ -35,7 +35,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.alwayson.AboutActivity" />
+            android:targetClass="io.github.domi04151309.alwayson.activities.AboutActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 </shortcuts>

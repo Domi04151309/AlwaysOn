@@ -8,7 +8,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.P
-import io.github.domi04151309.alwayson.objects.Theme
+import io.github.domi04151309.alwayson.helpers.Theme
 
 class LAFBehaviorPreferences : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {

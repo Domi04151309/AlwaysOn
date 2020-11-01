@@ -4,15 +4,15 @@ import android.content.*
 import android.icu.util.Calendar
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.PreferenceManager
-import io.github.domi04151309.alwayson.Headset
-import io.github.domi04151309.alwayson.TurnOnScreen
+import io.github.domi04151309.alwayson.activities.Headset
+import io.github.domi04151309.alwayson.activities.TurnOnScreenActivity
 import io.github.domi04151309.alwayson.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.charging.Circle
 import io.github.domi04151309.alwayson.charging.Flash
 import io.github.domi04151309.alwayson.charging.IOS
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Rules
-import io.github.domi04151309.alwayson.objects.Global
+import io.github.domi04151309.alwayson.helpers.Global
 
 class CombinedServiceReceiver : BroadcastReceiver() {
 
@@ -71,7 +71,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                 val alwaysOn = prefs.getBoolean("always_on", false)
                 if (alwaysOn && !hasRequestedStop) {
                     if (isAlwaysOnRunning) {
-                        c.startActivity(Intent(c, TurnOnScreen::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                        c.startActivity(Intent(c, TurnOnScreenActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                         isAlwaysOnRunning = false
                     } else if (!rules.isAmbientMode()
                             && rules.matchesChargingState()

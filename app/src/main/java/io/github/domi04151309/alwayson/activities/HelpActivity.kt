@@ -1,4 +1,4 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.activities
 
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
@@ -9,7 +9,8 @@ import android.os.Bundle
 import android.provider.Settings
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import io.github.domi04151309.alwayson.objects.Theme
+import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.helpers.Theme
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 
 class HelpActivity : AppCompatActivity() {

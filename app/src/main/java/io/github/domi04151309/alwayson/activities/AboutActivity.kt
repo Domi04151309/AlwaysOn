@@ -1,10 +1,12 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.widget.TextView
-import io.github.domi04151309.alwayson.objects.Theme
+import io.github.domi04151309.alwayson.BuildConfig
+import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.helpers.Theme
 
 class AboutActivity : AppCompatActivity() {
 

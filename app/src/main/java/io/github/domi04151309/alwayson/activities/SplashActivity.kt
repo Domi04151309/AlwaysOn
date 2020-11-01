@@ -1,4 +1,4 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.activities
 
 import android.app.Activity
 import android.content.Intent

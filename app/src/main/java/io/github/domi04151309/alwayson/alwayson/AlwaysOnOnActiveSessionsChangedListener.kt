@@ -8,7 +8,7 @@ import android.media.session.PlaybackState
 import android.util.Log
 import android.view.View
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.objects.Global
+import io.github.domi04151309.alwayson.helpers.Global
 
 class AlwaysOnOnActiveSessionsChangedListener(
         private val viewHolder: AlwaysOnViewHolder,

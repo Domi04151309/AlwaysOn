@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.*
-import io.github.domi04151309.alwayson.objects.Theme
+import io.github.domi04151309.alwayson.helpers.Theme
 
 class LookAndFeelPreferences : AppCompatActivity(),
         PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {

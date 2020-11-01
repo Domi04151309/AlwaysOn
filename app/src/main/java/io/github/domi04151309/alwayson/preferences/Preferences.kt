@@ -23,12 +23,12 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
-import io.github.domi04151309.alwayson.AboutActivity
-import io.github.domi04151309.alwayson.HelpActivity
+import io.github.domi04151309.alwayson.activities.AboutActivity
+import io.github.domi04151309.alwayson.activities.HelpActivity
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
-import io.github.domi04151309.alwayson.objects.Global
-import io.github.domi04151309.alwayson.objects.Theme
+import io.github.domi04151309.alwayson.helpers.Global
+import io.github.domi04151309.alwayson.helpers.Theme
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import io.github.domi04151309.alwayson.services.ForegroundService
 

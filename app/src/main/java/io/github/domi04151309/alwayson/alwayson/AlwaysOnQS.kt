@@ -2,7 +2,7 @@ package io.github.domi04151309.alwayson.alwayson
 
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
-import io.github.domi04151309.alwayson.objects.Global
+import io.github.domi04151309.alwayson.helpers.Global
 
 class AlwaysOnQS : TileService() {
 

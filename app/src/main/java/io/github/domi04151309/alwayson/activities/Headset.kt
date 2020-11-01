@@ -1,9 +1,10 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.activities
 
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
-import io.github.domi04151309.alwayson.objects.Global
+import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.helpers.Global
 
 class Headset : OffActivity() {
 

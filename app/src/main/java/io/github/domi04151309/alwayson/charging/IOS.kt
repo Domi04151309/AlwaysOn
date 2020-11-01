@@ -8,8 +8,8 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import io.github.domi04151309.alwayson.OffActivity
-import io.github.domi04151309.alwayson.objects.Global
+import io.github.domi04151309.alwayson.activities.OffActivity
+import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.R
 
 class IOS : OffActivity() {

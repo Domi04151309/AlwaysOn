@@ -6,7 +6,7 @@ import android.content.Intent
 import android.telephony.TelephonyManager
 import android.util.Log
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import io.github.domi04151309.alwayson.objects.Global
+import io.github.domi04151309.alwayson.helpers.Global
 
 class PhoneStateReceiver : BroadcastReceiver() {
 

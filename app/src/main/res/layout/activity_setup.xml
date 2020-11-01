@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".SetupActivity">
+    tools:context=".activities.SetupActivity">
 
     <TextView
         android:layout_width="match_parent"

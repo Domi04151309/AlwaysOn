@@ -1,4 +1,4 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.activities
 
 import android.app.Activity
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.os.Handler
 import android.view.WindowManager
 import android.content.Intent
 
-class TurnOnScreen : Activity() {
+class TurnOnScreenActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

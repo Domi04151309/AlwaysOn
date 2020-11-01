@@ -13,7 +13,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SeekBarPreference
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.P
-import io.github.domi04151309.alwayson.objects.Theme
+import io.github.domi04151309.alwayson.helpers.Theme
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
@@ -57,7 +57,7 @@ class LAFWatchFacePreferences : AppCompatActivity(),
                 true
             }
             findPreference<Preference>(P.DATE_FORMAT)?.setOnPreferenceClickListener {
-                val dialogView = layoutInflater.inflate(R.layout.edit_text_layout, null, false)
+                val dialogView = layoutInflater.inflate(R.layout.dialog_edit_text, null, false)
                 val editText = dialogView.findViewById<EditText>(R.id.editText)
                 editText.setText(
                         preferenceManager.sharedPreferences.getString(P.DATE_FORMAT, P.DATE_FORMAT_DEFAULT)

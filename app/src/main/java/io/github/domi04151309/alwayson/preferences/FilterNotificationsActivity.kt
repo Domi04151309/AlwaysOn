@@ -10,9 +10,9 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.objects.Global
-import io.github.domi04151309.alwayson.objects.JSON
-import io.github.domi04151309.alwayson.objects.Theme
+import io.github.domi04151309.alwayson.helpers.Global
+import io.github.domi04151309.alwayson.helpers.JSON
+import io.github.domi04151309.alwayson.helpers.Theme
 import org.json.JSONArray
 import java.lang.Exception
 

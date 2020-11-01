@@ -1,4 +1,4 @@
-<io.github.domi04151309.alwayson.helpers.CustomFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.github.domi04151309.alwayson.custom.CustomFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frame"
     android:layout_width="match_parent"
@@ -122,7 +122,7 @@
             android:layout_marginBottom="@dimen/aod_spacing" />
     </LinearLayout>
 
-    <io.github.domi04151309.alwayson.helpers.CustomImageView
+    <io.github.domi04151309.alwayson.custom.CustomImageView
         android:id="@+id/fingerprintIcn"
         android:layout_width="@dimen/aod_fingerprint_size"
         android:layout_height="@dimen/aod_fingerprint_size"
@@ -130,4 +130,4 @@
         android:contentDescription="@null"
         android:src="@drawable/ic_fingerprint_white"
         android:visibility="gone"/>
-</io.github.domi04151309.alwayson.helpers.CustomFrameLayout>
+</io.github.domi04151309.alwayson.custom.CustomFrameLayout>

@@ -20,13 +20,13 @@ import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.github.domi04151309.alwayson.OffActivity
+import io.github.domi04151309.alwayson.activities.OffActivity
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.adapters.NotificationGridAdapter
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Rules
-import io.github.domi04151309.alwayson.objects.Global
-import io.github.domi04151309.alwayson.objects.Root
+import io.github.domi04151309.alwayson.helpers.Global
+import io.github.domi04151309.alwayson.helpers.Root
 import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 import io.github.domi04151309.alwayson.services.NotificationService
 import java.util.*

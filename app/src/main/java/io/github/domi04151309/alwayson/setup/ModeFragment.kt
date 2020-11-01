@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.SetupActivity
+import io.github.domi04151309.alwayson.activities.SetupActivity
 
 class ModeFragment : Fragment() {
 

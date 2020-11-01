@@ -6,8 +6,8 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.helpers.CustomFrameLayout
-import io.github.domi04151309.alwayson.helpers.CustomImageView
+import io.github.domi04151309.alwayson.custom.CustomFrameLayout
+import io.github.domi04151309.alwayson.custom.CustomImageView
 
 class AlwaysOnViewHolder(activity: Activity) {
     val frame: CustomFrameLayout = activity.findViewById(R.id.frame)

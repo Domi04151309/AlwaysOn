@@ -12,8 +12,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.helpers.Rules
-import io.github.domi04151309.alwayson.objects.Global
-import io.github.domi04151309.alwayson.objects.JSON
+import io.github.domi04151309.alwayson.helpers.Global
+import io.github.domi04151309.alwayson.helpers.JSON
 import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 import org.json.JSONArray
 

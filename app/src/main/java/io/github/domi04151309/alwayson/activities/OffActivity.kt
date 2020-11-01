@@ -1,4 +1,4 @@
-package io.github.domi04151309.alwayson
+package io.github.domi04151309.alwayson.activities
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -13,8 +13,9 @@ import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
 import androidx.preference.PreferenceManager
-import io.github.domi04151309.alwayson.objects.Global
-import io.github.domi04151309.alwayson.objects.Root
+import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.helpers.Global
+import io.github.domi04151309.alwayson.helpers.Root
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import java.lang.Exception
 
