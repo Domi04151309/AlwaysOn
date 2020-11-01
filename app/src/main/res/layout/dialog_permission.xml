@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/aod_spacing_8"
         android:paddingHorizontal="?dialogPreferredPadding"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textIsSelectable="false" />
 
     <TextView
         android:id="@+id/message"
@@ -27,5 +28,6 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="?dialogPreferredPadding"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="?android:attr/textColorSecondary"/>
+        android:textColor="?android:attr/textColorSecondary"
+        android:textIsSelectable="false" />
 </LinearLayout>
