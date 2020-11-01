@@ -4,7 +4,7 @@
     android:id="@+id/chargingLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.github.domi04151309.alwayson.charging.Flash">
+    tools:context="io.github.domi04151309.alwayson.actions.ChargingFlashActivity">
 
     <ImageView
         android:id="@+id/chargingImage"

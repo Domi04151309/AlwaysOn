@@ -4,12 +4,12 @@ import android.content.*
 import android.icu.util.Calendar
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.PreferenceManager
-import io.github.domi04151309.alwayson.activities.Headset
-import io.github.domi04151309.alwayson.activities.TurnOnScreenActivity
-import io.github.domi04151309.alwayson.alwayson.AlwaysOn
-import io.github.domi04151309.alwayson.charging.Circle
-import io.github.domi04151309.alwayson.charging.Flash
-import io.github.domi04151309.alwayson.charging.IOS
+import io.github.domi04151309.alwayson.actions.HeadsetActivity
+import io.github.domi04151309.alwayson.actions.TurnOnScreenActivity
+import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
+import io.github.domi04151309.alwayson.actions.ChargingCircleActivity
+import io.github.domi04151309.alwayson.actions.ChargingFlashActivity
+import io.github.domi04151309.alwayson.actions.ChargingIOSActivity
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Rules
 import io.github.domi04151309.alwayson.helpers.Global
@@ -31,7 +31,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                 if (prefs.getBoolean("headphone_animation", false) && intent.getIntExtra("state", 0) == 1) {
                     if (!isScreenOn || isAlwaysOnRunning) {
                         if (isAlwaysOnRunning) LocalBroadcastManager.getInstance(c).sendBroadcast(Intent(Global.REQUEST_STOP))
-                        c.startActivity(Intent(c, Headset::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+                        c.startActivity(Intent(c, HeadsetActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                     }
                 }
             }
@@ -41,9 +41,9 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                         if (isAlwaysOnRunning) LocalBroadcastManager.getInstance(c).sendBroadcast(Intent(Global.REQUEST_STOP))
                         val i: Intent = when (prefs.getString(P.CHARGING_STYLE, P.CHARGING_STYLE_DEFAULT)
                                 ?: P.CHARGING_STYLE_DEFAULT) {
-                            P.CHARGING_STYLE_CIRCLE -> Intent(c, Circle::class.java)
-                            P.CHARGING_STYLE_FLASH -> Intent(c, Flash::class.java)
-                            P.CHARGING_STYLE_IOS -> Intent(c, IOS::class.java)
+                            P.CHARGING_STYLE_CIRCLE -> Intent(c, ChargingCircleActivity::class.java)
+                            P.CHARGING_STYLE_FLASH -> Intent(c, ChargingFlashActivity::class.java)
+                            P.CHARGING_STYLE_IOS -> Intent(c, ChargingIOSActivity::class.java)
                             else -> return
                         }
                         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK

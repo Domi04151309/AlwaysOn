@@ -19,9 +19,8 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Root
-import io.github.domi04151309.alwayson.preferences.Preferences
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
-import io.github.domi04151309.alwayson.setup.*
+import io.github.domi04151309.alwayson.activities.setup.*
 
 class SetupActivity : AppCompatActivity() {
 
@@ -92,7 +91,7 @@ class SetupActivity : AppCompatActivity() {
                 }
                 FINISH_FRAGMENT -> {
                     prefsEditor.putBoolean("setup_complete", true).apply()
-                    startActivity(Intent(this, Preferences::class.java))
+                    startActivity(Intent(this, MainActivity::class.java))
                 }
             }
         }

@@ -12,7 +12,6 @@ import android.service.quicksettings.TileService
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
 import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 
 class ForegroundService : Service() {
@@ -27,7 +26,7 @@ class ForegroundService : Service() {
         filter.addAction(Intent.ACTION_SCREEN_OFF)
         filter.addAction(Intent.ACTION_SCREEN_ON)
         registerReceiver(combinedServiceReceiver, filter)
-        TileService.requestListeningState(this, ComponentName(this, AlwaysOnQS::class.java))
+        TileService.requestListeningState(this, ComponentName(this, AlwaysOnTileService::class.java))
     }
 
     override fun onDestroy() {

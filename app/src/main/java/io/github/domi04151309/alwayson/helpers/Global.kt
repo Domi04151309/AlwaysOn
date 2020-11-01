@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.preference.PreferenceManager
 import android.service.quicksettings.TileService
-import io.github.domi04151309.alwayson.alwayson.AlwaysOnQS
+import io.github.domi04151309.alwayson.services.AlwaysOnTileService
 import android.app.Activity
 import android.view.View
 import android.view.WindowManager
@@ -32,7 +32,7 @@ internal object Global {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val value = !prefs.getBoolean("always_on", false)
         prefs.edit().putBoolean("always_on", value).apply()
-        TileService.requestListeningState(context, ComponentName(context, AlwaysOnQS::class.java))
+        TileService.requestListeningState(context, ComponentName(context, AlwaysOnTileService::class.java))
         LocalBroadcastManager.getInstance(context).sendBroadcast(Intent().setAction(ALWAYS_ON_STATE_CHANGED))
         return value
     }

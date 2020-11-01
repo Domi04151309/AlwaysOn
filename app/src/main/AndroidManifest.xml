@@ -25,73 +25,73 @@
         android:theme="@style/AppThemeLight">
         <activity android:name=".activities.HelpActivity"
             android:label="@string/help_center"
-            android:parentActivityName=".preferences.Preferences">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
+                android:value="io.github.domi04151309.alwayson.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".preferences.RulesActivity"
+            android:name=".activities.LAFRulesActivity"
             android:label="@string/pref_look_and_feel_rules"
             android:launchMode="singleTop"
-            android:parentActivityName=".preferences.LookAndFeelPreferences">
+            android:parentActivityName=".activities.LookAndFeelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
+                android:value="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
         </activity>
         <activity
-            android:name=".preferences.FilterNotificationsActivity"
+            android:name=".activities.LAFFilterNotificationsActivity"
             android:label="@string/pref_look_and_feel_filter_notifications"
             android:launchMode="singleTop"
-            android:parentActivityName=".preferences.LAFWatchFacePreferences">
+            android:parentActivityName=".activities.LAFWatchFaceActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.LAFWatchFacePreferences" />
+                android:value="io.github.domi04151309.alwayson.activities.LAFWatchFaceActivity" />
         </activity>
         <activity
-            android:name=".preferences.BrightnessActivity"
+            android:name=".activities.LAFBrightnessActivity"
             android:label="@string/pref_ao_force_brightness_title"
-            android:parentActivityName=".preferences.LAFBehaviorPreferences">
+            android:parentActivityName=".activities.LAFBehaviorActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.LAFBehaviorPreferences" />
+                android:value="io.github.domi04151309.alwayson.activities.LAFBehaviorActivity" />
         </activity>
         <activity
-            android:name=".preferences.ChargingLookActivity"
+            android:name=".activities.LAFChargingLookActivity"
             android:label="@string/pref_look_and_feel_charging"
-            android:parentActivityName=".preferences.LookAndFeelPreferences">
+            android:parentActivityName=".activities.LookAndFeelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
+                android:value="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
         </activity>
         <activity
-            android:name=".preferences.AlwaysOnLookActivity"
+            android:name=".activities.LAFAlwaysOnLookActivity"
             android:label="@string/pref_look_and_feel_ao"
-            android:parentActivityName=".preferences.LAFWatchFacePreferences">
+            android:parentActivityName=".activities.LAFWatchFaceActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.LAFWatchFacePreferences" />
+                android:value="io.github.domi04151309.alwayson.activities.LAFWatchFaceActivity" />
         </activity>
         <activity
-            android:name=".preferences.LAFWFColorsPreferences"
+            android:name=".activities.LAFWFColorsActivity"
             android:label="@string/pref_look_and_feel_colors"
-            android:parentActivityName=".preferences.LAFWatchFacePreferences">
+            android:parentActivityName=".activities.LAFWatchFaceActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.LAFWatchFacePreferences" />
+                android:value="io.github.domi04151309.alwayson.activities.LAFWatchFaceActivity" />
         </activity>
         <activity
-            android:name=".activities.TurnOnScreenActivity"
+            android:name=".actions.TurnOnScreenActivity"
             android:excludeFromRecents="true"
             android:showOnLockScreen="true"
             android:theme="@style/AppThemeScreenOff" />
         <activity
             android:name=".activities.AboutActivity"
             android:label="@string/about"
-            android:parentActivityName=".preferences.Preferences">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
+                android:value="io.github.domi04151309.alwayson.activities.MainActivity" />
         </activity>
         <activity
             android:name=".activities.SetupActivity"
@@ -113,7 +113,7 @@
         </receiver>
 
         <activity
-            android:name=".alwayson.AlwaysOn"
+            android:name="io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn"
             android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:hardwareAccelerated="false"
@@ -123,7 +123,7 @@
             android:theme="@style/AppThemeScreenOff" />
 
         <service
-            android:name=".alwayson.AlwaysOnQS"
+            android:name="io.github.domi04151309.alwayson.services.AlwaysOnTileService"
             android:icon="@drawable/ic_always_on_black"
             android:label="@string/AlwaysOn"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
@@ -147,7 +147,7 @@
         </receiver>
 
         <activity
-            android:name=".charging.Flash"
+            android:name=".actions.ChargingFlashActivity"
             android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
@@ -155,7 +155,7 @@
             android:taskAffinity=""
             android:theme="@style/AppThemeScreenOff" />
         <activity
-            android:name=".charging.Circle"
+            android:name=".actions.ChargingCircleActivity"
             android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
@@ -163,7 +163,7 @@
             android:taskAffinity=""
             android:theme="@style/AppThemeScreenOff" />
         <activity
-            android:name=".activities.Headset"
+            android:name=".actions.HeadsetActivity"
             android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
@@ -186,25 +186,25 @@
         </service>
 
         <activity
-            android:name=".preferences.Preferences"
+            android:name=".activities.MainActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".preferences.LookAndFeelPreferences"
+            android:name=".activities.LookAndFeelActivity"
             android:label="@string/pref_look_and_feel"
             android:launchMode="singleTop"
-            android:parentActivityName=".preferences.Preferences">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
+                android:value="io.github.domi04151309.alwayson.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".preferences.PermissionPreferences"
+            android:name=".activities.PermissionsActivity"
             android:label="@string/pref_permissions"
             android:launchMode="singleTop"
-            android:parentActivityName=".preferences.Preferences">
+            android:parentActivityName=".activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.Preferences" />
+                android:value="io.github.domi04151309.alwayson.activities.MainActivity" />
         </activity>
         <activity
             android:name=".activities.SplashActivity"
@@ -220,7 +220,7 @@
                 android:resource="@xml/shortcuts" />
         </activity>
         <activity
-            android:name=".charging.IOS"
+            android:name=".actions.ChargingIOSActivity"
             android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
@@ -229,7 +229,7 @@
             android:theme="@style/AppThemeScreenOff" />
 
         <receiver
-            android:name=".alwayson.AlwaysOnWidget"
+            android:name="io.github.domi04151309.alwayson.receivers.AlwaysOnAppWidgetProvider"
             android:label="@string/AlwaysOn">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -246,49 +246,49 @@
         </receiver>
 
         <activity
-            android:name=".preferences.LAFWatchFacePreferences"
+            android:name=".activities.LAFWatchFaceActivity"
             android:label="@string/pref_ao_watch_face"
             android:launchMode="singleTop"
-            android:parentActivityName=".preferences.LookAndFeelPreferences">
+            android:parentActivityName=".activities.LookAndFeelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
+                android:value="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
         </activity>
         <activity
-            android:name=".preferences.LAFBackgroundPreferences"
+            android:name=".activities.LAFBackgroundActivity"
             android:label="@string/pref_ao_background"
             android:launchMode="singleTop"
-            android:parentActivityName=".preferences.LookAndFeelPreferences">
+            android:parentActivityName=".activities.LookAndFeelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
+                android:value="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
         </activity>
         <activity
-            android:name=".preferences.BackgroundImageActivity"
+            android:name=".activities.LAFBackgroundImageActivity"
             android:label="@string/pref_ao_background_image"
             android:launchMode="singleTop"
-            android:parentActivityName=".preferences.LAFBackgroundPreferences">
+            android:parentActivityName=".activities.LAFBackgroundActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.LAFBackgroundPreferences" />
+                android:value="io.github.domi04151309.alwayson.activities.LAFBackgroundActivity" />
         </activity>
         <activity
-            android:name=".preferences.LAFBehaviorPreferences"
+            android:name=".activities.LAFBehaviorActivity"
             android:label="@string/pref_ao_behavior"
             android:launchMode="singleTop"
-            android:parentActivityName=".preferences.LookAndFeelPreferences">
+            android:parentActivityName=".activities.LookAndFeelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
+                android:value="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
         </activity>
         <activity
-            android:name=".preferences.LAFOtherPreferences"
+            android:name=".activities.LAFOtherActivity"
             android:label="@string/pref_ao_other"
             android:launchMode="singleTop"
-            android:parentActivityName=".preferences.LookAndFeelPreferences">
+            android:parentActivityName=".activities.LookAndFeelActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
+                android:value="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
         </activity>
     </application>
 

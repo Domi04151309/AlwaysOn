@@ -9,7 +9,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.alwayson.preferences.LookAndFeelPreferences" />
+            android:targetClass="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
     <shortcut
@@ -22,7 +22,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.alwayson.preferences.PermissionPreferences" />
+            android:targetClass="io.github.domi04151309.alwayson.activities.PermissionsActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
     <shortcut
