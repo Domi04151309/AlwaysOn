@@ -15,5 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text|textNoSuggestions"
-        android:importantForAutofill="no" />
+        android:importantForAutofill="no"
+        android:hint="@string/date"/>
 </LinearLayout>

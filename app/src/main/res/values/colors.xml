@@ -6,6 +6,6 @@
     <color name="charging">#55D769</color>
     <color name="progressBackground">#333</color>
 
-    <color name="on">#0f0</color>
-    <color name="off">#f00</color>
+    <color name="on">#64DD17</color>
+    <color name="off">#d50000</color>
 </resources>
