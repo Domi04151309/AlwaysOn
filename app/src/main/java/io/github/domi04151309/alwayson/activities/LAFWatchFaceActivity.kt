@@ -18,8 +18,7 @@ import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
-class LAFWatchFaceActivity : AppCompatActivity(),
-        PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+class LAFWatchFaceActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
@@ -29,19 +28,6 @@ class LAFWatchFaceActivity : AppCompatActivity(),
                 .beginTransaction()
                 .replace(R.id.settings, PreferenceFragment())
                 .commit()
-    }
-
-    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
-        val fragment = supportFragmentManager.fragmentFactory.instantiate(
-                classLoader,
-                pref.fragment)
-        fragment.arguments = pref.extras
-        fragment.setTargetFragment(caller, 0)
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.settings, fragment)
-                .addToBackStack(null)
-                .commit()
-        return true
     }
 
     class PreferenceFragment : PreferenceFragmentCompat() {

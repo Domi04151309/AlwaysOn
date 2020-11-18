@@ -25,61 +25,33 @@
         android:theme="@style/AppThemeLight">
         <activity android:name=".activities.HelpActivity"
             android:label="@string/help_center"
-            android:parentActivityName=".activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.MainActivity" />
-        </activity>
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.LAFRulesActivity"
             android:label="@string/pref_look_and_feel_rules"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.LookAndFeelActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
-        </activity>
+            android:parentActivityName=".activities.LookAndFeelActivity" />
         <activity
             android:name=".activities.LAFFilterNotificationsActivity"
             android:label="@string/pref_look_and_feel_filter_notifications"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.LAFWatchFaceActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.LAFWatchFaceActivity" />
-        </activity>
+            android:parentActivityName=".activities.LAFWatchFaceActivity" />
         <activity
             android:name=".activities.LAFBrightnessActivity"
             android:label="@string/pref_ao_force_brightness_title"
-            android:parentActivityName=".activities.LAFBehaviorActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.LAFBehaviorActivity" />
-        </activity>
+            android:parentActivityName=".activities.LAFBehaviorActivity" />
         <activity
             android:name=".activities.LAFChargingLookActivity"
             android:label="@string/pref_look_and_feel_charging"
-            android:parentActivityName=".activities.LookAndFeelActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
-        </activity>
+            android:parentActivityName=".activities.LookAndFeelActivity" />
         <activity
             android:name=".activities.LAFAlwaysOnLookActivity"
             android:label="@string/pref_look_and_feel_ao"
-            android:parentActivityName=".activities.LAFWatchFaceActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.LAFWatchFaceActivity" />
-        </activity>
+            android:parentActivityName=".activities.LAFWatchFaceActivity" />
         <activity
             android:name=".activities.LAFWFColorsActivity"
             android:label="@string/pref_look_and_feel_colors"
-            android:parentActivityName=".activities.LAFWatchFaceActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.LAFWatchFaceActivity" />
-        </activity>
+            android:parentActivityName=".activities.LAFWatchFaceActivity" />
         <activity
             android:name=".actions.TurnOnScreenActivity"
             android:excludeFromRecents="true"
@@ -88,11 +60,7 @@
         <activity
             android:name=".activities.AboutActivity"
             android:label="@string/about"
-            android:parentActivityName=".activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.MainActivity" />
-        </activity>
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.SetupActivity"
             android:theme="@style/SetupTheme" />
@@ -192,20 +160,12 @@
             android:name=".activities.LookAndFeelActivity"
             android:label="@string/pref_look_and_feel"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.MainActivity" />
-        </activity>
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.PermissionsActivity"
             android:label="@string/pref_permissions"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.MainActivity" />
-        </activity>
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/AppThemeSplash">
@@ -249,47 +209,27 @@
             android:name=".activities.LAFWatchFaceActivity"
             android:label="@string/pref_ao_watch_face"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.LookAndFeelActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
-        </activity>
+            android:parentActivityName=".activities.LookAndFeelActivity" />
         <activity
             android:name=".activities.LAFBackgroundActivity"
             android:label="@string/pref_ao_background"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.LookAndFeelActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
-        </activity>
+            android:parentActivityName=".activities.LookAndFeelActivity" />
         <activity
             android:name=".activities.LAFBackgroundImageActivity"
             android:label="@string/pref_ao_background_image"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.LAFBackgroundActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.LAFBackgroundActivity" />
-        </activity>
+            android:parentActivityName=".activities.LAFBackgroundActivity" />
         <activity
             android:name=".activities.LAFBehaviorActivity"
             android:label="@string/pref_ao_behavior"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.LookAndFeelActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
-        </activity>
+            android:parentActivityName=".activities.LookAndFeelActivity" />
         <activity
             android:name=".activities.LAFOtherActivity"
             android:label="@string/pref_ao_other"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.LookAndFeelActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
-        </activity>
+            android:parentActivityName=".activities.LookAndFeelActivity" />
     </application>
 
 </manifest>

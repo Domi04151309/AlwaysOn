@@ -16,8 +16,7 @@ import io.github.domi04151309.alwayson.helpers.Theme
 import org.json.JSONArray
 import java.lang.Exception
 
-class LAFFilterNotificationsActivity : AppCompatActivity(),
-        PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+class LAFFilterNotificationsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
@@ -27,19 +26,6 @@ class LAFFilterNotificationsActivity : AppCompatActivity(),
                 .beginTransaction()
                 .replace(R.id.settings, PreferenceFragment())
                 .commit()
-    }
-
-    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
-        val fragment = supportFragmentManager.fragmentFactory.instantiate(
-                classLoader,
-                pref.fragment)
-        fragment.arguments = pref.extras
-        fragment.setTargetFragment(caller, 0)
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.settings, fragment)
-                .addToBackStack(null)
-                .commit()
-        return true
     }
 
     class PreferenceFragment : PreferenceFragmentCompat() {

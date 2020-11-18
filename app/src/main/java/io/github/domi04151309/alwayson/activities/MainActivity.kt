@@ -30,8 +30,7 @@ import io.github.domi04151309.alwayson.helpers.Theme
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 import io.github.domi04151309.alwayson.services.ForegroundService
 
-class MainActivity : AppCompatActivity(),
-        PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val DEVICE_ADMIN_DIALOG: Byte = 0
@@ -156,19 +155,6 @@ class MainActivity : AppCompatActivity(),
 
     override fun onBackPressed() {
         startActivity(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-    }
-
-    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
-        val fragment = supportFragmentManager.fragmentFactory.instantiate(
-                classLoader,
-                pref.fragment)
-        fragment.arguments = pref.extras
-        fragment.setTargetFragment(caller, 0)
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.settings, fragment)
-                .addToBackStack(null)
-                .commit()
-        return true
     }
 
     class GeneralPreferenceFragment : PreferenceFragmentCompat() {

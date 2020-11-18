@@ -8,8 +8,7 @@ import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.*
 import io.github.domi04151309.alwayson.helpers.Theme
 
-class LookAndFeelActivity : AppCompatActivity(),
-        PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+class LookAndFeelActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
@@ -19,19 +18,6 @@ class LookAndFeelActivity : AppCompatActivity(),
                 .beginTransaction()
                 .replace(R.id.settings, PreferenceLookAndFeel())
                 .commit()
-    }
-
-    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
-        val fragment = supportFragmentManager.fragmentFactory.instantiate(
-                classLoader,
-                pref.fragment)
-        fragment.arguments = pref.extras
-        fragment.setTargetFragment(caller, 0)
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.settings, fragment)
-                .addToBackStack(null)
-                .commit()
-        return true
     }
 
     class PreferenceLookAndFeel : PreferenceFragmentCompat() {
