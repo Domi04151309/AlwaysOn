@@ -42,16 +42,15 @@ class AlwaysOnOnActiveSessionsChangedListener(
     internal fun updateMediaState() {
         if (controller != null) {
             viewHolder.musicLayout.visibility = View.VISIBLE
-            val artist = controller?.metadata?.getString(MediaMetadata.METADATA_KEY_ARTIST) ?: ""
-            val title = controller?.metadata?.getString(MediaMetadata.METADATA_KEY_TITLE) ?: ""
-            if (artist == "")
-                viewHolder.musicTxt.text = title
-            else if (title == "")
-                viewHolder.musicTxt.text = artist
-            else if (artist.length > 20 || title.length > 20)
-                viewHolder.musicTxt.text = resources.getString(R.string.music_long, artist, title)
-            else
-                viewHolder.musicTxt.text = resources.getString(R.string.music, artist, title)
+            var artist = controller?.metadata?.getString(MediaMetadata.METADATA_KEY_ARTIST) ?: ""
+            var title = controller?.metadata?.getString(MediaMetadata.METADATA_KEY_TITLE) ?: ""
+            if (artist.length > 20) artist = artist.substring(0, 19) + '…'
+            if (title.length > 20) title = title.substring(0, 19) + '…'
+            when {
+                artist == "" -> viewHolder.musicTxt.text = title
+                title == "" -> viewHolder.musicTxt.text = artist
+                else -> viewHolder.musicTxt.text = resources.getString(R.string.music, artist, title)
+            }
         } else {
             viewHolder.musicLayout.visibility = View.GONE
         }
