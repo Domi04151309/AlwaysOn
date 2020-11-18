@@ -5,6 +5,7 @@ import android.content.*
 import android.graphics.drawable.Icon
 import android.icu.util.Calendar
 import android.os.Handler
+import android.os.Looper
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
@@ -105,7 +106,7 @@ class NotificationService : NotificationListenerService() {
                 cache = count
                 localManager.sendBroadcast(Intent(Global.NOTIFICATIONS).putExtra("count", count).putExtra("icons", icons))
             }
-            Handler().postDelayed({ sentRecently = false }, 100)
+            Handler(Looper.getMainLooper()).postDelayed({ sentRecently = false }, 100)
         }
     }
 }

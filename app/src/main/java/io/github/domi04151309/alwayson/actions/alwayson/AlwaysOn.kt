@@ -50,7 +50,7 @@ class AlwaysOn : OffActivity() {
 
     //Time
     internal var clockFormat: SimpleDateFormat = SimpleDateFormat("", Locale.getDefault())
-    internal val clockHandler: Handler = Handler()
+    internal val clockHandler: Handler = Handler(Looper.getMainLooper())
     private val clockRunnable = object : Runnable {
         override fun run() {
             viewHolder.clockTxt.text = clockFormat.format(Calendar.getInstance())
@@ -84,8 +84,8 @@ class AlwaysOn : OffActivity() {
     internal var rulesChargingState: String = ""
     internal var rulesBattery: Int = 0
     private var rulesTimeout: Int = 0
-    private val rulesTimePeriodHandler: Handler = Handler()
-    private val rulesTimeoutHandler: Handler = Handler()
+    private val rulesTimePeriodHandler: Handler = Handler(Looper.getMainLooper())
+    private val rulesTimeoutHandler: Handler = Handler(Looper.getMainLooper())
 
     //BroadcastReceivers
     private val localFilter: IntentFilter = IntentFilter()
@@ -239,7 +239,7 @@ class AlwaysOn : OffActivity() {
         userPowerSaving = (getSystemService(Context.POWER_SERVICE) as PowerManager).isPowerSaveMode
 
         //Show on lock screen
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
                     WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
                     WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
