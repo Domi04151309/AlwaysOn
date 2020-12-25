@@ -2,7 +2,6 @@ package io.github.domi04151309.alwayson.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Theme

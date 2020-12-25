@@ -26,6 +26,7 @@
         <activity android:name=".activities.HelpActivity"
             android:label="@string/help_center"
             android:parentActivityName=".activities.MainActivity" />
+        <activity android:name=".activities.AODTestActivity" />
         <activity
             android:name=".activities.LAFRulesActivity"
             android:label="@string/pref_look_and_feel_rules"
