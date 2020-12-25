@@ -3,5 +3,6 @@
         <attr name="textSizeBig" format="dimension"/>
         <attr name="textSizeMedium" format="dimension"/>
         <attr name="textSizeSmall" format="dimension"/>
+        <attr name="android:fontFamily"/>
     </declare-styleable>
 </resources>
