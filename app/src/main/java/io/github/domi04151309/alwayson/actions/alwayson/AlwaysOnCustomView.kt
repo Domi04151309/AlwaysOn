@@ -63,10 +63,10 @@ class AlwaysOnCustomView : View {
         val templatePaint = Paint(Paint.ANTI_ALIAS_FLAG)
         templatePaint.color = Color.WHITE
         templatePaint.textAlign = Paint.Align.CENTER
-        if (styledAttributes?.hasValue(R.styleable.TextAppearance_android_fontFamily) == true) {
+        if (styledAttributes?.hasValue(R.styleable.AlwaysOnCustomView_android_fontFamily) == true) {
             templatePaint.typeface = ResourcesCompat.getFont(
                     context,
-                    styledAttributes.getResourceId(R.styleable.TextAppearance_android_fontFamily, -1)
+                    styledAttributes.getResourceId(R.styleable.AlwaysOnCustomView_android_fontFamily, -1)
             )
         }
 
@@ -130,7 +130,7 @@ class AlwaysOnCustomView : View {
                 vector.draw(canvas)
                 canvas.translate(-x + vector.intrinsicWidth / 2, -y + vector.intrinsicHeight / 2f)
 
-                currentHeight += (paddingTop - mediumText.ascent() + mediumText.descent() + padding16)
+                currentHeight += (padding16 - mediumText.ascent() + mediumText.descent() + padding16)
             }
         } else if (prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)) {
             canvas.drawVector(
