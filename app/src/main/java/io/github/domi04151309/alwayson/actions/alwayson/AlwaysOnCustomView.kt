@@ -11,6 +11,7 @@ import android.os.Looper
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import io.github.domi04151309.alwayson.R
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,6 +29,8 @@ class AlwaysOnCustomView : View {
 
     private lateinit var clockFormat: SimpleDateFormat
     private lateinit var dateFormat: SimpleDateFormat
+
+    private var musicString = MUSIC
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
         init(context, attrs)
@@ -88,13 +91,36 @@ class AlwaysOnCustomView : View {
         super.onDraw(canvas)
         currentHeight = 0f
         canvas.drawCenteredText(clockFormat.format(Calendar.getInstance().time), padding16, padding2, bigText)
+
         canvas.drawCenteredText(dateFormat.format(Calendar.getInstance().time), padding2, padding2, mediumText)
+
+        canvas.drawVector(
+                R.drawable.ic_battery_100,
+                (width - mediumText.measureText(BATTERY)) / 2f - dpToPx(16f),
+                currentHeight + padding16 + mediumText.getVerticalCenter()
+        )
         canvas.drawCenteredText(BATTERY, padding16, padding16, mediumText)
-        canvas.drawCenteredText(MUSIC, padding2, padding2, smallText)
+
+        canvas.drawVector(
+                R.drawable.ic_skip_previous_white,
+                (width - smallText.measureText(musicString)) / 2f - dpToPx(16f),
+                currentHeight + padding2 + smallText.getVerticalCenter()
+        )
+        canvas.drawVector(
+                R.drawable.ic_skip_next_white,
+                (width + smallText.measureText(musicString)) / 2f + dpToPx(16f),
+                currentHeight + padding2 + smallText.getVerticalCenter()
+        )
+        canvas.drawCenteredText(musicString, padding2, padding2, smallText)
+
         canvas.drawCenteredText(MESSAGE, padding2, padding2, smallText)
+
         canvas.drawCenteredText(NOTIFICATION_COUNT, padding16, padding16, mediumText)
+
         canvas.drawCenteredText(NOTIFICATION_GRID, padding16, padding16, mediumText)
     }
+
+    private fun Paint.getVerticalCenter() = (-ascent() + descent()) / 2
 
     private fun Canvas.drawCenteredText(
             text: String,
@@ -111,6 +137,16 @@ class AlwaysOnCustomView : View {
         currentHeight += (paddingTop - paint.ascent() + paint.descent() + paddingBottom)
     }
 
+    private fun Canvas.drawVector(resId: Int, x: Float, y: Float) {
+        val vector = VectorDrawableCompat.create(resources, resId, null)
+        if (vector != null) {
+            vector.setBounds(0, 0, vector.intrinsicWidth, vector.intrinsicHeight)
+            translate(x - vector.intrinsicWidth / 2f, y - vector.intrinsicHeight / 2f)
+            vector.draw(this)
+            translate(-x + vector.intrinsicWidth / 2, -y + vector.intrinsicHeight / 2f)
+        }
+    }
+
     private fun dpToPx(dp: Float): Float = TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
     )
@@ -121,7 +157,7 @@ class AlwaysOnCustomView : View {
         private const val TIME = "hh:mm"
         private const val DATE = "EEE, MMMM d"
         private const val BATTERY = "??%"
-        private const val MUSIC = "< Artist - Title >"
+        private const val MUSIC = "Artist - Title"
         private const val MESSAGE = "Hello there!"
         private const val NOTIFICATION_COUNT = "5"
         private const val NOTIFICATION_GRID = "N N N N N"
