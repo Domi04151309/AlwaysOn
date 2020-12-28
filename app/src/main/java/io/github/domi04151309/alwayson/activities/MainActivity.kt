@@ -178,7 +178,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             findPreference<Preference>("pref_about")?.setOnPreferenceClickListener {
-                startActivity(Intent(context, AboutActivity::class.java))
+                startActivity(Intent(context, AODTestActivity::class.java))
                 true
             }
         }
