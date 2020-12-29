@@ -2,9 +2,9 @@ package io.github.domi04151309.alwayson.actions.alwayson
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.ColorFilter
 import android.graphics.Paint
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.Icon
 import android.icu.util.Calendar
 import android.os.Handler
 import android.os.Looper
@@ -23,8 +23,8 @@ import java.util.*
 
 class AlwaysOnCustomView : View {
 
-    private var padding2: Float = 0f
-    private var padding16: Float = 0f
+    private var padding2 = 0
+    private var padding16 = 0
 
     private lateinit var templatePaint: Paint
     private var bigTextSize = 0f
@@ -39,9 +39,15 @@ class AlwaysOnCustomView : View {
     private var batteryCharging = false
     private var batteryLevel = -1
     private var batteryIcon = R.drawable.ic_battery_unknown
-    private var message = LOADING
+    private var message = ""
+    private var notificationCount = -1
+    private var notificationIcons = arrayListOf<Icon>()
 
-    var musicString: String = LOADING
+    var musicString: String = ""
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
         init(context, attrs)
@@ -56,8 +62,8 @@ class AlwaysOnCustomView : View {
     }
 
     private fun init(context: Context? = null, attrs: AttributeSet? = null) {
-        padding2 = dpToPx(2f)
-        padding16 = dpToPx(16f)
+        padding2 = dpToPx(2f).toInt()
+        padding16 = dpToPx(16f).toInt()
 
         val styledAttributes = context?.theme?.obtainStyledAttributes(
                 attrs,
@@ -66,7 +72,6 @@ class AlwaysOnCustomView : View {
         )
 
         templatePaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        templatePaint.color = Color.WHITE
         templatePaint.textAlign = Paint.Align.CENTER
         if (styledAttributes?.hasValue(R.styleable.AlwaysOnCustomView_android_fontFamily) == true) {
             try {
@@ -150,28 +155,31 @@ class AlwaysOnCustomView : View {
                         getPaint(mediumTextSize, prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT))
                 )
 
-                val x = (width + getPaint(mediumTextSize).measureText("$batteryLevel%")) / 2f
-                val y = currentHeight + padding16 + getPaint(mediumTextSize).getVerticalCenter()
+                val x = ((width + getPaint(mediumTextSize).measureText("$batteryLevel%")) / 2).toInt()
+                val y = (currentHeight + padding16 + getPaint(mediumTextSize).getVerticalCenter()).toInt()
                 vector.setTint(
-                        if (batteryCharging) resources.getColor(R.color.charging)
+                        if (batteryCharging) ResourcesCompat.getColor(resources, R.color.charging, null)
                         else prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)
                 )
-                vector.setBounds(0, 0, vector.intrinsicWidth, vector.intrinsicHeight)
-                canvas.translate(x - vector.intrinsicWidth / 2f, y - vector.intrinsicHeight / 2f)
+                vector.setBounds(
+                        x - vector.intrinsicWidth / 2,
+                        y - vector.intrinsicHeight / 2,
+                        x + vector.intrinsicWidth / 2,
+                        y + vector.intrinsicHeight / 2
+                )
                 vector.draw(canvas)
-                canvas.translate(-x + vector.intrinsicWidth / 2, -y + vector.intrinsicHeight / 2f)
 
-                currentHeight += (padding16 - getPaint(mediumTextSize).ascent() + getPaint(mediumTextSize).descent() + padding16)
+                currentHeight += padding16 - getPaint(mediumTextSize).ascent() + getPaint(mediumTextSize).descent() + padding16
             }
         } else if (prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)) {
             canvas.drawVector(
                     batteryIcon,
-                    width / 2f,
-                    currentHeight + padding16 + getPaint(mediumTextSize).getVerticalCenter(),
-                    if (batteryCharging) resources.getColor(R.color.charging)
+                    width / 2,
+                    (currentHeight + padding16 + getPaint(mediumTextSize).getVerticalCenter()).toInt(),
+                    if (batteryCharging) ResourcesCompat.getColor(resources, R.color.charging, null)
                     else prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)
             )
-            currentHeight += (padding16 - getPaint(mediumTextSize).ascent() + getPaint(mediumTextSize).descent() + padding16)
+            currentHeight += padding16 - getPaint(mediumTextSize).ascent() + getPaint(mediumTextSize).descent() + padding16
         } else if (prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)) {
             canvas.drawCenteredText("$batteryLevel%", padding16, padding16, getPaint(mediumTextSize))
         }
@@ -180,14 +188,14 @@ class AlwaysOnCustomView : View {
         if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)) {
             canvas.drawVector(
                     R.drawable.ic_skip_previous_white,
-                    (width - getPaint(smallTextSize).measureText(musicString)) / 2f - dpToPx(16f),
-                    currentHeight + padding2 + getPaint(smallTextSize).getVerticalCenter(),
+                    ((width - getPaint(smallTextSize).measureText(musicString)) / 2 - dpToPx(16f)).toInt(),
+                    (currentHeight + padding2 + getPaint(smallTextSize).getVerticalCenter()).toInt(),
                     prefs.get(P.DISPLAY_COLOR_MUSIC_CONTROLS, P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT)
             )
             canvas.drawVector(
                     R.drawable.ic_skip_next_white,
-                    (width + getPaint(smallTextSize).measureText(musicString)) / 2f + dpToPx(16f),
-                    currentHeight + padding2 + getPaint(smallTextSize).getVerticalCenter(),
+                    ((width + getPaint(smallTextSize).measureText(musicString)) / 2 + dpToPx(16f)).toInt(),
+                    (currentHeight + padding2 + getPaint(smallTextSize).getVerticalCenter()).toInt(),
                     prefs.get(P.DISPLAY_COLOR_MUSIC_CONTROLS, P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT)
             )
             canvas.drawCenteredText(
@@ -211,7 +219,7 @@ class AlwaysOnCustomView : View {
         //Notification Count
         if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)) {
             canvas.drawCenteredText(
-                    NOTIFICATION_COUNT,
+                    notificationCount.toString(),
                     padding16,
                     padding16,
                     getPaint(mediumTextSize, prefs.get(P.DISPLAY_COLOR_NOTIFICATION, P.DISPLAY_COLOR_NOTIFICATION_DEFAULT))
@@ -220,12 +228,31 @@ class AlwaysOnCustomView : View {
 
         //Notification Icons
         if (prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)) {
-            canvas.drawCenteredText(
-                    NOTIFICATION_GRID,
-                    padding16,
-                    padding16,
-                    getPaint(mediumTextSize, prefs.get(P.DISPLAY_COLOR_NOTIFICATION, P.DISPLAY_COLOR_NOTIFICATION_DEFAULT))
-            )
+            try {
+                var drawable: Drawable
+                val drawableLength = dpToPx(24f).toInt()
+                val x = (width - (notificationIcons.size - 1) * drawableLength) / 2
+                currentHeight += padding16 + drawableLength / 2
+                notificationIcons.forEachIndexed { index, icon ->
+                    drawable = icon.loadDrawable(context)
+                    drawable.setTint(prefs.get(P.DISPLAY_COLOR_NOTIFICATION, P.DISPLAY_COLOR_NOTIFICATION_DEFAULT))
+                    drawable.setBounds(
+                            x - drawableLength / 2 + drawableLength * index,
+                            currentHeight.toInt() - drawableLength / 2,
+                            x + drawableLength / 2 + drawableLength * index,
+                            currentHeight.toInt() + drawableLength / 2
+                    )
+                    drawable.draw(canvas)
+                }
+            } catch (e: Exception) {
+                Log.e(Global.LOG_TAG, e.toString())
+                canvas.drawCenteredText(
+                        resources.getString(R.string.loading),
+                        padding16,
+                        padding16,
+                        getPaint(smallTextSize, prefs.get(P.DISPLAY_COLOR_NOTIFICATION, P.DISPLAY_COLOR_NOTIFICATION_DEFAULT))
+                )
+            }
         }
     }
 
@@ -245,8 +272,8 @@ class AlwaysOnCustomView : View {
 
     private fun Canvas.drawCenteredText(
             text: String,
-            paddingTop: Float,
-            paddingBottom: Float,
+            paddingTop: Int,
+            paddingBottom: Int,
             paint: Paint
     ) {
         drawText(
@@ -255,17 +282,20 @@ class AlwaysOnCustomView : View {
                 currentHeight + paddingTop + paint.textSize,
                 paint
         )
-        currentHeight += (paddingTop - paint.ascent() + paint.descent() + paddingBottom)
+        currentHeight += paddingTop - paint.ascent() + paint.descent() + paddingBottom
     }
 
-    private fun Canvas.drawVector(resId: Int, x: Float, y: Float, tint: Int) {
+    private fun Canvas.drawVector(resId: Int, x: Int, y: Int, tint: Int) {
         val vector = VectorDrawableCompat.create(resources, resId, null)
         if (vector != null) {
             vector.setTint(tint)
-            vector.setBounds(0, 0, vector.intrinsicWidth, vector.intrinsicHeight)
-            translate(x - vector.intrinsicWidth / 2f, y - vector.intrinsicHeight / 2f)
+            vector.setBounds(
+                    x - vector.intrinsicWidth / 2,
+                    y - vector.intrinsicHeight / 2,
+                    x + vector.intrinsicWidth / 2,
+                    y + vector.intrinsicHeight / 2
+            )
             vector.draw(this)
-            translate(-x + vector.intrinsicWidth / 2, -y + vector.intrinsicHeight / 2f)
         }
     }
 
@@ -290,14 +320,16 @@ class AlwaysOnCustomView : View {
             batteryLevel >= 0 -> R.drawable.ic_battery_0
             else -> R.drawable.ic_battery_unknown
         }
+        invalidate()
+    }
+
+    fun setNotificationData(count: Int, icons: ArrayList<Icon>) {
+        notificationCount = count
+        notificationIcons = icons
+        invalidate()
     }
 
     companion object {
         private const val UPDATE_DELAY = 60000L
-        private const val LOADING = "E"
-
-        //Placeholders
-        private const val NOTIFICATION_COUNT = "5"
-        private const val NOTIFICATION_GRID = "N N N N N"
     }
 }
