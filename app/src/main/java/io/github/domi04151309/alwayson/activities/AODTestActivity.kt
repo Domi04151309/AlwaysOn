@@ -10,12 +10,12 @@ import java.util.*
 class AODTestActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.FontOverlayPatrickHand)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_aod_test)
 
         val view = findViewById<AlwaysOnCustomView>(R.id.view)
-        view.clockFormat = SimpleDateFormat("hh:mm", Locale.getDefault())
-        view.setBatteryStatus(100, false)
+        view.setBatteryStatus(100, true)
         view.musicString = "Lolo - Lalilu"
     }
 }

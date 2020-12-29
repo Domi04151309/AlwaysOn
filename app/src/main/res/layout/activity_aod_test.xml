@@ -5,7 +5,6 @@
     android:background="#000"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fontFamily="@font/patrick_hand_regular"
     app:textSizeBig="75sp"
     app:textSizeMedium="25sp"
     app:textSizeSmall="18sp" />
