@@ -244,19 +244,18 @@ class AlwaysOnCustomView : View {
                     getPaint(if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize, prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT)),
                     if (flags[FLAG_SAMSUNG_3]) templatePaint.measureText(dateFormat.format(Calendar.getInstance().time)).toInt() / 2 + padding16 else 0
             )
-            if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getTextHeight(bigTextSize)
+            if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getTextHeight(bigTextSize) + padding16
         }
 
         //Samsung 3 divider
-        if (flags[FLAG_SAMSUNG_3]) {
+        if (flags[FLAG_SAMSUNG_3] && (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT) || prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT))) {
             canvas.drawRect(
                     relativePoint - padding2 / 2,
                     tempHeight + padding16 * 2,
                     relativePoint + padding2 / 2,
-                    currentHeight,
+                    currentHeight - padding16,
                     getPaint(bigTextSize, Color.WHITE)
             )
-            currentHeight += padding16
         }
 
         //Battery
