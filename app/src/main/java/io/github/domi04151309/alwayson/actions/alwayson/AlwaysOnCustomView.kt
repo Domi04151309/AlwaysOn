@@ -14,7 +14,6 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceManager
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
@@ -102,9 +101,6 @@ class AlwaysOnCustomView : View {
                         flags[FLAG_CAPS_DATE] = true
                     }
                     P.USER_THEME_SAMSUNG3 -> {
-                        //TODO: Support SAMSUNG 3
-                        Toast.makeText(context, "Unsupported Theme", Toast.LENGTH_LONG).show()
-
                         setFont(R.font.roboto_regular)
                         flags[FLAG_SAMSUNG_3] = true
                     }
@@ -206,17 +202,22 @@ class AlwaysOnCustomView : View {
         currentHeight += paddingTop
 
         //Clock
+        val tempHeight = currentHeight
         if (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT)) {
             canvas.drawRelativeText(
                     clockFormat.format(Calendar.getInstance().time),
                     padding16,
                     padding2,
-                    getPaint(bigTextSize, prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT))
+                    getPaint(bigTextSize, prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)),
+                    if (flags[FLAG_SAMSUNG_3]) -templatePaint.measureText(clockFormat.format(Calendar.getInstance().time)).toInt() / 2 - padding16 else 0
             )
         }
 
         //Date
         if (prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
+            if (flags[FLAG_SAMSUNG_3]) {
+                currentHeight = tempHeight + getPaint(bigTextSize).getVerticalCenter()
+            }
             canvas.drawRelativeText(
                     dateFormat.format(Calendar.getInstance().time).run {
                         if (flags[FLAG_CAPS_DATE]) this.toUpperCase(Locale.getDefault())
@@ -224,8 +225,24 @@ class AlwaysOnCustomView : View {
                     },
                     padding2,
                     padding2,
-                    getPaint(if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize, prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT))
+                    getPaint(if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize, prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT)),
+                    if (flags[FLAG_SAMSUNG_3]) templatePaint.measureText(dateFormat.format(Calendar.getInstance().time)).toInt() / 2 + padding16 else 0
             )
+            if (flags[FLAG_SAMSUNG_3]) {
+                currentHeight = tempHeight + getPaint(bigTextSize).getVerticalCenter() * 2
+            }
+        }
+
+        //Samsung 3 divider
+        if (flags[FLAG_SAMSUNG_3]) {
+            canvas.drawRect(
+                    relativePoint - padding2 / 2,
+                    tempHeight + padding16 * 2,
+                    relativePoint + padding2 / 2,
+                    currentHeight,
+                    getPaint(bigTextSize, Color.WHITE)
+            )
+            currentHeight += padding16
         }
 
         //Battery
@@ -256,7 +273,7 @@ class AlwaysOnCustomView : View {
                     if (batteryCharging) ResourcesCompat.getColor(resources, R.color.charging, null)
                     else prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)
             )
-            currentHeight += padding16 - getPaint(mediumTextSize).ascent() + getPaint(mediumTextSize).descent() + padding16
+            currentHeight += padding16 - templatePaint.ascent() + templatePaint.descent() + padding16
         } else if (prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)) {
             canvas.drawRelativeText("$batteryLevel%", padding16, padding16, getPaint(mediumTextSize))
         }
@@ -342,9 +359,9 @@ class AlwaysOnCustomView : View {
                         getPaint(smallTextSize, prefs.get(P.DISPLAY_COLOR_NOTIFICATION, P.DISPLAY_COLOR_NOTIFICATION_DEFAULT))
                 )
             }
-
-            currentHeight += paddingBottom
         }
+
+        currentHeight += paddingBottom
     }
 
     override fun performClick(): Boolean {
@@ -383,9 +400,9 @@ class AlwaysOnCustomView : View {
         }
     }
 
-    private fun getPaint(textSize: Float, color: Int = Color.WHITE): Paint {
+    private fun getPaint(textSize: Float, color: Int? = null): Paint {
         templatePaint.textSize = textSize
-        templatePaint.color = color
+        if (color != null) templatePaint.color = color
         return templatePaint
     }
 
