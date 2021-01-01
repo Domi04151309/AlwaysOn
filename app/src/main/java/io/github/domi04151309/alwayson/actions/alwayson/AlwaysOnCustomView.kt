@@ -2,6 +2,7 @@ package io.github.domi04151309.alwayson.actions.alwayson
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
@@ -29,12 +30,14 @@ class AlwaysOnCustomView : View {
 
     private var padding2 = 0
     private var padding16 = 0
+    private var drawableSize = 0
 
     private lateinit var templatePaint: Paint
     private var bigTextSize = 0f
     private var mediumTextSize = 0f
     private var smallTextSize = 0f
 
+    private var relativePoint = 0f
     private var currentHeight = 0f
 
     private lateinit var prefs: P
@@ -58,6 +61,11 @@ class AlwaysOnCustomView : View {
 
     private val skipPositions = intArrayOf(0, 0, 0)
 
+    private val flags = booleanArrayOf(false, false, false)
+
+    /*
+     * Initialization
+     */
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
         init(context)
     }
@@ -75,6 +83,7 @@ class AlwaysOnCustomView : View {
 
         padding2 = dpToPx(2f).toInt()
         padding16 = dpToPx(16f).toInt()
+        drawableSize = dpToPx(24f).toInt()
 
         templatePaint = Paint(Paint.ANTI_ALIAS_FLAG)
         templatePaint.textAlign = Paint.Align.CENTER
@@ -88,8 +97,17 @@ class AlwaysOnCustomView : View {
                 smallTextSize = spToPx(18f)
                 when (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT)) {
                     P.USER_THEME_GOOGLE -> setFont(R.font.roboto_regular)
-                    P.USER_THEME_SAMSUNG -> setFont(R.font.roboto_light)
-                    P.USER_THEME_SAMSUNG3 -> setFont(R.font.roboto_regular)
+                    P.USER_THEME_SAMSUNG -> {
+                        setFont(R.font.roboto_light)
+                        flags[FLAG_CAPS_DATE] = true
+                    }
+                    P.USER_THEME_SAMSUNG3 -> {
+                        //TODO: Support SAMSUNG 3
+                        Toast.makeText(context, "Unsupported Theme", Toast.LENGTH_LONG).show()
+
+                        setFont(R.font.roboto_regular)
+                        flags[FLAG_SAMSUNG_3] = true
+                    }
                     P.USER_THEME_80S -> setFont(R.font.monoton_regular)
                     P.USER_THEME_FAST -> setFont(R.font.faster_one_regular)
                     P.USER_THEME_FLOWER -> setFont(R.font.akronim_regular)
@@ -106,9 +124,12 @@ class AlwaysOnCustomView : View {
                 setFont(R.font.roboto_medium)
             }
             P.USER_THEME_SAMSUNG2 -> {
-                //TODO: Support SAMSUNG 2 && SAMSUNG 3
-                //TODO: CAPS in SAMSUNG
-                Toast.makeText(context, "Unsupported Theme", Toast.LENGTH_LONG).show()
+                bigTextSize = spToPx(36f)
+                mediumTextSize = spToPx(18f)
+                smallTextSize = spToPx(16f)
+                setFont(R.font.roboto_light)
+                templatePaint.textAlign = Paint.Align.LEFT
+                flags[FLAG_SAMSUNG_2] = true
             }
         }
 
@@ -155,6 +176,9 @@ class AlwaysOnCustomView : View {
         }, UPDATE_DELAY)
     }
 
+    /*
+     * On measure
+     */
     private fun measureDimension(desiredSize: Int, measureSpec: Int): Int {
         val specMode = MeasureSpec.getMode(measureSpec)
         val specSize = MeasureSpec.getSize(measureSpec)
@@ -172,13 +196,18 @@ class AlwaysOnCustomView : View {
         )
     }
 
+    /*
+     * On draw
+     */
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        relativePoint = if (flags[FLAG_LEFT_ALIGN]) padding16.toFloat() else width / 2f
         currentHeight = 0f
+        currentHeight += paddingTop
 
         //Clock
         if (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT)) {
-            canvas.drawCenteredText(
+            canvas.drawRelativeText(
                     clockFormat.format(Calendar.getInstance().time),
                     padding16,
                     padding2,
@@ -188,59 +217,56 @@ class AlwaysOnCustomView : View {
 
         //Date
         if (prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
-            canvas.drawCenteredText(
-                    dateFormat.format(Calendar.getInstance().time),
+            canvas.drawRelativeText(
+                    dateFormat.format(Calendar.getInstance().time).run {
+                        if (flags[FLAG_CAPS_DATE]) this.toUpperCase(Locale.getDefault())
+                        else this
+                    },
                     padding2,
                     padding2,
-                    getPaint(mediumTextSize, prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT))
+                    getPaint(if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize, prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT))
             )
         }
 
         //Battery
         if (prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)
                 && prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)) {
-            val vector = VectorDrawableCompat.create(resources, batteryIcon, null)
-            if (vector != null) {
-                canvas.drawText(
-                        "$batteryLevel%",
-                        (width - vector.intrinsicWidth) / 2f,
-                        currentHeight + padding16 + mediumTextSize,
-                        getPaint(mediumTextSize, prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT))
-                )
-
-                val x = ((width + getPaint(mediumTextSize).measureText("$batteryLevel%")) / 2).toInt()
-                val y = (currentHeight + padding16 + getPaint(mediumTextSize).getVerticalCenter()).toInt()
-                vector.setTint(
-                        if (batteryCharging) ResourcesCompat.getColor(resources, R.color.charging, null)
-                        else prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)
-                )
-                vector.setBounds(
-                        x - vector.intrinsicWidth / 2,
-                        y - vector.intrinsicHeight / 2,
-                        x + vector.intrinsicWidth / 2,
-                        y + vector.intrinsicHeight / 2
-                )
-                vector.draw(canvas)
-
-                currentHeight += padding16 - getPaint(mediumTextSize).ascent() + getPaint(mediumTextSize).descent() + padding16
-            }
+            canvas.drawVector(
+                    batteryIcon,
+                    (relativePoint + (getPaint(mediumTextSize).measureText("$batteryLevel%")).run {
+                        if (flags[FLAG_LEFT_ALIGN]) this
+                        else this / 2
+                    }).toInt(),
+                    (currentHeight + padding16 + getPaint(mediumTextSize).getVerticalCenter()).toInt(),
+                    if (batteryCharging) ResourcesCompat.getColor(resources, R.color.charging, null)
+                    else prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)
+            )
+            canvas.drawRelativeText(
+                    "$batteryLevel%",
+                    padding16,
+                    padding16,
+                    getPaint(mediumTextSize, prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)),
+                    if (flags[FLAG_LEFT_ALIGN]) 0 else -drawableSize / 2
+            )
         } else if (prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)) {
             canvas.drawVector(
                     batteryIcon,
-                    width / 2,
+                    relativePoint.toInt(),
                     (currentHeight + padding16 + getPaint(mediumTextSize).getVerticalCenter()).toInt(),
                     if (batteryCharging) ResourcesCompat.getColor(resources, R.color.charging, null)
                     else prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)
             )
             currentHeight += padding16 - getPaint(mediumTextSize).ascent() + getPaint(mediumTextSize).descent() + padding16
         } else if (prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)) {
-            canvas.drawCenteredText("$batteryLevel%", padding16, padding16, getPaint(mediumTextSize))
+            canvas.drawRelativeText("$batteryLevel%", padding16, padding16, getPaint(mediumTextSize))
         }
 
         //Music Controls
         if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)) {
-            skipPositions[0] = ((width - getPaint(smallTextSize).measureText(musicString)) / 2 - dpToPx(16f)).toInt()
-            skipPositions[1] = ((width + getPaint(smallTextSize).measureText(musicString)) / 2 + dpToPx(16f)).toInt()
+            skipPositions[0] = if (flags[FLAG_LEFT_ALIGN]) relativePoint.toInt()
+            else (relativePoint - getPaint(smallTextSize).measureText(musicString) / 2).toInt() - padding16
+            skipPositions[1] = if (flags[FLAG_LEFT_ALIGN]) (relativePoint + getPaint(smallTextSize).measureText(musicString)).toInt() + drawableSize
+            else (relativePoint + getPaint(smallTextSize).measureText(musicString) / 2).toInt() + padding16
             skipPositions[2] = (currentHeight + padding2 + getPaint(smallTextSize).getVerticalCenter()).toInt()
             canvas.drawVector(
                     R.drawable.ic_skip_previous_white,
@@ -254,17 +280,18 @@ class AlwaysOnCustomView : View {
                     skipPositions[2],
                     prefs.get(P.DISPLAY_COLOR_MUSIC_CONTROLS, P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT)
             )
-            canvas.drawCenteredText(
+            canvas.drawRelativeText(
                     musicString,
                     padding2,
                     padding2,
-                    getPaint(smallTextSize, prefs.get(P.DISPLAY_COLOR_MUSIC_CONTROLS, P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT))
+                    getPaint(smallTextSize, prefs.get(P.DISPLAY_COLOR_MUSIC_CONTROLS, P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT)),
+                    if (flags[FLAG_LEFT_ALIGN]) drawableSize else 0
             )
         }
 
         //Message
         if (prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT) != "") {
-            canvas.drawCenteredText(
+            canvas.drawRelativeText(
                     message,
                     padding2,
                     padding2,
@@ -274,7 +301,7 @@ class AlwaysOnCustomView : View {
 
         //Notification Count
         if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)) {
-            canvas.drawCenteredText(
+            canvas.drawRelativeText(
                     notificationCount.toString(),
                     padding16,
                     padding16,
@@ -286,29 +313,37 @@ class AlwaysOnCustomView : View {
         if (prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)) {
             try {
                 var drawable: Drawable
-                val drawableLength = dpToPx(24f).toInt()
-                val x = (width - (notificationIcons.size - 1) * drawableLength) / 2
-                currentHeight += padding16 + drawableLength / 2
+                val x: Int = if (flags[FLAG_LEFT_ALIGN]) relativePoint.toInt()
+                else (width - (notificationIcons.size - 1) * drawableSize) / 2
+                currentHeight += padding16 + drawableSize / 2
                 notificationIcons.forEachIndexed { index, icon ->
                     drawable = icon.loadDrawable(context)
                     drawable.setTint(prefs.get(P.DISPLAY_COLOR_NOTIFICATION, P.DISPLAY_COLOR_NOTIFICATION_DEFAULT))
-                    drawable.setBounds(
-                            x - drawableLength / 2 + drawableLength * index,
-                            currentHeight.toInt() - drawableLength / 2,
-                            x + drawableLength / 2 + drawableLength * index,
-                            currentHeight.toInt() + drawableLength / 2
+                    if (flags[FLAG_LEFT_ALIGN]) drawable.setBounds(
+                            x + drawableSize * index,
+                            currentHeight.toInt() - drawableSize / 2,
+                            x + drawableSize * (index + 1),
+                            currentHeight.toInt() + drawableSize / 2
+                    )
+                    else drawable.setBounds(
+                            x - drawableSize / 2 + drawableSize * index,
+                            currentHeight.toInt() - drawableSize / 2,
+                            x + drawableSize / 2 + drawableSize * index,
+                            currentHeight.toInt() + drawableSize / 2
                     )
                     drawable.draw(canvas)
                 }
             } catch (e: Exception) {
                 Log.e(Global.LOG_TAG, e.toString())
-                canvas.drawCenteredText(
+                canvas.drawRelativeText(
                         resources.getString(R.string.loading),
                         padding16,
                         padding16,
                         getPaint(smallTextSize, prefs.get(P.DISPLAY_COLOR_NOTIFICATION, P.DISPLAY_COLOR_NOTIFICATION_DEFAULT))
                 )
             }
+
+            currentHeight += paddingBottom
         }
     }
 
@@ -328,7 +363,7 @@ class AlwaysOnCustomView : View {
                     onSkipNextClicked()
                     return performClick()
                 }
-                abs(event.x.toInt() - width / 2) < abs(skipPositions[0] - width / 2) -> {
+                abs(event.x.toInt() - relativePoint) < abs(skipPositions[1] - relativePoint) -> {
                     onTitleClicked()
                     return performClick()
                 }
@@ -348,7 +383,7 @@ class AlwaysOnCustomView : View {
         }
     }
 
-    private fun getPaint(textSize: Float, color: Int = 1): Paint {
+    private fun getPaint(textSize: Float, color: Int = Color.WHITE): Paint {
         templatePaint.textSize = textSize
         templatePaint.color = color
         return templatePaint
@@ -359,18 +394,19 @@ class AlwaysOnCustomView : View {
      */
     private fun Paint.getVerticalCenter() = (-ascent() + descent()) / 2
 
-    private fun Canvas.drawCenteredText(
+    private fun Canvas.drawRelativeText(
             text: String,
             paddingTop: Int,
             paddingBottom: Int,
-            paint: Paint
+            paint: Paint,
+            offsetX: Int = 0
     ) {
         currentHeight += paddingTop
         for (line in text.split("\n")) {
             currentHeight -= paint.ascent()
             drawText(
                     line,
-                    width / 2f,
+                    relativePoint + offsetX,
                     currentHeight,
                     paint
             )
@@ -382,11 +418,17 @@ class AlwaysOnCustomView : View {
         val vector = VectorDrawableCompat.create(resources, resId, null)
         if (vector != null) {
             vector.setTint(tint)
-            vector.setBounds(
-                    x - vector.intrinsicWidth / 2,
-                    y - vector.intrinsicHeight / 2,
-                    x + vector.intrinsicWidth / 2,
-                    y + vector.intrinsicHeight / 2
+            if (flags[FLAG_LEFT_ALIGN]) vector.setBounds(
+                    x,
+                    y - drawableSize / 2,
+                    x + drawableSize,
+                    y + drawableSize / 2
+            )
+            else vector.setBounds(
+                    x - drawableSize / 2,
+                    y - drawableSize / 2,
+                    x + drawableSize / 2,
+                    y + drawableSize / 2
             )
             vector.draw(this)
         }
@@ -427,6 +469,11 @@ class AlwaysOnCustomView : View {
     }
 
     companion object {
-        private const val UPDATE_DELAY = 60000L
+        private const val UPDATE_DELAY: Long = 60000
+        private const val FLAG_CAPS_DATE: Int = 0
+        private const val FLAG_SAMSUNG_2: Int = 1
+        private const val FLAG_BIG_DATE: Int = 1
+        private const val FLAG_LEFT_ALIGN: Int = 1
+        private const val FLAG_SAMSUNG_3: Int = 2
     }
 }

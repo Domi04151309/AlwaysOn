@@ -19,5 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-
--keep public class io.github.domi04151309.alwayson.actions.alwayson.AlwaysOnCustomView
