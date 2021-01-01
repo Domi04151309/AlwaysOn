@@ -20,10 +20,10 @@ import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.P
+import java.lang.Integer.max
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
-import kotlin.math.min
 
 class AlwaysOnCustomView : View {
 
@@ -175,21 +175,39 @@ class AlwaysOnCustomView : View {
     /*
      * On measure
      */
-    private fun measureDimension(desiredSize: Int, measureSpec: Int): Int {
-        val specMode = MeasureSpec.getMode(measureSpec)
-        val specSize = MeasureSpec.getSize(measureSpec)
-        return when (specMode) {
-            MeasureSpec.EXACTLY -> specSize
-            MeasureSpec.AT_MOST -> min(desiredSize, specSize)
-            else -> desiredSize
+    private fun measureHeight(): Int {
+        currentHeight = 0f
+        currentHeight += paddingTop
+
+        val tempHeight = currentHeight
+        if (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT))
+            currentHeight += getTextHeight(bigTextSize) + 2 * padding16
+        if (prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
+            if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getPaint(bigTextSize).getVerticalCenter()
+            currentHeight += getTextHeight(if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize) + 2 * padding16
+            if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getTextHeight(bigTextSize)
         }
+        if (
+                prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)
+                || prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)
+        )
+            currentHeight += getTextHeight(mediumTextSize) + 2 * padding16
+        if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT))
+            currentHeight += getTextHeight(smallTextSize) + 2 * padding2
+        if (prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT) != "")
+            currentHeight += getTextHeight(smallTextSize) + 2 * padding2
+        if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT))
+            currentHeight += getTextHeight(mediumTextSize) + 2 * padding16
+        if (prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT))
+            currentHeight += drawableSize + 2 * padding16
+
+        currentHeight += paddingBottom
+
+        return max(currentHeight.toInt(), (suggestedMinimumHeight + paddingTop + paddingBottom))
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        setMeasuredDimension(
-                measureDimension(suggestedMinimumWidth + paddingLeft + paddingRight, widthMeasureSpec),
-                measureDimension(suggestedMinimumHeight + paddingTop + paddingBottom, heightMeasureSpec)
-        )
+        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), measureHeight())
     }
 
     /*
@@ -215,9 +233,7 @@ class AlwaysOnCustomView : View {
 
         //Date
         if (prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
-            if (flags[FLAG_SAMSUNG_3]) {
-                currentHeight = tempHeight + getPaint(bigTextSize).getVerticalCenter()
-            }
+            if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getPaint(bigTextSize).getVerticalCenter()
             canvas.drawRelativeText(
                     dateFormat.format(Calendar.getInstance().time).run {
                         if (flags[FLAG_CAPS_DATE]) this.toUpperCase(Locale.getDefault())
@@ -228,9 +244,7 @@ class AlwaysOnCustomView : View {
                     getPaint(if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize, prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT)),
                     if (flags[FLAG_SAMSUNG_3]) templatePaint.measureText(dateFormat.format(Calendar.getInstance().time)).toInt() / 2 + padding16 else 0
             )
-            if (flags[FLAG_SAMSUNG_3]) {
-                currentHeight = tempHeight + getPaint(bigTextSize).getVerticalCenter() * 2
-            }
+            if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getTextHeight(bigTextSize)
         }
 
         //Samsung 3 divider
@@ -406,11 +420,16 @@ class AlwaysOnCustomView : View {
         return templatePaint
     }
 
+    private fun getTextHeight(textSize: Float): Float {
+        templatePaint.textSize = textSize
+        return -templatePaint.ascent() + templatePaint.descent()
+    }
+
+    private fun Paint.getVerticalCenter() = (-ascent() + descent()) / 2
+
     /*
      * Drawing functions
      */
-    private fun Paint.getVerticalCenter() = (-ascent() + descent()) / 2
-
     private fun Canvas.drawRelativeText(
             text: String,
             paddingTop: Int,
