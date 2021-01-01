@@ -60,7 +60,7 @@ class AlwaysOnCustomView : View {
 
     private val skipPositions = intArrayOf(0, 0, 0)
 
-    private val flags = booleanArrayOf(false, false, false)
+    private val flags = booleanArrayOf(false, false, false, false)
 
     /*
      * Initialization
@@ -98,6 +98,7 @@ class AlwaysOnCustomView : View {
                     P.USER_THEME_GOOGLE -> setFont(R.font.roboto_regular)
                     P.USER_THEME_SAMSUNG -> {
                         setFont(R.font.roboto_light)
+                        flags[FLAG_MULTILINE_CLOCK] = true
                         flags[FLAG_CAPS_DATE] = true
                     }
                     P.USER_THEME_SAMSUNG3 -> {
@@ -118,6 +119,7 @@ class AlwaysOnCustomView : View {
                 mediumTextSize = spToPx(20f)
                 smallTextSize = spToPx(15f)
                 setFont(R.font.roboto_medium)
+                flags[FLAG_MULTILINE_CLOCK] = true
             }
             P.USER_THEME_SAMSUNG2 -> {
                 bigTextSize = spToPx(36f)
@@ -181,11 +183,13 @@ class AlwaysOnCustomView : View {
 
         val tempHeight = currentHeight
         if (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT))
-            currentHeight += getTextHeight(bigTextSize) + 2 * padding16
+            currentHeight += padding16 + padding2 + getTextHeight(bigTextSize).run {
+                if (flags[FLAG_MULTILINE_CLOCK]) this * 2
+                else this
+            }
         if (prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
-            if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getPaint(bigTextSize).getVerticalCenter()
-            currentHeight += getTextHeight(if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize) + 2 * padding16
-            if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getTextHeight(bigTextSize)
+            if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getTextHeight(bigTextSize) + padding16
+            else currentHeight += getTextHeight(if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize) + 2 * padding2
         }
         if (
                 prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)
@@ -510,5 +514,6 @@ class AlwaysOnCustomView : View {
         private const val FLAG_BIG_DATE: Int = 1
         private const val FLAG_LEFT_ALIGN: Int = 1
         private const val FLAG_SAMSUNG_3: Int = 2
+        private const val FLAG_MULTILINE_CLOCK: Int = 3
     }
 }
