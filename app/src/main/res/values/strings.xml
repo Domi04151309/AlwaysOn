@@ -31,15 +31,10 @@
 
     <string name="chargingState_error">Unable to display charging state</string>
     <string name="battery">\??%</string>
-    <string name="clock">H:mm</string>
-    <string name="clock2">HH\nMM</string>
     <string name="date">EEE, MMMM d</string>
-    <string name="feature">-</string>
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% Charged</string>
     <string name="music">%1$s - %2$s</string>
-    <string name="previous">Previous</string>
-    <string name="next">Next</string>
 
     <string name="shortcut_disabled">Disabled</string>
 

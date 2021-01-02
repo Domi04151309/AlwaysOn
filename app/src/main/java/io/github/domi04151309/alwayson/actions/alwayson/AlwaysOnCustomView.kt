@@ -49,6 +49,11 @@ class AlwaysOnCustomView : View {
     private var notificationCount = -1
     private var notificationIcons = arrayListOf<Icon>()
 
+    var musicVisible: Boolean = false
+        set(value) {
+            field = value
+            invalidate()
+        }
     var musicString: String = ""
         set(value) {
             field = value
@@ -61,6 +66,7 @@ class AlwaysOnCustomView : View {
     private val skipPositions = intArrayOf(0, 0, 0)
 
     private val flags = booleanArrayOf(false, false, false, false)
+    internal val updateHandler = Handler(Looper.getMainLooper())
 
     /*
      * Initialization
@@ -164,14 +170,6 @@ class AlwaysOnCustomView : View {
         )
         dateFormat = SimpleDateFormat(prefs.get(P.DATE_FORMAT, P.DATE_FORMAT_DEFAULT), Locale.getDefault())
         message = prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT)
-
-        val updateHandler = Handler(Looper.getMainLooper())
-        updateHandler.postDelayed(object : Runnable {
-            override fun run() {
-                invalidate()
-                updateHandler.postDelayed(this, UPDATE_DELAY)
-            }
-        }, UPDATE_DELAY)
     }
 
     /*
@@ -296,7 +294,7 @@ class AlwaysOnCustomView : View {
         }
 
         //Music Controls
-        if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)) {
+        if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT) && musicVisible) {
             skipPositions[0] = if (flags[FLAG_LEFT_ALIGN]) relativePoint.toInt()
             else (relativePoint - getPaint(smallTextSize).measureText(musicString) / 2).toInt() - padding16
             skipPositions[1] = if (flags[FLAG_LEFT_ALIGN]) (relativePoint + getPaint(smallTextSize).measureText(musicString)).toInt() + drawableSize
@@ -336,7 +334,7 @@ class AlwaysOnCustomView : View {
         //Notification Count
         if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)) {
             canvas.drawRelativeText(
-                    notificationCount.toString(),
+                    if (notificationCount != 0) notificationCount.toString() else "",
                     padding16,
                     padding16,
                     getPaint(mediumTextSize, prefs.get(P.DISPLAY_COLOR_NOTIFICATION, P.DISPLAY_COLOR_NOTIFICATION_DEFAULT))
@@ -505,6 +503,19 @@ class AlwaysOnCustomView : View {
         notificationCount = count
         notificationIcons = icons
         invalidate()
+    }
+
+    fun startClockHandler() {
+        updateHandler.postDelayed(object : Runnable {
+            override fun run() {
+                invalidate()
+                updateHandler.postDelayed(this, UPDATE_DELAY)
+            }
+        }, UPDATE_DELAY)
+    }
+
+    fun stopClockHandler() {
+        updateHandler.removeCallbacksAndMessages(null)
     }
 
     companion object {

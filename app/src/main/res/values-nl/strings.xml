@@ -28,10 +28,7 @@
 
     <string name="chargingState_error">De huidige oplaadstatus kan niet worden getoond</string>
     <string name="battery">\??%</string>
-    <string name="clock">H:mm</string>
-    <string name="clock2">HH\nMM</string>
     <string name="date">d MMM EEE</string>
-    <string name="feature">-</string>
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% opgeladen</string>
 

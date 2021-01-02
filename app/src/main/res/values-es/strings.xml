@@ -28,10 +28,7 @@
 
     <string name="chargingState_error">No se puede mostrar el estado de carga</string>
     <string name="battery">\??%</string>
-    <string name="clock">H:mm</string>
-    <string name="clock2">HH\nMM</string>
     <string name="date">EEE, MMM d</string>
-    <string name="feature">-</string>
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% cargado</string>
 
