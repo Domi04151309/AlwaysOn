@@ -31,7 +31,6 @@ import java.util.*
 class AlwaysOn : OffActivity() {
 
     companion object {
-        private const val CLOCK_DELAY: Long = 60000
         private const val SENSOR_DELAY_SLOW: Int = 1000000
     }
 

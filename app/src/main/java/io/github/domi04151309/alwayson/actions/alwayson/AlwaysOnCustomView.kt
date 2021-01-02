@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
-import android.icu.util.Calendar
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
@@ -225,11 +224,11 @@ class AlwaysOnCustomView : View {
         val tempHeight = currentHeight
         if (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT)) {
             canvas.drawRelativeText(
-                    clockFormat.format(Calendar.getInstance().time),
+                    clockFormat.format(System.currentTimeMillis()),
                     padding16,
                     padding2,
                     getPaint(bigTextSize, prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)),
-                    if (flags[FLAG_SAMSUNG_3]) -templatePaint.measureText(clockFormat.format(Calendar.getInstance().time)).toInt() / 2 - padding16 else 0
+                    if (flags[FLAG_SAMSUNG_3]) -templatePaint.measureText(clockFormat.format(System.currentTimeMillis())).toInt() / 2 - padding16 else 0
             )
         }
 
@@ -237,14 +236,14 @@ class AlwaysOnCustomView : View {
         if (prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
             if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getPaint(bigTextSize).getVerticalCenter()
             canvas.drawRelativeText(
-                    dateFormat.format(Calendar.getInstance().time).run {
+                    dateFormat.format(System.currentTimeMillis()).run {
                         if (flags[FLAG_CAPS_DATE]) this.toUpperCase(Locale.getDefault())
                         else this
                     },
                     padding2,
                     padding2,
                     getPaint(if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize, prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT)),
-                    if (flags[FLAG_SAMSUNG_3]) templatePaint.measureText(dateFormat.format(Calendar.getInstance().time)).toInt() / 2 + padding16 else 0
+                    if (flags[FLAG_SAMSUNG_3]) templatePaint.measureText(dateFormat.format(System.currentTimeMillis())).toInt() / 2 + padding16 else 0
             )
             if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getTextHeight(bigTextSize) + padding16
         }
@@ -506,6 +505,7 @@ class AlwaysOnCustomView : View {
     }
 
     fun startClockHandler() {
+        stopClockHandler()
         updateHandler.postDelayed(object : Runnable {
             override fun run() {
                 invalidate()
