@@ -11,7 +11,6 @@ import android.icu.util.Calendar
 import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
 import android.os.*
-import android.provider.Settings
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
@@ -20,9 +19,10 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import io.github.domi04151309.alwayson.actions.OffActivity
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.helpers.P
-import io.github.domi04151309.alwayson.helpers.Rules
+import io.github.domi04151309.alwayson.helpers.*
+import io.github.domi04151309.alwayson.helpers.AnimationHelper
 import io.github.domi04151309.alwayson.helpers.Global
+import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Root
 import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 import io.github.domi04151309.alwayson.services.NotificationService
@@ -281,9 +281,9 @@ class AlwaysOn : OffActivity() {
         }
 
         //Animation
-        val animationDuration = 10000L
-        val animationScale = Settings.Global.getFloat(contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 1.0f)
-        val animationDelay = (prefs.get("ao_animation_delay", 2) * 60000 + animationDuration * animationScale + 1000).toLong()
+        val animationHelper = AnimationHelper()
+        val animationDuration = 10000
+        val animationDelay = (prefs.get("ao_animation_delay", 2) * 60000 + animationDuration + 10000).toLong()
         animationThread = object : Thread() {
             override fun run() {
                 try {
@@ -292,11 +292,11 @@ class AlwaysOn : OffActivity() {
                     runOnUiThread { viewHolder.customView.translationY = screenSize / 4 }
                     while (!isInterrupted) {
                         sleep(animationDelay)
-                        viewHolder.customView.animate().translationY(screenSize / 2).duration = animationDuration
-                        if (prefs.get(P.SHOW_FINGERPRINT_ICON, P.SHOW_FINGERPRINT_ICON_DEFAULT)) viewHolder.fingerprintIcn.animate().translationY(64F).duration = animationDuration
+                        animationHelper.animate(viewHolder.customView, screenSize / 2, animationDuration)
+                        if (prefs.get(P.SHOW_FINGERPRINT_ICON, P.SHOW_FINGERPRINT_ICON_DEFAULT)) animationHelper.animate(viewHolder.fingerprintIcn, 64f, animationDuration)
                         sleep(animationDelay)
-                        viewHolder.customView.animate().translationY(screenSize / 4).duration = animationDuration
-                        if (prefs.get(P.SHOW_FINGERPRINT_ICON, P.SHOW_FINGERPRINT_ICON_DEFAULT)) viewHolder.fingerprintIcn.animate().translationY(0F).duration = animationDuration
+                        animationHelper.animate(viewHolder.customView, screenSize / 4, animationDuration)
+                        if (prefs.get(P.SHOW_FINGERPRINT_ICON, P.SHOW_FINGERPRINT_ICON_DEFAULT)) animationHelper.animate(viewHolder.fingerprintIcn, 0f, animationDuration)
                     }
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
