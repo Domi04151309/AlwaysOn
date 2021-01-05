@@ -2,7 +2,6 @@ package io.github.domi04151309.alwayson.helpers
 
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 
 class AnimationHelper() {
@@ -14,8 +13,6 @@ class AnimationHelper() {
     private val animationHandler = Handler(Looper.getMainLooper())
 
     fun animate(view: View, positionY: Float, duration: Int) {
-        val start = System.currentTimeMillis()
-
         if (positionY == view.translationY) return
 
         var i = 1
@@ -27,7 +24,6 @@ class AnimationHelper() {
             animationHandler.postDelayed({
                 view.translationY = startPosition + i * movementPerFrame
                 i++
-                if (i == numberOfFrames) Log.e("ANIMATION", "$i: T ${System.currentTimeMillis() - start - duration} P ${view.translationY - positionY}")
             }, (1000 / FRAME_RATE * j).toLong())
         }
     }

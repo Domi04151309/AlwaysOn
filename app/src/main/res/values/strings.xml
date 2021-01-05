@@ -75,7 +75,7 @@
         <item>G-Style</item>
         <item>O-Style</item>
         <item>S-Vertical</item>
-        <item>S-Left-Justified</item>
+        <item>S-Left</item>
         <item>S-Split</item>
         <item>80s</item>
         <item>Fast</item>
@@ -84,6 +84,7 @@
         <item>Handwritten</item>
         <item>Jungle</item>
         <item>Western</item>
+        <item>Analog</item>
     </string-array>
     <string name="pref_look_and_feel_colors">Colors</string>
     <string name="pref_look_and_feel_colors_summary">Select colors for certain elements</string>

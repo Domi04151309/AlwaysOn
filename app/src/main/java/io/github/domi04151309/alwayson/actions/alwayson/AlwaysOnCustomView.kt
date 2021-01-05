@@ -23,6 +23,8 @@ import java.lang.Integer.max
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
+import kotlin.math.cos
+import kotlin.math.sin
 
 class AlwaysOnCustomView : View {
 
@@ -64,7 +66,7 @@ class AlwaysOnCustomView : View {
 
     private val skipPositions = intArrayOf(0, 0, 0)
 
-    private val flags = booleanArrayOf(false, false, false, false)
+    private val flags = booleanArrayOf(false, false, false, false, false)
     internal val updateHandler = Handler(Looper.getMainLooper())
 
     /*
@@ -95,7 +97,7 @@ class AlwaysOnCustomView : View {
         when (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT)) {
             P.USER_THEME_GOOGLE, P.USER_THEME_SAMSUNG, P.USER_THEME_SAMSUNG3, P.USER_THEME_80S,
             P.USER_THEME_FAST, P.USER_THEME_FLOWER, P.USER_THEME_GAME, P.USER_THEME_HANDWRITTEN,
-            P.USER_THEME_JUNGLE, P.USER_THEME_WESTERN -> {
+            P.USER_THEME_JUNGLE, P.USER_THEME_WESTERN, P.USER_THEME_ANALOG -> {
                 bigTextSize = spToPx(75f)
                 mediumTextSize = spToPx(25f)
                 smallTextSize = spToPx(18f)
@@ -117,6 +119,11 @@ class AlwaysOnCustomView : View {
                     P.USER_THEME_HANDWRITTEN -> setFont(R.font.patrick_hand_regular)
                     P.USER_THEME_JUNGLE -> setFont(R.font.hanalei_regular)
                     P.USER_THEME_WESTERN -> setFont(R.font.ewert_regular)
+                    P.USER_THEME_ANALOG -> {
+                        setFont(R.font.roboto_regular)
+                        flags[FLAG_MULTILINE_CLOCK] = true
+                        flags[FLAG_ANALOG_CLOCK] = true
+                    }
                 }
             }
             P.USER_THEME_ONEPLUS -> {
@@ -223,13 +230,31 @@ class AlwaysOnCustomView : View {
         //Clock
         val tempHeight = currentHeight
         if (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT)) {
-            canvas.drawRelativeText(
-                    clockFormat.format(System.currentTimeMillis()),
-                    padding16,
-                    padding2,
-                    getPaint(bigTextSize, prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)),
-                    if (flags[FLAG_SAMSUNG_3]) -templatePaint.measureText(clockFormat.format(System.currentTimeMillis())).toInt() / 2 - padding16 else 0
-            )
+            if (flags[FLAG_ANALOG_CLOCK]) {
+                currentHeight += padding2
+
+                templatePaint.color = prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)
+                templatePaint.style = Paint.Style.STROKE
+                templatePaint.strokeWidth = dpToPx(4f)
+                canvas.drawCircle(relativePoint, currentHeight + getTextHeight(bigTextSize), getTextHeight(bigTextSize), templatePaint)
+                templatePaint.style = Paint.Style.FILL
+
+                val c = Calendar.getInstance()
+                val hour = if (c[Calendar.HOUR_OF_DAY] > 12) c[Calendar.HOUR_OF_DAY] - 12 else c[Calendar.HOUR_OF_DAY]
+
+                drawHand(canvas, (hour + c.get(Calendar.MINUTE) / 60) * 5, true)
+                drawHand(canvas, c.get(Calendar.MINUTE), false)
+
+                currentHeight += 2 * getTextHeight(bigTextSize) + padding16
+            } else {
+                canvas.drawRelativeText(
+                        clockFormat.format(System.currentTimeMillis()),
+                        padding16,
+                        padding2,
+                        getPaint(bigTextSize, prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)),
+                        if (flags[FLAG_SAMSUNG_3]) -templatePaint.measureText(clockFormat.format(System.currentTimeMillis())).toInt() / 2 - padding16 else 0
+                )
+            }
         }
 
         //Date
@@ -427,6 +452,14 @@ class AlwaysOnCustomView : View {
 
     private fun Paint.getVerticalCenter() = (-ascent() + descent()) / 2
 
+    private fun dpToPx(dp: Float): Float = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
+    )
+
+    private fun spToPx(sp: Float): Float = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_SP, sp, resources.displayMetrics
+    )
+
     /*
      * Drawing functions
      */
@@ -470,13 +503,17 @@ class AlwaysOnCustomView : View {
         }
     }
 
-    private fun dpToPx(dp: Float): Float = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
-    )
-
-    private fun spToPx(dp: Float): Float = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_SP, dp, resources.displayMetrics
-    )
+    private fun drawHand(canvas: Canvas, loc: Int, isHour: Boolean) {
+        val angle = (Math.PI * loc / 30 - Math.PI / 2).toFloat()
+        val handRadius: Float = if (isHour) getTextHeight(bigTextSize) * .5f else getTextHeight(bigTextSize) * .9f
+        canvas.drawLine(
+                relativePoint,
+                currentHeight + getTextHeight(bigTextSize),
+                relativePoint + cos(angle) * handRadius,
+                currentHeight + getTextHeight(bigTextSize) + sin(angle) * handRadius,
+                templatePaint
+        )
+    }
 
     /*
      * Functions for configuration
@@ -526,5 +563,6 @@ class AlwaysOnCustomView : View {
         private const val FLAG_LEFT_ALIGN: Int = 1
         private const val FLAG_SAMSUNG_3: Int = 2
         private const val FLAG_MULTILINE_CLOCK: Int = 3
+        private const val FLAG_ANALOG_CLOCK: Int = 4
     }
 }

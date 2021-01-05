@@ -32,7 +32,8 @@ class LAFAlwaysOnLookActivity : AppCompatActivity() {
             R.drawable.always_on_game,
             R.drawable.always_on_handwritten,
             R.drawable.always_on_jungle,
-            R.drawable.always_on_western
+            R.drawable.always_on_western,
+            R.drawable.always_on_analog
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +68,7 @@ class LAFAlwaysOnLookActivity : AppCompatActivity() {
                             ITEM_HANDWRITTEN -> P.USER_THEME_HANDWRITTEN
                             ITEM_JUNGLE -> P.USER_THEME_JUNGLE
                             ITEM_WESTERN -> P.USER_THEME_WESTERN
+                            ITEM_ANALOG -> P.USER_THEME_ANALOG
                             else -> P.USER_THEME_DEFAULT
                         }
                     }
@@ -91,6 +93,7 @@ class LAFAlwaysOnLookActivity : AppCompatActivity() {
             P.USER_THEME_HANDWRITTEN -> ITEM_HANDWRITTEN
             P.USER_THEME_JUNGLE -> ITEM_JUNGLE
             P.USER_THEME_WESTERN -> ITEM_WESTERN
+            P.USER_THEME_ANALOG -> ITEM_ANALOG
             else -> ITEM_GOOGLE
         })
     }
@@ -118,5 +121,6 @@ class LAFAlwaysOnLookActivity : AppCompatActivity() {
         private const val ITEM_HANDWRITTEN = 9
         private const val ITEM_JUNGLE = 10
         private const val ITEM_WESTERN = 11
+        private const val ITEM_ANALOG = 12
     }
 }

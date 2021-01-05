@@ -59,6 +59,7 @@ internal class P(val prefs: SharedPreferences) {
         const val USER_THEME_HANDWRITTEN = "handwritten"
         const val USER_THEME_JUNGLE = "jungle"
         const val USER_THEME_WESTERN = "western"
+        const val USER_THEME_ANALOG = "analog"
 
         const val BACKGROUND_IMAGE_NONE = "none"
         const val BACKGROUND_IMAGE_DANIEL_OLAH_1 = "daniel_olah_1"

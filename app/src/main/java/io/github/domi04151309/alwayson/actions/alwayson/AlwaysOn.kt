@@ -283,7 +283,7 @@ class AlwaysOn : OffActivity() {
         //Animation
         val animationHelper = AnimationHelper()
         val animationDuration = 10000
-        val animationDelay = (prefs.get("ao_animation_delay", 2) * 60000 + animationDuration + 10000).toLong()
+        val animationDelay = (prefs.get("ao_animation_delay", 2) * 60000 + animationDuration + 1000).toLong()
         animationThread = object : Thread() {
             override fun run() {
                 try {
