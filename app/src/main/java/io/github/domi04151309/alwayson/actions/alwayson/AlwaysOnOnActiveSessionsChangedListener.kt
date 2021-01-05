@@ -6,7 +6,6 @@ import android.media.session.MediaController
 import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
 import android.util.Log
-import android.view.View
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Global
 
@@ -41,18 +40,18 @@ class AlwaysOnOnActiveSessionsChangedListener(
 
     internal fun updateMediaState() {
         if (controller != null) {
-            viewHolder.musicLayout.visibility = View.VISIBLE
+            viewHolder.customView.musicVisible = true
             var artist = controller?.metadata?.getString(MediaMetadata.METADATA_KEY_ARTIST) ?: ""
             var title = controller?.metadata?.getString(MediaMetadata.METADATA_KEY_TITLE) ?: ""
             if (artist.length > 20) artist = artist.substring(0, 19) + '…'
             if (title.length > 20) title = title.substring(0, 19) + '…'
             when {
-                artist == "" -> viewHolder.musicTxt.text = title
-                title == "" -> viewHolder.musicTxt.text = artist
-                else -> viewHolder.musicTxt.text = resources.getString(R.string.music, artist, title)
+                artist == "" -> viewHolder.customView.musicString = title
+                title == "" -> viewHolder.customView.musicString = artist
+                else -> viewHolder.customView.musicString = resources.getString(R.string.music, artist, title)
             }
         } else {
-            viewHolder.musicLayout.visibility = View.GONE
+            viewHolder.customView.musicVisible = false
         }
     }
 }

@@ -31,15 +31,10 @@
 
     <string name="chargingState_error">Unable to display charging state</string>
     <string name="battery">\??%</string>
-    <string name="clock">H:mm</string>
-    <string name="clock2">HH\nMM</string>
     <string name="date">EEE, MMMM d</string>
-    <string name="feature">-</string>
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% Charged</string>
     <string name="music">%1$s - %2$s</string>
-    <string name="previous">Previous</string>
-    <string name="next">Next</string>
 
     <string name="shortcut_disabled">Disabled</string>
 
@@ -80,7 +75,7 @@
         <item>G-Style</item>
         <item>O-Style</item>
         <item>S-Vertical</item>
-        <item>S-Left-Justified</item>
+        <item>S-Left</item>
         <item>S-Split</item>
         <item>80s</item>
         <item>Fast</item>
@@ -89,6 +84,7 @@
         <item>Handwritten</item>
         <item>Jungle</item>
         <item>Western</item>
+        <item>Analog</item>
     </string-array>
     <string name="pref_look_and_feel_colors">Colors</string>
     <string name="pref_look_and_feel_colors_summary">Select colors for certain elements</string>
