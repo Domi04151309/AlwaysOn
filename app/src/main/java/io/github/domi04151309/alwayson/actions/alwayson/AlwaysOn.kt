@@ -64,11 +64,7 @@ class AlwaysOn : OffActivity() {
 
     //Rules
     private var rules: Rules? = null
-    internal var rulesChargingState: String = ""
-    internal var rulesBattery: Int = 0
-    private var rulesTimeout: Int = 0
-    private val rulesTimePeriodHandler: Handler = Handler(Looper.getMainLooper())
-    private val rulesTimeoutHandler: Handler = Handler(Looper.getMainLooper())
+    private val rulesHandler: Handler = Handler(Looper.getMainLooper())
 
     //BroadcastReceivers
     private val localFilter: IntentFilter = IntentFilter()
@@ -102,7 +98,7 @@ class AlwaysOn : OffActivity() {
             when (intent.action) {
                 Intent.ACTION_BATTERY_CHANGED -> {
                     val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
-                    if (level <= rulesBattery) {
+                    if (level <= prefs.get(P.RULES_BATTERY, P.RULES_BATTERY_DEFAULT)) {
                         finishAndOff()
                         return
                     } else if (!servicesRunning) {
@@ -114,10 +110,10 @@ class AlwaysOn : OffActivity() {
                     )
                 }
                 Intent.ACTION_POWER_CONNECTED -> {
-                    if (rulesChargingState == "discharging") finishAndOff()
+                    if (prefs.get(P.RULES_CHARGING_STATE, P.RULES_CHARGING_STATE_DEFAULT) == P.RULES_CHARGING_STATE_DISCHARGING) finishAndOff()
                 }
                 Intent.ACTION_POWER_DISCONNECTED -> {
-                    if (rulesChargingState == "charging") finishAndOff()
+                    if (prefs.get(P.RULES_CHARGING_STATE, P.RULES_CHARGING_STATE_DEFAULT) == P.RULES_CHARGING_STATE_CHARGING) finishAndOff()
                 }
             }
         }
@@ -336,9 +332,6 @@ class AlwaysOn : OffActivity() {
 
         //Rules
         rules = Rules(this, prefs.prefs)
-        rulesChargingState = prefs.get("rules_charging_state", "always")
-        rulesBattery = prefs.get("rules_battery_level", 0)
-        rulesTimeout = prefs.get("rules_timeout_sec", 0)
 
         //Broadcast Receivers
         localManager.registerReceiver(localReceiver, localFilter)
@@ -361,8 +354,8 @@ class AlwaysOn : OffActivity() {
             localManager.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
         }
         val millisTillEnd: Long = rules?.millisTillEnd(Calendar.getInstance()) ?: -1
-        if (millisTillEnd > -1L) rulesTimePeriodHandler.postDelayed({ finishAndOff() }, millisTillEnd)
-        if (rulesTimeout != 0) rulesTimePeriodHandler.postDelayed({ finishAndOff() }, rulesTimeout * 1000L)
+        if (millisTillEnd > -1L) rulesHandler.postDelayed({ finishAndOff() }, millisTillEnd)
+        if (prefs.get(P.RULES_TIMEOUT, P.RULES_TIMEOUT_DEFAULT) != 0) rulesHandler.postDelayed({ finishAndOff() }, prefs.get(P.RULES_TIMEOUT, P.RULES_TIMEOUT_DEFAULT) * 1000L)
         if (prefs.get(P.DO_NOT_DISTURB, P.DO_NOT_DISTURB_DEFAULT) && notificationAccess) notificationManager?.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
         if (prefs.get(P.DISABLE_HEADS_UP_NOTIFICATIONS, P.DISABLE_HEADS_UP_NOTIFICATIONS_DEFAULT)) Root.shell("settings put global heads_up_notifications_enabled 0")
         if (prefs.get(P.POCKET_MODE, P.POCKET_MODE_DEFAULT)) sensorManager?.registerListener(sensorEventListener, sensorManager?.getDefaultSensor(Sensor.TYPE_PROXIMITY), SENSOR_DELAY_SLOW, SENSOR_DELAY_SLOW)
@@ -372,8 +365,7 @@ class AlwaysOn : OffActivity() {
         super.onStop()
         servicesRunning = false
         if (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT) || prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) viewHolder.customView.stopClockHandler()
-        rulesTimePeriodHandler.removeCallbacksAndMessages(null)
-        rulesTimeoutHandler.removeCallbacksAndMessages(null)
+        rulesHandler.removeCallbacksAndMessages(null)
         if (prefs.get(P.DO_NOT_DISTURB, P.DO_NOT_DISTURB_DEFAULT) && notificationAccess) notificationManager?.setInterruptionFilter(userDND)
         if (prefs.get(P.ROOT_MODE, P.ROOT_MODE_DEFAULT) && prefs.get(P.POWER_SAVING_MODE, P.POWER_SAVING_MODE_DEFAULT) && !userPowerSaving) Root.shell("settings put global low_power 0")
         if (prefs.get(P.DISABLE_HEADS_UP_NOTIFICATIONS, P.DISABLE_HEADS_UP_NOTIFICATIONS_DEFAULT)) Root.shell("settings put global heads_up_notifications_enabled 1")

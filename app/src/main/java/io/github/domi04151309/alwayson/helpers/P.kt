@@ -13,6 +13,10 @@ internal class P(val prefs: SharedPreferences) {
     fun displayScale(): Float = (prefs.getInt("pref_aod_scale", 50) + 50) / 100F
 
     companion object {
+        const val RULES_CHARGING_STATE = "rules_charging_state"
+        const val RULES_BATTERY = "rules_battery_level"
+        const val RULES_TIMEOUT = "rules_timeout_sec"
+
         const val ROOT_MODE = "root_mode"
         const val POWER_SAVING_MODE = "ao_power_saving"
         const val USER_THEME = "ao_style"
@@ -47,6 +51,9 @@ internal class P(val prefs: SharedPreferences) {
 
         const val CHARGING_STYLE = "charging_style"
 
+        const val RULES_CHARGING_STATE_CHARGING = "charging"
+        const val RULES_CHARGING_STATE_DISCHARGING = "discharging"
+
         const val USER_THEME_GOOGLE = "google"
         const val USER_THEME_ONEPLUS = "oneplus"
         const val USER_THEME_SAMSUNG = "samsung"
@@ -78,6 +85,10 @@ internal class P(val prefs: SharedPreferences) {
         const val CHARGING_STYLE_CIRCLE = "circle"
         const val CHARGING_STYLE_FLASH = "flash"
         const val CHARGING_STYLE_IOS = "ios"
+
+        const val RULES_CHARGING_STATE_DEFAULT = "always"
+        const val RULES_BATTERY_DEFAULT = 0
+        const val RULES_TIMEOUT_DEFAULT = 0
 
         const val ROOT_MODE_DEFAULT = false
         const val POWER_SAVING_MODE_DEFAULT = false

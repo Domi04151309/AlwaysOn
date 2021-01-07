@@ -1,3 +1,5 @@
+@file:Suppress("HardCodedStringLiteral")
+
 package io.github.domi04151309.alwayson.helpers
 
 import android.util.Log
