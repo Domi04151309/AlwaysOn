@@ -6,10 +6,6 @@
     <string name="service_channel">Dienstkanaal</string>
 
     <string name="setup_header">Instelhulp</string>
-    <string name="setup_choose_mode">Kies een modus</string>
-    <string name="setup_choose_mode_summary">Kies een modus voor de app. Kies voor \‘root\’ als je apparaat geroot is. Weet je niet wat je moet kiezen? Sla deze stap dan over.</string>
-    <string name="setup_device_admin">Apparaatbeheerder</string>
-    <string name="setup_root">Root</string>
     <string name="setup_root_failed">Rootverzoek mislukt! Probeer het opnieuw of kies een andere modus.</string>
     <string name="device_admin">Apparaatbeheerder</string>
     <string name="device_admin_summary">Schakel deze apparaatbeheerder in of kies voor de rootmodus.</string>
@@ -87,7 +83,6 @@
     <string name="pref_draw_over_other_apps">Weergeven vóór andere apps</string>
     <string name="pref_draw_over_other_apps_summary">Schakel weergeven vóór andere apps in of uit</string>
     <string name="pref_admin">Apparaatbeheerder</string>
-    <string name="pref_admin_summary">Schakel apparaatbeheerder in voor de reguliere modus</string>
     <string name="pref_root_mode">Rootmodus</string>
 
     <string name="about">Over</string>

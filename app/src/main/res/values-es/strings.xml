@@ -6,10 +6,6 @@
     <string name="service_channel">Canal de servicio</string>
 
     <string name="setup_header">Configuración</string>
-    <string name="setup_choose_mode">Elige un modo</string>
-    <string name="setup_choose_mode_summary">Tienes que elegir un modo para la aplicación. Si no estás seguro de lo que necesitas elegir, deja esta configuración como está. Si su dispositivo tiene privilegios de acceso, elija root.\n\nPor favor, tenga en cuenta que tiene que desactivar los privilegios de administrador de la aplicación antes de desinstalarla.</string>
-    <string name="setup_device_admin">Administración del dispositivo</string>
-    <string name="setup_root">Root</string>
     <string name="setup_root_failed">¡Solicitud de root fallida! ¡Por favor, inténtelo de nuevo o cambie de modo!</string>
     <string name="device_admin">Administración del dispositivo</string>
     <string name="device_admin_summary">Necesitas activar el administrador del dispositivo o cambiar al modo root para que esta aplicación funcione.</string>
@@ -119,7 +115,7 @@
     <string name="pref_draw_over_other_apps">Muestra sobre otras aplicaciones</string>
     <string name="pref_draw_over_other_apps_summary">Activar o desactivar este permiso</string>
     <string name="pref_admin">Administrador del dispositivo</string>
-    <string name="pref_admin_summary">Activa este dispositivo admin para el modo normal</string>
+    <string name="pref_admin_summary">Activa este dispositivo admin para el modo normal\nPor favor, tenga en cuenta que tiene que desactivar los privilegios de administrador de la aplicación antes de desinstalarla!</string>
     <string name="pref_root_mode">Modo root</string>
 
     <string name="loading">Cargando</string>

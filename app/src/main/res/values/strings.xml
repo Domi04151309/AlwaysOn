@@ -6,10 +6,6 @@
     <string name="service_channel">Service channel</string>
 
     <string name="setup_header">Setup</string>
-    <string name="setup_choose_mode">Choose a mode</string>
-    <string name="setup_choose_mode_summary">You need to choose a mode for the app. If you are not sure about what you need to choose, leave this setting as is. If your device is rooted, choose root.\n\nPlease note that you have to deactivate the app\'s device admin privileges before uninstalling it.</string>
-    <string name="setup_device_admin">Device Admin</string>
-    <string name="setup_root">Root</string>
     <string name="setup_root_failed">Root request failed! Please try again or switch mode!</string>
     <string name="device_admin">Device Admin</string>
     <string name="device_admin_summary">You need to activate this device admin or switch to root mode for this app to work.</string>
@@ -188,7 +184,7 @@
     <string name="pref_draw_over_other_apps">Display over other apps</string>
     <string name="pref_draw_over_other_apps_summary">Enable or disable this permission</string>
     <string name="pref_admin">Device admin</string>
-    <string name="pref_admin_summary">Activate this device admin for normal mode</string>
+    <string name="pref_admin_summary">Activate this device admin for normal mode\nPlease note that you have to deactivate the app\'s device admin privileges before uninstalling it!</string>
     <string name="pref_root_mode">Root mode</string>
     <string name="pref_root_mode_summary">Enables root functionality</string>
 
@@ -206,6 +202,8 @@
 
     <string name="loading">Loading</string>
     <string name="missing_permissions">Missing Permissions</string>
+    <string name="permissions_notification_access">Turn on notification access for this feature</string>
+    <string name="permissions_device_admin_or_root">Turn on device admin or root for this feature</string>
 
     <string name="about">About</string>
     <string name="about_summary">About the app</string>

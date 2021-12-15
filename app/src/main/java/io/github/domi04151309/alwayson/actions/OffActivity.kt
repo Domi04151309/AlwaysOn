@@ -24,7 +24,8 @@ open class OffActivity : Activity() {
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
-        requestedOrientation = when (PreferenceManager.getDefaultSharedPreferences(this).getString("orientation", "locked")) {
+        requestedOrientation = when (PreferenceManager.getDefaultSharedPreferences(this)
+            .getString("orientation", "locked")) {
             "portrait" -> ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             "landscape" -> ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             else -> ActivityInfo.SCREEN_ORIENTATION_LOCKED
@@ -36,11 +37,11 @@ open class OffActivity : Activity() {
         when (keyCode) {
             KeyEvent.KEYCODE_VOLUME_UP -> {
                 (getSystemService(Context.AUDIO_SERVICE) as AudioManager)
-                        .adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, 0)
+                    .adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, 0)
             }
             KeyEvent.KEYCODE_VOLUME_DOWN -> {
                 (getSystemService(Context.AUDIO_SERVICE) as AudioManager)
-                        .adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, 0)
+                    .adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, 0)
             }
         }
         return true
@@ -50,7 +51,7 @@ open class OffActivity : Activity() {
         super.onPause()
         try {
             (getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
-                    .moveTaskToFront(taskId, 0)
+                .moveTaskToFront(taskId, 0)
         } catch (e: Exception) {
             Log.w(Global.LOG_TAG, e.toString())
         }
@@ -60,7 +61,8 @@ open class OffActivity : Activity() {
         if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode", false)) {
             Root.shell("input keyevent KEYCODE_POWER")
         } else {
-            val policyManager = getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+            val policyManager = getSystemService(Context.DEVICE_POLICY_SERVICE)
+                    as DevicePolicyManager
             if (policyManager.isAdminActive(ComponentName(this, AdminReceiver::class.java))) {
                 policyManager.lockNow()
             } else {

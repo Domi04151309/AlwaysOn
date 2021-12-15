@@ -6,10 +6,7 @@
     <string name="service_channel">Servicekanal</string>
 
     <string name="setup_header">Setup</string>
-    <string name="setup_choose_mode">Wähle einen Modus</string>
-    <string name="setup_choose_mode_summary">Sie müssen einen Modus für die App auswählen. Wenn Sie sich nicht sicher sind, was Sie auswählen sollen, lassen Sie diese Einstellung unverändert. Wenn Ihr Gerät gerootet ist, wählen Sie root.\n\nBitte beachten Sie, dass sie den Geräteadministrator vor dem deinstallieren wieder deaktivieren müssen.</string>
-    <string name="setup_device_admin">Geräteadministrator</string>
-    <string name="setup_root">Root</string>
+    <string name="setup_choose_mode_summary">\nBitte beachten Sie, dass sie den Geräteadministrator vor dem deinstallieren wieder deaktivieren müssen.</string>
     <string name="setup_root_failed">Root-Anfrage fehlgeschlagen! Bitte versuchen Sie es erneut oder wechseln Sie den Modus!</string>
     <string name="device_admin">Geräteadministrator</string>
     <string name="device_admin_summary">Sie müssen diesen Geräteadministrator aktivieren oder in den Root-Modus wechseln, damit diese App funktioniert.</string>
@@ -157,7 +154,7 @@
     <string name="pref_draw_over_other_apps">Über anderen Apps anzeigen</string>
     <string name="pref_draw_over_other_apps_summary">Aktivieren oder deaktivieren Sie diese Berechtigung</string>
     <string name="pref_admin">Geräteadministrator</string>
-    <string name="pref_admin_summary">Aktivieren Sie diesen Geräteadministrator für den normalen Modus</string>
+    <string name="pref_admin_summary">Aktivieren Sie diesen Geräteadministrator für den normalen Modus\nBitte beachten Sie, dass sie den Geräteadministrator vor dem deinstallieren wieder deaktivieren müssen!</string>
     <string name="pref_root_mode">Root-Modus</string>
     <string name="pref_root_mode_summary">Aktiviert Root-Funktionalitäten</string>
 

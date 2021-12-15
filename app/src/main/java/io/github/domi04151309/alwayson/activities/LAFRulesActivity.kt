@@ -8,6 +8,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.custom.EditIntegerPreference
+import io.github.domi04151309.alwayson.helpers.Permissions
 import io.github.domi04151309.alwayson.helpers.Theme
 import java.lang.Integer.parseInt
 
@@ -18,9 +19,9 @@ class LAFRulesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.settings, PreferenceFragment())
-                .commit()
+            .beginTransaction()
+            .replace(R.id.settings, PreferenceFragment())
+            .commit()
     }
 
     class PreferenceFragment : PreferenceFragmentCompat() {
@@ -33,24 +34,65 @@ class LAFRulesActivity : AppCompatActivity() {
         private lateinit var rulesTimeout: EditIntegerPreference
 
         private val spChanged: SharedPreferences.OnSharedPreferenceChangeListener =
-                SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
-                    updateSummaries()
-                }
+            SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
+                updateSummaries()
+            }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_rules)
+
+            if (!Permissions.isNotificationServiceEnabled(context ?: return)) {
+                var currentPref: Preference?
+                Permissions.NOTIFICATION_PERMISSION_PREFS.forEach {
+                    currentPref = findPreference(it)
+                    if (currentPref != null) {
+                        currentPref?.isEnabled = false
+                        currentPref?.setSummary(R.string.permissions_notification_access)
+                    }
+                }
+            }
+
+            if (!Permissions.isDeviceAdminOrRoot(context ?: return)) {
+                var currentPref: Preference?
+                Permissions.DEVICE_ADMIN_OR_ROOT_PERMISSION_PREFS.forEach {
+                    currentPref = findPreference(it)
+                    if (currentPref != null) {
+                        currentPref?.isEnabled = false
+                        currentPref?.setSummary(R.string.permissions_device_admin_or_root)
+                    }
+                }
+            }
+
             rulesBatteryLevel = findPreference("rules_battery_level") ?: return
             rulesTime = findPreference("rules_time") ?: return
             rulesTimeout = findPreference("rules_timeout_sec") ?: return
             val is24Hour = !preferenceManager.sharedPreferences.getBoolean("hour", false)
 
             rulesTime.setOnPreferenceClickListener {
-                TimePickerDialog(context, { _, selectedStartHour, selectedStartMinute ->
-                    preferenceManager.sharedPreferences.edit().putString("rules_time_start", formatTime(selectedStartHour, selectedStartMinute)).apply()
-                    TimePickerDialog(context, { _, selectedEndHour, selectedEndMinute ->
-                        preferenceManager.sharedPreferences.edit().putString("rules_time_end", formatTime(selectedEndHour, selectedEndMinute)).apply()
-                    }, parseInt(rulesTimeEndValue.substringBefore(":")), parseInt(rulesTimeEndValue.substringAfter(":")), is24Hour).show()
-                }, parseInt(rulesTimeStartValue.substringBefore(":")), parseInt(rulesTimeStartValue.substringAfter(":")), is24Hour).show()
+                TimePickerDialog(
+                    context,
+                    { _, selectedStartHour, selectedStartMinute ->
+                        preferenceManager.sharedPreferences.edit().putString(
+                            "rules_time_start",
+                            formatTime(selectedStartHour, selectedStartMinute)
+                        ).apply()
+                        TimePickerDialog(
+                            context,
+                            { _, selectedEndHour, selectedEndMinute ->
+                                preferenceManager.sharedPreferences.edit().putString(
+                                    "rules_time_end",
+                                    formatTime(selectedEndHour, selectedEndMinute)
+                                ).apply()
+                            },
+                            parseInt(rulesTimeEndValue.substringBefore(":")),
+                            parseInt(rulesTimeEndValue.substringAfter(":")),
+                            is24Hour
+                        ).show()
+                    },
+                    parseInt(rulesTimeStartValue.substringBefore(":")),
+                    parseInt(rulesTimeStartValue.substringAfter(":")),
+                    is24Hour
+                ).show()
                 true
             }
 
@@ -68,25 +110,43 @@ class LAFRulesActivity : AppCompatActivity() {
         }
 
         private fun updateSummaries() {
-            val rulesBatteryLevelValue = preferenceManager.sharedPreferences.getInt("rules_battery_level", 0)
-            rulesTimeStartValue = preferenceManager.sharedPreferences.getString("rules_time_start", DEFAULT_START_TIME)
-                    ?: DEFAULT_START_TIME
-            rulesTimeEndValue = preferenceManager.sharedPreferences.getString("rules_time_end", DEFAULT_END_TIME)
+            val rulesBatteryLevelValue =
+                preferenceManager.sharedPreferences.getInt("rules_battery_level", 0)
+            rulesTimeStartValue = preferenceManager.sharedPreferences.getString(
+                "rules_time_start",
+                DEFAULT_START_TIME
+            )
+                ?: DEFAULT_START_TIME
+            rulesTimeEndValue =
+                preferenceManager.sharedPreferences.getString("rules_time_end", DEFAULT_END_TIME)
                     ?: DEFAULT_END_TIME
-            val rulesTimeoutValue = preferenceManager.sharedPreferences.getInt("rules_timeout_sec", 0)
+            val rulesTimeoutValue =
+                preferenceManager.sharedPreferences.getInt("rules_timeout_sec", 0)
 
             if (rulesBatteryLevelValue > 100) {
-                preferenceManager.sharedPreferences.edit().putInt("rules_battery_level", 100).apply()
+                preferenceManager.sharedPreferences.edit().putInt("rules_battery_level", 100)
+                    .apply()
                 return
             }
 
-            rulesTime.summary = resources.getString(R.string.pref_look_and_feel_rules_time_summary, rulesTimeStartValue, rulesTimeEndValue)
+            rulesTime.summary = resources.getString(
+                R.string.pref_look_and_feel_rules_time_summary,
+                rulesTimeStartValue,
+                rulesTimeEndValue
+            )
             rulesBatteryLevel.summary =
-                    if (rulesBatteryLevelValue > 0) resources.getString(R.string.pref_look_and_feel_rules_battery_level_summary, rulesBatteryLevelValue)
-                    else resources.getString(R.string.pref_look_and_feel_rules_battery_level_summary_zero)
+                if (rulesBatteryLevelValue > 0) resources.getString(
+                    R.string.pref_look_and_feel_rules_battery_level_summary,
+                    rulesBatteryLevelValue
+                )
+                else resources.getString(R.string.pref_look_and_feel_rules_battery_level_summary_zero)
             rulesTimeout.summary =
-                    if (rulesTimeoutValue > 0) resources.getQuantityString(R.plurals.pref_look_and_feel_rules_timeout_summary, rulesTimeoutValue, rulesTimeoutValue)
-                    else resources.getString(R.string.pref_look_and_feel_rules_timeout_summary_zero)
+                if (rulesTimeoutValue > 0) resources.getQuantityString(
+                    R.plurals.pref_look_and_feel_rules_timeout_summary,
+                    rulesTimeoutValue,
+                    rulesTimeoutValue
+                )
+                else resources.getString(R.string.pref_look_and_feel_rules_timeout_summary_zero)
         }
 
         private fun formatTime(hour: Int, minute: Int): String {
