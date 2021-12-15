@@ -41,9 +41,7 @@
     <string name="pref_disabled">Derzeit deaktiviert</string>
     <string name="pref_always_on">Always On Display</string>
 
-    <string name="pref_categories">Kategorien</string>
     <string name="pref_look_and_feel">Erscheinungsbild</string>
-    <string name="pref_look_and_feel_summary">Einstellungen in Bezug auf das Erscheinungsbild</string>
 
     <string name="pref_ao_watch_face">Zifferblatt</string>
     <string name="pref_ao_watch_face_summary">Einstellungen bezüglich des Zifferblatts</string>
@@ -52,7 +50,6 @@
     <string name="pref_ao_behavior">Verhalten</string>
     <string name="pref_ao_behavior_summary">Einstellungen bezüglich des Verhaltens</string>
     <string name="pref_ao_other">Andere Einstellungen</string>
-    <string name="pref_ao_other_summary">Andere Einstellungen der App</string>
 
     <string name="pref_look_and_feel_dark">Dunkler Modus</string>
     <string name="pref_look_and_feel_dark_summary">Ändert das Aussehen der App zu einem dunklen Stil</string>

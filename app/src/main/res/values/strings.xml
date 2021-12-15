@@ -42,9 +42,7 @@
     <string name="pref_disabled">Currently disabled</string>
     <string name="pref_always_on">Always on display</string>
 
-    <string name="pref_categories">Categories</string>
     <string name="pref_look_and_feel">Look and feel</string>
-    <string name="pref_look_and_feel_summary">Settings related to the look and feel</string>
 
     <string name="pref_ao_watch_face">Watch face</string>
     <string name="pref_ao_watch_face_summary">Settings related to the watch face of the AOD</string>
@@ -53,7 +51,6 @@
     <string name="pref_ao_behavior">Behavior</string>
     <string name="pref_ao_behavior_summary">Settings related to the behavior of the app</string>
     <string name="pref_ao_other">Other settings</string>
-    <string name="pref_ao_other_summary">Other settings of the app</string>
 
     <string name="pref_look_and_feel_dark">Dark mode</string>
     <string name="pref_look_and_feel_dark_summary">Changes the look of the app to a dark style</string>

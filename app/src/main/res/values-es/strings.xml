@@ -38,9 +38,7 @@
     <string name="pref_disabled">Actualmente desactivado</string>
     <string name="pref_always_on">Always on display</string>
 
-    <string name="pref_categories">Categorías</string>
     <string name="pref_look_and_feel">Look and feel</string>
-    <string name="pref_look_and_feel_summary">Ajustes relacionados con el aspecto y la sensación</string>
 
     <string name="pref_ao_watch_face">Esfera de reloj</string>
     <string name="pref_ao_watch_face_summary">Ajustes relacionados con la esfera del reloj del AOD</string>
@@ -49,7 +47,6 @@
     <string name="pref_ao_behavior">Comportamiento</string>
     <string name="pref_ao_behavior_summary">Ajustes relacionados con el comportamiento de la aplicación</string>
     <string name="pref_ao_other">Otros ajustes</string>
-    <string name="pref_ao_other_summary">Otros ajustes de la aplicación</string>
 
     <string name="pref_look_and_feel_hour">Utiliza el reloj de 12 horas</string>
     <string name="pref_look_and_feel_hour_summary_on">Actualmente usado: Reloj de 12 horas</string>

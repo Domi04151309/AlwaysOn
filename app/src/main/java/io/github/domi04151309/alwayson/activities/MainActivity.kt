@@ -59,11 +59,13 @@ class MainActivity : AppCompatActivity() {
 
     private val isDeviceAdminOrRoot: Boolean
         get() {
-            return if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode", false)) {
+            return if (PreferenceManager.getDefaultSharedPreferences(this)
+                    .getBoolean("root_mode", false)
+            ) {
                 true
             } else {
                 (getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager)
-                        .isAdminActive(ComponentName(this, AdminReceiver::class.java))
+                    .isAdminActive(ComponentName(this, AdminReceiver::class.java))
             }
         }
 
@@ -78,16 +80,19 @@ class MainActivity : AppCompatActivity() {
         actionBar.elevation = 0f
 
         supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.settings, GeneralPreferenceFragment())
-                .commit()
+            .beginTransaction()
+            .replace(R.id.settings, GeneralPreferenceFragment())
+            .commit()
 
         if (!isNotificationServiceEnabled) buildDialog(NOTIFICATION_ACCESS_DIALOG)
         if (applicationContext.checkSelfPermission(Manifest.permission.READ_PHONE_STATE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    arrayOf(Manifest.permission.READ_PHONE_STATE),
-                    0)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.READ_PHONE_STATE),
+                0
+            )
         }
 
         ContextCompat.startForegroundService(this, Intent(this, ForegroundService::class.java))
@@ -154,19 +159,42 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        startActivity(Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        startActivity(
+            Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        )
     }
 
     class GeneralPreferenceFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_main)
             findPreference<Preference>("always_on")?.setOnPreferenceClickListener {
-                TileService.requestListeningState(context, ComponentName(requireContext(), AlwaysOnTileService::class.java))
-                LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(Intent().setAction(Global.ALWAYS_ON_STATE_CHANGED))
+                TileService.requestListeningState(
+                    context,
+                    ComponentName(requireContext(), AlwaysOnTileService::class.java)
+                )
+                LocalBroadcastManager.getInstance(requireContext())
+                    .sendBroadcast(Intent().setAction(Global.ALWAYS_ON_STATE_CHANGED))
                 true
             }
-            findPreference<Preference>("pref_look_and_feel")?.setOnPreferenceClickListener {
-                startActivity(Intent(context, LookAndFeelActivity::class.java))
+            findPreference<Preference>("pref_watch_face")?.setOnPreferenceClickListener {
+                startActivity(Intent(context, LAFWatchFaceActivity::class.java))
+                true
+            }
+            findPreference<Preference>("pref_background")?.setOnPreferenceClickListener {
+                startActivity(Intent(context, LAFBackgroundActivity::class.java))
+                true
+            }
+            findPreference<Preference>("rules")?.setOnPreferenceClickListener {
+                startActivity(Intent(context, LAFRulesActivity::class.java))
+                true
+            }
+            findPreference<Preference>("pref_behavior")?.setOnPreferenceClickListener {
+                startActivity(Intent(context, LAFBehaviorActivity::class.java))
+                true
+            }
+            findPreference<Preference>("dark_mode")?.setOnPreferenceClickListener {
+                activity?.recreate()
                 true
             }
             findPreference<Preference>("pref_permissions")?.setOnPreferenceClickListener {

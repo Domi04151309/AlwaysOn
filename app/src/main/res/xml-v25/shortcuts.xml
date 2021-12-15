@@ -1,41 +1,54 @@
 <shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
     <shortcut
-        android:shortcutId="look_and_feel"
+        android:shortcutId="watch_face"
         android:enabled="true"
         android:icon="@mipmap/ic_shortcut"
-        android:shortcutShortLabel="@string/pref_look_and_feel"
-        android:shortcutLongLabel="@string/pref_look_and_feel"
+        android:shortcutShortLabel="@string/pref_ao_watch_face"
+        android:shortcutLongLabel="@string/pref_ao_watch_face"
         android:shortcutDisabledMessage="@string/shortcut_disabled">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.alwayson.activities.LookAndFeelActivity" />
+            android:targetClass="io.github.domi04151309.alwayson.activities.LAFWatchFaceActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
     <shortcut
-        android:shortcutId="permissions"
+        android:shortcutId="background"
         android:enabled="true"
         android:icon="@mipmap/ic_shortcut"
-        android:shortcutShortLabel="@string/pref_permissions"
-        android:shortcutLongLabel="@string/pref_permissions"
+        android:shortcutShortLabel="@string/pref_ao_background"
+        android:shortcutLongLabel="@string/pref_ao_background"
         android:shortcutDisabledMessage="@string/shortcut_disabled">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.alwayson.activities.PermissionsActivity" />
+            android:targetClass="io.github.domi04151309.alwayson.activities.LAFBackgroundActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
     <shortcut
-        android:shortcutId="about"
+        android:shortcutId="rules"
         android:enabled="true"
         android:icon="@mipmap/ic_shortcut"
-        android:shortcutShortLabel="@string/about"
-        android:shortcutLongLabel="@string/about"
+        android:shortcutShortLabel="@string/pref_look_and_feel_rules"
+        android:shortcutLongLabel="@string/pref_look_and_feel_rules"
         android:shortcutDisabledMessage="@string/shortcut_disabled">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.alwayson.activities.AboutActivity" />
+            android:targetClass="io.github.domi04151309.alwayson.activities.LAFRulesActivity" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="behavior"
+        android:enabled="true"
+        android:icon="@mipmap/ic_shortcut"
+        android:shortcutShortLabel="@string/pref_ao_behavior"
+        android:shortcutLongLabel="@string/pref_ao_behavior"
+        android:shortcutDisabledMessage="@string/shortcut_disabled">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="io.github.domi04151309.alwayson"
+            android:targetClass="io.github.domi04151309.alwayson.activities.LAFBehaviorActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 </shortcuts>

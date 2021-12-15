@@ -11,12 +11,37 @@
             android:title="@string/pref_always_on" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/pref_categories" >
+    <PreferenceCategory android:title="@string/pref_look_and_feel">
+
         <Preference
+            android:icon="@drawable/ic_clock"
+            android:key="pref_watch_face"
+            android:summary="@string/pref_ao_watch_face_summary"
+            android:title="@string/pref_ao_watch_face" />
+        <Preference
+            android:icon="@drawable/ic_smartphone"
+            android:key="pref_background"
+            android:summary="@string/pref_ao_background_summary"
+            android:title="@string/pref_ao_background" />
+        <Preference
+            android:icon="@drawable/ic_build"
+            android:key="rules"
+            android:summary="@string/pref_look_and_feel_rules_summary"
+            android:title="@string/pref_look_and_feel_rules" />
+        <Preference
+            android:icon="@drawable/ic_speed"
+            android:key="pref_behavior"
+            android:summary="@string/pref_ao_behavior_summary"
+            android:title="@string/pref_ao_behavior" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_ao_other" >
+        <SwitchPreference
+            android:defaultValue="false"
             android:icon="@drawable/ic_palette"
-            android:key="pref_look_and_feel"
-            android:summary="@string/pref_look_and_feel_summary"
-            android:title="@string/pref_look_and_feel" />
+            android:key="dark_mode"
+            android:summary="@string/pref_look_and_feel_dark_summary"
+            android:title="@string/pref_look_and_feel_dark" />
         <Preference
             android:icon="@drawable/ic_security"
             android:key="pref_permissions"

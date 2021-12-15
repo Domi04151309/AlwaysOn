@@ -33,7 +33,7 @@
             android:name=".activities.LAFRulesActivity"
             android:label="@string/pref_look_and_feel_rules"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.LookAndFeelActivity" />
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.LAFFilterNotificationsActivity"
             android:label="@string/pref_look_and_feel_filter_notifications"
@@ -133,11 +133,6 @@
             android:name=".activities.MainActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".activities.LookAndFeelActivity"
-            android:label="@string/pref_look_and_feel"
-            android:launchMode="singleTop"
-            android:parentActivityName=".activities.MainActivity" />
-        <activity
             android:name=".activities.PermissionsActivity"
             android:label="@string/pref_permissions"
             android:launchMode="singleTop"
@@ -181,12 +176,12 @@
             android:name=".activities.LAFWatchFaceActivity"
             android:label="@string/pref_ao_watch_face"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.LookAndFeelActivity" />
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.LAFBackgroundActivity"
             android:label="@string/pref_ao_background"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.LookAndFeelActivity" />
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.LAFBackgroundImageActivity"
             android:label="@string/pref_ao_background_image"
@@ -196,12 +191,7 @@
             android:name=".activities.LAFBehaviorActivity"
             android:label="@string/pref_ao_behavior"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.LookAndFeelActivity" />
-        <activity
-            android:name=".activities.LAFOtherActivity"
-            android:label="@string/pref_ao_other"
-            android:launchMode="singleTop"
-            android:parentActivityName=".activities.LookAndFeelActivity" />
+            android:parentActivityName=".activities.MainActivity" />
     </application>
 
 </manifest>
