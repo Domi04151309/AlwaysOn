@@ -97,6 +97,7 @@
             android:name="io.github.domi04151309.alwayson.services.AlwaysOnTileService"
             android:icon="@drawable/ic_always_on_black"
             android:label="@string/AlwaysOn"
+            android:exported="true"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
@@ -150,6 +151,7 @@
         <service
             android:name=".services.NotificationService"
             android:label="@string/notification_listener_description"
+            android:exported="true"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
@@ -171,6 +173,7 @@
             android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.SplashActivity"
+            android:exported="true"
             android:theme="@style/AppThemeSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -193,6 +196,7 @@
 
         <receiver
             android:name="io.github.domi04151309.alwayson.receivers.AlwaysOnAppWidgetProvider"
+            android:exported="true"
             android:label="@string/AlwaysOn">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -202,7 +206,9 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/always_on_widget_info" />
         </receiver>
-        <receiver android:name=".receivers.PhoneStateReceiver">
+        <receiver
+            android:name=".receivers.PhoneStateReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PHONE_STATE" />
             </intent-filter>
