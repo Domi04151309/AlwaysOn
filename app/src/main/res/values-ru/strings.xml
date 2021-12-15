@@ -13,8 +13,6 @@
     <string name="notification_listener_service_summary">Вам необходимо включить службу проверки уведомлений для приложения, чтобы отображать счетчик уведомлений на экране Always On Display.</string>
     <string name="setup_draw_over_other_apps">Показывать поверх других приложений</string>
     <string name="setup_draw_over_other_apps_summary">Это разрешение требуется для отображения Always On Display</string>
-    <string name="setup_finish">Завершить настройку</string>
-    <string name="setup_finish_summary">Все настроено. Пожалуйста, нажмите «Продолжить», чтобы завершить настройку.</string>
     <string name="setup_continue">Продолжить</string>
     <string name="setup_error">Что-то пошло не так! Пожалуйста, попробуйте еще раз!</string>
 

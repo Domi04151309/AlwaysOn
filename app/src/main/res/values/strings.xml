@@ -15,8 +15,6 @@
     <string name="setup_draw_over_other_apps_summary">This permission is required to show the always on display.</string>
     <string name="setup_phone_state">Read phone state</string>
     <string name="setup_phone_state_summary">This permission is required to stop the always on display for incoming calls.</string>
-    <string name="setup_finish">Finish Setup</string>
-    <string name="setup_finish_summary">Everything is set up. Please click continue to finish the setup.</string>
     <string name="setup_continue">Continue</string>
     <string name="setup_error">Something went wrong! Please try again!</string>
 

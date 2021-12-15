@@ -13,8 +13,6 @@
     <string name="notification_listener_service_summary">Necesitas habilitar el acceso a las notificaciones para que la aplicación muestre tus notificaciones en la pantalla siempre encendida.</string>
     <string name="setup_draw_over_other_apps">Mostrar sobre otras aplicaciones</string>
     <string name="setup_draw_over_other_apps_summary">Este permiso es necesario para mostrar el siempre en pantalla.</string>
-    <string name="setup_finish">Finalizar la configuración</string>
-    <string name="setup_finish_summary">Todo está preparado. Por favor, haga clic en continuar para terminar la configuración.</string>
     <string name="setup_continue">Continuar</string>
     <string name="setup_error">¡Algo salió mal! ¡Por favor, inténtalo de nuevo!</string>
 

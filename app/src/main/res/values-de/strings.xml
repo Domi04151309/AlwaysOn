@@ -6,7 +6,6 @@
     <string name="service_channel">Servicekanal</string>
 
     <string name="setup_header">Setup</string>
-    <string name="setup_choose_mode_summary">\nBitte beachten Sie, dass sie den Geräteadministrator vor dem deinstallieren wieder deaktivieren müssen.</string>
     <string name="setup_root_failed">Root-Anfrage fehlgeschlagen! Bitte versuchen Sie es erneut oder wechseln Sie den Modus!</string>
     <string name="device_admin">Geräteadministrator</string>
     <string name="device_admin_summary">Sie müssen diesen Geräteadministrator aktivieren oder in den Root-Modus wechseln, damit diese App funktioniert.</string>
@@ -16,8 +15,6 @@
     <string name="setup_draw_over_other_apps_summary">Diese Berechtigung ist erforderlich, um das Always On Display anzuzeigen.</string>
     <string name="setup_phone_state">Telefoniestatus abrufen</string>
     <string name="setup_phone_state_summary">Diese Berechtigung ist erforderlich, um das Always On Display für eingehende Anrufe zu stoppen.</string>
-    <string name="setup_finish">Setup beenden</string>
-    <string name="setup_finish_summary">Alles ist eingerichtet. Bitte klicken Sie auf Weiter, um die Einrichtung abzuschließen.</string>
     <string name="setup_continue">Weiter</string>
     <string name="setup_error">Etwas ist schief gelaufen! Bitte versuchen Sie es erneut!</string>
 

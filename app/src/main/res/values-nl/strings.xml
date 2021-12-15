@@ -13,8 +13,6 @@
     <string name="notification_listener_service_summary">Schakel de meldingsdienst in om het aantal meldingen te tonen op het altijdaan-scherm.</string>
     <string name="setup_draw_over_other_apps">Weergeven vóór andere apps</string>
     <string name="setup_draw_over_other_apps_summary">Deze machtiging is vereist om het altijdaan-scherm te kunnen tonen.</string>
-    <string name="setup_finish">Instelhulp afronden</string>
-    <string name="setup_finish_summary">Alles is ingesteld. Druk op \‘Afronden\’ om de instelhulp af te sluiten.</string>
     <string name="setup_continue">Afronden</string>
     <string name="setup_error">Er is iets misgegaan! Probeer het opnieuw.</string>
 

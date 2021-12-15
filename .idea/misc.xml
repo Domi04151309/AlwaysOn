@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/domin/Documents/GitHub/AlwaysOn/app/src/main/res/layout/activity_setup.xml" value="0.259375" />
+        <entry key="..\:/Users/domin/Documents/GitHub/AlwaysOn/app/src/main/res/layout/fragment_setup_draw_over_other_apps.xml" value="0.259375" />
         <entry key="..\:/Users/domin/Documents/GitHub/AlwaysOn/app/src/main/res/layout/fragment_setup_mode.xml" value="0.10833333333333334" />
+        <entry key="..\:/Users/domin/Documents/GitHub/AlwaysOn/app/src/main/res/layout/fragment_setup_phone_state.xml" value="0.259375" />
         <entry key="..\:/Users/domin/Documents/GitHub/AlwaysOn/app/src/main/res/layout/layout_list_item.xml" value="0.259375" />
         <entry key="..\:/Users/domin/Documents/GitHub/AlwaysOn/app/src/main/res/xml/pref_laf_background.xml" value="0.259375" />
         <entry key="..\:/Users/domin/Documents/GitHub/AlwaysOn/app/src/main/res/xml/pref_laf_other.xml" value="0.259375" />

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="setup_header">144dp</dimen>
+    <dimen name="setup_header">192dp</dimen>
     <dimen name="setup_corner">16dp</dimen>
     <dimen name="setup_icon_size">192dp</dimen>
 

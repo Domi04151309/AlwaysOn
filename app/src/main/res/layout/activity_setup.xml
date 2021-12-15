@@ -10,10 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/setup_header"
         android:gravity="bottom"
-        android:padding="?dialogPreferredPadding"
+        android:padding="32dp"
         android:text="@string/setup_header"
         android:textColor="@android:color/white"
-        android:textSize="36sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="?dialogPreferredPadding" />
+            android:padding="32dp" />
 
         <Button
             android:id="@+id/continueBtn"

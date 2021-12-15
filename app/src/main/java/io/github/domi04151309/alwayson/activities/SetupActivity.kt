@@ -54,12 +54,9 @@ class SetupActivity : AppCompatActivity() {
                             0
                         )
                     } else {
-                        swapContentFragment(FinishFragment(), FINISH_FRAGMENT)
+                        prefsEditor.putBoolean("setup_complete", true).apply()
+                        startActivity(Intent(this, MainActivity::class.java))
                     }
-                }
-                FINISH_FRAGMENT -> {
-                    prefsEditor.putBoolean("setup_complete", true).apply()
-                    startActivity(Intent(this, MainActivity::class.java))
                 }
             }
         }
@@ -99,6 +96,5 @@ class SetupActivity : AppCompatActivity() {
         const val NO_FRAGMENT: Byte = 0
         const val DRAW_OVER_OTHER_APPS_FRAGMENT: Byte = 1
         const val PHONE_STATE_FRAGMENT: Byte = 2
-        const val FINISH_FRAGMENT: Byte = 3
     }
 }
