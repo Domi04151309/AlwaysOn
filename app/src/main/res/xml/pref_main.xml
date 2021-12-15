@@ -9,20 +9,6 @@
             android:summaryOff="@string/pref_disabled"
             android:summaryOn="@string/pref_enabled"
             android:title="@string/pref_always_on" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:icon="@drawable/ic_headset"
-            android:key="headphone_animation"
-            android:summaryOff="@string/pref_disabled"
-            android:summaryOn="@string/pref_enabled"
-            android:title="@string/pref_headphones" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:icon="@drawable/ic_charging"
-            android:key="charging_animation"
-            android:summaryOff="@string/pref_disabled"
-            android:summaryOn="@string/pref_enabled"
-            android:title="@string/pref_charging" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_categories" >

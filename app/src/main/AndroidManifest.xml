@@ -44,10 +44,6 @@
             android:label="@string/pref_ao_force_brightness_title"
             android:parentActivityName=".activities.LAFBehaviorActivity" />
         <activity
-            android:name=".activities.LAFChargingLookActivity"
-            android:label="@string/pref_look_and_feel_charging"
-            android:parentActivityName=".activities.LookAndFeelActivity" />
-        <activity
             android:name=".activities.LAFAlwaysOnLookActivity"
             android:label="@string/pref_look_and_feel_ao"
             android:parentActivityName=".activities.LAFWatchFaceActivity" />
@@ -118,31 +114,6 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".actions.ChargingFlashActivity"
-            android:configChanges="orientation|screenSize"
-            android:excludeFromRecents="true"
-            android:launchMode="singleInstance"
-            android:showOnLockScreen="true"
-            android:taskAffinity=""
-            android:theme="@style/AppThemeScreenOff" />
-        <activity
-            android:name=".actions.ChargingCircleActivity"
-            android:configChanges="orientation|screenSize"
-            android:excludeFromRecents="true"
-            android:launchMode="singleInstance"
-            android:showOnLockScreen="true"
-            android:taskAffinity=""
-            android:theme="@style/AppThemeScreenOff" />
-        <activity
-            android:name=".actions.HeadsetActivity"
-            android:configChanges="orientation|screenSize"
-            android:excludeFromRecents="true"
-            android:launchMode="singleInstance"
-            android:showOnLockScreen="true"
-            android:taskAffinity=""
-            android:theme="@style/AppThemeScreenOff" />
-
         <service
             android:name=".services.ForegroundService"
             android:enabled="true"
@@ -185,14 +156,6 @@
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
-        <activity
-            android:name=".actions.ChargingIOSActivity"
-            android:configChanges="orientation|screenSize"
-            android:excludeFromRecents="true"
-            android:launchMode="singleInstance"
-            android:showOnLockScreen="true"
-            android:taskAffinity=""
-            android:theme="@style/AppThemeScreenOff" />
 
         <receiver
             android:name="io.github.domi04151309.alwayson.receivers.AlwaysOnAppWidgetProvider"

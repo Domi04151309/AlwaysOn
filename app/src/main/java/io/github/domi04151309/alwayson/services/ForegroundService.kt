@@ -20,13 +20,16 @@ class ForegroundService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        val filter = IntentFilter(Intent.ACTION_HEADSET_PLUG)
+        val filter = IntentFilter()
         filter.addAction(Intent.ACTION_POWER_CONNECTED)
         filter.addAction(Intent.ACTION_POWER_DISCONNECTED)
         filter.addAction(Intent.ACTION_SCREEN_OFF)
         filter.addAction(Intent.ACTION_SCREEN_ON)
         registerReceiver(combinedServiceReceiver, filter)
-        TileService.requestListeningState(this, ComponentName(this, AlwaysOnTileService::class.java))
+        TileService.requestListeningState(
+            this,
+            ComponentName(this, AlwaysOnTileService::class.java)
+        )
     }
 
     override fun onDestroy() {
@@ -36,13 +39,15 @@ class ForegroundService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         createNotificationChannel()
-        startForeground(1,
-                NotificationCompat.Builder(this, CHANNEL_ID)
-                        .setContentText(resources.getString(R.string.service_text))
-                        .setSmallIcon(R.drawable.ic_always_on_black)
-                        .setColor(ContextCompat.getColor(this, R.color.colorAccent))
-                        .setShowWhen(false)
-                        .build())
+        startForeground(
+            1,
+            NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentText(resources.getString(R.string.service_text))
+                .setSmallIcon(R.drawable.ic_always_on_black)
+                .setColor(ContextCompat.getColor(this, R.color.colorAccent))
+                .setShowWhen(false)
+                .build()
+        )
         return START_REDELIVER_INTENT
     }
 
@@ -53,9 +58,9 @@ class ForegroundService : Service() {
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                    CHANNEL_ID,
-                    resources.getString(R.string.service_channel),
-                    NotificationManager.IMPORTANCE_LOW
+                CHANNEL_ID,
+                resources.getString(R.string.service_channel),
+                NotificationManager.IMPORTANCE_LOW
             )
             channel.setShowBadge(false)
             getSystemService(NotificationManager::class.java)?.createNotificationChannel(channel)

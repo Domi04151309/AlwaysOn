@@ -7,9 +7,4 @@
         android:key="dark_mode"
         android:summary="@string/pref_look_and_feel_dark_summary"
         android:title="@string/pref_look_and_feel_dark" />
-    <Preference
-        android:icon="@drawable/ic_charging"
-        android:key="charging_style"
-        android:summary="@string/pref_look_and_feel_charging_summary"
-        android:title="@string/pref_look_and_feel_charging" />
 </PreferenceScreen>
