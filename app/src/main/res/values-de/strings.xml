@@ -28,11 +28,7 @@
 
     <string name="AlwaysOn">Always On Display</string>
 
-    <string name="chargingState_error">Ladezustand kann nicht angezeigt werden</string>
-    <string name="battery">\??%</string>
     <string name="date">EEE, MMM d</string>
-    <string name="percent">%1$d%%</string>
-    <string name="charged">%1$d%% geladen</string>
     <string name="music">%1$s - %2$s</string>
 
     <string name="shortcut_disabled">Deaktiviert</string>
@@ -44,8 +40,6 @@
     <string name="pref_enabled">Derzeit aktiviert</string>
     <string name="pref_disabled">Derzeit deaktiviert</string>
     <string name="pref_always_on">Always On Display</string>
-    <string name="pref_headphones">Kopfhöreranimation</string>
-    <string name="pref_charging">Ladeanimation</string>
 
     <string name="pref_categories">Kategorien</string>
     <string name="pref_look_and_feel">Erscheinungsbild</string>
@@ -122,9 +116,6 @@
     <string name="pref_ao_date_format_dialog_text">Du musst einem bestimmten Muster folgen</string>
     <string name="pref_ao_date_format_dialog_neutral">Mehr erfahren</string>
     <string name="pref_ao_date_format_illegal">Illegales Format</string>
-
-    <string name="pref_look_and_feel_charging">Aussehen der Ladeanimation</string>
-    <string name="pref_look_and_feel_charging_summary">Ändert das Aussehen der Ladeanimation</string>
 
     <string name="pref_ao_background_image">Hintergrundbild</string>
     <string name="pref_ao_background_image_summary">Ändert das Hintergurndbild des AODs</string>

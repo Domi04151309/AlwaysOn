@@ -27,11 +27,13 @@ class AODTestActivity : Activity() {
         view.onTitleClicked = {
             Toast.makeText(this, "center", Toast.LENGTH_SHORT).show()
         }
-        view.setNotificationData(4, arrayListOf(
+        view.setNotificationData(
+            4, arrayListOf(
                 Icon.createWithResource(this, R.drawable.ic_notification),
                 Icon.createWithResource(this, R.drawable.ic_notification),
                 Icon.createWithResource(this, R.drawable.ic_notification),
                 Icon.createWithResource(this, R.drawable.ic_notification)
-        ))
+            )
+        )
     }
 }

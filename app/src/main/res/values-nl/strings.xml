@@ -26,11 +26,7 @@
 
     <string name="AlwaysOn">Altijdaan-scherm</string>
 
-    <string name="chargingState_error">De huidige oplaadstatus kan niet worden getoond</string>
-    <string name="battery">\??%</string>
     <string name="date">d MMM EEE</string>
-    <string name="percent">%1$d%%</string>
-    <string name="charged">%1$d%% opgeladen</string>
 
     <string name="shortcut_disabled">Uitgeschakeld</string>
 
@@ -41,8 +37,6 @@
     <string name="pref_enabled">Ingeschakeld</string>
     <string name="pref_disabled">Uitgeschakeld</string>
     <string name="pref_always_on">Altijdaan-scherm</string>
-    <string name="pref_headphones">Koptelefoonanimatie</string>
-    <string name="pref_charging">Oplaadanimatie</string>
 
     <string name="pref_categories">Categorieën</string>
     <string name="pref_look_and_feel">Uiterlijk</string>
@@ -85,8 +79,6 @@
     <string name="pref_ao_double_tap_disabled">Dubbelklik uitschakelen</string>
     <string name="pref_ao_double_tap_disabled_summary">Schakelt dubbeltikken uit om Always On Display te sluiten (niet aanbevolen)</string>
 
-    <string name="pref_look_and_feel_charging">Oplaadanimatiestijl</string>
-    <string name="pref_look_and_feel_charging_summary">Pas de stijl aan van de oplaadanimatie</string>
     <string name="pref_look_and_feel_hide_display_cutouts">Scherminkepingen verbergen</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Verberg scherminkepingen bij beeldvullende inhoud</string>
 

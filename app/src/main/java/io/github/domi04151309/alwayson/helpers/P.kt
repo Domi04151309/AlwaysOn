@@ -49,8 +49,6 @@ internal class P(val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_FINGERPRINT = "display_color_fingerprint"
         const val DISPLAY_COLOR_EDGE_GLOW = "display_color_edge_glow"
 
-        const val CHARGING_STYLE = "charging_style"
-
         const val RULES_CHARGING_STATE_CHARGING = "charging"
         const val RULES_CHARGING_STATE_DISCHARGING = "discharging"
 
@@ -81,10 +79,6 @@ internal class P(val prefs: SharedPreferences) {
         const val BACKGROUND_IMAGE_TYLER_LASTOVICH_1 = "tyler_lastovich_1"
         const val BACKGROUND_IMAGE_TYLER_LASTOVICH_2 = "tyler_lastovich_2"
         const val BACKGROUND_IMAGE_TYLER_LASTOVICH_3 = "tyler_lastovich_3"
-
-        const val CHARGING_STYLE_CIRCLE = "circle"
-        const val CHARGING_STYLE_FLASH = "flash"
-        const val CHARGING_STYLE_IOS = "ios"
 
         const val RULES_CHARGING_STATE_DEFAULT = "always"
         const val RULES_BATTERY_DEFAULT = 0
@@ -121,7 +115,5 @@ internal class P(val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_MESSAGE_DEFAULT = -1
         const val DISPLAY_COLOR_FINGERPRINT_DEFAULT = -1
         const val DISPLAY_COLOR_EDGE_GLOW_DEFAULT = -1
-
-        const val CHARGING_STYLE_DEFAULT = CHARGING_STYLE_CIRCLE
     }
 }

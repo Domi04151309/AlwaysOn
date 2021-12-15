@@ -4,7 +4,6 @@
     <color name="colorAccent">#2962FF</color>
     <color name="navigationBarColor">#000001</color>
     <color name="charging">#55D769</color>
-    <color name="progressBackground">#333</color>
 
     <color name="on">#64DD17</color>
     <color name="off">#d50000</color>

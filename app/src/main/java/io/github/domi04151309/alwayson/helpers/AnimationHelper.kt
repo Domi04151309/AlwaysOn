@@ -4,7 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 
-class AnimationHelper() {
+class AnimationHelper {
 
     companion object {
         private const val FRAME_RATE: Int = 15

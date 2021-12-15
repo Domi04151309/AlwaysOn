@@ -14,8 +14,6 @@
     <dimen name="aod_spacing_8">8dp</dimen>
     <dimen name="aod_fingerprint_size">64dp</dimen>
 
-    <dimen name="charging_progress_width">4dp</dimen>
-
     <dimen name="about_item_margin">16dp</dimen>
     <dimen name="about_divider_margin">32dp</dimen>
     <dimen name="header_icon_height">48dp</dimen>

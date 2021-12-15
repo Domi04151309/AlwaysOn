@@ -72,7 +72,11 @@ class AlwaysOnCustomView : View {
     /*
      * Initialization
      */
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
+        context,
+        attrs,
+        defStyle
+    ) {
         init(context)
     }
 
@@ -144,37 +148,47 @@ class AlwaysOnCustomView : View {
         }
 
         if (prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT) != P.BACKGROUND_IMAGE_NONE) {
-            setBackgroundResource(when (prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT)) {
-                P.BACKGROUND_IMAGE_DANIEL_OLAH_1 -> R.drawable.unsplash_daniel_olah_1
-                P.BACKGROUND_IMAGE_DANIEL_OLAH_2 -> R.drawable.unsplash_daniel_olah_2
-                P.BACKGROUND_IMAGE_DANIEL_OLAH_3 -> R.drawable.unsplash_daniel_olah_3
-                P.BACKGROUND_IMAGE_DANIEL_OLAH_4 -> R.drawable.unsplash_daniel_olah_4
-                P.BACKGROUND_IMAGE_DANIEL_OLAH_5 -> R.drawable.unsplash_daniel_olah_5
-                P.BACKGROUND_IMAGE_DANIEL_OLAH_6 -> R.drawable.unsplash_daniel_olah_6
-                P.BACKGROUND_IMAGE_DANIEL_OLAH_7 -> R.drawable.unsplash_daniel_olah_7
-                P.BACKGROUND_IMAGE_DANIEL_OLAH_8 -> R.drawable.unsplash_daniel_olah_8
-                P.BACKGROUND_IMAGE_FILIP_BAOTIC_1 -> R.drawable.unsplash_filip_baotic_1
-                P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1 -> R.drawable.unsplash_tyler_lastovich_1
-                P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2 -> R.drawable.unsplash_tyler_lastovich_2
-                P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3 -> R.drawable.unsplash_tyler_lastovich_3
-                else -> android.R.color.black
-            })
+            setBackgroundResource(
+                when (prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT)) {
+                    P.BACKGROUND_IMAGE_DANIEL_OLAH_1 -> R.drawable.unsplash_daniel_olah_1
+                    P.BACKGROUND_IMAGE_DANIEL_OLAH_2 -> R.drawable.unsplash_daniel_olah_2
+                    P.BACKGROUND_IMAGE_DANIEL_OLAH_3 -> R.drawable.unsplash_daniel_olah_3
+                    P.BACKGROUND_IMAGE_DANIEL_OLAH_4 -> R.drawable.unsplash_daniel_olah_4
+                    P.BACKGROUND_IMAGE_DANIEL_OLAH_5 -> R.drawable.unsplash_daniel_olah_5
+                    P.BACKGROUND_IMAGE_DANIEL_OLAH_6 -> R.drawable.unsplash_daniel_olah_6
+                    P.BACKGROUND_IMAGE_DANIEL_OLAH_7 -> R.drawable.unsplash_daniel_olah_7
+                    P.BACKGROUND_IMAGE_DANIEL_OLAH_8 -> R.drawable.unsplash_daniel_olah_8
+                    P.BACKGROUND_IMAGE_FILIP_BAOTIC_1 -> R.drawable.unsplash_filip_baotic_1
+                    P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1 -> R.drawable.unsplash_tyler_lastovich_1
+                    P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2 -> R.drawable.unsplash_tyler_lastovich_2
+                    P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3 -> R.drawable.unsplash_tyler_lastovich_3
+                    else -> android.R.color.black
+                }
+            )
         }
 
         clockFormat = SimpleDateFormat(
-                if (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT) == P.USER_THEME_SAMSUNG || prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT) == P.USER_THEME_ONEPLUS) {
-                    if (prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
-                        if (prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) "hh\nmm\na"
-                        else "hh\nmm"
-                    } else "HH\nmm"
-                } else {
-                    if (prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
-                        if (prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) "h:mm a"
-                        else "h:mm"
-                    } else "H:mm"
-                }, Locale.getDefault()
+            if (prefs.get(
+                    P.USER_THEME,
+                    P.USER_THEME_DEFAULT
+                ) == P.USER_THEME_SAMSUNG || prefs.get(
+                    P.USER_THEME,
+                    P.USER_THEME_DEFAULT
+                ) == P.USER_THEME_ONEPLUS
+            ) {
+                if (prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
+                    if (prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) "hh\nmm\na"
+                    else "hh\nmm"
+                } else "HH\nmm"
+            } else {
+                if (prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
+                    if (prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) "h:mm a"
+                    else "h:mm"
+                } else "H:mm"
+            }, Locale.getDefault()
         )
-        dateFormat = SimpleDateFormat(prefs.get(P.DATE_FORMAT, P.DATE_FORMAT_DEFAULT), Locale.getDefault())
+        dateFormat =
+            SimpleDateFormat(prefs.get(P.DATE_FORMAT, P.DATE_FORMAT_DEFAULT), Locale.getDefault())
         message = prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT)
     }
 
@@ -192,12 +206,13 @@ class AlwaysOnCustomView : View {
                 else this
             }
         if (prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
-            if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getTextHeight(bigTextSize) + padding16
+            if (flags[FLAG_SAMSUNG_3]) currentHeight =
+                tempHeight + getTextHeight(bigTextSize) + padding16
             else currentHeight += getTextHeight(if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize) + 2 * padding2
         }
         if (
-                prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)
-                || prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)
+            prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)
+            || prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)
         )
             currentHeight += getTextHeight(mediumTextSize) + 2 * padding16
         if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT))
@@ -233,14 +248,21 @@ class AlwaysOnCustomView : View {
             if (flags[FLAG_ANALOG_CLOCK]) {
                 currentHeight += padding2
 
-                templatePaint.color = prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)
+                templatePaint.color =
+                    prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)
                 templatePaint.style = Paint.Style.STROKE
                 templatePaint.strokeWidth = dpToPx(4f)
-                canvas.drawCircle(relativePoint, currentHeight + getTextHeight(bigTextSize), getTextHeight(bigTextSize), templatePaint)
+                canvas.drawCircle(
+                    relativePoint,
+                    currentHeight + getTextHeight(bigTextSize),
+                    getTextHeight(bigTextSize),
+                    templatePaint
+                )
                 templatePaint.style = Paint.Style.FILL
 
                 val c = Calendar.getInstance()
-                val hour = if (c[Calendar.HOUR_OF_DAY] > 12) c[Calendar.HOUR_OF_DAY] - 12 else c[Calendar.HOUR_OF_DAY]
+                val hour =
+                    if (c[Calendar.HOUR_OF_DAY] > 12) c[Calendar.HOUR_OF_DAY] - 12 else c[Calendar.HOUR_OF_DAY]
 
                 drawHand(canvas, (hour + c.get(Calendar.MINUTE) / 60) * 5, true)
                 drawHand(canvas, c.get(Calendar.MINUTE), false)
@@ -248,120 +270,159 @@ class AlwaysOnCustomView : View {
                 currentHeight += 2 * getTextHeight(bigTextSize) + padding16
             } else {
                 canvas.drawRelativeText(
-                        clockFormat.format(System.currentTimeMillis()),
-                        padding16,
-                        padding2,
-                        getPaint(bigTextSize, prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)),
-                        if (flags[FLAG_SAMSUNG_3]) -templatePaint.measureText(clockFormat.format(System.currentTimeMillis())).toInt() / 2 - padding16 else 0
+                    clockFormat.format(System.currentTimeMillis()),
+                    padding16,
+                    padding2,
+                    getPaint(
+                        bigTextSize,
+                        prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)
+                    ),
+                    if (flags[FLAG_SAMSUNG_3]) -templatePaint.measureText(clockFormat.format(System.currentTimeMillis()))
+                        .toInt() / 2 - padding16 else 0
                 )
             }
         }
 
         //Date
         if (prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
-            if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getPaint(bigTextSize).getVerticalCenter()
+            if (flags[FLAG_SAMSUNG_3]) currentHeight =
+                tempHeight + getPaint(bigTextSize).getVerticalCenter()
             canvas.drawRelativeText(
-                    dateFormat.format(System.currentTimeMillis()).run {
-                        if (flags[FLAG_CAPS_DATE]) this.toUpperCase(Locale.getDefault())
-                        else this
-                    },
-                    padding2,
-                    padding2,
-                    getPaint(if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize, prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT)),
-                    if (flags[FLAG_SAMSUNG_3]) templatePaint.measureText(dateFormat.format(System.currentTimeMillis())).toInt() / 2 + padding16 else 0
+                dateFormat.format(System.currentTimeMillis()).run {
+                    if (flags[FLAG_CAPS_DATE]) this.uppercase()
+                    else this
+                },
+                padding2,
+                padding2,
+                getPaint(
+                    if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize,
+                    prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT)
+                ),
+                if (flags[FLAG_SAMSUNG_3]) templatePaint.measureText(dateFormat.format(System.currentTimeMillis()))
+                    .toInt() / 2 + padding16 else 0
             )
-            if (flags[FLAG_SAMSUNG_3]) currentHeight = tempHeight + getTextHeight(bigTextSize) + padding16
+            if (flags[FLAG_SAMSUNG_3]) currentHeight =
+                tempHeight + getTextHeight(bigTextSize) + padding16
         }
 
         //Samsung 3 divider
-        if (flags[FLAG_SAMSUNG_3] && (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT) || prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT))) {
+        if (flags[FLAG_SAMSUNG_3] && (prefs.get(
+                P.SHOW_CLOCK,
+                P.SHOW_CLOCK_DEFAULT
+            ) || prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT))
+        ) {
             canvas.drawRect(
-                    relativePoint - padding2 / 2,
-                    tempHeight + padding16 * 2,
-                    relativePoint + padding2 / 2,
-                    currentHeight - padding16,
-                    getPaint(bigTextSize, Color.WHITE)
+                relativePoint - padding2 / 2,
+                tempHeight + padding16 * 2,
+                relativePoint + padding2 / 2,
+                currentHeight - padding16,
+                getPaint(bigTextSize, Color.WHITE)
             )
         }
 
         //Battery
         if (prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)
-                && prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)) {
+            && prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)
+        ) {
             canvas.drawVector(
-                    batteryIcon,
-                    (relativePoint + (getPaint(mediumTextSize).measureText("$batteryLevel%")).run {
-                        if (flags[FLAG_LEFT_ALIGN]) this
-                        else this / 2
-                    }).toInt(),
-                    (currentHeight + padding16 + getPaint(mediumTextSize).getVerticalCenter()).toInt(),
-                    if (batteryCharging) ResourcesCompat.getColor(resources, R.color.charging, null)
-                    else prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)
+                batteryIcon,
+                (relativePoint + (getPaint(mediumTextSize).measureText("$batteryLevel%")).run {
+                    if (flags[FLAG_LEFT_ALIGN]) this
+                    else this / 2
+                }).toInt(),
+                (currentHeight + padding16 + getPaint(mediumTextSize).getVerticalCenter()).toInt(),
+                if (batteryCharging) ResourcesCompat.getColor(resources, R.color.charging, null)
+                else prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)
             )
             canvas.drawRelativeText(
-                    "$batteryLevel%",
-                    padding16,
-                    padding16,
-                    getPaint(mediumTextSize, prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)),
-                    if (flags[FLAG_LEFT_ALIGN]) 0 else -drawableSize / 2
+                "$batteryLevel%",
+                padding16,
+                padding16,
+                getPaint(
+                    mediumTextSize,
+                    prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)
+                ),
+                if (flags[FLAG_LEFT_ALIGN]) 0 else -drawableSize / 2
             )
         } else if (prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)) {
             canvas.drawVector(
-                    batteryIcon,
-                    relativePoint.toInt(),
-                    (currentHeight + padding16 + getPaint(mediumTextSize).getVerticalCenter()).toInt(),
-                    if (batteryCharging) ResourcesCompat.getColor(resources, R.color.charging, null)
-                    else prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)
+                batteryIcon,
+                relativePoint.toInt(),
+                (currentHeight + padding16 + getPaint(mediumTextSize).getVerticalCenter()).toInt(),
+                if (batteryCharging) ResourcesCompat.getColor(resources, R.color.charging, null)
+                else prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)
             )
             currentHeight += padding16 - templatePaint.ascent() + templatePaint.descent() + padding16
         } else if (prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)) {
-            canvas.drawRelativeText("$batteryLevel%", padding16, padding16, getPaint(mediumTextSize))
+            canvas.drawRelativeText(
+                "$batteryLevel%",
+                padding16,
+                padding16,
+                getPaint(mediumTextSize)
+            )
         }
 
         //Music Controls
         if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT) && musicVisible) {
             skipPositions[0] = if (flags[FLAG_LEFT_ALIGN]) relativePoint.toInt()
             else (relativePoint - getPaint(smallTextSize).measureText(musicString) / 2).toInt() - padding16
-            skipPositions[1] = if (flags[FLAG_LEFT_ALIGN]) (relativePoint + getPaint(smallTextSize).measureText(musicString)).toInt() + drawableSize
-            else (relativePoint + getPaint(smallTextSize).measureText(musicString) / 2).toInt() + padding16
-            skipPositions[2] = (currentHeight + padding2 + getPaint(smallTextSize).getVerticalCenter()).toInt()
+            skipPositions[1] =
+                if (flags[FLAG_LEFT_ALIGN]) (relativePoint + getPaint(smallTextSize).measureText(
+                    musicString
+                )).toInt() + drawableSize
+                else (relativePoint + getPaint(smallTextSize).measureText(musicString) / 2).toInt() + padding16
+            skipPositions[2] =
+                (currentHeight + padding2 + getPaint(smallTextSize).getVerticalCenter()).toInt()
             canvas.drawVector(
-                    R.drawable.ic_skip_previous_white,
-                    skipPositions[0],
-                    skipPositions[2],
-                    prefs.get(P.DISPLAY_COLOR_MUSIC_CONTROLS, P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT)
+                R.drawable.ic_skip_previous_white,
+                skipPositions[0],
+                skipPositions[2],
+                prefs.get(P.DISPLAY_COLOR_MUSIC_CONTROLS, P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT)
             )
             canvas.drawVector(
-                    R.drawable.ic_skip_next_white,
-                    skipPositions[1],
-                    skipPositions[2],
-                    prefs.get(P.DISPLAY_COLOR_MUSIC_CONTROLS, P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT)
+                R.drawable.ic_skip_next_white,
+                skipPositions[1],
+                skipPositions[2],
+                prefs.get(P.DISPLAY_COLOR_MUSIC_CONTROLS, P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT)
             )
             canvas.drawRelativeText(
-                    musicString,
-                    padding2,
-                    padding2,
-                    getPaint(smallTextSize, prefs.get(P.DISPLAY_COLOR_MUSIC_CONTROLS, P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT)),
-                    if (flags[FLAG_LEFT_ALIGN]) drawableSize else 0
+                musicString,
+                padding2,
+                padding2,
+                getPaint(
+                    smallTextSize,
+                    prefs.get(
+                        P.DISPLAY_COLOR_MUSIC_CONTROLS,
+                        P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT
+                    )
+                ),
+                if (flags[FLAG_LEFT_ALIGN]) drawableSize else 0
             )
         }
 
         //Message
         if (prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT) != "") {
             canvas.drawRelativeText(
-                    message,
-                    padding2,
-                    padding2,
-                    getPaint(smallTextSize, prefs.get(P.DISPLAY_COLOR_MESSAGE, P.DISPLAY_COLOR_MESSAGE_DEFAULT))
+                message,
+                padding2,
+                padding2,
+                getPaint(
+                    smallTextSize,
+                    prefs.get(P.DISPLAY_COLOR_MESSAGE, P.DISPLAY_COLOR_MESSAGE_DEFAULT)
+                )
             )
         }
 
         //Notification Count
         if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)) {
             canvas.drawRelativeText(
-                    if (notificationCount != 0) notificationCount.toString() else "",
-                    padding16,
-                    padding16,
-                    getPaint(mediumTextSize, prefs.get(P.DISPLAY_COLOR_NOTIFICATION, P.DISPLAY_COLOR_NOTIFICATION_DEFAULT))
+                if (notificationCount != 0) notificationCount.toString() else "",
+                padding16,
+                padding16,
+                getPaint(
+                    mediumTextSize,
+                    prefs.get(P.DISPLAY_COLOR_NOTIFICATION, P.DISPLAY_COLOR_NOTIFICATION_DEFAULT)
+                )
             )
         }
 
@@ -374,28 +435,39 @@ class AlwaysOnCustomView : View {
                 currentHeight += padding16 + drawableSize / 2
                 notificationIcons.forEachIndexed { index, icon ->
                     drawable = icon.loadDrawable(context)
-                    drawable.setTint(prefs.get(P.DISPLAY_COLOR_NOTIFICATION, P.DISPLAY_COLOR_NOTIFICATION_DEFAULT))
+                    drawable.setTint(
+                        prefs.get(
+                            P.DISPLAY_COLOR_NOTIFICATION,
+                            P.DISPLAY_COLOR_NOTIFICATION_DEFAULT
+                        )
+                    )
                     if (flags[FLAG_LEFT_ALIGN]) drawable.setBounds(
-                            x + drawableSize * index,
-                            currentHeight.toInt() - drawableSize / 2,
-                            x + drawableSize * (index + 1),
-                            currentHeight.toInt() + drawableSize / 2
+                        x + drawableSize * index,
+                        currentHeight.toInt() - drawableSize / 2,
+                        x + drawableSize * (index + 1),
+                        currentHeight.toInt() + drawableSize / 2
                     )
                     else drawable.setBounds(
-                            x - drawableSize / 2 + drawableSize * index,
-                            currentHeight.toInt() - drawableSize / 2,
-                            x + drawableSize / 2 + drawableSize * index,
-                            currentHeight.toInt() + drawableSize / 2
+                        x - drawableSize / 2 + drawableSize * index,
+                        currentHeight.toInt() - drawableSize / 2,
+                        x + drawableSize / 2 + drawableSize * index,
+                        currentHeight.toInt() + drawableSize / 2
                     )
                     drawable.draw(canvas)
                 }
             } catch (e: Exception) {
                 Log.e(Global.LOG_TAG, e.toString())
                 canvas.drawRelativeText(
-                        resources.getString(R.string.loading),
-                        padding16,
-                        padding16,
-                        getPaint(smallTextSize, prefs.get(P.DISPLAY_COLOR_NOTIFICATION, P.DISPLAY_COLOR_NOTIFICATION_DEFAULT))
+                    resources.getString(R.string.loading),
+                    padding16,
+                    padding16,
+                    getPaint(
+                        smallTextSize,
+                        prefs.get(
+                            P.DISPLAY_COLOR_NOTIFICATION,
+                            P.DISPLAY_COLOR_NOTIFICATION_DEFAULT
+                        )
+                    )
                 )
             }
         }
@@ -409,7 +481,11 @@ class AlwaysOnCustomView : View {
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (event.action == MotionEvent.ACTION_DOWN && abs(event.y.toInt() - skipPositions[2]) < 64 && prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)) {
+        if (event.action == MotionEvent.ACTION_DOWN && abs(event.y.toInt() - skipPositions[2]) < 64 && prefs.get(
+                P.SHOW_MUSIC_CONTROLS,
+                P.SHOW_MUSIC_CONTROLS_DEFAULT
+            )
+        ) {
             when {
                 abs(event.x.toInt() - skipPositions[0]) < padding16 -> {
                     onSkipPreviousClicked()
@@ -453,31 +529,31 @@ class AlwaysOnCustomView : View {
     private fun Paint.getVerticalCenter() = (-ascent() + descent()) / 2
 
     private fun dpToPx(dp: Float): Float = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
+        TypedValue.COMPLEX_UNIT_DIP, dp, resources.displayMetrics
     )
 
     private fun spToPx(sp: Float): Float = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_SP, sp, resources.displayMetrics
+        TypedValue.COMPLEX_UNIT_SP, sp, resources.displayMetrics
     )
 
     /*
      * Drawing functions
      */
     private fun Canvas.drawRelativeText(
-            text: String,
-            paddingTop: Int,
-            paddingBottom: Int,
-            paint: Paint,
-            offsetX: Int = 0
+        text: String,
+        paddingTop: Int,
+        paddingBottom: Int,
+        paint: Paint,
+        offsetX: Int = 0
     ) {
         currentHeight += paddingTop
         for (line in text.split("\n")) {
             currentHeight -= paint.ascent()
             drawText(
-                    line,
-                    relativePoint + offsetX,
-                    currentHeight,
-                    paint
+                line,
+                relativePoint + offsetX,
+                currentHeight,
+                paint
             )
         }
         currentHeight += paddingBottom + paint.descent()
@@ -488,16 +564,16 @@ class AlwaysOnCustomView : View {
         if (vector != null) {
             vector.setTint(tint)
             if (flags[FLAG_LEFT_ALIGN]) vector.setBounds(
-                    x,
-                    y - drawableSize / 2,
-                    x + drawableSize,
-                    y + drawableSize / 2
+                x,
+                y - drawableSize / 2,
+                x + drawableSize,
+                y + drawableSize / 2
             )
             else vector.setBounds(
-                    x - drawableSize / 2,
-                    y - drawableSize / 2,
-                    x + drawableSize / 2,
-                    y + drawableSize / 2
+                x - drawableSize / 2,
+                y - drawableSize / 2,
+                x + drawableSize / 2,
+                y + drawableSize / 2
             )
             vector.draw(this)
         }
@@ -505,13 +581,14 @@ class AlwaysOnCustomView : View {
 
     private fun drawHand(canvas: Canvas, loc: Int, isHour: Boolean) {
         val angle = (Math.PI * loc / 30 - Math.PI / 2).toFloat()
-        val handRadius: Float = if (isHour) getTextHeight(bigTextSize) * .5f else getTextHeight(bigTextSize) * .9f
+        val handRadius: Float =
+            if (isHour) getTextHeight(bigTextSize) * .5f else getTextHeight(bigTextSize) * .9f
         canvas.drawLine(
-                relativePoint,
-                currentHeight + getTextHeight(bigTextSize),
-                relativePoint + cos(angle) * handRadius,
-                currentHeight + getTextHeight(bigTextSize) + sin(angle) * handRadius,
-                templatePaint
+            relativePoint,
+            currentHeight + getTextHeight(bigTextSize),
+            relativePoint + cos(angle) * handRadius,
+            currentHeight + getTextHeight(bigTextSize) + sin(angle) * handRadius,
+            templatePaint
         )
     }
 
