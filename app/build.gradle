@@ -29,6 +29,20 @@ android {
     }
 }
 
+preBuild.doFirst {
+    def data = file('./src/main/res/xml/pref_about.xml').getText().contains('app:key="license"')
+    if (!data) throw new GradleException(
+            'Please note that removing the license from the about page is not allowed if you plan' +
+                    'to publish your modified version of this app. ' +
+                    'Please read the project\'s LICENSE.'
+    )
+    if (!(android.defaultConfig.applicationId.contains('domi04151309') || readAndUnderstoodLicense)) {
+        throw new GradleException(
+                'Please make sure you have read and understood the LICENSE!'
+        )
+    }
+}
+
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'androidx.preference:preference-ktx:1.1.1'
@@ -36,4 +50,5 @@ dependencies {
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
     implementation 'com.jaredrummler:colorpicker:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.android.volley:volley:1.2.1'
 }

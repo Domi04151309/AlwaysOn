@@ -18,7 +18,7 @@
     <string name="setup_continue">Weiter</string>
     <string name="setup_error">Etwas ist schief gelaufen! Bitte versuchen Sie es erneut!</string>
 
-    <string name="app_by">AlwaysOn von Domi04151309</string>
+    <string name="app_description">Android-App, die ein Always On Display hinzufügt</string>
 
     <string name="AlwaysOn">Always On Display</string>
 
@@ -172,11 +172,16 @@
 
     <string name="about">Über</string>
     <string name="about_summary">Über die App</string>
-    <string name="about_version">Version %1$s</string>
-    <string name="about_github">Möglicherweise sind neuere Versionen auf <a href="https://github.com/Domi04151309/AlwaysOn">GitHub</a> verfügbar. Diese App ist und bleibt freie Software. Zahlen Sie nicht für diese App.</string>
-    <string name="about_license">Diese App wird unter den Bedingungen der <a href="https://github.com/Domi04151309/AlwaysOn/blob/master/LICENSE">GNU General Public License v3.0</a> zur Verfügung gestellt.</string>
-    <string name="about_damage">Ich bin nicht für Schäden an Ihrem Gerät verantwortlich.</string>
-    <string name="about_icons">Icons von <a href="https://icons8.com/">Icons8</a> und <a href="https://material.io/resources/icons/">Google</a>.</string>
+    <string name="about_app_version">App-Version</string>
+    <string name="about_contributors">Mitwirkende</string>
+    <string name="about_contributors_desc">Eine Liste der Mitwirkenden</string>
+    <string name="about_general">Allgemein</string>
+    <string name="about_github">GitHub-Repository</string>
+    <string name="about_license">Lizenz</string>
+    <string name="about_icons">Icons</string>
+    <string name="about_icons_desc">Icons von Icons8 und Google</string>
+    <string name="about_libraries">Bibliotheken</string>
+    <string name="about_libraries_desc">Eine Liste aller verwendeten Bibliotheken</string>
 
     <string-array name="pref_look_and_feel_rules_charging_state_display">
         <item>Bei jedem Ladezustand anzeigen</item>

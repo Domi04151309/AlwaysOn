@@ -1,0 +1,43 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Preference
+        app:icon="@drawable/ic_always_on_accent"
+        app:summary="@string/app_description"
+        app:title="@string/app_name" />
+
+    <PreferenceCategory app:title="@string/about_general">
+
+        <Preference
+            app:icon="@drawable/ic_about_info"
+            app:key="app_version"
+            app:title="@string/about_app_version" />
+
+        <Preference
+            app:icon="@drawable/ic_about_github"
+            app:key="github"
+            app:title="@string/about_github" />
+
+        <Preference
+            app:icon="@drawable/ic_about_github"
+            app:key="license"
+            app:summary="@string/about_license_desc"
+            app:title="@string/about_license" />
+
+        <Preference
+            app:icon="@drawable/ic_about_contributor"
+            app:key="contributors"
+            app:summary="@string/about_contributors_desc"
+            app:title="@string/about_contributors" />
+
+        <Preference
+            app:icon="@drawable/ic_about_library"
+            app:key="libraries"
+            app:summary="@string/about_libraries_desc"
+            app:title="@string/about_libraries" />
+
+        <Preference
+            app:icon="@drawable/ic_about_palette"
+            app:key="icons"
+            app:summary="@string/about_icons_desc"
+            app:title="@string/about_icons" />
+    </PreferenceCategory>
+</PreferenceScreen>

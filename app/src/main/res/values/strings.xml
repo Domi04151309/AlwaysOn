@@ -19,7 +19,7 @@
     <string name="setup_error">Something went wrong! Please try again!</string>
 
     <string name="app_name" translatable="false">AlwaysOn</string>
-    <string name="app_by">AlwaysOn by Domi04151309</string>
+    <string name="app_description">Android app which adds an always on display</string>
 
     <string name="AlwaysOn">Always on display</string>
 
@@ -205,11 +205,26 @@
 
     <string name="about">About</string>
     <string name="about_summary">About the app</string>
-    <string name="about_version">Version %1$s</string>
-    <string name="about_github">There may be newer versions available on <a href="https://github.com/Domi04151309/AlwaysOn">GitHub</a>. This app is and always will be free software. Do not pay for this app.</string>
-    <string name="about_license">This app is distributed under the terms and conditions of the <a href="https://github.com/Domi04151309/AlwaysOn/blob/master/LICENSE">GNU General Public License v3.0</a></string>
-    <string name="about_damage">I am not responsible for any damage to your device.</string>
-    <string name="about_icons">Icons by <a href="https://icons8.com/">Icons8</a> and <a href="https://material.io/resources/icons/">Google</a>.</string>
+    <string name="about_app_version">App version</string>
+    <string name="about_app_version_desc" translatable="false">%1$s (%2$d)</string>
+    <string name="about_contributors">Contributors</string>
+    <string name="about_contributors_desc">A list of the contributors</string>
+    <string name="about_general">General</string>
+    <string name="about_github">GitHub repository</string>
+    <string name="about_license">License</string>
+    <string name="about_license_desc" translatable="false">GPL-3.0</string>
+    <string name="about_icons">Icons</string>
+    <string name="about_icons_desc">Icons by Icons8 and Google</string>
+    <string name="about_libraries">Libraries</string>
+    <string name="about_libraries_desc">A list of all used libraries</string>
+
+    <string translatable="false" name="library_appcompat">Android AppCompat Library</string>
+    <string translatable="false" name="library_preference_ktx">Android Preferences KTX</string>
+    <string translatable="false" name="library_cardview">Android Support CardView V7</string>
+    <string translatable="false" name="library_localbroadcastmanager">Android Support Library Local Broadcast Manager</string>
+    <string translatable="false" name="library_recyclerview">Android Support RecyclerView</string>
+    <string translatable="false" name="library_colorpicker">ColorPicker</string>
+    <string translatable="false" name="library_volley">Volley</string>
 
     <string-array name="pref_look_and_feel_rules_charging_state_display">
         <item>Show at any charging state</item>
@@ -240,5 +255,10 @@
     <string-array name="pref_ao_glowStyle_values" translatable="false">
         <item>all</item>
         <item>horizontal</item>
+    </string-array>
+
+    <string-array name="about_icons_array" translatable="false">
+        <item>Icons8</item>
+        <item>Google</item>
     </string-array>
 </resources>

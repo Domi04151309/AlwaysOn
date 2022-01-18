@@ -14,6 +14,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -56,10 +57,22 @@
             android:excludeFromRecents="true"
             android:showOnLockScreen="true"
             android:theme="@style/AppThemeScreenOff" />
+
         <activity
             android:name=".activities.AboutActivity"
             android:label="@string/about"
+            android:launchMode="singleTop"
             android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".activities.ContributorActivity"
+            android:label="@string/about_contributors"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.AboutActivity" />
+        <activity
+            android:name=".activities.LibraryActivity"
+            android:label="@string/about_libraries"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.AboutActivity" />
         <activity
             android:name=".activities.SetupActivity"
             android:theme="@style/SetupTheme" />
