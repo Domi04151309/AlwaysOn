@@ -6,9 +6,6 @@ import android.content.Intent
 import androidx.preference.PreferenceManager
 import android.service.quicksettings.TileService
 import io.github.domi04151309.alwayson.services.AlwaysOnTileService
-import android.app.Activity
-import android.view.View
-import android.view.WindowManager
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 internal object Global {

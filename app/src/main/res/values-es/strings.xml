@@ -16,8 +16,6 @@
     <string name="setup_continue">Continuar</string>
     <string name="setup_error">¡Algo salió mal! ¡Por favor, inténtalo de nuevo!</string>
 
-    <string name="app_by">AlwaysOn por Domi</string>
-
     <string name="AlwaysOn">Siempre en pantalla</string>
 
     <string name="date">EEE, MMM d</string>
@@ -120,11 +118,6 @@
 
     <string name="about">Acerca de</string>
     <string name="about_summary">Sobre la aplicación</string>
-    <string name="about_version">Versión %1$s</string>
-    <string name="about_github">Puede haber versiones más recientes disponibles en &amp;lt;a href=&amp;quot;https://github.com/Domi04151309/AlwaysOn&amp;quot;&amp;gt;GitHub&amp;lt;/a&amp;gt;. Esta aplicación es y siempre será software libre. No pague por esta aplicación.<a href="https://github.com/Domi04151309/AlwaysOn">GitHub</a>. This app is and always will be free software. Do not pay for this app.</string>
-    <string name="about_license">Esta aplicación se distribuye bajo los términos y condiciones de la &amp;lt;a href=&amp;quot;https://github.com/Domi04151309/AlwaysOn/blob/master/LICENSE&amp;quot;&amp;gt;GNU General Public License v3.0&amp;lt;/a&amp;gt;<a href="https://github.com/Domi04151309/AlwaysOn/blob/master/LICENSE">GNU General Public License v3.0</a></string>
-    <string name="about_damage">No soy responsable de ningún daño a su dispositivo.</string>
-    <string name="about_icons">Iconos de &amp;lt;a href=&amp;quot;https://icons8.com/&amp;quot;&amp;gt;Iconos8&amp;lt;/a&amp;gt; y &amp;lt;a href=&amp;quot;https://material.io/resources/icons/&amp;quot;&amp;gt;Google&amp;lt;/a&amp;gt;.<a href="https://icons8.com/">Icons8</a> and <a href="https://material.io/resources/icons/">Google</a>.</string>
 
     <string-array name="pref_look_and_feel_rules_charging_state_display">
         <item>Mostrar en cualquier estado de carga</item>

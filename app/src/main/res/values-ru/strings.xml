@@ -16,8 +16,6 @@
     <string name="setup_continue">Продолжить</string>
     <string name="setup_error">Что-то пошло не так! Пожалуйста, попробуйте еще раз!</string>
 
-    <string name="app_by">AlwaysOn создано Domi04151309</string>
-
     <string name="AlwaysOn">Always on display</string>
 
     <string name="shortcut_disabled">Отключено</string>
@@ -83,9 +81,4 @@
 
     <string name="about">О приложении</string>
     <string name="about_summary">О приложении</string>
-    <string name="about_version">Версия %1$s</string>
-    <string name="about_github">Можеть быть доступна более новая версия на <a href="https://github.com/Domi04151309/AlwaysOn">GitHub</a>. Это приложение было, есть и всегда будет свободным программным обеспечением. Не платите за это приложение.</string>
-    <string name="about_license">Это приложение распространяется в соответствии с условиями <a href="https://github.com/Domi04151309/AlwaysOn/blob/master/LICENSE">GNU General Public License v3.0</a></string>
-    <string name="about_damage">Я не несу ответственности за любые повреждения вашего устройства.</string>
-    <string name="about_icons">Иконки предоставлены <a href="https://icons8.com/">Icons8</a> и <a href="https://material.io/resources/icons/">Google</a>.</string>
 </resources>
