@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SeekBarPreference
+import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Permissions
@@ -38,11 +39,17 @@ class LAFWatchFaceActivity : AppCompatActivity() {
 
             if (!Permissions.isNotificationServiceEnabled(context ?: return)) {
                 var currentPref: Preference?
+                var currentPrefAsSwitch: SwitchPreference?
                 Permissions.NOTIFICATION_PERMISSION_PREFS.forEach {
                     currentPref = findPreference(it)
                     if (currentPref != null) {
                         currentPref?.isEnabled = false
                         currentPref?.setSummary(R.string.permissions_notification_access)
+                        currentPrefAsSwitch = currentPref as? SwitchPreference
+                        if (currentPrefAsSwitch != null) {
+                            currentPrefAsSwitch?.setSummaryOff(R.string.permissions_notification_access)
+                            currentPrefAsSwitch?.setSummaryOn(R.string.permissions_notification_access)
+                        }
                     }
                 }
             }

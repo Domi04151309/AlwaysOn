@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.custom.EditIntegerPreference
 import io.github.domi04151309.alwayson.helpers.Permissions
@@ -43,22 +44,34 @@ class LAFRulesActivity : AppCompatActivity() {
 
             if (!Permissions.isNotificationServiceEnabled(context ?: return)) {
                 var currentPref: Preference?
+                var currentPrefAsSwitch: SwitchPreference?
                 Permissions.NOTIFICATION_PERMISSION_PREFS.forEach {
                     currentPref = findPreference(it)
                     if (currentPref != null) {
                         currentPref?.isEnabled = false
                         currentPref?.setSummary(R.string.permissions_notification_access)
+                        currentPrefAsSwitch = currentPref as? SwitchPreference
+                        if (currentPrefAsSwitch != null) {
+                            currentPrefAsSwitch?.setSummaryOff(R.string.permissions_notification_access)
+                            currentPrefAsSwitch?.setSummaryOn(R.string.permissions_notification_access)
+                        }
                     }
                 }
             }
 
             if (!Permissions.isDeviceAdminOrRoot(context ?: return)) {
                 var currentPref: Preference?
+                var currentPrefAsSwitch: SwitchPreference?
                 Permissions.DEVICE_ADMIN_OR_ROOT_PERMISSION_PREFS.forEach {
                     currentPref = findPreference(it)
                     if (currentPref != null) {
                         currentPref?.isEnabled = false
                         currentPref?.setSummary(R.string.permissions_device_admin_or_root)
+                        currentPrefAsSwitch = currentPref as? SwitchPreference
+                        if (currentPrefAsSwitch != null) {
+                            currentPrefAsSwitch?.setSummaryOff(R.string.permissions_device_admin_or_root)
+                            currentPrefAsSwitch?.setSummaryOn(R.string.permissions_device_admin_or_root)
+                        }
                     }
                 }
             }
