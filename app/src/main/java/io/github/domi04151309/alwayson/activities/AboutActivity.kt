@@ -14,7 +14,8 @@ import io.github.domi04151309.alwayson.helpers.Theme
 class AboutActivity : AppCompatActivity() {
 
     companion object {
-        private const val REPOSITORY_URL_GITHUB: String = "https://github.com/Domi04151309/AlwaysOn"
+        internal const val GITHUB_REPOSITORY: String = "Domi04151309/AlwaysOn"
+        private const val REPOSITORY_URL: String = "https://github.com/$GITHUB_REPOSITORY"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,16 +44,16 @@ class AboutActivity : AppCompatActivity() {
                     startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse("$REPOSITORY_URL_GITHUB/releases")
+                            Uri.parse("$REPOSITORY_URL/releases")
                         )
                     )
                     true
                 }
             }
             findPreference<Preference>("github")?.apply {
-                summary = REPOSITORY_URL_GITHUB
+                summary = REPOSITORY_URL
                 setOnPreferenceClickListener {
-                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(REPOSITORY_URL_GITHUB)))
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(REPOSITORY_URL)))
                     true
                 }
             }
@@ -60,7 +61,7 @@ class AboutActivity : AppCompatActivity() {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("$REPOSITORY_URL_GITHUB/blob/master/LICENSE")
+                        Uri.parse("$REPOSITORY_URL/blob/master/LICENSE")
                     )
                 )
                 true
@@ -85,7 +86,23 @@ class AboutActivity : AppCompatActivity() {
                 true
             }
             findPreference<Preference>("contributors")?.setOnPreferenceClickListener {
-                startActivity(Intent(requireContext(), ContributorActivity::class.java))
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.about_privacy)
+                    .setMessage(R.string.about_privacy_desc)
+                    .setPositiveButton(android.R.string.ok) { _, _ ->
+                        startActivity(Intent(requireContext(), ContributorActivity::class.java))
+                    }
+                    .setNegativeButton(android.R.string.cancel) { _, _ -> }
+                    .setNeutralButton(R.string.about_privacy_policy) { _, _ ->
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW, Uri.parse(
+                                    "https://docs.github.com/en/github/site-policy/github-privacy-statement"
+                                )
+                            )
+                        )
+                    }
+                    .show()
                 true
             }
             findPreference<Preference>("libraries")?.setOnPreferenceClickListener {

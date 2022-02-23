@@ -1,5 +1,5 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
     <Preference
-        app:icon="@drawable/ic_about_contributor"
+        app:icon="@drawable/ic_about_info"
         app:title="@string/loading" />
 </PreferenceScreen>
