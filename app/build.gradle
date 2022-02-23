@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+def readAndUnderstoodLicense = false
+
 android {
     compileSdkVersion 31
     defaultConfig {
@@ -24,28 +26,28 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    lintOptions {
+    lint {
         disable "MissingTranslation"
     }
 }
 
 preBuild.doFirst {
     def data = file('./src/main/res/xml/pref_about.xml').getText().contains('app:key="license"')
-    if (!data) throw new GradleException(
+    if (!data) throw new Exception(
             'Please note that removing the license from the about page is not allowed if you plan' +
                     'to publish your modified version of this app. ' +
                     'Please read the project\'s LICENSE.'
     )
     if (!(android.defaultConfig.applicationId.contains('domi04151309') || readAndUnderstoodLicense)) {
-        throw new GradleException(
+        throw new Exception(
                 'Please make sure you have read and understood the LICENSE!'
         )
     }
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.4.0'
-    implementation 'androidx.preference:preference-ktx:1.1.1'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.preference:preference-ktx:1.2.0'
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
     implementation 'com.jaredrummler:colorpicker:1.1.0'
