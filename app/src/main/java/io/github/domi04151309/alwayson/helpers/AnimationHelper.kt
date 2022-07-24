@@ -1,5 +1,6 @@
 package io.github.domi04151309.alwayson.helpers
 
+import android.content.res.Resources
 import android.os.Handler
 import android.os.Looper
 import android.view.View
@@ -18,8 +19,10 @@ class AnimationHelper {
         var i = 1
         val startPosition = view.translationY
         val numberOfFrames = duration / 1000 * FRAME_RATE
-        val movementPerFrame = (positionY - startPosition) / (numberOfFrames - 1)
+        val movementPerFrame =
+            (positionY + burnInOffset(view.resources) - startPosition) / (numberOfFrames - 1)
 
+        view.translationX = burnInOffset(view.resources)
         for (j in 1 until numberOfFrames) {
             animationHandler.postDelayed({
                 view.translationY = startPosition + i * movementPerFrame
@@ -27,4 +30,7 @@ class AnimationHelper {
             }, (1000 / FRAME_RATE * j).toLong())
         }
     }
+
+    private fun burnInOffset(r: Resources): Float =
+        ((0 until 16).random() - 8) * r.displayMetrics.density
 }

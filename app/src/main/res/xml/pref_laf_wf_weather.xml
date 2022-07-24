@@ -15,7 +15,7 @@
             android:summary="@string/pref_look_and_feel_weather_show_summary"
             android:title="@string/pref_look_and_feel_weather_info" />
     </PreferenceCategory>
-    
+
     <PreferenceCategory
         android:title="@string/pref_look_and_feel">
 

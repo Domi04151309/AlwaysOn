@@ -26,7 +26,6 @@ import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Root
 import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 import io.github.domi04151309.alwayson.services.NotificationService
-import java.util.*
 
 class AlwaysOn : OffActivity() {
 
@@ -289,11 +288,15 @@ class AlwaysOn : OffActivity() {
                     runOnUiThread { viewHolder.customView.translationY = screenSize / 4 }
                     while (!isInterrupted) {
                         sleep(animationDelay)
-                        animationHelper.animate(viewHolder.customView, screenSize / 2, animationDuration)
-                        if (prefs.get(P.SHOW_FINGERPRINT_ICON, P.SHOW_FINGERPRINT_ICON_DEFAULT)) animationHelper.animate(viewHolder.fingerprintIcn, 64f, animationDuration)
+                        runOnUiThread {
+                            animationHelper.animate(viewHolder.customView, screenSize / 2, animationDuration)
+                            if (prefs.get(P.SHOW_FINGERPRINT_ICON, P.SHOW_FINGERPRINT_ICON_DEFAULT)) animationHelper.animate(viewHolder.fingerprintIcn, 64f, animationDuration)
+                        }
                         sleep(animationDelay)
-                        animationHelper.animate(viewHolder.customView, screenSize / 4, animationDuration)
-                        if (prefs.get(P.SHOW_FINGERPRINT_ICON, P.SHOW_FINGERPRINT_ICON_DEFAULT)) animationHelper.animate(viewHolder.fingerprintIcn, 0f, animationDuration)
+                        runOnUiThread {
+                            animationHelper.animate(viewHolder.customView, screenSize / 4, animationDuration)
+                            if (prefs.get(P.SHOW_FINGERPRINT_ICON, P.SHOW_FINGERPRINT_ICON_DEFAULT)) animationHelper.animate(viewHolder.fingerprintIcn, 0f, animationDuration)
+                        }
                     }
                 } catch (e: Exception) {
                     Log.e(Global.LOG_TAG, e.toString())
