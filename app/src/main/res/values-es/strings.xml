@@ -134,5 +134,6 @@
     <string-array name="pref_ao_glowStyle_display">
         <item>Todos los lados</item>
         <item>Lateral izquierdo y derecho</item>
+        <item>Lateral arriba y abajo</item>
     </string-array>
 </resources>

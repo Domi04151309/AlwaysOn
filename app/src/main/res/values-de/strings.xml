@@ -201,5 +201,6 @@
     <string-array name="pref_ao_glowStyle_display">
         <item>Alle Seiten</item>
         <item>Linke und rechte Seite</item>
+        <item>Obere und untere Seite</item>
     </string-array>
 </resources>

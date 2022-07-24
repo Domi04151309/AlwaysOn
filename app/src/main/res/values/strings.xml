@@ -256,9 +256,11 @@
     <string-array name="pref_ao_glowStyle_display">
         <item>All sides</item>
         <item>Left and right sides</item>
+        <item>Top and bottom sides</item>
     </string-array>
     <string-array name="pref_ao_glowStyle_values" translatable="false">
         <item>all</item>
+        <item>vertical</item>
         <item>horizontal</item>
     </string-array>
 

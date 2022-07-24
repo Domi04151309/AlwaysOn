@@ -244,6 +244,7 @@ class AlwaysOn : OffActivity() {
             if (transitionTime >= 100) {
                 val transitionDelay = prefs.get("ao_glowDelay", 2000)
                 viewHolder.frame.background = when (prefs.get("ao_glowStyle", "all")) {
+                    "vertical" -> ContextCompat.getDrawable(this, R.drawable.edge_glow_vertical)
                     "horizontal" -> ContextCompat.getDrawable(this, R.drawable.edge_glow_horizontal)
                     else -> ContextCompat.getDrawable(this, R.drawable.edge_glow)
                 }
