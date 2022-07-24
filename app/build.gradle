@@ -4,11 +4,11 @@ apply plugin: 'kotlin-android'
 def readAndUnderstoodLicense = false
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
     defaultConfig {
         applicationId "io.github.domi04151309.alwayson"
         minSdkVersion 24
-        targetSdkVersion 31
+        targetSdkVersion 32
         versionCode 384
         versionName "3.8.4"
     }
@@ -29,6 +29,7 @@ android {
     lint {
         disable "MissingTranslation"
     }
+    namespace 'io.github.domi04151309.alwayson'
 }
 
 preBuild.doFirst {
@@ -46,7 +47,7 @@ preBuild.doFirst {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'androidx.preference:preference-ktx:1.1.1'
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.1.0'
