@@ -62,6 +62,7 @@
     <string name="pref_look_and_feel_colors_battery">Akkufarbe</string>
     <string name="pref_look_and_feel_colors_music_controls">Musiksteuerungsfarbe</string>
     <string name="pref_look_and_feel_colors_message">Nachrichtenfarbe</string>
+    <string name="pref_look_and_feel_colors_weather">Wetterfarbe</string>
     <string name="pref_look_and_feel_colors_notification">Benachrichtigungsfarbe</string>
     <string name="pref_look_and_feel_colors_fingerprint">Fingerabdrucksfarbe</string>
     <string name="pref_ao_showClock">Zeit anzeigen</string>
@@ -116,6 +117,16 @@
     <string name="pref_look_and_feel_orientation_summary">Ändert die Ausrichtung des Bildschirms</string>
     <string name="pref_look_and_feel_heads_up">Pop-up-Benachrichtigungen verstecken (root)</string>
     <string name="pref_look_and_feel_heads_up_summary">Verhindert, dass Pop-up-Benachrichtigungen angezeigt werden (experimentell)</string>
+
+    <string name="pref_look_and_feel_weather">Wetter</string>
+    <string name="pref_look_and_feel_weather_info">Wetter anzeigen</string>
+    <string name="pref_look_and_feel_weather_info_summary">Wetter auf dem AOD anpassen</string>
+    <string name="pref_look_and_feel_weather_show_summary">Wetter auf dem AOD anzeigen</string>
+    <string name="pref_look_and_feel_weather_provider">AlwaysOn verwendet wtrr.in für Wetterdaten. Das Abrufen des Wetters kann identifizierbare Daten übertragen.</string>
+    <string name="pref_look_and_feel_weather_location">Ort</string>
+    <string name="pref_look_and_feel_weather_location_summary">Der Ort für den Wetterbericht. Lassen Sie dies für die automatische Ortung leer.</string>
+    <string name="pref_look_and_feel_weather_format">Wetterformat</string>
+    <string name="pref_look_and_feel_weather_format_summary">Das auf dem AOD verwendete Wetterformat</string>
 
     <string name="pref_look_and_feel_filter_notifications">Benachrichtigungen filtern</string>
     <string name="pref_look_and_feel_filter_notifications_summary">Wähle aus, welche Benachrichtigungen nicht angezeigt werden sollen</string>

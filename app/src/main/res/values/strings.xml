@@ -78,6 +78,7 @@
     <string name="pref_look_and_feel_colors_battery">Battery color</string>
     <string name="pref_look_and_feel_colors_music_controls">Music controls color</string>
     <string name="pref_look_and_feel_colors_message">Message color</string>
+    <string name="pref_look_and_feel_colors_weather">Weather color</string>
     <string name="pref_look_and_feel_colors_notification">Notification color</string>
     <string name="pref_look_and_feel_colors_fingerprint">Fingerprint icon color</string>
     <string name="pref_ao_showClock">Display the time</string>
@@ -147,6 +148,17 @@
     <string name="pref_look_and_feel_orientation_summary">Changes the display\'s orientation</string>
     <string name="pref_look_and_feel_heads_up">Hide heads up notifications (root)</string>
     <string name="pref_look_and_feel_heads_up_summary">Prevents the heads up notifications from showing (experimental)</string>
+
+    <string name="pref_look_and_feel_weather">Weather</string>
+    <string name="pref_look_and_feel_weather_info">Show weather info</string>
+    <string name="pref_look_and_feel_weather_info_summary">Configure weather info on your AOD</string>
+    <string name="pref_look_and_feel_weather_show_summary">Show weather info on your AOD</string>
+    <string name="pref_look_and_feel_weather_provider">AlwaysOn uses wtrr.in for weather data. Fetching the weather may transfer identifiable data.</string>
+    <string name="pref_look_and_feel_weather_provider_name" translatable="false">wttr.in</string>
+    <string name="pref_look_and_feel_weather_location">Weather location</string>
+    <string name="pref_look_and_feel_weather_location_summary">The location for the weather report. Leave this empty for auto-location.</string>
+    <string name="pref_look_and_feel_weather_format">Weather format</string>
+    <string name="pref_look_and_feel_weather_format_summary">The weather format used on the AOD</string>
 
     <string name="pref_look_and_feel_filter_notifications">Filter notifications</string>
     <string name="pref_look_and_feel_filter_notifications_summary">Choose, which notifications not to show</string>

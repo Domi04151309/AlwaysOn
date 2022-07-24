@@ -35,6 +35,11 @@
             android:launchMode="singleTop"
             android:parentActivityName=".activities.MainActivity" />
         <activity
+            android:name=".activities.LAFWeatherActivity"
+            android:label="@string/pref_look_and_feel_weather"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activities.LAFWatchFaceActivity" />
+        <activity
             android:name=".activities.LAFFilterNotificationsActivity"
             android:label="@string/pref_look_and_feel_filter_notifications"
             android:launchMode="singleTop"

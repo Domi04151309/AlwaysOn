@@ -38,6 +38,13 @@
         app:cpv_showColorShades="false" />
     <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
         android:defaultValue="0xffffffff"
+        android:icon="@drawable/ic_cloud"
+        android:key="display_color_weather"
+        android:title="@string/pref_look_and_feel_colors_weather"
+        app:cpv_showAlphaSlider="true"
+        app:cpv_showColorShades="false" />
+    <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+        android:defaultValue="0xffffffff"
         android:icon="@drawable/ic_notification"
         android:key="display_color_notification"
         android:title="@string/pref_look_and_feel_colors_notification"

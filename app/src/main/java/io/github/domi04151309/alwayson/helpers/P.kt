@@ -40,12 +40,16 @@ internal class P(val prefs: SharedPreferences) {
         const val DISABLE_DOUBLE_TAP = "ao_double_tap_disabled"
         const val SHOW_MUSIC_CONTROLS = "ao_musicControls"
         const val MESSAGE = "ao_message"
+        const val SHOW_WEATHER = "ao_weather"
+        const val WEATHER_LOCATION = "ao_weather_location"
+        const val WEATHER_FORMAT = "ao_weather_format"
         const val DISPLAY_COLOR_CLOCK = "display_color_clock"
         const val DISPLAY_COLOR_DATE = "display_color_date"
         const val DISPLAY_COLOR_BATTERY = "display_color_battery"
         const val DISPLAY_COLOR_MUSIC_CONTROLS = "display_color_music_controls"
         const val DISPLAY_COLOR_NOTIFICATION = "display_color_notification"
         const val DISPLAY_COLOR_MESSAGE = "display_color_message"
+        const val DISPLAY_COLOR_WEATHER = "display_color_weather"
         const val DISPLAY_COLOR_FINGERPRINT = "display_color_fingerprint"
         const val DISPLAY_COLOR_EDGE_GLOW = "display_color_edge_glow"
 
@@ -107,12 +111,16 @@ internal class P(val prefs: SharedPreferences) {
         const val DISABLE_DOUBLE_TAP_DEFAULT = false
         const val SHOW_MUSIC_CONTROLS_DEFAULT = false
         const val MESSAGE_DEFAULT = ""
+        const val SHOW_WEATHER_DEFAULT = false
+        const val WEATHER_LOCATION_DEFAULT = ""
+        const val WEATHER_FORMAT_DEFAULT = "%t"
         const val DISPLAY_COLOR_CLOCK_DEFAULT = -1
         const val DISPLAY_COLOR_DATE_DEFAULT = -1
         const val DISPLAY_COLOR_BATTERY_DEFAULT = -1
         const val DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT = -1
         const val DISPLAY_COLOR_NOTIFICATION_DEFAULT = -1
         const val DISPLAY_COLOR_MESSAGE_DEFAULT = -1
+        const val DISPLAY_COLOR_WEATHER_DEFAULT = -1
         const val DISPLAY_COLOR_FINGERPRINT_DEFAULT = -1
         const val DISPLAY_COLOR_EDGE_GLOW_DEFAULT = -1
     }

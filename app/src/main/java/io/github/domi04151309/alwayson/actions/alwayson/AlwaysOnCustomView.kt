@@ -16,10 +16,14 @@ import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceManager
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
+import com.android.volley.Request
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.P
 import java.lang.Integer.max
+import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
@@ -47,6 +51,7 @@ class AlwaysOnCustomView : View {
     private var batteryLevel = -1
     private var batteryIcon = R.drawable.ic_battery_unknown
     private var message = ""
+    private var weather = ""
     private var notificationCount = -1
     private var notificationIcons = arrayListOf<Icon>()
 
@@ -190,6 +195,30 @@ class AlwaysOnCustomView : View {
         dateFormat =
             SimpleDateFormat(prefs.get(P.DATE_FORMAT, P.DATE_FORMAT_DEFAULT), Locale.getDefault())
         message = prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT)
+
+        if (prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT)) {
+            Volley.newRequestQueue(context).add(StringRequest(
+                Request.Method.GET,
+                "https://wttr.in/" + URLEncoder.encode(
+                    prefs.get(
+                        P.WEATHER_LOCATION,
+                        P.WEATHER_LOCATION_DEFAULT
+                    ), "utf-8"
+                ) + "?T&format=" + URLEncoder.encode(
+                    prefs.get(
+                        P.WEATHER_FORMAT,
+                        P.WEATHER_FORMAT_DEFAULT
+                    ), "utf-8"
+                ),
+                { response ->
+                    weather = response
+                    invalidate()
+                },
+                {
+                    Log.e(Global.LOG_TAG, it.toString())
+                }
+            ))
+        }
     }
 
     /*
@@ -218,6 +247,8 @@ class AlwaysOnCustomView : View {
         if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT))
             currentHeight += getTextHeight(smallTextSize) + 2 * padding2
         if (prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT) != "")
+            currentHeight += getTextHeight(smallTextSize) + 2 * padding2
+        if (prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT))
             currentHeight += getTextHeight(smallTextSize) + 2 * padding2
         if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT))
             currentHeight += getTextHeight(mediumTextSize) + 2 * padding16
@@ -409,6 +440,19 @@ class AlwaysOnCustomView : View {
                 getPaint(
                     smallTextSize,
                     prefs.get(P.DISPLAY_COLOR_MESSAGE, P.DISPLAY_COLOR_MESSAGE_DEFAULT)
+                )
+            )
+        }
+
+        //Weather
+        if (prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT)) {
+            canvas.drawRelativeText(
+                weather,
+                padding2,
+                padding2,
+                getPaint(
+                    smallTextSize,
+                    prefs.get(P.DISPLAY_COLOR_WEATHER, P.DISPLAY_COLOR_WEATHER_DEFAULT)
                 )
             )
         }

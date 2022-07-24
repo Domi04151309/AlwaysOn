@@ -93,6 +93,11 @@
         android:summary="@string/pref_ao_message_summary"
         android:title="@string/pref_ao_message" />
     <Preference
+        android:icon="@drawable/ic_cloud"
+        android:key="pref_weather"
+        android:summary="@string/pref_look_and_feel_weather_info_summary"
+        android:title="@string/pref_look_and_feel_weather_info" />
+    <Preference
         android:icon="@drawable/ic_notification"
         android:key="pref_filter_notifications"
         android:summary="@string/pref_look_and_feel_filter_notifications_summary"

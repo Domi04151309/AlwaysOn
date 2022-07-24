@@ -104,6 +104,10 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                 }
                 true
             }
+            findPreference<Preference>("pref_weather")?.setOnPreferenceClickListener {
+                startActivity(Intent(context, LAFWeatherActivity::class.java))
+                true
+            }
             findPreference<Preference>("pref_filter_notifications")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, LAFFilterNotificationsActivity::class.java))
                 true
