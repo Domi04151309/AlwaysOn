@@ -108,15 +108,15 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                 startActivity(Intent(context, LAFFilterNotificationsActivity::class.java))
                 true
             }
-            val prefAodScale = findPreference<SeekBarPreference>("pref_aod_scale") ?: return
+            val prefAodScale = findPreference<SeekBarPreference>("pref_aod_scale_2") ?: return
             prefAodScale.summary = resources.getString(
                 R.string.pref_look_and_feel_display_size_summary,
-                prefAodScale.value + 50
+                prefAodScale.value
             )
             prefAodScale.setOnPreferenceChangeListener { preference, newValue ->
                 preference.summary = resources.getString(
                     R.string.pref_look_and_feel_display_size_summary,
-                    (newValue as Int) + 50
+                    newValue as Int
                 )
                 true
             }

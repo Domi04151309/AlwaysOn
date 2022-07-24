@@ -10,7 +10,7 @@ internal class P(val prefs: SharedPreferences) {
     fun get(key: String, default: String): String = prefs.getString(key, default) ?: default
     fun get(key: String, default: Int): Int = prefs.getInt(key, default)
 
-    fun displayScale(): Float = (prefs.getInt("pref_aod_scale", 50) + 50) / 100F
+    fun displayScale(): Float = prefs.getInt("pref_aod_scale_2", 100) / 100F
 
     companion object {
         const val RULES_CHARGING_STATE = "rules_charging_state"

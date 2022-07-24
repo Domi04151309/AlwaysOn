@@ -105,10 +105,10 @@
         android:title="@string/pref_ao_fingerprint_margin" />
     <SeekBarPreference
         android:icon="@drawable/ic_scale"
-        android:key="pref_aod_scale"
+        android:key="pref_aod_scale_2"
         android:summary="@string/loading"
         android:title="@string/pref_look_and_feel_display_size"
-        android:max="100"
-        android:defaultValue="50" />
+        android:max="200"
+        android:defaultValue="100" />
 
 </PreferenceScreen>
