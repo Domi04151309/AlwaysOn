@@ -12,8 +12,6 @@ internal object Global {
 
     const val LOG_TAG: String = "AlwaysOn"
 
-    const val REQUEST_STOP: String = "io.github.domi04151309.alwayson.REQUEST_STOP"
-
     const val ALWAYS_ON_STATE_CHANGED: String = "io.github.domi04151309.alwayson.ALWAYS_ON_STATE_CHANGED"
 
     fun currentAlwaysOnState(context: Context): Boolean {
