@@ -9,7 +9,6 @@ import android.os.Looper
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.helpers.Rules
@@ -25,10 +24,15 @@ class NotificationService : NotificationListenerService() {
     private var sentRecently: Boolean = false
     private var cache: Int = -1
 
+    interface OnNotificationsChangedListener {
+        fun onNotificationsChanged()
+    }
+
     companion object {
         internal var count: Int = 0
         internal var icons: ArrayList<Icon> = arrayListOf()
         internal var detailed: Array<StatusBarNotification> = arrayOf()
+        internal val listeners: ArrayList<OnNotificationsChangedListener> = arrayListOf()
     }
 
     override fun onCreate() {
@@ -94,7 +98,7 @@ class NotificationService : NotificationListenerService() {
             }
             if (cache != count) {
                 cache = count
-                LocalBroadcastManager.getInstance(this).sendBroadcast(Intent(Global.NOTIFICATIONS))
+                listeners.forEach { it.onNotificationsChanged() }
             }
             Handler(Looper.getMainLooper()).postDelayed({ sentRecently = false }, 100)
         }

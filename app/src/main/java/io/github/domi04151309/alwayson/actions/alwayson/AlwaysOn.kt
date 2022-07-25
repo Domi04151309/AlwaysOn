@@ -27,7 +27,7 @@ import io.github.domi04151309.alwayson.helpers.Root
 import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 import io.github.domi04151309.alwayson.services.NotificationService
 
-class AlwaysOn : OffActivity() {
+class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListener {
 
     companion object {
         private const val SENSOR_DELAY_SLOW: Int = 1000000
@@ -71,18 +71,6 @@ class AlwaysOn : OffActivity() {
 
         override fun onReceive(c: Context, intent: Intent) {
             when (intent.action) {
-                Global.NOTIFICATIONS -> {
-                    if (!servicesRunning) return
-
-                    viewHolder.customView.setNotificationData(
-                        NotificationService.count,
-                        NotificationService.icons
-                    )
-
-                    if (prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) {
-                        notificationAvailable = NotificationService.count > 0
-                    }
-                }
                 Global.REQUEST_STOP -> {
                     finish()
                 }
@@ -197,8 +185,12 @@ class AlwaysOn : OffActivity() {
         }
 
         //Notifications
-        if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT) || prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)) {
-            localFilter.addAction(Global.NOTIFICATIONS)
+        if (
+            prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)
+            || prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)
+            || prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)
+        ) {
+            NotificationService.listeners.add(this)
         }
 
         //Fingerprint icon
@@ -351,18 +343,11 @@ class AlwaysOn : OffActivity() {
         CombinedServiceReceiver.isAlwaysOnRunning = true
         servicesRunning = true
         if (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT) || prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) viewHolder.customView.startClockHandler()
-        if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)
+        if (
+            prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)
             || prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)
-            || prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) {
-            viewHolder.customView.setNotificationData(
-                NotificationService.count,
-                NotificationService.icons
-            )
-
-            if (prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) {
-                notificationAvailable = NotificationService.count > 0
-            }
-        }
+            || prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)
+        ) onNotificationsChanged()
         val millisTillEnd: Long = rules?.millisTillEnd(Calendar.getInstance()) ?: -1
         if (millisTillEnd > -1L) rulesHandler.postDelayed({ finishAndOff() }, millisTillEnd)
         if (prefs.get(P.RULES_TIMEOUT, P.RULES_TIMEOUT_DEFAULT) != 0) rulesHandler.postDelayed({ finishAndOff() }, prefs.get(P.RULES_TIMEOUT, P.RULES_TIMEOUT_DEFAULT) * 1000L)
@@ -387,6 +372,13 @@ class AlwaysOn : OffActivity() {
         CombinedServiceReceiver.isAlwaysOnRunning = false
         if (prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) aoEdgeGlowThread.interrupt()
         animationThread.interrupt()
+        if (
+            prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)
+            || prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)
+            || prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)
+        ) {
+            NotificationService.listeners.remove(this)
+        }
         localManager.unregisterReceiver(localReceiver)
         unregisterReceiver(systemReceiver)
     }
@@ -394,6 +386,17 @@ class AlwaysOn : OffActivity() {
     override fun finishAndOff() {
         CombinedServiceReceiver.hasRequestedStop = true
         super.finishAndOff()
+    }
+
+    override fun onNotificationsChanged() {
+        if (!servicesRunning) return
+        viewHolder.customView.setNotificationData(
+            NotificationService.count,
+            NotificationService.icons
+        )
+        if (prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) {
+            notificationAvailable = NotificationService.count > 0
+        }
     }
 
     private fun hideUI() {
