@@ -1,6 +1,7 @@
 package io.github.domi04151309.alwayson.activities
 
 import android.app.Activity
+import android.graphics.Color
 import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.widget.Toast
@@ -29,10 +30,22 @@ class AODTestActivity : Activity() {
         }
         view.setNotificationData(
             4, arrayListOf(
-                Icon.createWithResource(this, R.drawable.ic_notification),
-                Icon.createWithResource(this, R.drawable.ic_notification),
-                Icon.createWithResource(this, R.drawable.ic_notification),
-                Icon.createWithResource(this, R.drawable.ic_notification)
+                Pair(
+                    Icon.createWithResource(this, R.drawable.ic_notification),
+                    Color.RED
+                ),
+                Pair(
+                    Icon.createWithResource(this, R.drawable.ic_notification),
+                    Color.GREEN
+                ),
+                Pair(
+                    Icon.createWithResource(this, R.drawable.ic_notification),
+                    Color.BLUE
+                ),
+                Pair(
+                    Icon.createWithResource(this, R.drawable.ic_notification),
+                    Color.MAGENTA
+                )
             )
         )
     }

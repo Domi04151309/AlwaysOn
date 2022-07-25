@@ -137,6 +137,8 @@
     <string name="pref_look_and_feel_filter_notifications_empty_summary">Es sieht so aus, als gäbe es nichts anzuzeigen</string>
     <string name="pref_look_and_feel_filter_notifications_unknown">Unbekannte App</string>
 
+    <string name="pref_look_and_feel_tint_notifications">Benachrichtigungen einfärben</string>
+    <string name="pref_look_and_feel_tint_notifications_summary">Benachrichtigungen in ihren App-Farben einfärben</string>
     <string name="pref_look_and_feel_display_size">Anzeigegröße</string>
     <string name="pref_look_and_feel_display_size_summary">Die Anzeigegröße des AODs ist %1$d%%</string>
 

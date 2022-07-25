@@ -102,6 +102,12 @@
         android:key="pref_filter_notifications"
         android:summary="@string/pref_look_and_feel_filter_notifications_summary"
         android:title="@string/pref_look_and_feel_filter_notifications" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_palette"
+        android:key="ao_tint_notifications"
+        android:summary="@string/pref_look_and_feel_tint_notifications_summary"
+        android:title="@string/pref_look_and_feel_tint_notifications" />
     <io.github.domi04151309.alwayson.custom.EditIntegerPreference
         android:defaultValue="200"
         android:icon="@drawable/ic_fingerprint"

@@ -30,7 +30,7 @@ class NotificationService : NotificationListenerService() {
 
     companion object {
         internal var count: Int = 0
-        internal var icons: ArrayList<Icon> = arrayListOf()
+        internal var icons: ArrayList<Pair<Icon, Int>> = arrayListOf()
         internal var detailed: Array<StatusBarNotification> = arrayOf()
         internal val listeners: ArrayList<OnNotificationsChangedListener> = arrayListOf()
     }
@@ -39,6 +39,7 @@ class NotificationService : NotificationListenerService() {
         super.onCreate()
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
         rules = Rules(this, prefs)
+        updateVars()
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
@@ -87,7 +88,12 @@ class NotificationService : NotificationListenerService() {
                         if (notification.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0) count++
                         if (!apps.contains(notification.packageName)) {
                             apps += notification.packageName
-                            icons.add(notification.notification.smallIcon)
+                            icons.add(
+                                Pair(
+                                    notification.notification.smallIcon,
+                                    notification.notification.color
+                                )
+                            )
                         }
                     }
                 }

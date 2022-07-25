@@ -169,6 +169,8 @@
     <string name="pref_look_and_feel_filter_notifications_empty_summary">It seems that there is nothing to show</string>
     <string name="pref_look_and_feel_filter_notifications_unknown">Unknown application</string>
 
+    <string name="pref_look_and_feel_tint_notifications">Tint notifications</string>
+    <string name="pref_look_and_feel_tint_notifications_summary">Tint notifications in their app colors</string>
     <string name="pref_look_and_feel_display_size">Display size</string>
     <string name="pref_look_and_feel_display_size_summary">The display size of the AOD is %1$d%%</string>
 

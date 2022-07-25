@@ -43,6 +43,7 @@ internal class P(val prefs: SharedPreferences) {
         const val SHOW_WEATHER = "ao_weather"
         const val WEATHER_LOCATION = "ao_weather_location"
         const val WEATHER_FORMAT = "ao_weather_format"
+        const val TINT_NOTIFICATIONS = "ao_tint_notifications"
         const val DISPLAY_COLOR_CLOCK = "display_color_clock"
         const val DISPLAY_COLOR_DATE = "display_color_date"
         const val DISPLAY_COLOR_BATTERY = "display_color_battery"
@@ -114,6 +115,7 @@ internal class P(val prefs: SharedPreferences) {
         const val SHOW_WEATHER_DEFAULT = false
         const val WEATHER_LOCATION_DEFAULT = ""
         const val WEATHER_FORMAT_DEFAULT = "%t"
+        const val TINT_NOTIFICATIONS_DEFAULT = false
         const val DISPLAY_COLOR_CLOCK_DEFAULT = -1
         const val DISPLAY_COLOR_DATE_DEFAULT = -1
         const val DISPLAY_COLOR_BATTERY_DEFAULT = -1

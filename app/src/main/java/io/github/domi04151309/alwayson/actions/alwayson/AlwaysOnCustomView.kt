@@ -26,6 +26,7 @@ import java.lang.Integer.max
 import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
@@ -53,7 +54,7 @@ class AlwaysOnCustomView : View {
     private var message = ""
     private var weather = ""
     private var notificationCount = -1
-    private var notificationIcons = arrayListOf<Icon>()
+    private var notificationIcons = arrayListOf<Pair<Icon, Int>>()
 
     var musicVisible: Boolean = false
         set(value) {
@@ -477,13 +478,17 @@ class AlwaysOnCustomView : View {
                 val x: Int = if (flags[FLAG_LEFT_ALIGN]) relativePoint.toInt()
                 else (width - (notificationIcons.size - 1) * drawableSize) / 2
                 currentHeight += padding16 + drawableSize / 2
-                notificationIcons.forEachIndexed { index, icon ->
+                notificationIcons.forEachIndexed { index, (icon, color) ->
                     drawable = icon.loadDrawable(context)
                     drawable.setTint(
-                        prefs.get(
-                            P.DISPLAY_COLOR_NOTIFICATION,
-                            P.DISPLAY_COLOR_NOTIFICATION_DEFAULT
-                        )
+                        if (prefs.get(P.TINT_NOTIFICATIONS, P.TINT_NOTIFICATIONS_DEFAULT)) {
+                            color
+                        } else {
+                            prefs.get(
+                                P.DISPLAY_COLOR_NOTIFICATION,
+                                P.DISPLAY_COLOR_NOTIFICATION_DEFAULT
+                            )
+                        }
                     )
                     if (flags[FLAG_LEFT_ALIGN]) drawable.setBounds(
                         x + drawableSize * index,
@@ -644,7 +649,7 @@ class AlwaysOnCustomView : View {
         invalidate()
     }
 
-    fun setNotificationData(count: Int, icons: ArrayList<Icon>) {
+    fun setNotificationData(count: Int, icons: ArrayList<Pair<Icon, Int>>) {
         notificationCount = count
         notificationIcons = icons
         invalidate()
