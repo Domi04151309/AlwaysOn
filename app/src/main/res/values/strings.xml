@@ -175,6 +175,8 @@
     <string name="pref_look_and_feel_rules">Rules</string>
     <string name="pref_look_and_feel_rules_summary">Control when to show the AOD</string>
     <string name="pref_look_and_feel_rules_charging_state">Charging state</string>
+    <string name="pref_look_and_feel_rules_charger">Charging type</string>
+    <string name="pref_look_and_feel_rules_charger_summary">Choose which charging types count as charging</string>
     <string name="pref_look_and_feel_rules_battery_level">Battery level</string>
     <string name="pref_look_and_feel_rules_battery_level_summary">Show only above %1$d%%</string>
     <string name="pref_look_and_feel_rules_battery_level_summary_zero">Show at any battery level</string>
@@ -251,6 +253,17 @@
         <item>always</item>
         <item>charging</item>
         <item>discharging</item>
+    </string-array>
+
+    <string-array name="pref_look_and_feel_rules_charger_display">
+        <item>AC</item>
+        <item>USB</item>
+        <item>Wireless</item>
+    </string-array>
+    <string-array name="pref_look_and_feel_rules_charger_values" translatable="false">
+        <item>ac</item>
+        <item>usb</item>
+        <item>wireless</item>
     </string-array>
 
     <string-array name="pref_look_and_feel_orientation_display">

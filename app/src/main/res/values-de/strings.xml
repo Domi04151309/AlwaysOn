@@ -143,6 +143,8 @@
     <string name="pref_look_and_feel_rules">Regeln</string>
     <string name="pref_look_and_feel_rules_summary">Wann das Always On Display angezeigt werden soll</string>
     <string name="pref_look_and_feel_rules_charging_state">Ladezustand</string>
+    <string name="pref_look_and_feel_rules_charger">Ladetyp</string>
+    <string name="pref_look_and_feel_rules_charger_summary">Wählen Sie aus, welche Ladearten als Laden gelten</string>
     <string name="pref_look_and_feel_rules_battery_level">Akkustand</string>
     <string name="pref_look_and_feel_rules_battery_level_summary">Nur über %1$d%% anzeigen</string>
     <string name="pref_look_and_feel_rules_battery_level_summary_zero">Bei jedem Akkustand anzeigen</string>
@@ -201,6 +203,12 @@
         <item>Bei jedem Ladezustand anzeigen</item>
         <item>Nur während dem Laden anzeigen</item>
         <item>Nur während dem Entladen anzeigen</item>
+    </string-array>
+
+    <string-array name="pref_look_and_feel_rules_charger_display">
+        <item>Steckdose</item>
+        <item>USB</item>
+        <item>Kabellos</item>
     </string-array>
 
     <string-array name="pref_look_and_feel_orientation_display">

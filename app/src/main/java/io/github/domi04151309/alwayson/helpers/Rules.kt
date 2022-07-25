@@ -6,12 +6,18 @@ import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.icu.util.Calendar
 import android.os.BatteryManager
+import io.github.domi04151309.alwayson.R
 
 class Rules(private val c: Context, private val prefs: SharedPreferences) {
 
     private var start = Calendar.getInstance()
     private var end = Calendar.getInstance()
-    private val batteryStatus: Intent? = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter -> c.registerReceiver(null, filter) }
+    private val batteryStatus: Intent? = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter ->
+        c.registerReceiver(
+            null,
+            filter
+        )
+    }
 
     init {
         val startString = prefs.getString("rules_time_start", "0:00") ?: "0:00"
@@ -37,13 +43,31 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
 
     fun matchesChargingState(): Boolean {
         val chargingState: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
-                ?: return true
+            ?: return true
         val ruleChargingState = prefs.getString("rules_charging_state", "always")
-        return (ruleChargingState == "charging" && chargingState > 0) || (ruleChargingState == "discharging" && chargingState == 0) || (ruleChargingState == "always")
+        val charging = if (chargingState > 0) {
+            prefs.getStringSet(
+                "rules_charger_type",
+                c.resources.getStringArray(R.array.pref_look_and_feel_rules_charger_values).toSet()
+            )?.contains(
+                when (chargingState) {
+                    BatteryManager.BATTERY_PLUGGED_AC -> "ac"
+                    BatteryManager.BATTERY_PLUGGED_USB -> "usb"
+                    BatteryManager.BATTERY_PLUGGED_WIRELESS -> "wireless"
+                    else -> ""
+                }
+            ) ?: false
+        } else {
+            false
+        }
+        return (ruleChargingState == "charging" && charging) || (ruleChargingState == "discharging" && !charging) || (ruleChargingState == "always")
     }
 
     fun matchesBatteryPercentage(): Boolean {
-        return batteryStatus?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0) ?: 100 > prefs.getInt("rules_battery_level", 0)
+        return batteryStatus?.getIntExtra(
+            BatteryManager.EXTRA_LEVEL,
+            0
+        ) ?: 100 > prefs.getInt("rules_battery_level", 0)
     }
 
     fun isInTimePeriod(now: Calendar): Boolean {

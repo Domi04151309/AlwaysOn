@@ -17,6 +17,15 @@
         android:summary="%s"
         android:title="@string/pref_look_and_feel_rules_charging_state" />
 
+    <MultiSelectListPreference
+        android:defaultValue="@array/pref_look_and_feel_rules_charger_values"
+        android:entries="@array/pref_look_and_feel_rules_charger_display"
+        android:entryValues="@array/pref_look_and_feel_rules_charger_values"
+        android:icon="@drawable/ic_battery"
+        android:key="rules_charger_type"
+        android:summary="@string/pref_look_and_feel_rules_charger_summary"
+        android:title="@string/pref_look_and_feel_rules_charger" />
+
     <io.github.domi04151309.alwayson.custom.EditIntegerPreference
         android:defaultValue="0"
         android:icon="@drawable/ic_percent"
