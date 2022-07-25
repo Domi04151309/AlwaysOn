@@ -12,9 +12,6 @@ internal object Global {
 
     const val LOG_TAG: String = "AlwaysOn"
 
-    const val REQUEST_DETAILED_NOTIFICATIONS: String = "io.github.domi04151309.alwayson.REQUEST_DETAILED_NOTIFICATIONS"
-    const val DETAILED_NOTIFICATIONS: String = "io.github.domi04151309.alwayson.DETAILED_NOTIFICATIONS"
-    const val REQUEST_NOTIFICATIONS: String = "io.github.domi04151309.alwayson.REQUEST_NOTIFICATIONS"
     const val NOTIFICATIONS: String = "io.github.domi04151309.alwayson.NOTIFICATIONS"
 
     const val REQUEST_STOP: String = "io.github.domi04151309.alwayson.REQUEST_STOP"

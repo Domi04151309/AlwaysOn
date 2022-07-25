@@ -20,75 +20,65 @@ import org.json.JSONArray
 
 class NotificationService : NotificationListenerService() {
 
-    internal lateinit var localManager: LocalBroadcastManager
     private lateinit var prefs: SharedPreferences
     private lateinit var rules: Rules
     private var sentRecently: Boolean = false
     private var cache: Int = -1
 
-    private val actionReceiver = object : BroadcastReceiver() {
-
-        override fun onReceive(c: Context, intent: Intent) {
-            when (intent.action) {
-                Global.REQUEST_DETAILED_NOTIFICATIONS -> {
-                    localManager.sendBroadcast(Intent(Global.DETAILED_NOTIFICATIONS).putExtra("notifications", activeNotifications))
-                }
-                Global.REQUEST_NOTIFICATIONS -> {
-                    sendCount(true)
-                }
-            }
-        }
+    companion object {
+        internal var count: Int = 0
+        internal var icons: ArrayList<Icon> = arrayListOf()
+        internal var detailed: Array<StatusBarNotification> = arrayOf()
     }
 
     override fun onCreate() {
         super.onCreate()
-        localManager = LocalBroadcastManager.getInstance(this)
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
         rules = Rules(this, prefs)
-        val filter = IntentFilter(Global.REQUEST_DETAILED_NOTIFICATIONS)
-        filter.addAction(Global.REQUEST_NOTIFICATIONS)
-        localManager.registerReceiver(actionReceiver, filter)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        localManager.unregisterReceiver(actionReceiver)
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
-        sendCount()
+        updateVars()
 
-        if (!CombinedServiceReceiver.isScreenOn
-                && !CombinedServiceReceiver.isAlwaysOnRunning
-                && rules.isAlwaysOnDisplayEnabled()
-                && rules.isAmbientMode()
-                && rules.matchesChargingState()
-                && rules.matchesBatteryPercentage()
-                && rules.isInTimePeriod(Calendar.getInstance())
+        if (
+            !CombinedServiceReceiver.isScreenOn
+            && !CombinedServiceReceiver.isAlwaysOnRunning
+            && rules.isAlwaysOnDisplayEnabled()
+            && rules.isAmbientMode()
+            && rules.matchesChargingState()
+            && rules.matchesBatteryPercentage()
+            && rules.isInTimePeriod(Calendar.getInstance())
         ) {
-            startActivity(Intent(this, AlwaysOn::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+            startActivity(
+                Intent(
+                    this,
+                    AlwaysOn::class.java
+                ).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
         }
     }
 
     override fun onNotificationRemoved(sbn: StatusBarNotification) {
-        sendCount()
+        updateVars()
     }
 
-    internal fun sendCount(force: Boolean = false) {
+    private fun updateVars() {
         if (!sentRecently) {
             sentRecently = true
-            val notifications: Array<StatusBarNotification>
             val apps: ArrayList<String>
-            var icons: ArrayList<Icon>
-            var count = 0
+            icons = arrayListOf()
+            count = 0
             try {
-                notifications = activeNotifications
-                apps = ArrayList(notifications.size)
-                icons = ArrayList(notifications.size)
-                for (notification in notifications) {
+                detailed = activeNotifications
+                apps = ArrayList(detailed.size)
+                icons = ArrayList(detailed.size)
+                for (notification in detailed) {
                     if (
-                            !notification.isOngoing
-                            && !JSON.contains(JSONArray(prefs.getString("blocked_notifications", "[]")), notification.packageName)
+                        !notification.isOngoing
+                        && !JSON.contains(
+                            JSONArray(prefs.getString("blocked_notifications", "[]")),
+                            notification.packageName
+                        )
                     ) {
                         if (notification.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0) count++
                         if (!apps.contains(notification.packageName)) {
@@ -102,9 +92,9 @@ class NotificationService : NotificationListenerService() {
                 count = 0
                 icons = arrayListOf()
             }
-            if (cache != count || force) {
+            if (cache != count) {
                 cache = count
-                localManager.sendBroadcast(Intent(Global.NOTIFICATIONS).putExtra("count", count).putExtra("icons", icons))
+                LocalBroadcastManager.getInstance(this).sendBroadcast(Intent(Global.NOTIFICATIONS))
             }
             Handler(Looper.getMainLooper()).postDelayed({ sentRecently = false }, 100)
         }

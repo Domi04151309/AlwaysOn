@@ -73,15 +73,14 @@ class AlwaysOn : OffActivity() {
             when (intent.action) {
                 Global.NOTIFICATIONS -> {
                     if (!servicesRunning) return
-                    val notificationCount = intent.getIntExtra("count", 0)
 
                     viewHolder.customView.setNotificationData(
-                            notificationCount,
-                            intent.getParcelableArrayListExtra("icons") ?: arrayListOf()
+                        NotificationService.count,
+                        NotificationService.icons
                     )
 
                     if (prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) {
-                        notificationAvailable = notificationCount != 0
+                        notificationAvailable = NotificationService.count > 0
                     }
                 }
                 Global.REQUEST_STOP -> {
@@ -353,9 +352,16 @@ class AlwaysOn : OffActivity() {
         servicesRunning = true
         if (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT) || prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) viewHolder.customView.startClockHandler()
         if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)
-                || prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)
-                || prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) {
-            localManager.sendBroadcast(Intent(Global.REQUEST_NOTIFICATIONS))
+            || prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)
+            || prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) {
+            viewHolder.customView.setNotificationData(
+                NotificationService.count,
+                NotificationService.icons
+            )
+
+            if (prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) {
+                notificationAvailable = NotificationService.count > 0
+            }
         }
         val millisTillEnd: Long = rules?.millisTillEnd(Calendar.getInstance()) ?: -1
         if (millisTillEnd > -1L) rulesHandler.postDelayed({ finishAndOff() }, millisTillEnd)
