@@ -175,6 +175,7 @@
             android:label="@string/AlwaysOn">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="io.github.domi04151309.alwayson.ALWAYS_ON_STATE_CHANGED" />
             </intent-filter>
 
             <meta-data

@@ -15,7 +15,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.R
@@ -23,6 +22,7 @@ import io.github.domi04151309.alwayson.services.AlwaysOnTileService
 import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.Permissions
 import io.github.domi04151309.alwayson.helpers.Theme
+import io.github.domi04151309.alwayson.receivers.AlwaysOnAppWidgetProvider
 import io.github.domi04151309.alwayson.services.ForegroundService
 
 class MainActivity : AppCompatActivity() {
@@ -136,8 +136,10 @@ class MainActivity : AppCompatActivity() {
                     context,
                     ComponentName(requireContext(), AlwaysOnTileService::class.java)
                 )
-                LocalBroadcastManager.getInstance(requireContext())
-                    .sendBroadcast(Intent().setAction(Global.ALWAYS_ON_STATE_CHANGED))
+                requireContext().sendBroadcast(
+                    Intent(context, AlwaysOnAppWidgetProvider::class.java)
+                        .setAction(Global.ALWAYS_ON_STATE_CHANGED)
+                )
                 true
             }
             findPreference<Preference>("pref_watch_face")?.setOnPreferenceClickListener {
