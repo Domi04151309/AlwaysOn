@@ -501,18 +501,6 @@ class AlwaysOnCustomView : View {
                 }
             } catch (e: Exception) {
                 Log.e(Global.LOG_TAG, e.toString())
-                canvas.drawRelativeText(
-                    resources.getString(R.string.loading),
-                    padding16,
-                    padding16,
-                    getPaint(
-                        smallTextSize,
-                        prefs.get(
-                            P.DISPLAY_COLOR_NOTIFICATION,
-                            P.DISPLAY_COLOR_NOTIFICATION_DEFAULT
-                        )
-                    )
-                )
             }
         }
 
