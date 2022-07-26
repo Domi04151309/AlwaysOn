@@ -201,6 +201,12 @@ class AlwaysOnCustomView : View {
         message = prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT)
 
         if (prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
+            val singleLineClock = SimpleDateFormat(
+                if (prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
+                    if (prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) "h:mm a"
+                    else "h:mm"
+                } else "H:mm", Locale.getDefault()
+            )
             if (Permissions.hasCalendarPermission(context ?: throw IllegalStateException())) {
                 val cursor = context.contentResolver.query(
                     CalendarContract.Events.CONTENT_URI,
@@ -221,8 +227,8 @@ class AlwaysOnCustomView : View {
                         eventArray.add(
                             Pair(
                                 startTime,
-                                clockFormat.format(startTime) + " - " +
-                                        clockFormat.format(endTime) + " | " +
+                                singleLineClock.format(startTime) + " - " +
+                                        singleLineClock.format(endTime) + " | " +
                                         cursor?.getString(0)
                             )
                         )
