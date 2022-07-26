@@ -31,7 +31,8 @@ class MainActivity : AppCompatActivity() {
         DEVICE_ADMIN,
         NOTIFICATION_ACCESS,
         DISPLAY_OVER_OTHER_APPS,
-        PHONE_STATE
+        PHONE_STATE,
+        CALENDAR
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity() {
 
         if (Permissions.needsNotificationPermissions(this)) buildDialog(Dialogs.NOTIFICATION_ACCESS)
         if (Permissions.needsDeviceAdminOrRoot(this)) buildDialog(Dialogs.DEVICE_ADMIN)
+        if (Permissions.needsCalendarPermission(this)) buildDialog(Dialogs.CALENDAR)
 
         if (!Permissions.hasPhoneStatePermission(this)) buildDialog(Dialogs.PHONE_STATE)
         if (!Settings.canDrawOverlays(this)) buildDialog(Dialogs.DISPLAY_OVER_OTHER_APPS)
@@ -103,6 +105,18 @@ class MainActivity : AppCompatActivity() {
                     ActivityCompat.requestPermissions(
                         this,
                         arrayOf(Manifest.permission.READ_PHONE_STATE),
+                        0
+                    )
+                }
+            }
+            Dialogs.CALENDAR -> {
+                icon.setImageResource(R.drawable.ic_color_calendar)
+                title.setText(R.string.setup_calendar)
+                message.setText(R.string.setup_calendar_summary)
+                builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
+                    ActivityCompat.requestPermissions(
+                        this,
+                        arrayOf(Manifest.permission.READ_CALENDAR),
                         0
                     )
                 }

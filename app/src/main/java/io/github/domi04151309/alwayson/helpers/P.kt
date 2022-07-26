@@ -24,6 +24,7 @@ internal class P(val prefs: SharedPreferences) {
         const val SHOW_DATE = "ao_date"
         const val SHOW_BATTERY_ICON = "ao_batteryIcn"
         const val SHOW_BATTERY_PERCENTAGE = "ao_battery"
+        const val SHOW_CALENDAR = "ao_calendar"
         const val SHOW_NOTIFICATION_COUNT = "ao_notifications"
         const val SHOW_NOTIFICATION_ICONS = "ao_notification_icons"
         const val SHOW_FINGERPRINT_ICON = "ao_fingerprint"
@@ -48,6 +49,7 @@ internal class P(val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_DATE = "display_color_date"
         const val DISPLAY_COLOR_BATTERY = "display_color_battery"
         const val DISPLAY_COLOR_MUSIC_CONTROLS = "display_color_music_controls"
+        const val DISPLAY_COLOR_CALENDAR = "display_color_calendar"
         const val DISPLAY_COLOR_NOTIFICATION = "display_color_notification"
         const val DISPLAY_COLOR_MESSAGE = "display_color_message"
         const val DISPLAY_COLOR_WEATHER = "display_color_weather"
@@ -96,6 +98,7 @@ internal class P(val prefs: SharedPreferences) {
         const val SHOW_DATE_DEFAULT = true
         const val SHOW_BATTERY_ICON_DEFAULT = true
         const val SHOW_BATTERY_PERCENTAGE_DEFAULT = true
+        const val SHOW_CALENDAR_DEFAULT = false
         const val SHOW_NOTIFICATION_COUNT_DEFAULT = false
         const val SHOW_NOTIFICATION_ICONS_DEFAULT = true
         const val SHOW_FINGERPRINT_ICON_DEFAULT = false
@@ -120,6 +123,7 @@ internal class P(val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_DATE_DEFAULT = -1
         const val DISPLAY_COLOR_BATTERY_DEFAULT = -1
         const val DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT = -1
+        const val DISPLAY_COLOR_CALENDAR_DEFAULT = -1
         const val DISPLAY_COLOR_NOTIFICATION_DEFAULT = -1
         const val DISPLAY_COLOR_MESSAGE_DEFAULT = -1
         const val DISPLAY_COLOR_WEATHER_DEFAULT = -1

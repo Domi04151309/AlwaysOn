@@ -1,5 +1,6 @@
 package io.github.domi04151309.alwayson.activities
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
@@ -8,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SeekBarPreference
@@ -60,6 +62,16 @@ class LAFWatchFaceActivity : AppCompatActivity() {
             }
             findPreference<Preference>("ao_colors")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, LAFWFColorsActivity::class.java))
+                true
+            }
+            findPreference<Preference>(P.SHOW_CALENDAR)?.setOnPreferenceChangeListener { preference, newValue ->
+                if (newValue is Boolean && newValue) {
+                    ActivityCompat.requestPermissions(
+                        requireActivity(),
+                        arrayOf(Manifest.permission.READ_CALENDAR),
+                        0
+                    )
+                }
                 true
             }
             findPreference<Preference>(P.DATE_FORMAT)?.setOnPreferenceClickListener {

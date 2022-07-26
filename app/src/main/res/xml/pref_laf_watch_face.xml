@@ -47,6 +47,12 @@
         android:title="@string/pref_ao_showMusicControls" />
     <SwitchPreference
         android:defaultValue="false"
+        android:icon="@drawable/ic_date"
+        android:key="ao_calendar"
+        android:summary="@string/pref_ao_calendar_summary"
+        android:title="@string/pref_ao_calendar" />
+    <SwitchPreference
+        android:defaultValue="false"
         android:icon="@drawable/ic_notification"
         android:key="ao_notifications"
         android:summaryOff="@string/pref_disabled"

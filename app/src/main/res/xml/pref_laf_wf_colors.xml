@@ -31,6 +31,13 @@
         app:cpv_showColorShades="false" />
     <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
         android:defaultValue="0xffffffff"
+        android:icon="@drawable/ic_date"
+        android:key="display_color_calendar"
+        android:title="@string/pref_look_and_feel_colors_calendar"
+        app:cpv_showAlphaSlider="true"
+        app:cpv_showColorShades="false" />
+    <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
+        android:defaultValue="0xffffffff"
         android:icon="@drawable/ic_short_text"
         android:key="display_color_message"
         android:title="@string/pref_look_and_feel_colors_message"

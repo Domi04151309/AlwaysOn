@@ -15,6 +15,8 @@
     <string name="setup_draw_over_other_apps_summary">This permission is required to show the always on display.</string>
     <string name="setup_phone_state">Read phone state</string>
     <string name="setup_phone_state_summary">This permission is required to stop the always on display for incoming calls.</string>
+    <string name="setup_calendar">Read calendar</string>
+    <string name="setup_calendar_summary">You need to enable calendar access for the app to display your events on the always on display.</string>
     <string name="setup_continue">Continue</string>
     <string name="setup_error">Something went wrong! Please try again!</string>
 
@@ -52,7 +54,7 @@
     <string name="pref_look_and_feel_hour_summary_on">Currently used: 12-hour clock</string>
     <string name="pref_look_and_feel_hour_summary_off">Currently used: 24-hour clock</string>
     <string name="pref_look_and_feel_am_pm">Show AM / PM</string>
-    <string name="pref_look_and_feel_am_pm_summary">Shows AM / PM when using 12-hour clock</string>
+    <string name="pref_look_and_feel_am_pm_summary">Show AM / PM when using 12-hour clock</string>
 
     <string name="pref_look_and_feel_ao">Always on look</string>
     <string name="pref_look_and_feel_ao_summary">Changes the look of the always on display</string>
@@ -77,6 +79,7 @@
     <string name="pref_look_and_feel_colors_date">Date color</string>
     <string name="pref_look_and_feel_colors_battery">Battery color</string>
     <string name="pref_look_and_feel_colors_music_controls">Music controls color</string>
+    <string name="pref_look_and_feel_colors_calendar">Calendar event color</string>
     <string name="pref_look_and_feel_colors_message">Message color</string>
     <string name="pref_look_and_feel_colors_weather">Weather color</string>
     <string name="pref_look_and_feel_colors_notification">Notification color</string>
@@ -124,6 +127,8 @@
     <string name="pref_ao_date_format_dialog_text">You have to follow a specific pattern</string>
     <string name="pref_ao_date_format_dialog_neutral">Learn more</string>
     <string name="pref_ao_date_format_illegal">Illegal format</string>
+    <string name="pref_ao_calendar">Show events</string>
+    <string name="pref_ao_calendar_summary">Show events in the next 24h on your AOD</string>
 
     <string name="pref_ao_background_image">Background image</string>
     <string name="pref_ao_background_image_summary">Change the background image of the AOD</string>

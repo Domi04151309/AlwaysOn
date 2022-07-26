@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import android.os.Handler
 import android.os.Looper
+import android.provider.CalendarContract
 import android.util.AttributeSet
 import android.util.Log
 import android.util.TypedValue
@@ -22,6 +23,7 @@ import com.android.volley.toolbox.Volley
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.P
+import io.github.domi04151309.alwayson.helpers.Permissions
 import java.lang.Integer.max
 import java.net.URLEncoder
 import java.text.SimpleDateFormat
@@ -51,6 +53,7 @@ class AlwaysOnCustomView : View {
     private var batteryCharging = false
     private var batteryLevel = -1
     private var batteryIcon = R.drawable.ic_battery_unknown
+    private var events = listOf<String>()
     private var message = ""
     private var weather = ""
     private var notificationCount = -1
@@ -197,6 +200,42 @@ class AlwaysOnCustomView : View {
             SimpleDateFormat(prefs.get(P.DATE_FORMAT, P.DATE_FORMAT_DEFAULT), Locale.getDefault())
         message = prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT)
 
+        if (prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
+            if (Permissions.hasCalendarPermission(context ?: throw IllegalStateException())) {
+                val cursor = context.contentResolver.query(
+                    CalendarContract.Events.CONTENT_URI,
+                    arrayOf("title", "dtstart", "dtend"),
+                    null,
+                    null,
+                    null
+                )
+                cursor?.moveToFirst()
+                val millis = System.currentTimeMillis()
+                val eventArray = arrayListOf<Pair<Long, String>>()
+                var startTime: Long
+                var endTime: Long
+                for (i in 0 until (cursor?.count ?: 0)) {
+                    startTime = (cursor?.getString(1) ?: "0").toLong()
+                    endTime = (cursor?.getString(2) ?: "0").toLong()
+                    if (endTime > millis && startTime < millis + 24 * 60 * 60 * 1000)
+                        eventArray.add(
+                            Pair(
+                                startTime,
+                                clockFormat.format(startTime) + " - " +
+                                        clockFormat.format(endTime) + " | " +
+                                        cursor?.getString(0)
+                            )
+                        )
+                    cursor?.moveToNext()
+                }
+                cursor?.close()
+                eventArray.sortBy { it.first }
+                events = eventArray.map { it.second }
+            } else {
+                events = listOf(context.resources.getString(R.string.missing_permissions))
+            }
+        }
+
         if (prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT)) {
             Volley.newRequestQueue(context).add(StringRequest(
                 Request.Method.GET,
@@ -247,6 +286,8 @@ class AlwaysOnCustomView : View {
             currentHeight += getTextHeight(mediumTextSize) + 2 * padding16
         if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT))
             currentHeight += getTextHeight(smallTextSize) + 2 * padding2
+        if (prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT))
+            currentHeight += 2 * padding16 + events.size * (getTextHeight(smallTextSize) + 2 * padding2)
         if (prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT) != "")
             currentHeight += getTextHeight(smallTextSize) + 2 * padding2
         if (prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT))
@@ -430,6 +471,23 @@ class AlwaysOnCustomView : View {
                 ),
                 if (flags[FLAG_LEFT_ALIGN]) drawableSize else 0
             )
+        }
+
+        //Calendar
+        if (prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
+            currentHeight += padding16
+            events.forEach {
+                canvas.drawRelativeText(
+                    it,
+                    padding2,
+                    padding2,
+                    getPaint(
+                        smallTextSize,
+                        prefs.get(P.DISPLAY_COLOR_CALENDAR, P.DISPLAY_COLOR_CALENDAR_DEFAULT)
+                    )
+                )
+            }
+            currentHeight += padding16
         }
 
         //Message

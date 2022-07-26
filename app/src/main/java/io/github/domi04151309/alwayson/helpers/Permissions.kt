@@ -23,6 +23,10 @@ object Permissions {
         "rules_charging_state", "rules_battery_level", "rules_time", "rules_timeout_sec"
     )
 
+    private val CALENDAR_PERMISSION_PREFS: Array<String> = arrayOf(
+        "ao_calendar"
+    )
+
     private fun prefs(c: Context): SharedPreferences = PreferenceManager
         .getDefaultSharedPreferences(c)
 
@@ -76,5 +80,19 @@ object Permissions {
 
     fun hasPhoneStatePermission(context: Context): Boolean {
         return context.applicationContext.checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun hasCalendarPermission(context: Context): Boolean {
+        return context.applicationContext.checkSelfPermission(Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun needsCalendarPermission(context: Context): Boolean {
+        val prefs = prefs(context).all
+        for (i in CALENDAR_PERMISSION_PREFS) {
+            if (prefs.containsKey(i) && prefs[i] is Boolean && prefs[i] == true) {
+                return !hasCalendarPermission(context)
+            }
+        }
+        return false
     }
 }
