@@ -14,6 +14,7 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceManager
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
@@ -25,6 +26,7 @@ import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Permissions
 import java.lang.Integer.max
+import java.lang.Integer.min
 import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.*
@@ -301,7 +303,7 @@ class AlwaysOnCustomView : View {
         if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT))
             currentHeight += getTextHeight(mediumTextSize) + 2 * padding16
         if (prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT))
-            currentHeight += drawableSize + 2 * padding16
+            currentHeight += drawableSize * 2 + 2 * padding16
 
         currentHeight += paddingBottom
 
@@ -537,13 +539,20 @@ class AlwaysOnCustomView : View {
 
         //Notification Icons
         if (prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)) {
-            try {
-                var drawable: Drawable
-                val x: Int = if (flags[FLAG_LEFT_ALIGN]) relativePoint.toInt()
-                else (width - (notificationIcons.size - 1) * drawableSize) / 2
-                currentHeight += padding16 + drawableSize / 2
-                notificationIcons.forEachIndexed { index, (icon, color) ->
-                    drawable = icon.loadDrawable(context)
+            var drawable: Drawable
+            var x: Int = if (flags[FLAG_LEFT_ALIGN]) relativePoint.toInt()
+            else (width - (
+                    min(
+                        notificationIcons.size, NOTIFICATION_ROW_LENGTH
+                    ) - 1) * drawableSize) / 2
+            currentHeight += padding16 + drawableSize / 2
+            for (index in 0 until notificationIcons.size) {
+                val (icon, color) = notificationIcons[index]
+                try {
+                    drawable = if (index == NOTIFICATION_LIMIT - 1)
+                        ContextCompat.getDrawable(context, R.drawable.ic_more)
+                            ?: break
+                    else icon.loadDrawable(context)
                     drawable.setTint(
                         if (prefs.get(P.TINT_NOTIFICATIONS, P.TINT_NOTIFICATIONS_DEFAULT)) {
                             color
@@ -554,26 +563,32 @@ class AlwaysOnCustomView : View {
                             )
                         }
                     )
+                    if (
+                        !flags[FLAG_LEFT_ALIGN]
+                        && index / NOTIFICATION_ROW_LENGTH == notificationIcons.size / NOTIFICATION_ROW_LENGTH
+                        && index % NOTIFICATION_ROW_LENGTH == 0
+                    ) x = (width - (
+                            notificationIcons.size % NOTIFICATION_ROW_LENGTH - 1
+                            ) * drawableSize) / 2
                     if (flags[FLAG_LEFT_ALIGN]) drawable.setBounds(
-                        x + drawableSize * index,
-                        currentHeight.toInt() - drawableSize / 2,
-                        x + drawableSize * (index + 1),
-                        currentHeight.toInt() + drawableSize / 2
+                        x + drawableSize * (index % NOTIFICATION_ROW_LENGTH),
+                        currentHeight.toInt() - drawableSize / 2 + index / NOTIFICATION_ROW_LENGTH * drawableSize,
+                        x + drawableSize * ((index + 1) % NOTIFICATION_ROW_LENGTH),
+                        currentHeight.toInt() + drawableSize / 2 + index / NOTIFICATION_ROW_LENGTH * drawableSize
                     )
                     else drawable.setBounds(
-                        x - drawableSize / 2 + drawableSize * index,
-                        currentHeight.toInt() - drawableSize / 2,
-                        x + drawableSize / 2 + drawableSize * index,
-                        currentHeight.toInt() + drawableSize / 2
+                        x - drawableSize / 2 + drawableSize * (index % NOTIFICATION_ROW_LENGTH),
+                        currentHeight.toInt() - drawableSize / 2 + index / NOTIFICATION_ROW_LENGTH * drawableSize,
+                        x + drawableSize / 2 + drawableSize * (index % NOTIFICATION_ROW_LENGTH),
+                        currentHeight.toInt() + drawableSize / 2 + index / NOTIFICATION_ROW_LENGTH * drawableSize
                     )
                     drawable.draw(canvas)
+                    if (index == NOTIFICATION_LIMIT - 1) break
+                } catch (e: Exception) {
+                    Log.e(Global.LOG_TAG, e.toString())
                 }
-            } catch (e: Exception) {
-                Log.e(Global.LOG_TAG, e.toString())
             }
         }
-
-        currentHeight += paddingBottom
     }
 
     override fun performClick(): Boolean {
@@ -735,6 +750,8 @@ class AlwaysOnCustomView : View {
 
     companion object {
         private const val UPDATE_DELAY: Long = 60000
+        private const val NOTIFICATION_ROW_LENGTH: Int = 10
+        private const val NOTIFICATION_LIMIT: Int = 20
         private const val FLAG_CAPS_DATE: Int = 0
         private const val FLAG_SAMSUNG_2: Int = 1
         private const val FLAG_BIG_DATE: Int = 1

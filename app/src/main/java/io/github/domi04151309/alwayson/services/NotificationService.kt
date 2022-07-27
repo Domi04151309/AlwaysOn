@@ -106,7 +106,7 @@ class NotificationService : NotificationListenerService() {
                 cache = count
                 listeners.forEach { it.onNotificationsChanged() }
             }
-            Handler(Looper.getMainLooper()).postDelayed({ sentRecently = false }, 100)
+            Handler(Looper.getMainLooper()).postDelayed({ sentRecently = false }, 500)
         }
     }
 }
