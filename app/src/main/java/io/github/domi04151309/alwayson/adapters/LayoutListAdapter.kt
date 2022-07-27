@@ -16,10 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.R
 
 class LayoutListAdapter(
-        private val context: Context,
-        private val drawables: Array<Int>,
-        private val titles: Array<String>,
-        private val onItemClickListener: OnItemClickListener
+    private val context: Context,
+    private val drawables: Array<Int>,
+    private val titles: Array<String>,
+    private val onItemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<LayoutListAdapter.ViewHolder>() {
 
     private var selectedItem = -1
@@ -31,7 +31,9 @@ class LayoutListAdapter(
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.layout_list_item, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.layout_list_item, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -40,12 +42,16 @@ class LayoutListAdapter(
             onItemClickListener.onItemClick(holder.view, position)
         }
 
-        if (position == selectedItem) holder.view.findViewById<LinearLayout>(R.id.linearLayout).setBackgroundColor(
+        if (position == selectedItem) holder.view.findViewById<LinearLayout>(R.id.linearLayout)
+            .setBackgroundColor(
                 ColorUtils.setAlphaComponent(getColor(context, R.color.colorAccent), 64)
-        ) else {
-            holder.view.findViewById<LinearLayout>(R.id.linearLayout).background = context.getAttr(R.attr.selectableItemBackground)
+            )
+        else {
+            holder.view.findViewById<LinearLayout>(R.id.linearLayout).background =
+                context.getAttr(R.attr.selectableItemBackground)
         }
-        holder.view.findViewById<ImageView>(R.id.drawable).setImageDrawable(ContextCompat.getDrawable(context, drawables[position]))
+        holder.view.findViewById<ImageView>(R.id.drawable)
+            .setImageDrawable(ContextCompat.getDrawable(context, drawables[position]))
         holder.view.findViewById<TextView>(R.id.title).text = titles[position]
     }
 
@@ -59,8 +65,8 @@ class LayoutListAdapter(
     }
 
     private fun Context.getAttr(
-            attr: Int,
-            typedValue: TypedValue = TypedValue()
+        attr: Int,
+        typedValue: TypedValue = TypedValue()
     ): Drawable? {
         theme.resolveAttribute(attr, typedValue, true)
         return ContextCompat.getDrawable(context, typedValue.resourceId)
