@@ -146,6 +146,7 @@
         <item>Tyler Lastovich</item>
         <item>Tyler Lastovich</item>
         <item>Tyler Lastovich</item>
+        <item>Custom</item>
     </string-array>
     <string name="pref_look_and_feel_hide_display_cutouts">Hide display cutouts</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Hide display cutouts on fullscreen content</string>
