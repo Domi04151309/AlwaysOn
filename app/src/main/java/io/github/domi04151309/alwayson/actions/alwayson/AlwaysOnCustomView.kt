@@ -285,7 +285,9 @@ class AlwaysOnCustomView : View {
         if (prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
             if (flags[FLAG_SAMSUNG_3]) currentHeight =
                 tempHeight + getTextHeight(bigTextSize) + padding16
-            else currentHeight += getTextHeight(if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize) + 2 * padding2
+            else currentHeight += getTextHeight(
+                if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize
+            ) + 2 * padding2
         }
         if (
             prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)
@@ -295,7 +297,9 @@ class AlwaysOnCustomView : View {
         if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT))
             currentHeight += getTextHeight(smallTextSize) + 2 * padding2
         if (prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT))
-            currentHeight += 2 * padding16 + events.size * (getTextHeight(smallTextSize) + 2 * padding2)
+            currentHeight += 2 * padding16 + events.size * (
+                    getTextHeight(smallTextSize) + 2 * padding2
+                    )
         if (prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT) != "")
             currentHeight += getTextHeight(smallTextSize) + 2 * padding2
         if (prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT))
@@ -303,7 +307,8 @@ class AlwaysOnCustomView : View {
         if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT))
             currentHeight += getTextHeight(mediumTextSize) + 2 * padding16
         if (prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT))
-            currentHeight += drawableSize * 2 + 2 * padding16
+            currentHeight += (NOTIFICATION_LIMIT / NOTIFICATION_ROW_LENGTH + 1) * drawableSize +
+                    2 * padding16
 
         currentHeight += paddingBottom
 
@@ -342,8 +347,8 @@ class AlwaysOnCustomView : View {
                 templatePaint.style = Paint.Style.FILL
 
                 val c = Calendar.getInstance()
-                val hour =
-                    if (c[Calendar.HOUR_OF_DAY] > 12) c[Calendar.HOUR_OF_DAY] - 12 else c[Calendar.HOUR_OF_DAY]
+                val hour = if (c[Calendar.HOUR_OF_DAY] > 12) c[Calendar.HOUR_OF_DAY] - 12
+                else c[Calendar.HOUR_OF_DAY]
 
                 drawHand(canvas, (hour + c.get(Calendar.MINUTE) / 60) * 5, true)
                 drawHand(canvas, c.get(Calendar.MINUTE), false)
@@ -358,8 +363,9 @@ class AlwaysOnCustomView : View {
                         bigTextSize,
                         prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)
                     ),
-                    if (flags[FLAG_SAMSUNG_3]) -templatePaint.measureText(clockFormat.format(System.currentTimeMillis()))
-                        .toInt() / 2 - padding16 else 0
+                    if (flags[FLAG_SAMSUNG_3]) -templatePaint.measureText(
+                        clockFormat.format(System.currentTimeMillis())
+                    ).toInt() / 2 - padding16 else 0
                 )
             }
         }
@@ -379,8 +385,9 @@ class AlwaysOnCustomView : View {
                     if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize,
                     prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT)
                 ),
-                if (flags[FLAG_SAMSUNG_3]) templatePaint.measureText(dateFormat.format(System.currentTimeMillis()))
-                    .toInt() / 2 + padding16 else 0
+                if (flags[FLAG_SAMSUNG_3]) templatePaint.measureText(
+                    dateFormat.format(System.currentTimeMillis())
+                ).toInt() / 2 + padding16 else 0
             )
             if (flags[FLAG_SAMSUNG_3]) currentHeight =
                 tempHeight + getTextHeight(bigTextSize) + padding16
@@ -597,10 +604,10 @@ class AlwaysOnCustomView : View {
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (event.action == MotionEvent.ACTION_DOWN && abs(event.y.toInt() - skipPositions[2]) < 64 && prefs.get(
-                P.SHOW_MUSIC_CONTROLS,
-                P.SHOW_MUSIC_CONTROLS_DEFAULT
-            )
+        if (
+            event.action == MotionEvent.ACTION_DOWN
+            && abs(event.y.toInt() - skipPositions[2]) < 64
+            && prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)
         ) {
             when {
                 abs(event.x.toInt() - skipPositions[0]) < padding16 -> {
