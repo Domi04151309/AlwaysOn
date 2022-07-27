@@ -30,6 +30,7 @@ internal class P(val prefs: SharedPreferences) {
         const val SHOW_FINGERPRINT_ICON = "ao_fingerprint"
         const val FINGERPRINT_MARGIN = "ao_fingerprint_margin"
         const val BACKGROUND_IMAGE = "ao_background_image"
+        const val CUSTOM_BACKGROUND = "custom_background"
         const val EDGE_GLOW = "ao_edgeGlow"
         const val POCKET_MODE = "ao_pocket_mode"
         const val DO_NOT_DISTURB = "ao_dnd"
@@ -86,6 +87,7 @@ internal class P(val prefs: SharedPreferences) {
         const val BACKGROUND_IMAGE_TYLER_LASTOVICH_1 = "tyler_lastovich_1"
         const val BACKGROUND_IMAGE_TYLER_LASTOVICH_2 = "tyler_lastovich_2"
         const val BACKGROUND_IMAGE_TYLER_LASTOVICH_3 = "tyler_lastovich_3"
+        const val BACKGROUND_IMAGE_CUSTOM = "custom"
 
         const val RULES_CHARGING_STATE_DEFAULT = "always"
         const val RULES_BATTERY_DEFAULT = 0

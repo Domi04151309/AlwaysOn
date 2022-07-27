@@ -1,17 +1,17 @@
 package io.github.domi04151309.alwayson.actions.alwayson
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.Icon
 import android.os.Handler
 import android.os.Looper
 import android.provider.CalendarContract
 import android.util.AttributeSet
+import android.util.Base64
 import android.util.Log
 import android.util.TypedValue
+import android.view.Display
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -30,7 +30,6 @@ import java.lang.Integer.min
 import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
@@ -52,6 +51,7 @@ class AlwaysOnCustomView : View {
     private lateinit var prefs: P
     private lateinit var clockFormat: SimpleDateFormat
     private lateinit var dateFormat: SimpleDateFormat
+    private var nonScaleBackground: Bitmap? = null
     private var batteryCharging = false
     private var batteryLevel = -1
     private var batteryIcon = R.drawable.ic_battery_unknown
@@ -159,23 +159,34 @@ class AlwaysOnCustomView : View {
         }
 
         if (prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT) != P.BACKGROUND_IMAGE_NONE) {
-            setBackgroundResource(
-                when (prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT)) {
-                    P.BACKGROUND_IMAGE_DANIEL_OLAH_1 -> R.drawable.unsplash_daniel_olah_1
-                    P.BACKGROUND_IMAGE_DANIEL_OLAH_2 -> R.drawable.unsplash_daniel_olah_2
-                    P.BACKGROUND_IMAGE_DANIEL_OLAH_3 -> R.drawable.unsplash_daniel_olah_3
-                    P.BACKGROUND_IMAGE_DANIEL_OLAH_4 -> R.drawable.unsplash_daniel_olah_4
-                    P.BACKGROUND_IMAGE_DANIEL_OLAH_5 -> R.drawable.unsplash_daniel_olah_5
-                    P.BACKGROUND_IMAGE_DANIEL_OLAH_6 -> R.drawable.unsplash_daniel_olah_6
-                    P.BACKGROUND_IMAGE_DANIEL_OLAH_7 -> R.drawable.unsplash_daniel_olah_7
-                    P.BACKGROUND_IMAGE_DANIEL_OLAH_8 -> R.drawable.unsplash_daniel_olah_8
-                    P.BACKGROUND_IMAGE_FILIP_BAOTIC_1 -> R.drawable.unsplash_filip_baotic_1
-                    P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1 -> R.drawable.unsplash_tyler_lastovich_1
-                    P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2 -> R.drawable.unsplash_tyler_lastovich_2
-                    P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3 -> R.drawable.unsplash_tyler_lastovich_3
-                    else -> android.R.color.black
-                }
-            )
+            if (prefs.get(
+                    P.BACKGROUND_IMAGE,
+                    P.BACKGROUND_IMAGE_DEFAULT
+                ) == P.BACKGROUND_IMAGE_CUSTOM
+            ) {
+                val decoded = Base64.decode(prefs.get(P.CUSTOM_BACKGROUND, ""), 0)
+                nonScaleBackground = BitmapFactory.decodeByteArray(decoded, 0, decoded.size)
+            } else {
+                val backgroundId =
+                    when (prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT)) {
+                        P.BACKGROUND_IMAGE_DANIEL_OLAH_1 -> R.drawable.unsplash_daniel_olah_1
+                        P.BACKGROUND_IMAGE_DANIEL_OLAH_2 -> R.drawable.unsplash_daniel_olah_2
+                        P.BACKGROUND_IMAGE_DANIEL_OLAH_3 -> R.drawable.unsplash_daniel_olah_3
+                        P.BACKGROUND_IMAGE_DANIEL_OLAH_4 -> R.drawable.unsplash_daniel_olah_4
+                        P.BACKGROUND_IMAGE_DANIEL_OLAH_5 -> R.drawable.unsplash_daniel_olah_5
+                        P.BACKGROUND_IMAGE_DANIEL_OLAH_6 -> R.drawable.unsplash_daniel_olah_6
+                        P.BACKGROUND_IMAGE_DANIEL_OLAH_7 -> R.drawable.unsplash_daniel_olah_7
+                        P.BACKGROUND_IMAGE_DANIEL_OLAH_8 -> R.drawable.unsplash_daniel_olah_8
+                        P.BACKGROUND_IMAGE_FILIP_BAOTIC_1 -> R.drawable.unsplash_filip_baotic_1
+                        P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1 -> R.drawable.unsplash_tyler_lastovich_1
+                        P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2 -> R.drawable.unsplash_tyler_lastovich_2
+                        P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3 -> R.drawable.unsplash_tyler_lastovich_3
+                        else -> null
+                    }
+                if (backgroundId != null) nonScaleBackground = BitmapFactory.decodeResource(
+                    resources, backgroundId ?: throw IllegalStateException()
+                )
+            }
         }
 
         clockFormat = SimpleDateFormat(
@@ -312,7 +323,22 @@ class AlwaysOnCustomView : View {
 
         currentHeight += paddingBottom
 
-        return max(currentHeight.toInt(), (suggestedMinimumHeight + paddingTop + paddingBottom))
+        //Scale background
+        if (nonScaleBackground != null && measuredWidth > 0) nonScaleBackground =
+            Bitmap.createScaledBitmap(
+                nonScaleBackground ?: throw IllegalStateException(),
+                measuredWidth,
+                measuredWidth,
+                true
+            )
+
+        return max(
+            max(
+                currentHeight.toInt(),
+                (suggestedMinimumHeight + paddingTop + paddingBottom)
+            ),
+            measuredWidth
+        )
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -327,6 +353,11 @@ class AlwaysOnCustomView : View {
         relativePoint = if (flags[FLAG_LEFT_ALIGN]) padding16.toFloat() else width / 2f
         currentHeight = 0f
         currentHeight += paddingTop
+
+        //Background
+        if (nonScaleBackground != null) canvas.drawBitmap(
+            nonScaleBackground ?: throw IllegalStateException(), 0F, 0F, null
+        )
 
         //Clock
         val tempHeight = currentHeight
