@@ -9,6 +9,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.custom.EditIntegerPreference
 import io.github.domi04151309.alwayson.helpers.Permissions
 import io.github.domi04151309.alwayson.helpers.Theme
@@ -26,7 +27,8 @@ class LAFRulesActivity : AppCompatActivity() {
             .commit()
     }
 
-    class PreferenceFragment : PreferenceFragmentCompat() {
+    class PreferenceFragment : PreferenceFragmentCompat(),
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
         private var rulesTimeStartValue = DEFAULT_START_TIME
         private var rulesTimeEndValue = DEFAULT_END_TIME
@@ -34,11 +36,6 @@ class LAFRulesActivity : AppCompatActivity() {
         private lateinit var rulesBatteryLevel: EditIntegerPreference
         private lateinit var rulesTime: Preference
         private lateinit var rulesTimeout: EditIntegerPreference
-
-        private val spChanged: SharedPreferences.OnSharedPreferenceChangeListener =
-            SharedPreferences.OnSharedPreferenceChangeListener { _, _ ->
-                updateSummaries()
-            }
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_rules)
@@ -118,16 +115,6 @@ class LAFRulesActivity : AppCompatActivity() {
             updateSummaries()
         }
 
-        override fun onStart() {
-            super.onStart()
-            preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(spChanged)
-        }
-
-        override fun onStop() {
-            super.onStop()
-            preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(spChanged)
-        }
-
         private fun updateSummaries() {
             val rulesBatteryLevelValue =
                 preferenceManager.sharedPreferences.getInt("rules_battery_level", 0)
@@ -171,6 +158,21 @@ class LAFRulesActivity : AppCompatActivity() {
         private fun formatTime(hour: Int, minute: Int): String {
             return if (minute < 10) "$hour:0$minute"
             else "$hour:$minute"
+        }
+
+        override fun onStart() {
+            super.onStart()
+            preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+        }
+
+        override fun onStop() {
+            super.onStop()
+            preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+        }
+
+        override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {
+            updateSummaries()
+            AlwaysOn.finish()
         }
 
         companion object {

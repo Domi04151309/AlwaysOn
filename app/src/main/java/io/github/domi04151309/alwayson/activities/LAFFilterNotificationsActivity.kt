@@ -7,6 +7,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.helpers.JSON
 import io.github.domi04151309.alwayson.helpers.Theme
 import io.github.domi04151309.alwayson.services.NotificationService
@@ -75,7 +76,10 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
 
         override fun onStop() {
             super.onStop()
-            preferenceManager.sharedPreferences.edit().putString("blocked_notifications", blockedArray.toString()).apply()
+            preferenceManager.sharedPreferences.edit()
+                .putString("blocked_notifications", blockedArray.toString())
+                .apply()
+            AlwaysOn.finish()
         }
 
         private fun addToList(packageName: String) {

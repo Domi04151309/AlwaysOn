@@ -3,6 +3,7 @@ package io.github.domi04151309.alwayson.activities
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.widget.EditText
@@ -15,6 +16,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Permissions
 import io.github.domi04151309.alwayson.helpers.Theme
@@ -34,7 +36,8 @@ class LAFWatchFaceActivity : AppCompatActivity() {
             .commit()
     }
 
-    class PreferenceFragment : PreferenceFragmentCompat() {
+    class PreferenceFragment : PreferenceFragmentCompat(),
+        SharedPreferences.OnSharedPreferenceChangeListener {
         @SuppressLint("InflateParams")
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_watch_face)
@@ -132,6 +135,20 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                 )
                 true
             }
+        }
+
+        override fun onStart() {
+            super.onStart()
+            preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+        }
+
+        override fun onStop() {
+            super.onStop()
+            preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+        }
+
+        override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {
+            AlwaysOn.finish()
         }
     }
 }

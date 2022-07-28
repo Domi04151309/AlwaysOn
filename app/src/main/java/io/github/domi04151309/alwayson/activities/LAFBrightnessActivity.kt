@@ -7,6 +7,7 @@ import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.helpers.Theme
 
 class LAFBrightnessActivity : AppCompatActivity() {
@@ -49,5 +50,6 @@ class LAFBrightnessActivity : AppCompatActivity() {
         super.onStop()
         prefs.edit().putBoolean("ao_force_brightness", brightnessSwitch.isChecked).apply()
         prefs.edit().putInt("ao_force_brightness_value", savedBrightness).apply()
+        AlwaysOn.finish()
     }
 }

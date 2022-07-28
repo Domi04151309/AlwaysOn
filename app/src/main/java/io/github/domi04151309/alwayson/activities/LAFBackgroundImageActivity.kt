@@ -20,6 +20,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.adapters.LayoutListAdapter
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Theme
@@ -151,6 +152,7 @@ class LAFBackgroundImageActivity : AppCompatActivity() {
                         ITEM_CUSTOM -> P.BACKGROUND_IMAGE_CUSTOM
                         else -> P.BACKGROUND_IMAGE_DEFAULT
                     }
+                    AlwaysOn.finish()
                 }
             }
         )

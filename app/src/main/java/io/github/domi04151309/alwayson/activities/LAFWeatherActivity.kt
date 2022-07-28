@@ -1,6 +1,7 @@
 package io.github.domi04151309.alwayson.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.widget.EditText
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Theme
 
@@ -24,7 +26,8 @@ class LAFWeatherActivity : AppCompatActivity() {
             .commit()
     }
 
-    class PreferenceFragment : PreferenceFragmentCompat() {
+    class PreferenceFragment : PreferenceFragmentCompat(),
+        SharedPreferences.OnSharedPreferenceChangeListener {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_wf_weather)
 
@@ -76,6 +79,20 @@ class LAFWeatherActivity : AppCompatActivity() {
                     )
                 }
                 .show()
+        }
+
+        override fun onStart() {
+            super.onStart()
+            preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+        }
+
+        override fun onStop() {
+            super.onStop()
+            preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+        }
+
+        override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {
+            AlwaysOn.finish()
         }
     }
 }
