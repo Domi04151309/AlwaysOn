@@ -8,6 +8,7 @@ import android.graphics.drawable.TransitionDrawable
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.icu.util.Calendar
+import android.media.AudioManager
 import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
 import android.os.*
@@ -64,6 +65,9 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
     private var notificationManager: NotificationManager? = null
     private var notificationAccess: Boolean = false
     private var userDND: Int = NotificationManager.INTERRUPTION_FILTER_ALL
+
+    //Call recognition
+    private var onModeChangedListener: AudioManager.OnModeChangedListener? = null
 
     //Rules
     private var rules: Rules? = null
@@ -384,6 +388,16 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             }
         }
 
+        //Call recognition
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            onModeChangedListener = AudioManager.OnModeChangedListener { mode ->
+                if (mode == AudioManager.MODE_RINGTONE) finishAndOff()
+            }
+            (getSystemService(AUDIO_SERVICE) as AudioManager).addOnModeChangedListener(
+                mainExecutor, onModeChangedListener ?: throw IllegalStateException()
+            )
+        }
+
         //Rules
         rules = Rules(this, prefs.prefs)
 
@@ -479,6 +493,11 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             || prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)
         ) {
             NotificationService.listeners.remove(this)
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && onModeChangedListener != null) {
+            (getSystemService(AUDIO_SERVICE) as AudioManager).removeOnModeChangedListener(
+                onModeChangedListener ?: throw IllegalStateException()
+            )
         }
         unregisterReceiver(systemReceiver)
     }
