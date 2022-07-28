@@ -118,6 +118,8 @@
     <string name="pref_ao_dnd_summary">Turns on do not disturb mode while the always on display is running</string>
     <string name="pref_ao_power_saving">Power saving mode (root)</string>
     <string name="pref_ao_power_saving_summary">Turns on the system\'s power saver mode when the always on display is enabled</string>
+    <string name="pref_ao_double_tap_speed">Double-tap speed</string>
+    <string name="pref_ao_double_tap_speed_summary">The time two taps can be apart (in milliseconds)</string>
     <string name="pref_ao_double_tap_disabled">Disable double-tap</string>
     <string name="pref_ao_double_tap_disabled_summary">Disables double-tap to exit the AOD (not recommended)</string>
     <string name="pref_ao_message">Message</string>

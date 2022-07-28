@@ -25,6 +25,12 @@
         android:key="ao_force_brightness"
         android:summary="@string/pref_ao_force_brightness_summary"
         android:title="@string/pref_ao_force_brightness" />
+    <io.github.domi04151309.alwayson.custom.EditIntegerPreference
+        android:defaultValue="300"
+        android:icon="@drawable/ic_touch_app"
+        android:key="ao_double_tap_speed"
+        android:summary="@string/pref_ao_double_tap_speed_summary"
+        android:title="@string/pref_ao_double_tap_speed" />
     <SwitchPreference
         android:defaultValue="false"
         android:icon="@drawable/ic_touch_app"

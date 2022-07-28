@@ -3,6 +3,7 @@
 package io.github.domi04151309.alwayson.helpers
 
 import android.content.SharedPreferences
+import android.view.ViewConfiguration
 
 internal class P(val prefs: SharedPreferences) {
 
@@ -40,6 +41,7 @@ internal class P(val prefs: SharedPreferences) {
         const val DATE_FORMAT = "ao_date_format"
         const val FORCE_BRIGHTNESS = "ao_force_brightness"
         const val DISABLE_DOUBLE_TAP = "ao_double_tap_disabled"
+        const val DOUBLE_TAP_SPEED = "ao_double_tap_speed"
         const val SHOW_MUSIC_CONTROLS = "ao_musicControls"
         const val MESSAGE = "ao_message"
         const val SHOW_WEATHER = "ao_weather"
@@ -131,5 +133,7 @@ internal class P(val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_WEATHER_DEFAULT = -1
         const val DISPLAY_COLOR_FINGERPRINT_DEFAULT = -1
         const val DISPLAY_COLOR_EDGE_GLOW_DEFAULT = -1
+
+        val DOUBLE_TAP_SPEED_DEFAULT = ViewConfiguration.getDoubleTapTimeout()
     }
 }

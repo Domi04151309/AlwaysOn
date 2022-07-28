@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.activities.setup.*
+import io.github.domi04151309.alwayson.helpers.P
 
 class SetupActivity : AppCompatActivity() {
 
@@ -28,8 +29,11 @@ class SetupActivity : AppCompatActivity() {
         val prefsEditor = PreferenceManager.getDefaultSharedPreferences(this).edit()
         swapContentFragment(DrawOverOtherAppsFragment(), DRAW_OVER_OTHER_APPS_FRAGMENT)
 
-        if (DateFormat.is24HourFormat(this)) prefsEditor.putBoolean("hour", false).apply()
-        else prefsEditor.putBoolean("hour", true).apply()
+        if (DateFormat.is24HourFormat(this)) prefsEditor.putBoolean(P.USE_12_HOUR_CLOCK, false)
+            .apply()
+        else prefsEditor.putBoolean(P.USE_12_HOUR_CLOCK, true).apply()
+
+        prefsEditor.putInt(P.DOUBLE_TAP_SPEED, P.DOUBLE_TAP_SPEED_DEFAULT).apply()
 
         findViewById<Button>(R.id.continueBtn).setOnClickListener {
             when (currentFragment) {

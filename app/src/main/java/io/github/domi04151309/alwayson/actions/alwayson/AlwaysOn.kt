@@ -377,7 +377,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                         }
                         finish()
                     }
-                }, ViewConfiguration.getDoubleTapTimeout())
+                }, prefs.get(P.DOUBLE_TAP_SPEED, P.DOUBLE_TAP_SPEED_DEFAULT))
             viewHolder.frame.setOnTouchListener { v, event ->
                 doubleTapDetector.onTouchEvent(event)
                 v.performClick()
