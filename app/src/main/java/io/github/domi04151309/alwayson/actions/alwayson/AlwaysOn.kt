@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import io.github.domi04151309.alwayson.actions.OffActivity
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.custom.DoubleTapDetector
 import io.github.domi04151309.alwayson.helpers.*
 import io.github.domi04151309.alwayson.helpers.AnimationHelper
 import io.github.domi04151309.alwayson.helpers.Global
@@ -356,36 +357,31 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
         //DoubleTap
         if (!prefs.get(P.DISABLE_DOUBLE_TAP, P.DISABLE_DOUBLE_TAP_DEFAULT)) {
-            viewHolder.frame.setOnTouchListener(object : View.OnTouchListener {
-                private val gestureDetector = GestureDetector(
-                    this@AlwaysOn,
-                    object : GestureDetector.SimpleOnGestureListener() {
-                        override fun onDoubleTap(e: MotionEvent): Boolean {
-                            val duration = prefs.get("ao_vibration", 64).toLong()
-                            if (duration > 0) {
-                                val vibrator =
-                                    getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                    vibrator.vibrate(
-                                        VibrationEffect.createOneShot(
-                                            duration,
-                                            VibrationEffect.DEFAULT_AMPLITUDE
-                                        )
+            val doubleTapDetector =
+                DoubleTapDetector(object : DoubleTapDetector.OnDoubleTapListener {
+                    override fun onDoubleTap() {
+                        val duration = prefs.get("ao_vibration", 64).toLong()
+                        if (duration > 0) {
+                            val vibrator =
+                                getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                vibrator.vibrate(
+                                    VibrationEffect.createOneShot(
+                                        duration,
+                                        VibrationEffect.DEFAULT_AMPLITUDE
                                     )
-                                } else {
-                                    vibrator.vibrate(duration)
-                                }
+                                )
+                            } else {
+                                vibrator.vibrate(duration)
                             }
-                            finish()
-                            return super.onDoubleTap(e)
                         }
-                    })
-
-                override fun onTouch(v: View, event: MotionEvent): Boolean {
-                    gestureDetector.onTouchEvent(event)
-                    return v.performClick()
-                }
-            })
+                        finish()
+                    }
+                }, ViewConfiguration.getDoubleTapTimeout())
+            viewHolder.frame.setOnTouchListener { v, event ->
+                doubleTapDetector.onTouchEvent(event)
+                v.performClick()
+            }
         }
 
         //Rules
