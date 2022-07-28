@@ -46,7 +46,8 @@ class NotificationService : NotificationListenerService() {
         updateVars()
 
         if (
-            !CombinedServiceReceiver.isScreenOn
+            isValidNotification(sbn)
+            && !CombinedServiceReceiver.isScreenOn
             && !CombinedServiceReceiver.isAlwaysOnRunning
             && rules.isAlwaysOnDisplayEnabled()
             && rules.isAmbientMode()
@@ -78,13 +79,7 @@ class NotificationService : NotificationListenerService() {
                 apps = ArrayList(detailed.size)
                 icons = ArrayList(detailed.size)
                 for (notification in detailed) {
-                    if (
-                        !notification.isOngoing
-                        && !JSON.contains(
-                            JSONArray(prefs.getString("blocked_notifications", "[]")),
-                            notification.packageName
-                        )
-                    ) {
+                    if (isValidNotification(notification)) {
                         if (notification.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0) count++
                         if (!apps.contains(notification.packageName)) {
                             apps += notification.packageName
@@ -108,5 +103,12 @@ class NotificationService : NotificationListenerService() {
             }
             Handler(Looper.getMainLooper()).postDelayed({ sentRecently = false }, 500)
         }
+    }
+
+    private fun isValidNotification(notification: StatusBarNotification): Boolean {
+        return !notification.isOngoing && !JSON.contains(
+            JSONArray(prefs.getString("blocked_notifications", "[]")),
+            notification.packageName
+        )
     }
 }
