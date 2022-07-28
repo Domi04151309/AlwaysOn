@@ -49,7 +49,7 @@
             android:name=".activities.LAFFilterNotificationsActivity"
             android:label="@string/pref_look_and_feel_filter_notifications"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.LAFWatchFaceActivity" />
+            android:parentActivityName=".activities.LAFRulesActivity" />
         <activity
             android:name=".activities.LAFBrightnessActivity"
             android:label="@string/pref_ao_force_brightness_title"

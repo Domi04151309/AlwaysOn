@@ -1,6 +1,7 @@
 package io.github.domi04151309.alwayson.activities
 
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -74,6 +75,11 @@ class LAFRulesActivity : AppCompatActivity() {
                         }
                     }
                 }
+            }
+
+            findPreference<Preference>("pref_filter_notifications")?.setOnPreferenceClickListener {
+                startActivity(Intent(context, LAFFilterNotificationsActivity::class.java))
+                true
             }
 
             rulesBatteryLevel = findPreference("rules_battery_level") ?: return

@@ -120,10 +120,6 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                 startActivity(Intent(context, LAFWeatherActivity::class.java))
                 true
             }
-            findPreference<Preference>("pref_filter_notifications")?.setOnPreferenceClickListener {
-                startActivity(Intent(context, LAFFilterNotificationsActivity::class.java))
-                true
-            }
             val prefAodScale = findPreference<SeekBarPreference>("pref_aod_scale_2") ?: return
             prefAodScale.summary = resources.getString(
                 R.string.pref_look_and_feel_display_size_summary,
