@@ -295,16 +295,6 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             }
         }
 
-        // Power saving mode
-        if (prefs.get(P.ROOT_MODE, P.ROOT_MODE_DEFAULT) && prefs.get(
-                P.POWER_SAVING_MODE,
-                P.POWER_SAVING_MODE_DEFAULT
-            )
-        ) {
-            Root.shell("settings put global low_power 1")
-            Root.shell("dumpsys deviceidle force-idle")
-        }
-
         //Animation
         val animationHelper = AnimationHelper()
         val animationDuration = 10000
@@ -439,6 +429,14 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                 P.DO_NOT_DISTURB_DEFAULT
             ) && notificationAccess
         ) notificationManager?.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
+        if (prefs.get(P.ROOT_MODE, P.ROOT_MODE_DEFAULT) && prefs.get(
+                P.POWER_SAVING_MODE,
+                P.POWER_SAVING_MODE_DEFAULT
+            )
+        ) {
+            Root.shell("settings put global low_power 1")
+            Root.shell("dumpsys deviceidle force-idle")
+        }
         if (prefs.get(
                 P.DISABLE_HEADS_UP_NOTIFICATIONS,
                 P.DISABLE_HEADS_UP_NOTIFICATIONS_DEFAULT
