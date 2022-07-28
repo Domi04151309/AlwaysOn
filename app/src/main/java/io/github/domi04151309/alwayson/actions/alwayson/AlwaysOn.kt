@@ -434,8 +434,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                 P.POWER_SAVING_MODE_DEFAULT
             )
         ) {
-            Root.shell("settings put global low_power 1")
-            Root.shell("dumpsys deviceidle force-idle")
+            Root.shell("settings put global low_power 1 & dumpsys deviceidle force-idle")
         }
         if (prefs.get(
                 P.DISABLE_HEADS_UP_NOTIFICATIONS,
@@ -468,7 +467,12 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                 P.POWER_SAVING_MODE,
                 P.POWER_SAVING_MODE_DEFAULT
             ) && !userPowerSaving
-        ) Root.shell("settings put global low_power 0")
+        ) {
+            Root.shell(
+                "settings put global low_power 0 & dumpsys deviceidle unforce & dumpsys battery reset"
+            )
+
+        }
         if (prefs.get(
                 P.DISABLE_HEADS_UP_NOTIFICATIONS,
                 P.DISABLE_HEADS_UP_NOTIFICATIONS_DEFAULT
