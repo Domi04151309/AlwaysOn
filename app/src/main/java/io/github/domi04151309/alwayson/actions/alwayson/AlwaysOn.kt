@@ -494,10 +494,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
     override fun onNotificationsChanged() {
         if (!servicesRunning) return
-        viewHolder.customView.setNotificationData(
-            NotificationService.count,
-            NotificationService.icons
-        )
+        viewHolder.customView.notifyNotificationDataChanged()
         if (prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) {
             notificationAvailable = NotificationService.count > 0
         }

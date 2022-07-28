@@ -1,8 +1,6 @@
 package io.github.domi04151309.alwayson.activities
 
 import android.app.Activity
-import android.graphics.Color
-import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.widget.Toast
 import io.github.domi04151309.alwayson.R
@@ -28,25 +26,5 @@ class AODTestActivity : Activity() {
         view.onTitleClicked = {
             Toast.makeText(this, "center", Toast.LENGTH_SHORT).show()
         }
-        view.setNotificationData(
-            4, arrayListOf(
-                Pair(
-                    Icon.createWithResource(this, R.drawable.ic_notification),
-                    Color.RED
-                ),
-                Pair(
-                    Icon.createWithResource(this, R.drawable.ic_notification),
-                    Color.GREEN
-                ),
-                Pair(
-                    Icon.createWithResource(this, R.drawable.ic_notification),
-                    Color.BLUE
-                ),
-                Pair(
-                    Icon.createWithResource(this, R.drawable.ic_notification),
-                    Color.MAGENTA
-                )
-            )
-        )
     }
 }

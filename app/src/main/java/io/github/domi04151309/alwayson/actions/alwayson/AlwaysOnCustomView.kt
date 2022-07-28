@@ -3,7 +3,6 @@ package io.github.domi04151309.alwayson.actions.alwayson
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.Icon
 import android.os.Handler
 import android.os.Looper
 import android.provider.CalendarContract
@@ -11,7 +10,6 @@ import android.util.AttributeSet
 import android.util.Base64
 import android.util.Log
 import android.util.TypedValue
-import android.view.Display
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -25,6 +23,7 @@ import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Permissions
+import io.github.domi04151309.alwayson.services.NotificationService
 import java.lang.Integer.max
 import java.lang.Integer.min
 import java.net.URLEncoder
@@ -56,10 +55,7 @@ class AlwaysOnCustomView : View {
     private var batteryLevel = -1
     private var batteryIcon = R.drawable.ic_battery_unknown
     private var events = listOf<String>()
-    private var message = ""
     private var weather = ""
-    private var notificationCount = -1
-    private var notificationIcons = arrayListOf<Pair<Icon, Int>>()
 
     var musicVisible: Boolean = false
         set(value) {
@@ -184,7 +180,7 @@ class AlwaysOnCustomView : View {
                         else -> null
                     }
                 if (backgroundId != null) nonScaleBackground = BitmapFactory.decodeResource(
-                    resources, backgroundId ?: throw IllegalStateException()
+                    resources, backgroundId
                 )
             }
         }
@@ -211,7 +207,6 @@ class AlwaysOnCustomView : View {
         )
         dateFormat =
             SimpleDateFormat(prefs.get(P.DATE_FORMAT, P.DATE_FORMAT_DEFAULT), Locale.getDefault())
-        message = prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT)
 
         if (prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
             val singleLineClock = SimpleDateFormat(
@@ -323,6 +318,8 @@ class AlwaysOnCustomView : View {
 
         currentHeight += paddingBottom
 
+        relativePoint = if (flags[FLAG_LEFT_ALIGN]) padding16.toFloat() else measuredWidth / 2f
+
         //Scale background
         if (nonScaleBackground != null && measuredWidth > 0) nonScaleBackground =
             Bitmap.createScaledBitmap(
@@ -350,7 +347,6 @@ class AlwaysOnCustomView : View {
      */
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        relativePoint = if (flags[FLAG_LEFT_ALIGN]) padding16.toFloat() else width / 2f
         currentHeight = 0f
         currentHeight += paddingTop
 
@@ -539,7 +535,7 @@ class AlwaysOnCustomView : View {
         //Message
         if (prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT) != "") {
             canvas.drawRelativeText(
-                message,
+                prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT),
                 padding2,
                 padding2,
                 getPaint(
@@ -565,7 +561,7 @@ class AlwaysOnCustomView : View {
         //Notification Count
         if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)) {
             canvas.drawRelativeText(
-                if (notificationCount != 0) notificationCount.toString() else "",
+                if (NotificationService.count != 0) NotificationService.count.toString() else "",
                 padding16,
                 padding16,
                 getPaint(
@@ -581,11 +577,11 @@ class AlwaysOnCustomView : View {
             var x: Int = if (flags[FLAG_LEFT_ALIGN]) relativePoint.toInt()
             else (width - (
                     min(
-                        notificationIcons.size, NOTIFICATION_ROW_LENGTH
+                        NotificationService.icons.size, NOTIFICATION_ROW_LENGTH
                     ) - 1) * drawableSize) / 2
             currentHeight += padding16 + drawableSize / 2
-            for (index in 0 until notificationIcons.size) {
-                val (icon, color) = notificationIcons[index]
+            for (index in 0 until NotificationService.icons.size) {
+                val (icon, color) = NotificationService.icons[index]
                 try {
                     drawable = if (index == NOTIFICATION_LIMIT - 1)
                         ContextCompat.getDrawable(context, R.drawable.ic_more)
@@ -603,10 +599,10 @@ class AlwaysOnCustomView : View {
                     )
                     if (
                         !flags[FLAG_LEFT_ALIGN]
-                        && index / NOTIFICATION_ROW_LENGTH == notificationIcons.size / NOTIFICATION_ROW_LENGTH
+                        && index / NOTIFICATION_ROW_LENGTH == NotificationService.icons.size / NOTIFICATION_ROW_LENGTH
                         && index % NOTIFICATION_ROW_LENGTH == 0
                     ) x = (width - (
-                            notificationIcons.size % NOTIFICATION_ROW_LENGTH - 1
+                            NotificationService.icons.size % NOTIFICATION_ROW_LENGTH - 1
                             ) * drawableSize) / 2
                     if (flags[FLAG_LEFT_ALIGN]) drawable.setBounds(
                         x + drawableSize * (index % NOTIFICATION_ROW_LENGTH),
@@ -766,9 +762,7 @@ class AlwaysOnCustomView : View {
         invalidate()
     }
 
-    fun setNotificationData(count: Int, icons: ArrayList<Pair<Icon, Int>>) {
-        notificationCount = count
-        notificationIcons = icons
+    fun notifyNotificationDataChanged() {
         invalidate()
     }
 
