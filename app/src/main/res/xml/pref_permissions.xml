@@ -24,12 +24,9 @@
     </Preference>
     <Preference
         android:icon="@drawable/ic_security"
+        android:key="device_admin"
         android:summary="@string/pref_admin_summary"
-        android:title="@string/pref_admin">
-        <intent
-            android:targetClass="com.android.settings.Settings$DeviceAdminSettingsActivity"
-            android:targetPackage="com.android.settings" />
-    </Preference>
+        android:title="@string/pref_admin" />
     <SwitchPreference
         android:defaultValue="false"
         android:icon="@drawable/ic_hashtag"

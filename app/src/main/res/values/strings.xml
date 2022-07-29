@@ -20,6 +20,10 @@
     <string name="setup_continue">Continue</string>
     <string name="setup_error">Something went wrong! Please try again!</string>
 
+    <string name="dialog_device_admin_text">Please note that you have to deactivate the app\'s device admin privileges before uninstalling it! To make sure you understood this please perform the following operation:\n7 + 12</string>
+    <string name="dialog_device_admin_result">Result</string>
+    <string name="dialog_device_admin_error">Wrong result. Try again.</string>
+
     <string name="app_name" translatable="false">AlwaysOn</string>
     <string name="app_description">Android app which adds an always on display</string>
 
