@@ -3,7 +3,6 @@ package io.github.domi04151309.alwayson.services
 import android.app.Notification
 import android.content.*
 import android.graphics.drawable.Icon
-import android.icu.util.Calendar
 import android.os.Handler
 import android.os.Looper
 import android.service.notification.NotificationListenerService
@@ -55,7 +54,7 @@ class NotificationService : NotificationListenerService() {
             && rules.isAmbientMode()
             && rules.matchesChargingState()
             && rules.matchesBatteryPercentage()
-            && rules.isInTimePeriod(Calendar.getInstance())
+            && rules.isInTimePeriod()
         ) {
             startActivity(
                 Intent(

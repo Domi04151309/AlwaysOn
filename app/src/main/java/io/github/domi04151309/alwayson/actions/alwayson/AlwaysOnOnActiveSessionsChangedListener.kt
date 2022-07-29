@@ -1,6 +1,5 @@
 package io.github.domi04151309.alwayson.actions.alwayson
 
-import android.content.res.Resources
 import android.media.MediaMetadata
 import android.media.session.MediaController
 import android.media.session.MediaSessionManager
@@ -10,8 +9,7 @@ import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Global
 
 class AlwaysOnOnActiveSessionsChangedListener(
-    private val viewHolder: AlwaysOnViewHolder,
-    private val resources: Resources
+    private val view: AlwaysOnCustomView
 ) : MediaSessionManager.OnActiveSessionsChangedListener {
 
     @JvmField
@@ -43,18 +41,19 @@ class AlwaysOnOnActiveSessionsChangedListener(
 
     internal fun updateMediaState() {
         if (controller != null) {
-            viewHolder.customView.musicVisible = true
+            view.musicVisible = true
             var artist = controller?.metadata?.getString(MediaMetadata.METADATA_KEY_ARTIST) ?: ""
             var title = controller?.metadata?.getString(MediaMetadata.METADATA_KEY_TITLE) ?: ""
             if (artist.length > 20) artist = artist.substring(0, 19) + '…'
             if (title.length > 20) title = title.substring(0, 19) + '…'
             when {
-                artist == "" -> viewHolder.customView.musicString = title
-                title == "" -> viewHolder.customView.musicString = artist
-                else -> viewHolder.customView.musicString = resources.getString(R.string.music, artist, title)
+                artist == "" -> view.musicString = title
+                title == "" -> view.musicString = artist
+                else -> view.musicString =
+                    view.resources.getString(R.string.music, artist, title)
             }
         } else {
-            viewHolder.customView.musicVisible = false
+            view.musicVisible = false
         }
     }
 }

@@ -7,7 +7,6 @@ import android.graphics.Point
 import android.graphics.drawable.TransitionDrawable
 import android.hardware.Sensor
 import android.hardware.SensorManager
-import android.icu.util.Calendar
 import android.media.AudioManager
 import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
@@ -182,7 +181,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             val notificationListener =
                 ComponentName(applicationContext, NotificationService::class.java.name)
             onActiveSessionsChangedListener =
-                AlwaysOnOnActiveSessionsChangedListener(viewHolder, resources)
+                AlwaysOnOnActiveSessionsChangedListener(viewHolder.customView)
             try {
                 mediaSessionManager.addOnActiveSessionsChangedListener(
                     onActiveSessionsChangedListener
@@ -419,7 +418,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             || prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)
             || prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)
         ) onNotificationsChanged()
-        val millisTillEnd: Long = rules?.millisTillEnd(Calendar.getInstance()) ?: -1
+        val millisTillEnd: Long = rules?.millisTillEnd() ?: -1
         if (millisTillEnd > -1L) rulesHandler.postDelayed({ finishAndOff() }, millisTillEnd)
         if (prefs.get(
                 P.RULES_TIMEOUT,

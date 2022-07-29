@@ -1,7 +1,6 @@
 package io.github.domi04151309.alwayson.receivers
 
 import android.content.*
-import android.icu.util.Calendar
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.actions.TurnOnScreenActivity
 import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
@@ -24,7 +23,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                 if (rules.isAlwaysOnDisplayEnabled()
                     && !rules.isAmbientMode()
                     && rules.matchesBatteryPercentage()
-                    && rules.isInTimePeriod(Calendar.getInstance())
+                    && rules.isInTimePeriod()
                     && !isScreenOn
                 ) {
                     c.startActivity(
@@ -39,7 +38,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                 if (rules.isAlwaysOnDisplayEnabled()
                     && !rules.isAmbientMode()
                     && rules.matchesBatteryPercentage()
-                    && rules.isInTimePeriod(Calendar.getInstance())
+                    && rules.isInTimePeriod()
                     && !isScreenOn
                 ) {
                     c.startActivity(
@@ -65,7 +64,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                     } else if (!rules.isAmbientMode()
                         && rules.matchesChargingState()
                         && rules.matchesBatteryPercentage()
-                        && rules.isInTimePeriod(Calendar.getInstance())
+                        && rules.isInTimePeriod()
                     ) {
                         c.startActivity(
                             Intent(

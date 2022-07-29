@@ -24,8 +24,7 @@ internal object Root {
 
     fun shell(command: String) {
         try {
-            val p = Runtime.getRuntime()
-                    .exec(arrayOf("su", "-c", command))
+            val p = Runtime.getRuntime().exec(arrayOf("su", "-c", command))
             p.waitFor()
         } catch (e: Exception) {
             Log.e("Superuser", e.toString())

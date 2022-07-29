@@ -14,9 +14,9 @@ internal object Theme {
         if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean("dark_mode", false)) {
             context.setTheme(R.style.AppThemeDark)
             val taskDescription = ActivityManager.TaskDescription(
-                    context.getString(R.string.app_name),
-                    BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher),
-                    ContextCompat.getColor(context, android.R.color.black)
+                context.getString(R.string.app_name),
+                BitmapFactory.decodeResource(context.resources, R.mipmap.ic_launcher),
+                ContextCompat.getColor(context, android.R.color.black)
             )
             (context as Activity).setTaskDescription(taskDescription)
         }

@@ -64,18 +64,20 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
     }
 
     fun matchesBatteryPercentage(): Boolean {
-        return batteryStatus?.getIntExtra(
+        return (batteryStatus?.getIntExtra(
             BatteryManager.EXTRA_LEVEL,
             0
-        ) ?: 100 > prefs.getInt("rules_battery_level", 0)
+        ) ?: 100) > prefs.getInt("rules_battery_level", 0)
     }
 
-    fun isInTimePeriod(now: Calendar): Boolean {
+    fun isInTimePeriod(): Boolean {
+        val now = Calendar.getInstance()
         return if (start == end) true
         else now.after(start) && now.before(end)
     }
 
-    fun millisTillEnd(now: Calendar): Long {
+    fun millisTillEnd(): Long {
+        val now = Calendar.getInstance()
         return if (start == end) -1
         else end.time.time - now.time.time
     }
