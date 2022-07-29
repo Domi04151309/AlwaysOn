@@ -67,13 +67,21 @@ class AlwaysOnCustomView : View {
             field = value
             invalidate()
         }
+
+    @JvmField
     var onSkipPreviousClicked: () -> Unit = {}
+
+    @JvmField
     var onSkipNextClicked: () -> Unit = {}
+
+    @JvmField
     var onTitleClicked: () -> Unit = {}
 
     private val skipPositions = intArrayOf(0, 0, 0)
 
     private val flags = booleanArrayOf(false, false, false, false, false)
+
+    @JvmField
     internal val updateHandler = Handler(Looper.getMainLooper())
 
     /*

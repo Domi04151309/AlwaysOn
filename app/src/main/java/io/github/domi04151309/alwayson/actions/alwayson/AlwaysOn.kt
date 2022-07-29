@@ -39,8 +39,12 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         }
     }
 
+    @JvmField
     internal var servicesRunning: Boolean = false
+
+    @JvmField
     internal var screenSize: Float = 0F
+
     internal lateinit var viewHolder: AlwaysOnViewHolder
     internal lateinit var prefs: P
 
@@ -52,6 +56,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
     private var onActiveSessionsChangedListener: AlwaysOnOnActiveSessionsChangedListener? = null
 
     //Notifications
+    @JvmField
     internal var notificationAvailable: Boolean = false
 
     //Battery saver

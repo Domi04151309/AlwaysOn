@@ -10,11 +10,14 @@ import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Global
 
 class AlwaysOnOnActiveSessionsChangedListener(
-        private val viewHolder: AlwaysOnViewHolder,
-        private val resources: Resources
+    private val viewHolder: AlwaysOnViewHolder,
+    private val resources: Resources
 ) : MediaSessionManager.OnActiveSessionsChangedListener {
 
+    @JvmField
     internal var controller: MediaController? = null
+
+    @JvmField
     internal var state: Int = 0
 
     override fun onActiveSessionsChanged(controllers: MutableList<MediaController>?) {

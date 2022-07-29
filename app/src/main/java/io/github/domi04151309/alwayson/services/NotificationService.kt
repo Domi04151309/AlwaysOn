@@ -29,9 +29,11 @@ class NotificationService : NotificationListenerService() {
     }
 
     companion object {
-        internal var count: Int = 0
-        internal var icons: ArrayList<Pair<Icon, Int>> = arrayListOf()
-        internal var detailed: Array<StatusBarNotification> = arrayOf()
+        internal var count: Int = 0; private set
+        internal var icons: ArrayList<Pair<Icon, Int>> = arrayListOf(); private set
+        internal var detailed: Array<StatusBarNotification> = arrayOf(); private set
+
+        @JvmField
         internal val listeners: ArrayList<OnNotificationsChangedListener> = arrayListOf()
     }
 
