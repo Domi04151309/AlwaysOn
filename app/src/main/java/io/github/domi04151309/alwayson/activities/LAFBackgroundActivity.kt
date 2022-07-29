@@ -31,7 +31,7 @@ class LAFBackgroundActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_background)
 
-            if (!Permissions.isNotificationServiceEnabled(context ?: return)) {
+            if (!Permissions.isNotificationServiceEnabled(requireContext())) {
                 var currentPref: Preference?
                 var currentPrefAsSwitch: SwitchPreference?
                 Permissions.NOTIFICATION_PERMISSION_PREFS.forEach {

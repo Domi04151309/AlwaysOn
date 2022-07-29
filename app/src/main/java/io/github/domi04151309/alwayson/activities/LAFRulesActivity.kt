@@ -40,7 +40,7 @@ class LAFRulesActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_rules)
 
-            if (!Permissions.isNotificationServiceEnabled(context ?: return)) {
+            if (!Permissions.isNotificationServiceEnabled(requireContext())) {
                 var currentPref: Preference?
                 var currentPrefAsSwitch: SwitchPreference?
                 Permissions.NOTIFICATION_PERMISSION_PREFS.forEach {
@@ -57,7 +57,7 @@ class LAFRulesActivity : AppCompatActivity() {
                 }
             }
 
-            if (!Permissions.isDeviceAdminOrRoot(context ?: return)) {
+            if (!Permissions.isDeviceAdminOrRoot(requireContext())) {
                 var currentPref: Preference?
                 var currentPrefAsSwitch: SwitchPreference?
                 Permissions.DEVICE_ADMIN_OR_ROOT_PERMISSION_PREFS.forEach {

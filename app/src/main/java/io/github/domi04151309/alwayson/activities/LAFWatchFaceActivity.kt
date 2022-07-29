@@ -42,7 +42,7 @@ class LAFWatchFaceActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_watch_face)
 
-            if (!Permissions.isNotificationServiceEnabled(context ?: return)) {
+            if (!Permissions.isNotificationServiceEnabled(requireContext())) {
                 var currentPref: Preference?
                 var currentPrefAsSwitch: SwitchPreference?
                 Permissions.NOTIFICATION_PERMISSION_PREFS.forEach {
