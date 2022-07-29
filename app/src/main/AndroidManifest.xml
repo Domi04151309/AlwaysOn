@@ -108,7 +108,6 @@
             android:name="io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn"
             android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
-            android:hardwareAccelerated="false"
             android:launchMode="singleInstance"
             android:showOnLockScreen="true"
             android:taskAffinity=""

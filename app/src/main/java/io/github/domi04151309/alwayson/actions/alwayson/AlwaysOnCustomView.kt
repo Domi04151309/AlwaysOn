@@ -114,9 +114,22 @@ class AlwaysOnCustomView : View {
         templatePaint.textAlign = Paint.Align.CENTER
 
         when (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT)) {
-            P.USER_THEME_GOOGLE, P.USER_THEME_SAMSUNG, P.USER_THEME_SAMSUNG3, P.USER_THEME_80S,
-            P.USER_THEME_FAST, P.USER_THEME_FLOWER, P.USER_THEME_GAME, P.USER_THEME_HANDWRITTEN,
-            P.USER_THEME_JUNGLE, P.USER_THEME_WESTERN, P.USER_THEME_ANALOG -> {
+            P.USER_THEME_ONEPLUS -> {
+                bigTextSize = spToPx(75f)
+                mediumTextSize = spToPx(20f)
+                smallTextSize = spToPx(15f)
+                setFont(R.font.roboto_medium)
+                flags[FLAG_MULTILINE_CLOCK] = true
+            }
+            P.USER_THEME_SAMSUNG2 -> {
+                bigTextSize = spToPx(36f)
+                mediumTextSize = spToPx(18f)
+                smallTextSize = spToPx(16f)
+                setFont(R.font.roboto_light)
+                templatePaint.textAlign = Paint.Align.LEFT
+                flags[FLAG_SAMSUNG_2] = true
+            }
+            else -> {
                 bigTextSize = spToPx(75f)
                 mediumTextSize = spToPx(25f)
                 smallTextSize = spToPx(18f)
@@ -144,21 +157,6 @@ class AlwaysOnCustomView : View {
                         flags[FLAG_ANALOG_CLOCK] = true
                     }
                 }
-            }
-            P.USER_THEME_ONEPLUS -> {
-                bigTextSize = spToPx(75f)
-                mediumTextSize = spToPx(20f)
-                smallTextSize = spToPx(15f)
-                setFont(R.font.roboto_medium)
-                flags[FLAG_MULTILINE_CLOCK] = true
-            }
-            P.USER_THEME_SAMSUNG2 -> {
-                bigTextSize = spToPx(36f)
-                mediumTextSize = spToPx(18f)
-                smallTextSize = spToPx(16f)
-                setFont(R.font.roboto_light)
-                templatePaint.textAlign = Paint.Align.LEFT
-                flags[FLAG_SAMSUNG_2] = true
             }
         }
 
@@ -486,7 +484,7 @@ class AlwaysOnCustomView : View {
         }
 
         //Music Controls
-        if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT) && musicVisible) {
+        if (musicVisible && prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)) {
             skipPositions[0] = if (flags[FLAG_LEFT_ALIGN]) relativePoint.toInt()
             else (relativePoint - getPaint(smallTextSize).measureText(musicString) / 2).toInt() - padding16
             skipPositions[1] =
@@ -526,7 +524,7 @@ class AlwaysOnCustomView : View {
         //Calendar
         if (prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
             currentHeight += padding16
-            events.forEach {
+            for (it in events) {
                 canvas.drawRelativeText(
                     it,
                     padding2,
