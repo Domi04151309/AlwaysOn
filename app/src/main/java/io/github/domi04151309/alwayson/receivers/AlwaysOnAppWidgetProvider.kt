@@ -62,7 +62,7 @@ class AlwaysOnAppWidgetProvider : AppWidgetProvider() {
             context,
             0,
             Intent(context, AlwaysOnAppWidgetProvider::class.java).setAction(CHANGE_STATE),
-            0
+            PendingIntent.FLAG_IMMUTABLE
         )
     }
 

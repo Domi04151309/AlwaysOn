@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                 title.setText(R.string.setup_draw_over_other_apps)
                 message.setText(R.string.setup_draw_over_other_apps_summary)
                 builder.setPositiveButton(resources.getString(android.R.string.ok)) { _, _ ->
-                    startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 1)
+                    startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION))
                 }
             }
             Dialogs.NOTIFICATION_ACCESS -> {

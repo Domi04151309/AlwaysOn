@@ -44,7 +44,7 @@ class SetupActivity : AppCompatActivity() {
                     if (Settings.canDrawOverlays(this)) {
                         swapContentFragment(PhoneStateFragment(), PHONE_STATE_FRAGMENT)
                     } else {
-                        startActivityForResult(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION), 1)
+                        startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION))
                         isActionRequired = true
                     }
                 }
