@@ -74,7 +74,6 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
     private var onModeChangedListener: AudioManager.OnModeChangedListener? = null
 
     //Rules
-    private var rules: Rules? = null
     private val rulesHandler: Handler = Handler(Looper.getMainLooper())
 
     //BroadcastReceiver
@@ -100,18 +99,10 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                     )
                 }
                 Intent.ACTION_POWER_CONNECTED -> {
-                    if (prefs.get(
-                            P.RULES_CHARGING_STATE,
-                            P.RULES_CHARGING_STATE_DEFAULT
-                        ) == P.RULES_CHARGING_STATE_DISCHARGING
-                    ) finishAndOff()
+                    if (!Rules.matchesChargingState(this@AlwaysOn, prefs.prefs)) finishAndOff()
                 }
                 Intent.ACTION_POWER_DISCONNECTED -> {
-                    if (prefs.get(
-                            P.RULES_CHARGING_STATE,
-                            P.RULES_CHARGING_STATE_DEFAULT
-                        ) == P.RULES_CHARGING_STATE_CHARGING
-                    ) finishAndOff()
+                    if (!Rules.matchesChargingState(this@AlwaysOn, prefs.prefs)) finishAndOff()
                 }
             }
         }
@@ -392,9 +383,6 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             )
         }
 
-        //Rules
-        rules = Rules(this, prefs.prefs)
-
         //Broadcast Receivers
         registerReceiver(systemReceiver, systemFilter)
     }
@@ -418,7 +406,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             || prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)
             || prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)
         ) onNotificationsChanged()
-        val millisTillEnd: Long = rules?.millisTillEnd() ?: -1
+        val millisTillEnd: Long = Rules(this, prefs.prefs).millisTillEnd()
         if (millisTillEnd > -1L) rulesHandler.postDelayed({ finishAndOff() }, millisTillEnd)
         if (prefs.get(
                 P.RULES_TIMEOUT,

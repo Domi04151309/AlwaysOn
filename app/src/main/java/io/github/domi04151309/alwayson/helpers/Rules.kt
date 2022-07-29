@@ -10,27 +10,68 @@ import io.github.domi04151309.alwayson.R
 
 class Rules(private val c: Context, private val prefs: SharedPreferences) {
 
-    private var start = Calendar.getInstance()
-    private var end = Calendar.getInstance()
-    private val batteryStatus: Intent? = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter ->
-        c.registerReceiver(
-            null,
-            filter
-        )
+    private var start = 0L
+    private var end = 0L
+
+    companion object {
+        internal fun getBatteryStatus(c: Context): Intent? =
+            IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter ->
+                c.registerReceiver(
+                    null,
+                    filter
+                )
+            }
+
+        fun matchesChargingState(
+            c: Context,
+            prefs: SharedPreferences
+        ): Boolean {
+            val ruleChargingState = prefs.getString("rules_charging_state", "always")
+            if (ruleChargingState == "always") return true
+
+            val chargingState: Int = getBatteryStatus(c)
+                ?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: return true
+            val charging = if (chargingState > 0) {
+                prefs.getStringSet(
+                    "rules_charger_type",
+                    c.resources.getStringArray(R.array.pref_look_and_feel_rules_charger_values)
+                        .toSet()
+                )?.contains(
+                    when (chargingState) {
+                        BatteryManager.BATTERY_PLUGGED_AC -> "ac"
+                        BatteryManager.BATTERY_PLUGGED_USB -> "usb"
+                        BatteryManager.BATTERY_PLUGGED_WIRELESS -> "wireless"
+                        else -> ""
+                    }
+                ) ?: false
+            } else {
+                false
+            }
+            return (ruleChargingState == "charging" && charging)
+                    || (ruleChargingState == "discharging" && !charging)
+        }
     }
 
     init {
         val startString = prefs.getString("rules_time_start", "0:00") ?: "0:00"
         val endString = prefs.getString("rules_time_end", "0:00") ?: "0:00"
-        start[Calendar.MILLISECOND] = 0
-        start[Calendar.SECOND] = 0
-        start[Calendar.MINUTE] = startString.substringAfter(":").toInt()
-        start[Calendar.HOUR_OF_DAY] = startString.substringBefore(":").toInt()
-        end[Calendar.MILLISECOND] = 0
-        end[Calendar.SECOND] = 0
-        end[Calendar.MINUTE] = endString.substringAfter(":").toInt()
-        end[Calendar.HOUR_OF_DAY] = endString.substringBefore(":").toInt()
-        if (start.after(end)) end.add(Calendar.DATE, 1)
+        val startCalendar = Calendar.getInstance().apply {
+            set(Calendar.MILLISECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MINUTE, startString.substringAfter(":").toInt())
+            set(Calendar.HOUR_OF_DAY, startString.substringBefore(":").toInt())
+        }
+        val endCalendar = Calendar.getInstance().apply {
+            set(Calendar.MILLISECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MINUTE, endString.substringAfter(":").toInt())
+            set(Calendar.HOUR_OF_DAY, endString.substringBefore(":").toInt())
+        }
+        if (startCalendar.after(endCalendar)) endCalendar.add(Calendar.DATE, 1)
+        start = startCalendar.time.time
+        end = endCalendar.time.time
     }
 
     fun isAlwaysOnDisplayEnabled(): Boolean {
@@ -41,44 +82,24 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
         return prefs.getBoolean("rules_ambient_mode", false)
     }
 
-    fun matchesChargingState(): Boolean {
-        val chargingState: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
-            ?: return true
-        val ruleChargingState = prefs.getString("rules_charging_state", "always")
-        val charging = if (chargingState > 0) {
-            prefs.getStringSet(
-                "rules_charger_type",
-                c.resources.getStringArray(R.array.pref_look_and_feel_rules_charger_values).toSet()
-            )?.contains(
-                when (chargingState) {
-                    BatteryManager.BATTERY_PLUGGED_AC -> "ac"
-                    BatteryManager.BATTERY_PLUGGED_USB -> "usb"
-                    BatteryManager.BATTERY_PLUGGED_WIRELESS -> "wireless"
-                    else -> ""
-                }
-            ) ?: false
-        } else {
-            false
-        }
-        return (ruleChargingState == "charging" && charging) || (ruleChargingState == "discharging" && !charging) || (ruleChargingState == "always")
-    }
+    fun matchesChargingState(): Boolean = Companion.matchesChargingState(c, prefs)
 
     fun matchesBatteryPercentage(): Boolean {
-        return (batteryStatus?.getIntExtra(
+        return (getBatteryStatus(c)?.getIntExtra(
             BatteryManager.EXTRA_LEVEL,
             0
         ) ?: 100) > prefs.getInt("rules_battery_level", 0)
     }
 
     fun isInTimePeriod(): Boolean {
-        val now = Calendar.getInstance()
+        val now = Calendar.getInstance().time.time
         return if (start == end) true
-        else now.after(start) && now.before(end)
+        else now in (start + 1) until end
     }
 
     fun millisTillEnd(): Long {
-        val now = Calendar.getInstance()
+        val now = Calendar.getInstance().time.time
         return if (start == end) -1
-        else end.time.time - now.time.time
+        else end - now
     }
 }

@@ -21,10 +21,10 @@ class CombinedServiceReceiver : BroadcastReceiver() {
         when (intent.action) {
             Intent.ACTION_POWER_CONNECTED -> {
                 if (rules.isAlwaysOnDisplayEnabled()
+                    && !isScreenOn
                     && !rules.isAmbientMode()
                     && rules.matchesBatteryPercentage()
                     && rules.isInTimePeriod()
-                    && !isScreenOn
                 ) {
                     c.startActivity(
                         Intent(
@@ -36,10 +36,10 @@ class CombinedServiceReceiver : BroadcastReceiver() {
             }
             Intent.ACTION_POWER_DISCONNECTED -> {
                 if (rules.isAlwaysOnDisplayEnabled()
+                    && !isScreenOn
                     && !rules.isAmbientMode()
                     && rules.matchesBatteryPercentage()
                     && rules.isInTimePeriod()
-                    && !isScreenOn
                 ) {
                     c.startActivity(
                         Intent(

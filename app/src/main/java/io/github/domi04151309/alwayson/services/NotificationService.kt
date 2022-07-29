@@ -19,7 +19,6 @@ import org.json.JSONArray
 class NotificationService : NotificationListenerService() {
 
     private lateinit var prefs: SharedPreferences
-    private lateinit var rules: Rules
     private var sentRecently: Boolean = false
     private var cache: Int = -1
 
@@ -39,13 +38,13 @@ class NotificationService : NotificationListenerService() {
     override fun onCreate() {
         super.onCreate()
         prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        rules = Rules(this, prefs)
         updateVars()
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         updateVars()
 
+        val rules = Rules(this, prefs)
         if (
             isValidNotification(sbn)
             && !CombinedServiceReceiver.isScreenOn
