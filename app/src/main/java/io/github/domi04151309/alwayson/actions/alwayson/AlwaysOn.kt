@@ -381,7 +381,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         //Call recognition
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             onModeChangedListener = AudioManager.OnModeChangedListener { mode ->
-                if (mode == AudioManager.MODE_RINGTONE) finishAndOff()
+                if (mode == AudioManager.MODE_RINGTONE) finish()
             }
             (getSystemService(AUDIO_SERVICE) as AudioManager).addOnModeChangedListener(
                 mainExecutor, onModeChangedListener ?: throw IllegalStateException()
