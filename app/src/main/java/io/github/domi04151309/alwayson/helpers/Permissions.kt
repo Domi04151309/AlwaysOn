@@ -14,9 +14,9 @@ import io.github.domi04151309.alwayson.receivers.AdminReceiver
 object Permissions {
 
     val NOTIFICATION_PERMISSION_PREFS: Array<String> = arrayOf(
-        "ao_musicControls", "ao_notifications", "ao_notification_icons",
-        "pref_filter_notifications", "ao_edgeGlow", "ao_glowDuration", "ao_glowDelay",
-        "ao_glowStyle", "display_color_edge_glow", "rules_ambient_mode"
+        P.SHOW_MUSIC_CONTROLS, P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_ICONS,
+        P.TINT_NOTIFICATIONS, "pref_filter_notifications", P.EDGE_GLOW, "ao_glowDuration",
+        "ao_glowDelay", "ao_glowStyle", P.DISPLAY_COLOR_EDGE_GLOW, "rules_ambient_mode"
     )
 
     val DEVICE_ADMIN_OR_ROOT_PERMISSION_PREFS: Array<String> = arrayOf(
@@ -24,7 +24,7 @@ object Permissions {
     )
 
     private val CALENDAR_PERMISSION_PREFS: Array<String> = arrayOf(
-        "ao_calendar"
+        P.SHOW_CALENDAR
     )
 
     private fun prefs(c: Context): SharedPreferences = PreferenceManager

@@ -40,6 +40,11 @@ class LAFRulesActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_rules)
 
+            rulesBatteryLevel = findPreference("rules_battery_level") ?: return
+            rulesTime = findPreference("rules_time") ?: return
+            rulesTimeout = findPreference("rules_timeout_sec") ?: return
+            val is24Hour = !preferenceManager.sharedPreferences.getBoolean("hour", false)
+
             if (!Permissions.isNotificationServiceEnabled(requireContext())) {
                 var currentPref: Preference?
                 var currentPrefAsSwitch: SwitchPreference?
@@ -72,17 +77,14 @@ class LAFRulesActivity : AppCompatActivity() {
                         }
                     }
                 }
+            } else {
+                updateSummaries()
             }
 
             findPreference<Preference>("pref_filter_notifications")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, LAFFilterNotificationsActivity::class.java))
                 true
             }
-
-            rulesBatteryLevel = findPreference("rules_battery_level") ?: return
-            rulesTime = findPreference("rules_time") ?: return
-            rulesTimeout = findPreference("rules_timeout_sec") ?: return
-            val is24Hour = !preferenceManager.sharedPreferences.getBoolean("hour", false)
 
             rulesTime.setOnPreferenceClickListener {
                 TimePickerDialog(
@@ -111,8 +113,6 @@ class LAFRulesActivity : AppCompatActivity() {
                 ).show()
                 true
             }
-
-            updateSummaries()
         }
 
         private fun updateSummaries() {
