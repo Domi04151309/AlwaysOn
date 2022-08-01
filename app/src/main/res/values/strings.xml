@@ -17,6 +17,7 @@
     <string name="setup_phone_state_summary">This permission is required to stop the always on display for incoming calls.</string>
     <string name="setup_calendar">Read calendar</string>
     <string name="setup_calendar_summary">You need to enable calendar access for the app to display your events on the always on display.</string>
+    <string name="setup_skip">Skip</string>
     <string name="setup_continue">Continue</string>
     <string name="setup_error">Something went wrong! Please try again!</string>
 

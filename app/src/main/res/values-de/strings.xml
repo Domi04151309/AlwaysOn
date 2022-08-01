@@ -17,6 +17,7 @@
     <string name="setup_phone_state_summary">Diese Berechtigung ist erforderlich, um das Always On Display für eingehende Anrufe zu stoppen.</string>
     <string name="setup_calendar">Kalender lesen</string>
     <string name="setup_calendar_summary">Sie müssen den Kalenderzugriff für die App aktivieren, um Ihre Ereignisse auf dem Always-on-Display anzuzeigen.</string>
+    <string name="setup_skip">Überspringen</string>
     <string name="setup_continue">Weiter</string>
     <string name="setup_error">Etwas ist schief gelaufen! Bitte versuchen Sie es erneut!</string>
 

@@ -31,11 +31,28 @@
             android:id="@+id/continueBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_margin="?dialogPreferredPadding"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="?dialogPreferredPadding"
+            android:layout_marginTop="?dialogPreferredPadding"
+            android:layout_marginEnd="?dialogPreferredPadding"
+            android:layout_marginBottom="?dialogPreferredPadding"
             android:background="@null"
             android:text="@string/setup_continue"
             android:textColor="?attr/colorAccent" />
+
+        <Button
+            android:id="@+id/skipBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="?dialogPreferredPadding"
+            android:layout_marginTop="?dialogPreferredPadding"
+            android:layout_marginEnd="?dialogPreferredPadding"
+            android:layout_marginBottom="?dialogPreferredPadding"
+            android:background="@null"
+            android:text="@string/setup_skip"
+            android:textColor="?android:attr/textColorSecondary" />
     </RelativeLayout>
 </LinearLayout>

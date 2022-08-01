@@ -35,6 +35,17 @@ class SetupActivity : AppCompatActivity() {
 
         prefsEditor.putInt(P.DOUBLE_TAP_SPEED, P.DOUBLE_TAP_SPEED_DEFAULT).apply()
 
+        findViewById<Button>(R.id.skipBtn).setOnClickListener {
+            when (currentFragment) {
+                NO_FRAGMENT ->
+                    swapContentFragment(DrawOverOtherAppsFragment(), DRAW_OVER_OTHER_APPS_FRAGMENT)
+                DRAW_OVER_OTHER_APPS_FRAGMENT ->
+                    swapContentFragment(PhoneStateFragment(), PHONE_STATE_FRAGMENT)
+                PHONE_STATE_FRAGMENT ->
+                    startActivity(Intent(this, MainActivity::class.java))
+            }
+        }
+
         findViewById<Button>(R.id.continueBtn).setOnClickListener {
             when (currentFragment) {
                 NO_FRAGMENT -> {
