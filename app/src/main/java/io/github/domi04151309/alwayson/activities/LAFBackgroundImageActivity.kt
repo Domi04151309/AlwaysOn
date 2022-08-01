@@ -50,7 +50,7 @@ class LAFBackgroundImageActivity : AppCompatActivity() {
         R.drawable.unsplash_tyler_lastovich_1,
         R.drawable.unsplash_tyler_lastovich_2,
         R.drawable.unsplash_tyler_lastovich_3,
-        R.drawable.ic_more
+        R.drawable.ic_custom
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
