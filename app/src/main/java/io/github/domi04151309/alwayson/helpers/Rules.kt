@@ -70,8 +70,8 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
             set(Calendar.HOUR_OF_DAY, endString.substringBefore(":").toInt())
         }
         if (startCalendar.after(endCalendar)) endCalendar.add(Calendar.DATE, 1)
-        start = startCalendar.time.time
-        end = endCalendar.time.time
+        start = startCalendar.timeInMillis
+        end = endCalendar.timeInMillis
     }
 
     fun isAlwaysOnDisplayEnabled(): Boolean {
@@ -92,13 +92,13 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
     }
 
     fun isInTimePeriod(): Boolean {
-        val now = Calendar.getInstance().time.time
+        val now = System.currentTimeMillis()
         return if (start == end) true
         else now in (start + 1) until end
     }
 
     fun millisTillEnd(): Long {
-        val now = Calendar.getInstance().time.time
+        val now = System.currentTimeMillis()
         return if (start == end) -1
         else end - now
     }
