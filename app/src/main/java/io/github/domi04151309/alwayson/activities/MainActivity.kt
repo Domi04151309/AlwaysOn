@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.services.AlwaysOnTileService
 import io.github.domi04151309.alwayson.helpers.Global
@@ -146,6 +147,24 @@ class MainActivity : AppCompatActivity() {
     class GeneralPreferenceFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_main)
+
+            if (!Permissions.isDeviceAdminOrRoot(requireContext())) {
+                var currentPref: Preference?
+                var currentPrefAsSwitch: SwitchPreference?
+                Permissions.DEVICE_ADMIN_OR_ROOT_PERMISSION_PREFS.forEach {
+                    currentPref = findPreference(it)
+                    if (currentPref != null) {
+                        currentPref?.isEnabled = false
+                        currentPref?.setSummary(R.string.permissions_device_admin_or_root)
+                        currentPrefAsSwitch = currentPref as? SwitchPreference
+                        if (currentPrefAsSwitch != null) {
+                            currentPrefAsSwitch?.setSummaryOff(R.string.permissions_device_admin_or_root)
+                            currentPrefAsSwitch?.setSummaryOn(R.string.permissions_device_admin_or_root)
+                        }
+                    }
+                }
+            }
+
             findPreference<Preference>("always_on")?.setOnPreferenceClickListener {
                 TileService.requestListeningState(
                     context,

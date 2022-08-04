@@ -228,6 +228,7 @@
 
     <string name="help_center">Help center</string>
     <string name="help_center_summary">Uninstalling, unresponsiveness, battery drain</string>
+    <string name="help_center_missing_permissions_text">When a setting is grayed out and tells you to enable something first, you have not enabled the needed permissions yet. To grant missing permissions open the “Permissions” page on the main page and consent to using the required permissions. You can now enable the settings that need those permissions.</string>
     <string name="help_center_uninstall">How to uninstall</string>
     <string name="help_center_uninstall_text">The uninstall process can fail due to a design flaw in the Android operating system. If the device admin permission was not disabled before uninstalling the process will fail. You have to disable the device admin permission before uninstalling.</string>
     <string name="help_center_uninstall_button">Uninstall now</string>

@@ -188,6 +188,7 @@
 
     <string name="help_center">Hilfe Center</string>
     <string name="help_center_summary">Deinstallation, Verzögerungen, Batterieverbrauch</string>
+    <string name="help_center_missing_permissions_text">Wenn eine Einstellung ausgegraut ist und Sie auffordert, zuerst etwas zu aktivieren, haben Sie die erforderlichen Berechtigungen noch nicht aktiviert. Um fehlende Berechtigungen zu erteilen, öffnen Sie die Seite „Berechtigungen“ auf der Hauptseite und stimmen Sie der Verwendung der erforderlichen Berechtigungen zu. Sie können jetzt die Einstellungen aktivieren, die diese Berechtigungen benötigen.</string>
     <string name="help_center_uninstall">Deinstallieren</string>
     <string name="help_center_uninstall_text">Der Deinstallationsprozess kann aufgrund eines Designfehlers im Android-Betriebssystem fehlschlagen. Wenn die Administratorberechtigung des Geräts vor der Deinstallation nicht deaktiviert wurde, schlägt der Prozess fehl. Sie müssen die Administratorrechte des Geräts deaktivieren, bevor Sie die App deinstallieren können.</string>
     <string name="help_center_uninstall_button">Jetzt deinstallieren</string>

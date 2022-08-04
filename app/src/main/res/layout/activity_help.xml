@@ -15,6 +15,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="8dp"
+            android:text="@string/missing_permissions"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="?dialogPreferredPadding"
+            android:text="@string/help_center_missing_permissions_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp"
             android:text="@string/help_center_uninstall"
             android:textColor="?android:attr/textColorPrimary"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
