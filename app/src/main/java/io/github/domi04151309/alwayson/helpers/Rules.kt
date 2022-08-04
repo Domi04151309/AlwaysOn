@@ -26,8 +26,10 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
             c: Context,
             prefs: SharedPreferences
         ): Boolean {
-            val ruleChargingState = prefs.getString("rules_charging_state", "always")
-            if (ruleChargingState == "always") return true
+            val ruleChargingState = prefs.getString(
+                P.RULES_CHARGING_STATE, P.RULES_CHARGING_STATE_DEFAULT
+            )
+            if (ruleChargingState == P.RULES_CHARGING_STATE_DEFAULT) return true
 
             val chargingState: Int = getBatteryStatus(c)
                 ?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: return true
@@ -47,8 +49,8 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
             } else {
                 false
             }
-            return (ruleChargingState == "charging" && charging)
-                    || (ruleChargingState == "discharging" && !charging)
+            return (ruleChargingState == P.RULES_CHARGING_STATE_CHARGING && charging)
+                    || (ruleChargingState == P.RULES_CHARGING_STATE_DISCHARGING && !charging)
         }
     }
 
@@ -88,7 +90,7 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
         return (getBatteryStatus(c)?.getIntExtra(
             BatteryManager.EXTRA_LEVEL,
             0
-        ) ?: 100) > prefs.getInt("rules_battery_level", 0)
+        ) ?: 100) > prefs.getInt(P.RULES_BATTERY, P.RULES_BATTERY_DEFAULT)
     }
 
     fun isInTimePeriod(): Boolean {

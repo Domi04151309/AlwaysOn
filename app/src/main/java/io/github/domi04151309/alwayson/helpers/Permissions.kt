@@ -20,7 +20,7 @@ object Permissions {
     )
 
     val DEVICE_ADMIN_OR_ROOT_PERMISSION_PREFS: Array<String> = arrayOf(
-        "rules_charging_state", "rules_battery_level", "rules_time", "rules_timeout_sec"
+        P.RULES_CHARGING_STATE, P.RULES_BATTERY, "rules_time", P.RULES_TIMEOUT
     )
 
     private val CALENDAR_PERMISSION_PREFS: Array<String> = arrayOf(

@@ -11,6 +11,7 @@ import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.custom.EditIntegerPreference
+import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Permissions
 import io.github.domi04151309.alwayson.helpers.Theme
 import java.lang.Integer.parseInt
@@ -40,9 +41,9 @@ class LAFRulesActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_laf_rules)
 
-            rulesBatteryLevel = findPreference("rules_battery_level") ?: return
+            rulesBatteryLevel = findPreference(P.RULES_BATTERY) ?: return
             rulesTime = findPreference("rules_time") ?: return
-            rulesTimeout = findPreference("rules_timeout_sec") ?: return
+            rulesTimeout = findPreference(P.RULES_TIMEOUT) ?: return
             val is24Hour = !preferenceManager.sharedPreferences.getBoolean("hour", false)
 
             if (!Permissions.isNotificationServiceEnabled(requireContext())) {
@@ -117,7 +118,7 @@ class LAFRulesActivity : AppCompatActivity() {
 
         private fun updateSummaries() {
             val rulesBatteryLevelValue =
-                preferenceManager.sharedPreferences.getInt("rules_battery_level", 0)
+                preferenceManager.sharedPreferences.getInt(P.RULES_BATTERY, P.RULES_BATTERY_DEFAULT)
             rulesTimeStartValue = preferenceManager.sharedPreferences.getString(
                 "rules_time_start",
                 DEFAULT_START_TIME
@@ -127,10 +128,10 @@ class LAFRulesActivity : AppCompatActivity() {
                 preferenceManager.sharedPreferences.getString("rules_time_end", DEFAULT_END_TIME)
                     ?: DEFAULT_END_TIME
             val rulesTimeoutValue =
-                preferenceManager.sharedPreferences.getInt("rules_timeout_sec", 0)
+                preferenceManager.sharedPreferences.getInt(P.RULES_TIMEOUT, P.RULES_TIMEOUT_DEFAULT)
 
             if (rulesBatteryLevelValue > 100) {
-                preferenceManager.sharedPreferences.edit().putInt("rules_battery_level", 100)
+                preferenceManager.sharedPreferences.edit().putInt(P.RULES_BATTERY, 100)
                     .apply()
                 return
             }
