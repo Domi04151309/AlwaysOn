@@ -145,19 +145,15 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
         //Show on lock screen
         Handler(Looper.getMainLooper()).postDelayed({
-            window.addFlags(
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON or
-                        WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
-                        WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
-                        WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
-            )
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            turnOnScreen()
         }, 300L)
 
         //Hide UI
-        hideUI()
+        fullscreen(viewHolder.frame)
         window.decorView.setOnSystemUiVisibilityChangeListener { visibility ->
             if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0)
-                hideUI()
+                fullscreen(viewHolder.frame)
         }
 
         //Battery
@@ -507,15 +503,6 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         if (prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) {
             notificationAvailable = NotificationService.count > 0
         }
-    }
-
-    private fun hideUI() {
-        viewHolder.frame.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
     }
 
     internal fun calculateScreenSize(): Float {

@@ -12,7 +12,8 @@ class ChargingFlashActivity : OffActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_charging_flash)
 
-        Global.fullscreen(this, findViewById(R.id.chargingLayout))
+        turnOnScreen()
+        fullscreen(findViewById(R.id.chargingLayout))
 
         object : Thread() {
             override fun run() {

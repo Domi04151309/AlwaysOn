@@ -11,6 +11,8 @@ import android.media.AudioManager
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.R
@@ -57,7 +59,24 @@ open class OffActivity : Activity() {
         }
     }
 
-    open fun finishAndOff() {
+    protected fun turnOnScreen() {
+        window.addFlags(
+            WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD or
+                    WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED or
+                    WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+        )
+    }
+
+    protected fun fullscreen(view: View) {
+        view.systemUiVisibility = (View.SYSTEM_UI_FLAG_LOW_PROFILE
+                or View.SYSTEM_UI_FLAG_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION)
+    }
+
+    protected open fun finishAndOff() {
         if (PreferenceManager.getDefaultSharedPreferences(this).getBoolean("root_mode", false)) {
             Root.shell("input keyevent KEYCODE_POWER")
         } else {

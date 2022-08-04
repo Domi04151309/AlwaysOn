@@ -15,7 +15,8 @@ class ChargingCircleActivity : OffActivity() {
         setContentView(R.layout.activity_charging_circle)
 
         val content = findViewById<RelativeLayout>(R.id.content)
-        Global.fullscreen(this, content)
+        turnOnScreen()
+        fullscreen(content)
 
         val level = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
                 ?: 0

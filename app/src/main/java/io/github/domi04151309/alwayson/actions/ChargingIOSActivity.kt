@@ -20,7 +20,8 @@ class ChargingIOSActivity : OffActivity() {
         val content = findViewById<LinearLayout>(R.id.content)
         val batteryIcn = findViewById<ImageView>(R.id.batteryIcn)
 
-        Global.fullscreen(this, content)
+        turnOnScreen()
+        fullscreen(content)
 
         val level = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
                 ?: 0
