@@ -14,6 +14,8 @@
     <dimen name="aod_spacing_8">8dp</dimen>
     <dimen name="aod_fingerprint_size">64dp</dimen>
 
+    <dimen name="charging_progress_width">4dp</dimen>
+
     <dimen name="common_corner_radius">8dp</dimen>
 
 </resources>

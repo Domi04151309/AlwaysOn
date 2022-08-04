@@ -30,8 +30,10 @@
 
     <string name="AlwaysOn">Always on display</string>
 
-    <string name="date">EEE, MMMM d</string>
-    <string name="music">%1$s - %2$s</string>
+    <string name="date" translatable="false">EEE, MMMM d</string>
+    <string name="percent">%1$d%%</string>
+    <string name="charged">%1$d%% Charged</string>
+    <string name="music" translatable="false">%1$s - %2$s</string>
 
     <string name="shortcut_disabled">Disabled</string>
 
@@ -42,6 +44,7 @@
     <string name="pref_enabled">Currently enabled</string>
     <string name="pref_disabled">Currently disabled</string>
     <string name="pref_always_on">Always on display</string>
+    <string name="pref_charging">Charging animation</string>
 
     <string name="pref_look_and_feel">Look and feel</string>
 
@@ -136,6 +139,14 @@
     <string name="pref_ao_date_format_illegal">Illegal format</string>
     <string name="pref_ao_calendar">Show events</string>
     <string name="pref_ao_calendar_summary">Show events in the next 24h on your AOD</string>
+
+    <string name="pref_look_and_feel_charging">Charging animation look</string>
+    <string name="pref_look_and_feel_charging_summary">Changes the look of the charging animation</string>
+    <string-array name="pref_look_and_feel_charging_array_display" translatable="false">
+        <item>Circle</item>
+        <item>Flash</item>
+        <item>iOS</item>
+    </string-array>
 
     <string name="pref_ao_background_image">Background image</string>
     <string name="pref_ao_background_image_summary">Change the background image of the AOD</string>

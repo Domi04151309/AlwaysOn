@@ -18,7 +18,8 @@
 
     <string name="AlwaysOn">Siempre en pantalla</string>
 
-    <string name="date">EEE, MMM d</string>
+    <string name="percent">%1$d%%</string>
+    <string name="charged">%1$d%% cargado</string>
 
     <string name="shortcut_disabled">Desactivado</string>
 
@@ -29,6 +30,7 @@
     <string name="pref_enabled">Actualmente activado</string>
     <string name="pref_disabled">Actualmente desactivado</string>
     <string name="pref_always_on">Always on display</string>
+    <string name="pref_charging">Cargando animación</string>
 
     <string name="pref_look_and_feel">Look and feel</string>
 
@@ -76,6 +78,9 @@
     <string name="pref_ao_power_saving_summary">Enciende el modo de ahorro de energía del sistema cuando la pantalla siempre está encendida.</string>
     <string name="pref_ao_double_tap_disabled">Desactivar el doble toque</string>
     <string name="pref_ao_double_tap_disabled_summary">Desactiva el doble toque para salir del AOD (no recomendado)</string>
+
+    <string name="pref_look_and_feel_charging">Mirada de animación de carga</string>
+    <string name="pref_look_and_feel_charging_summary">Cambia el aspecto de la animación de carga</string>
 
     <string name="pref_look_and_feel_hide_display_cutouts">Ocultar los recortes de la pantalla</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Ocultar recortes de pantalla en el contenido de la pantalla completa</string>

@@ -9,6 +9,13 @@
             android:summaryOff="@string/pref_disabled"
             android:summaryOn="@string/pref_enabled"
             android:title="@string/pref_always_on" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_charging"
+            android:key="charging_animation"
+            android:summaryOff="@string/pref_disabled"
+            android:summaryOn="@string/pref_enabled"
+            android:title="@string/pref_charging" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_look_and_feel">
@@ -33,6 +40,11 @@
             android:key="pref_behavior"
             android:summary="@string/pref_ao_behavior_summary"
             android:title="@string/pref_ao_behavior" />
+        <Preference
+            android:icon="@drawable/ic_charging"
+            android:key="charging_style"
+            android:summary="@string/pref_look_and_feel_charging_summary"
+            android:title="@string/pref_look_and_feel_charging" />
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_ao_other" >

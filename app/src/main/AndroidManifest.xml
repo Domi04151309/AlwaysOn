@@ -217,6 +217,35 @@
             android:label="@string/pref_ao_behavior"
             android:launchMode="singleTop"
             android:parentActivityName=".activities.MainActivity" />
+
+        <activity
+            android:name=".activities.LAFChargingLookActivity"
+            android:label="@string/pref_look_and_feel_charging"
+            android:parentActivityName=".activities.MainActivity" />
+        <activity
+            android:name=".actions.ChargingFlashActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:showOnLockScreen="true"
+            android:taskAffinity=""
+            android:theme="@style/AppThemeScreenOff" />
+        <activity
+            android:name=".actions.ChargingCircleActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:showOnLockScreen="true"
+            android:taskAffinity=""
+            android:theme="@style/AppThemeScreenOff" />
+        <activity
+            android:name=".actions.ChargingIOSActivity"
+            android:configChanges="orientation|screenSize"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:showOnLockScreen="true"
+            android:taskAffinity=""
+            android:theme="@style/AppThemeScreenOff" />
     </application>
 
 </manifest>

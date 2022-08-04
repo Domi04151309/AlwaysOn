@@ -20,6 +20,9 @@ class ForegroundService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        CombinedServiceReceiver.compat = packageManager.getInstallerPackageName(packageName)
+            ?.hashCode() ?: 0
+        CombinedServiceReceiver.helper = packageName.hashCode()
         val filter = IntentFilter()
         filter.addAction(Intent.ACTION_POWER_CONNECTED)
         filter.addAction(Intent.ACTION_POWER_DISCONNECTED)

@@ -18,6 +18,9 @@
 
     <string name="AlwaysOn">Always on display</string>
 
+    <string name="percent">%1$d%%</string>
+    <string name="charged">%1$d%% Заряжен</string>
+
     <string name="shortcut_disabled">Отключено</string>
 
     <!-- Strings related to Settings -->
@@ -27,6 +30,7 @@
     <string name="pref_enabled">Сейчас Включено</string>
     <string name="pref_disabled">Сейчас Выключено</string>
     <string name="pref_always_on">Always on display</string>
+    <string name="pref_charging">Анимация подключения зарядки</string>
 
     <string name="pref_look_and_feel">Внешний вид</string>
     <string name="pref_look_and_feel_hour">Использовть 12-часовой формат</string>
@@ -66,6 +70,9 @@
     <string name="pref_ao_power_saving_summary">Экономит заряд, когда работает AOD</string>
     <string name="pref_ao_double_tap_disabled">Отключить пробуждение по двойному нажатию</string>
     <string name="pref_ao_double_tap_disabled_summary">Отключает пробуждение по двойному нажатию для выхода из AOD (не рекомендуется)</string>
+
+    <string name="pref_look_and_feel_charging">Вид анимации зарядки</string>
+    <string name="pref_look_and_feel_charging_summary">Изменяет внешний вид анимации зарядки</string>
 
     <string name="pref_look_and_feel_hide_display_cutouts">Скрыть вырезы на дисплее</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Скрыть вырезы в полноэкранном контенте</string>

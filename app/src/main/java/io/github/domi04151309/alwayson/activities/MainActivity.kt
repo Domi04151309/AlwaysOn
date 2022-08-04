@@ -20,6 +20,7 @@ import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.services.AlwaysOnTileService
 import io.github.domi04151309.alwayson.helpers.Global
+import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Permissions
 import io.github.domi04151309.alwayson.helpers.Theme
 import io.github.domi04151309.alwayson.receivers.AlwaysOnAppWidgetProvider
@@ -170,6 +171,10 @@ class MainActivity : AppCompatActivity() {
             }
             findPreference<Preference>("pref_behavior")?.setOnPreferenceClickListener {
                 startActivity(Intent(context, LAFBehaviorActivity::class.java))
+                true
+            }
+            findPreference<Preference>(P.CHARGING_STYLE)?.setOnPreferenceClickListener {
+                startActivity(Intent(context, LAFChargingLookActivity::class.java))
                 true
             }
             findPreference<Preference>("dark_mode")?.setOnPreferenceClickListener {
