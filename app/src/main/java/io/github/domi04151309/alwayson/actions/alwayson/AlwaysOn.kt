@@ -223,12 +223,6 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             viewHolder.fingerprintIcn.visibility = View.VISIBLE
             (viewHolder.fingerprintIcn.layoutParams as ViewGroup.MarginLayoutParams)
                 .bottomMargin = prefs.get(P.FINGERPRINT_MARGIN, P.FINGERPRINT_MARGIN_DEFAULT)
-            viewHolder.fingerprintIcn.setColorFilter(
-                prefs.get(
-                    P.DISPLAY_COLOR_FINGERPRINT,
-                    P.DISPLAY_COLOR_FINGERPRINT_DEFAULT
-                )
-            )
             val longPressDetector =
                 LongPressDetector(object : LongPressDetector.OnLongPressListener {
                     override fun onLongPress() {

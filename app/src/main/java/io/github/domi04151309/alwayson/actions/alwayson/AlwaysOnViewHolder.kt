@@ -3,7 +3,7 @@ package io.github.domi04151309.alwayson.actions.alwayson
 import android.app.Activity
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.custom.CustomFrameLayout
-import io.github.domi04151309.alwayson.custom.CustomImageView
+import io.github.domi04151309.alwayson.custom.FingerprintView
 
 class AlwaysOnViewHolder(activity: Activity) {
 
@@ -14,5 +14,5 @@ class AlwaysOnViewHolder(activity: Activity) {
     val customView: AlwaysOnCustomView = activity.findViewById(R.id.customView)
 
     @JvmField
-    val fingerprintIcn: CustomImageView = activity.findViewById(R.id.fingerprintIcn)
+    val fingerprintIcn: FingerprintView = activity.findViewById(R.id.fingerprintIcn)
 }
