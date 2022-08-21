@@ -67,7 +67,7 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                 startActivity(Intent(context, LAFWFColorsActivity::class.java))
                 true
             }
-            findPreference<Preference>(P.SHOW_CALENDAR)?.setOnPreferenceChangeListener { preference, newValue ->
+            findPreference<Preference>(P.SHOW_CALENDAR)?.setOnPreferenceChangeListener { _, newValue ->
                 if (newValue is Boolean && newValue) {
                     ActivityCompat.requestPermissions(
                         requireActivity(),

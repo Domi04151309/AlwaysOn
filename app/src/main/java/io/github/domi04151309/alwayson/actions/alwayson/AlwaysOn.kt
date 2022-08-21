@@ -7,11 +7,11 @@ import android.graphics.Point
 import android.graphics.drawable.TransitionDrawable
 import android.hardware.Sensor
 import android.hardware.SensorManager
+import android.hardware.display.DisplayManager
 import android.media.AudioManager
 import android.media.session.MediaSessionManager
 import android.media.session.PlaybackState
 import android.os.*
-import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
@@ -128,10 +128,11 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         viewHolder.customView.scaleX = prefs.displayScale()
         viewHolder.customView.scaleY = prefs.displayScale()
         if (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT) == P.USER_THEME_SAMSUNG2) {
-            val outMetrics = DisplayMetrics()
-            windowManager.defaultDisplay.getMetrics(outMetrics)
-            val dpWidth: Float = outMetrics.widthPixels / resources.displayMetrics.density
-            viewHolder.customView.translationX = dpWidth * prefs.displayScale() - dpWidth
+            val size = Point()
+            (getSystemService(Context.DISPLAY_SERVICE) as DisplayManager)
+                .getDisplay(Display.DEFAULT_DISPLAY)
+                .getSize(size)
+            viewHolder.customView.translationX = (size.x - size.x * prefs.displayScale()) * (-.5f)
         }
 
         //Brightness
@@ -357,6 +358,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                                     )
                                 )
                             } else {
+                                @Suppress("DEPRECATION")
                                 vibrator.vibrate(duration)
                             }
                         }
@@ -507,7 +509,9 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
     internal fun calculateScreenSize(): Float {
         val size = Point()
-        windowManager.defaultDisplay.getSize(size)
+        (getSystemService(Context.DISPLAY_SERVICE) as DisplayManager)
+            .getDisplay(Display.DEFAULT_DISPLAY)
+            .getSize(size)
         return (size.y - viewHolder.customView.height).toFloat()
     }
 }

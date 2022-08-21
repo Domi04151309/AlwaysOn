@@ -4,11 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.FrameLayout
 
-class CustomFrameLayout : FrameLayout {
-
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-    constructor(context: Context) : super(context)
+class CustomFrameLayout @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null
+) : FrameLayout(context, attrs) {
 
     override fun performClick(): Boolean {
         super.performClick()

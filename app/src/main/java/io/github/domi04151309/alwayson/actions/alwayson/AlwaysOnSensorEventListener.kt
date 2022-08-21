@@ -4,7 +4,9 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 
-class AlwaysOnSensorEventListener(private val viewHolder: AlwaysOnViewHolder) : SensorEventListener {
+class AlwaysOnSensorEventListener(
+    private val viewHolder: AlwaysOnViewHolder
+) : SensorEventListener {
 
     override fun onSensorChanged(event: SensorEvent) {
         if (event.sensor.type == Sensor.TYPE_PROXIMITY) {

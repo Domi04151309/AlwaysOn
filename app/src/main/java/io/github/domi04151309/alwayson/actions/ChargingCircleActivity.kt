@@ -18,8 +18,9 @@ class ChargingCircleActivity : OffActivity() {
         turnOnScreen()
         fullscreen(content)
 
-        val level = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
-                ?: 0
+        val level = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            ?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
+            ?: 0
         findViewById<TextView>(R.id.batteryTxt).text = resources.getString(R.string.percent, level)
         findViewById<ProgressBar>(R.id.chargingProgress).progress = level
 

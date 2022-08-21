@@ -80,11 +80,15 @@ object Permissions {
     }
 
     fun hasPhoneStatePermission(context: Context): Boolean {
-        return context.applicationContext.checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
+        return context.applicationContext
+            .checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager
+            .PERMISSION_GRANTED
     }
 
     fun hasCalendarPermission(context: Context): Boolean {
-        return context.applicationContext.checkSelfPermission(Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_GRANTED
+        return context.applicationContext
+            .checkSelfPermission(Manifest.permission.READ_CALENDAR) == PackageManager
+            .PERMISSION_GRANTED
     }
 
     fun needsCalendarPermission(context: Context): Boolean {
