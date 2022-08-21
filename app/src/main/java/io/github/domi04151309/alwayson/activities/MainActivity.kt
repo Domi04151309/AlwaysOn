@@ -7,9 +7,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.service.quicksettings.TileService
-import android.view.KeyEvent
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -53,6 +53,13 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
         ContextCompat.startForegroundService(this, Intent(this, ForegroundService::class.java))
+
+        onBackPressedDispatcher.addCallback {
+            startActivity(
+                Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )
+        }
     }
 
     override fun onStart() {
@@ -125,23 +132,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         builder.setView(view)
-        builder.setNegativeButton(resources.getString(android.R.string.cancel)) { dialog, _ -> dialog.cancel() }
-        builder.show()
-    }
-
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            onBackPressed()
-            return true
+        builder.setNegativeButton(resources.getString(android.R.string.cancel)) { dialog, _ ->
+            dialog.cancel()
         }
-        return super.onKeyDown(keyCode, event)
-    }
-
-    override fun onBackPressed() {
-        startActivity(
-            Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        )
+        builder.show()
     }
 
     class GeneralPreferenceFragment : PreferenceFragmentCompat() {
@@ -158,8 +152,12 @@ class MainActivity : AppCompatActivity() {
                         currentPref?.setSummary(R.string.permissions_device_admin_or_root)
                         currentPrefAsSwitch = currentPref as? SwitchPreference
                         if (currentPrefAsSwitch != null) {
-                            currentPrefAsSwitch?.setSummaryOff(R.string.permissions_device_admin_or_root)
-                            currentPrefAsSwitch?.setSummaryOn(R.string.permissions_device_admin_or_root)
+                            currentPrefAsSwitch?.setSummaryOff(
+                                R.string.permissions_device_admin_or_root
+                            )
+                            currentPrefAsSwitch?.setSummaryOn(
+                                R.string.permissions_device_admin_or_root
+                            )
                         }
                     }
                 }
