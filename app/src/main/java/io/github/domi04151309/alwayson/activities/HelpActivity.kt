@@ -20,14 +20,19 @@ class HelpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_help)
 
         findViewById<Button>(R.id.uninstall).setOnClickListener {
-            (getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager).removeActiveAdmin(ComponentName(this, AdminReceiver::class.java))
+            (getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager)
+                .removeActiveAdmin(ComponentName(this, AdminReceiver::class.java))
             startActivity(Intent(Intent.ACTION_DELETE).setData(Uri.parse("package:$packageName")))
         }
         findViewById<Button>(R.id.batterySettings).setOnClickListener {
             startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
         }
         findViewById<Button>(R.id.manufacturer).setOnClickListener {
-            startActivity(Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://dontkillmyapp.com/")))
+            startActivity(
+                Intent(Intent.ACTION_VIEW).setData(
+                    Uri.parse("https://dontkillmyapp.com/")
+                )
+            )
         }
     }
 }

@@ -34,7 +34,8 @@ class LAFBehaviorActivity : AppCompatActivity() {
             }
             if (!preferenceManager.sharedPreferences.getBoolean(P.ROOT_MODE, false)) {
                 findPreference<SwitchPreference>(P.POWER_SAVING_MODE)?.isEnabled = false
-                findPreference<SwitchPreference>(P.DISABLE_HEADS_UP_NOTIFICATIONS)?.isEnabled = false
+                findPreference<SwitchPreference>(P.DISABLE_HEADS_UP_NOTIFICATIONS)
+                    ?.isEnabled = false
             }
         }
 

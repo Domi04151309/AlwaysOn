@@ -56,8 +56,12 @@ class LAFRulesActivity : AppCompatActivity() {
                         currentPref?.setSummary(R.string.permissions_notification_access)
                         currentPrefAsSwitch = currentPref as? SwitchPreference
                         if (currentPrefAsSwitch != null) {
-                            currentPrefAsSwitch?.setSummaryOff(R.string.permissions_notification_access)
-                            currentPrefAsSwitch?.setSummaryOn(R.string.permissions_notification_access)
+                            currentPrefAsSwitch?.setSummaryOff(
+                                R.string.permissions_notification_access
+                            )
+                            currentPrefAsSwitch?.setSummaryOn(
+                                R.string.permissions_notification_access
+                            )
                         }
                     }
                 }
@@ -73,8 +77,12 @@ class LAFRulesActivity : AppCompatActivity() {
                         currentPref?.setSummary(R.string.permissions_device_admin_or_root)
                         currentPrefAsSwitch = currentPref as? SwitchPreference
                         if (currentPrefAsSwitch != null) {
-                            currentPrefAsSwitch?.setSummaryOff(R.string.permissions_device_admin_or_root)
-                            currentPrefAsSwitch?.setSummaryOn(R.string.permissions_device_admin_or_root)
+                            currentPrefAsSwitch?.setSummaryOff(
+                                R.string.permissions_device_admin_or_root
+                            )
+                            currentPrefAsSwitch?.setSummaryOn(
+                                R.string.permissions_device_admin_or_root
+                            )
                         }
                     }
                 }
@@ -146,7 +154,9 @@ class LAFRulesActivity : AppCompatActivity() {
                     R.string.pref_look_and_feel_rules_battery_level_summary,
                     rulesBatteryLevelValue
                 )
-                else resources.getString(R.string.pref_look_and_feel_rules_battery_level_summary_zero)
+                else resources.getString(
+                    R.string.pref_look_and_feel_rules_battery_level_summary_zero
+                )
             rulesTimeout.summary =
                 if (rulesTimeoutValue > 0) resources.getQuantityString(
                     R.plurals.pref_look_and_feel_rules_timeout_summary,

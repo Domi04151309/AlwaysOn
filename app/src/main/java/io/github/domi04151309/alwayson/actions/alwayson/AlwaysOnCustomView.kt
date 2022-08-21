@@ -592,7 +592,7 @@ class AlwaysOnCustomView : View {
                     drawable = if (index == NOTIFICATION_LIMIT - 1)
                         ContextCompat.getDrawable(context, R.drawable.ic_more)
                             ?: break
-                    else icon.loadDrawable(context)
+                    else icon.loadDrawable(context) ?: continue
                     drawable.setTint(
                         if (prefs.get(P.TINT_NOTIFICATIONS, P.TINT_NOTIFICATIONS_DEFAULT)) {
                             color

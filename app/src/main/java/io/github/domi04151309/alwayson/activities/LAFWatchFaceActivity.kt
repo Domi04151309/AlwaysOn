@@ -52,8 +52,12 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                         currentPref?.setSummary(R.string.permissions_notification_access)
                         currentPrefAsSwitch = currentPref as? SwitchPreference
                         if (currentPrefAsSwitch != null) {
-                            currentPrefAsSwitch?.setSummaryOff(R.string.permissions_notification_access)
-                            currentPrefAsSwitch?.setSummaryOn(R.string.permissions_notification_access)
+                            currentPrefAsSwitch?.setSummaryOff(
+                                R.string.permissions_notification_access
+                            )
+                            currentPrefAsSwitch?.setSummaryOn(
+                                R.string.permissions_notification_access
+                            )
                         }
                     }
                 }
@@ -67,16 +71,17 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                 startActivity(Intent(context, LAFWFColorsActivity::class.java))
                 true
             }
-            findPreference<Preference>(P.SHOW_CALENDAR)?.setOnPreferenceChangeListener { _, newValue ->
-                if (newValue is Boolean && newValue) {
-                    ActivityCompat.requestPermissions(
-                        requireActivity(),
-                        arrayOf(Manifest.permission.READ_CALENDAR),
-                        0
-                    )
+            findPreference<Preference>(P.SHOW_CALENDAR)
+                ?.setOnPreferenceChangeListener { _, newValue ->
+                    if (newValue is Boolean && newValue) {
+                        ActivityCompat.requestPermissions(
+                            requireActivity(),
+                            arrayOf(Manifest.permission.READ_CALENDAR),
+                            0
+                        )
+                    }
+                    true
                 }
-                true
-            }
             findPreference<Preference>(P.DATE_FORMAT)?.setOnPreferenceClickListener {
                 val dialogView = layoutInflater.inflate(R.layout.dialog_edit_text, null, false)
                 val editText = dialogView.findViewById<EditText>(R.id.editText)

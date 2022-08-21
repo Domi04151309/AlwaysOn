@@ -1,6 +1,7 @@
 package io.github.domi04151309.alwayson.activities
 
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
@@ -41,13 +42,19 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
             packageManager = requireContext().packageManager
             empty = Preference(preferenceScreen.context)
             empty.setIcon(R.drawable.ic_notification)
-            empty.title = requireContext().resources.getString(R.string.pref_look_and_feel_filter_notifications_empty)
-            empty.summary = requireContext().resources.getString(R.string.pref_look_and_feel_filter_notifications_empty_summary)
+            empty.title = requireContext().resources.getString(
+                R.string.pref_look_and_feel_filter_notifications_empty
+            )
+            empty.summary = requireContext().resources.getString(
+                R.string.pref_look_and_feel_filter_notifications_empty_summary
+            )
         }
 
         override fun onStart() {
             super.onStart()
-            blockedArray = JSONArray(preferenceManager.sharedPreferences.getString("blocked_notifications", "[]"))
+            blockedArray = JSONArray(
+                preferenceManager.sharedPreferences.getString("blocked_notifications", "[]")
+            )
             if (!JSON.isEmpty(blockedArray)) {
                 blocked.removeAll()
                 for (i in 0 until blockedArray.length()) {
@@ -98,7 +105,21 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
             val pref = Preference(preferenceScreen.context)
             pref.setIcon(R.drawable.ic_notification)
             pref.title = try {
-                packageManager.getApplicationLabel(packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)) as String
+                if (Build.VERSION.SDK_INT >= 33) {
+                    packageManager.getApplicationLabel(
+                        packageManager.getApplicationInfo(
+                            packageName,
+                            PackageManager.ApplicationInfoFlags.of(
+                                PackageManager.GET_META_DATA.toLong()
+                            )
+                        )
+                    )
+                } else {
+                    @Suppress("DEPRECATION")
+                    packageManager.getApplicationLabel(
+                        packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
+                    )
+                } as String
             } catch (e: Exception) {
                 resources.getString(R.string.pref_look_and_feel_filter_notifications_unknown)
             }

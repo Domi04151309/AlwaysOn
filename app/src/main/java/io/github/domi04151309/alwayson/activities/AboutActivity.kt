@@ -5,9 +5,9 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.pm.PackageInfoCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import io.github.domi04151309.alwayson.BuildConfig
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Theme
 
@@ -33,12 +33,10 @@ class AboutActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_about)
             findPreference<Preference>("app_version")?.apply {
-                val pInfo =
-                    requireContext().packageManager.getPackageInfo(requireContext().packageName, 0)
                 summary = requireContext().getString(
                     R.string.about_app_version_desc,
-                    pInfo.versionName,
-                    PackageInfoCompat.getLongVersionCode(pInfo)
+                    BuildConfig.VERSION_NAME,
+                    BuildConfig.VERSION_CODE
                 )
                 setOnPreferenceClickListener {
                     startActivity(

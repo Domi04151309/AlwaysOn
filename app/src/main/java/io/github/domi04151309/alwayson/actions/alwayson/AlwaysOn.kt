@@ -15,6 +15,7 @@ import android.os.*
 import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import io.github.domi04151309.alwayson.actions.OffActivity
 import io.github.domi04151309.alwayson.R
@@ -156,6 +157,15 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             if (visibility and View.SYSTEM_UI_FLAG_FULLSCREEN == 0)
                 fullscreen(viewHolder.frame)
         }
+        /*window.decorView.setOnApplyWindowInsetsListener { _, windowInsets ->
+            if (WindowInsetsCompat.toWindowInsetsCompat(windowInsets).isVisible(
+                    WindowInsetsCompat.Type.statusBars()
+                            or WindowInsetsCompat.Type.captionBar()
+                            or WindowInsetsCompat.Type.navigationBars()
+                )
+            ) fullscreen(viewHolder.frame)
+            windowInsets
+        }*/
 
         //Battery
         systemFilter.addAction(Intent.ACTION_BATTERY_CHANGED)
@@ -221,7 +231,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                 private val gestureDetector = GestureDetector(
                     this@AlwaysOn,
                     object : GestureDetector.SimpleOnGestureListener() {
-                        override fun onLongPress(e: MotionEvent?) {
+                        override fun onLongPress(e: MotionEvent) {
                             super.onLongPress(e)
                             finish()
                         }

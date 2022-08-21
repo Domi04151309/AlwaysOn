@@ -41,8 +41,12 @@ class LAFBackgroundActivity : AppCompatActivity() {
                         currentPref?.setSummary(R.string.permissions_notification_access)
                         currentPrefAsSwitch = currentPref as? SwitchPreference
                         if (currentPrefAsSwitch != null) {
-                            currentPrefAsSwitch?.setSummaryOff(R.string.permissions_notification_access)
-                            currentPrefAsSwitch?.setSummaryOn(R.string.permissions_notification_access)
+                            currentPrefAsSwitch?.setSummaryOff(
+                                R.string.permissions_notification_access
+                            )
+                            currentPrefAsSwitch?.setSummaryOn(
+                                R.string.permissions_notification_access
+                            )
                         }
                     }
                 }

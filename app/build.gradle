@@ -4,11 +4,11 @@ apply plugin: 'kotlin-android'
 def readAndUnderstoodLicense = false
 
 android {
-    compileSdkVersion 32
+    compileSdkVersion 33
     defaultConfig {
         applicationId "io.github.domi04151309.alwayson"
         minSdkVersion 24
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 390
         versionName "3.9.0"
     }

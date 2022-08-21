@@ -32,10 +32,11 @@ class PermissionsActivity : AppCompatActivity() {
     class PreferencePermissions : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             addPreferencesFromResource(R.xml.pref_permissions)
-            findPreference<Preference>("ignore_battery_optimizations")?.setOnPreferenceClickListener {
-                startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
-                true
-            }
+            findPreference<Preference>("ignore_battery_optimizations")
+                ?.setOnPreferenceClickListener {
+                    startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
+                    true
+                }
             findPreference<Preference>("device_admin")?.setOnPreferenceClickListener {
                 val dialogView = layoutInflater.inflate(R.layout.dialog_device_admin, null, false)
                 val editText = dialogView.findViewById<EditText>(R.id.editText)
