@@ -324,8 +324,6 @@ class AlwaysOnCustomView : View {
 
         currentHeight += paddingBottom
 
-        relativePoint = if (flags[FLAG_LEFT_ALIGN]) padding16.toFloat() else measuredWidth / 2f
-
         //Scale background
         if (nonScaleBackground != null && measuredWidth > 0) nonScaleBackground =
             Bitmap.createScaledBitmap(
@@ -353,6 +351,7 @@ class AlwaysOnCustomView : View {
      */
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        relativePoint = if (flags[FLAG_LEFT_ALIGN]) padding16.toFloat() else measuredWidth / 2f
         currentHeight = 0f
         currentHeight += paddingTop
 

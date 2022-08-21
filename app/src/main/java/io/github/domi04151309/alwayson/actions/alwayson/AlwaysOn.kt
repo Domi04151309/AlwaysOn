@@ -15,7 +15,6 @@ import android.os.*
 import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import io.github.domi04151309.alwayson.actions.OffActivity
 import io.github.domi04151309.alwayson.R
