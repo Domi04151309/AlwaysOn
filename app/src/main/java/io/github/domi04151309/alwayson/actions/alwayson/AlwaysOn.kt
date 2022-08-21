@@ -44,6 +44,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
     @JvmField
     internal var screenSize: Float = 0F
 
+    private var offsetX: Float = 0f
     internal lateinit var viewHolder: AlwaysOnViewHolder
     internal lateinit var prefs: P
 
@@ -132,7 +133,8 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             (getSystemService(Context.DISPLAY_SERVICE) as DisplayManager)
                 .getDisplay(Display.DEFAULT_DISPLAY)
                 .getSize(size)
-            viewHolder.customView.translationX = (size.x - size.x * prefs.displayScale()) * (-.5f)
+            offsetX = (size.x - size.x * prefs.displayScale()) * (-.5f)
+            viewHolder.customView.translationX = offsetX
         }
 
         //Brightness
@@ -297,7 +299,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         }
 
         //Animation
-        val animationHelper = AnimationHelper()
+        val animationHelper = AnimationHelper(offsetX)
         val animationDuration = 10000
         val animationDelay =
             (prefs.get("ao_animation_delay", 2) * 60000 + animationDuration + 1000).toLong()

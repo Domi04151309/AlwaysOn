@@ -5,7 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 
-class AnimationHelper {
+class AnimationHelper(private val x: Float) {
 
     companion object {
         private const val FRAME_RATE: Int = 15
@@ -22,7 +22,7 @@ class AnimationHelper {
         val movementPerFrame =
             (positionY + burnInOffset(view.resources) - startPosition) / (numberOfFrames - 1)
 
-        view.translationX = burnInOffset(view.resources)
+        view.translationX = x + burnInOffset(view.resources)
         for (j in 1 until numberOfFrames) {
             animationHandler.postDelayed({
                 view.translationY = startPosition + i * movementPerFrame
