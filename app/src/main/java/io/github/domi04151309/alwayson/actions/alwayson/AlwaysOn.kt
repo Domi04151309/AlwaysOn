@@ -19,6 +19,7 @@ import androidx.preference.PreferenceManager.getDefaultSharedPreferences
 import io.github.domi04151309.alwayson.actions.OffActivity
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.custom.DoubleTapDetector
+import io.github.domi04151309.alwayson.custom.LongPressDetector
 import io.github.domi04151309.alwayson.helpers.*
 import io.github.domi04151309.alwayson.helpers.AnimationHelper
 import io.github.domi04151309.alwayson.helpers.Global
@@ -228,21 +229,16 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                     P.DISPLAY_COLOR_FINGERPRINT_DEFAULT
                 )
             )
-            viewHolder.fingerprintIcn.setOnTouchListener(object : View.OnTouchListener {
-                private val gestureDetector = GestureDetector(
-                    this@AlwaysOn,
-                    object : GestureDetector.SimpleOnGestureListener() {
-                        override fun onLongPress(e: MotionEvent) {
-                            super.onLongPress(e)
-                            finish()
-                        }
-                    })
-
-                override fun onTouch(v: View, event: MotionEvent): Boolean {
-                    gestureDetector.onTouchEvent(event)
-                    return v.performClick()
-                }
-            })
+            val longPressDetector =
+                LongPressDetector(object : LongPressDetector.OnLongPressListener {
+                    override fun onLongPress() {
+                        finish()
+                    }
+                })
+            viewHolder.fingerprintIcn.setOnTouchListener { v, event ->
+                longPressDetector.onTouchEvent(event)
+                v.performClick()
+            }
         }
 
         //Proximity
