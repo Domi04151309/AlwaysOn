@@ -223,12 +223,9 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             viewHolder.fingerprintIcn.visibility = View.VISIBLE
             (viewHolder.fingerprintIcn.layoutParams as ViewGroup.MarginLayoutParams)
                 .bottomMargin = prefs.get(P.FINGERPRINT_MARGIN, P.FINGERPRINT_MARGIN_DEFAULT)
-            val longPressDetector =
-                LongPressDetector(object : LongPressDetector.OnLongPressListener {
-                    override fun onLongPress() {
-                        finish()
-                    }
-                })
+            val longPressDetector = LongPressDetector({
+                finish()
+            })
             viewHolder.fingerprintIcn.setOnTouchListener { v, event ->
                 longPressDetector.onTouchEvent(event)
                 v.performClick()
@@ -344,28 +341,25 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
         //DoubleTap
         if (!prefs.get(P.DISABLE_DOUBLE_TAP, P.DISABLE_DOUBLE_TAP_DEFAULT)) {
-            val doubleTapDetector =
-                DoubleTapDetector(object : DoubleTapDetector.OnDoubleTapListener {
-                    override fun onDoubleTap() {
-                        val duration = prefs.get("ao_vibration", 64).toLong()
-                        if (duration > 0) {
-                            val vibrator =
-                                getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                vibrator.vibrate(
-                                    VibrationEffect.createOneShot(
-                                        duration,
-                                        VibrationEffect.DEFAULT_AMPLITUDE
-                                    )
-                                )
-                            } else {
-                                @Suppress("DEPRECATION")
-                                vibrator.vibrate(duration)
-                            }
-                        }
-                        finish()
+            val doubleTapDetector = DoubleTapDetector({
+                val duration = prefs.get("ao_vibration", 64).toLong()
+                if (duration > 0) {
+                    val vibrator =
+                        getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        vibrator.vibrate(
+                            VibrationEffect.createOneShot(
+                                duration,
+                                VibrationEffect.DEFAULT_AMPLITUDE
+                            )
+                        )
+                    } else {
+                        @Suppress("DEPRECATION")
+                        vibrator.vibrate(duration)
                     }
-                }, prefs.get(P.DOUBLE_TAP_SPEED, P.DOUBLE_TAP_SPEED_DEFAULT))
+                }
+                finish()
+            }, prefs.get(P.DOUBLE_TAP_SPEED, P.DOUBLE_TAP_SPEED_DEFAULT))
             viewHolder.frame.setOnTouchListener { v, event ->
                 doubleTapDetector.onTouchEvent(event)
                 v.performClick()

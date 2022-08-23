@@ -6,22 +6,18 @@ import android.view.MotionEvent
 import android.view.ViewConfiguration
 
 class LongPressDetector(
-    private val listener: OnLongPressListener,
+    private val listener: () -> Unit,
     private val timeout: Long = ViewConfiguration.getLongPressTimeout().toLong()
 ) {
 
     private var isTouching = false
-
-    interface OnLongPressListener {
-        fun onLongPress()
-    }
 
     fun onTouchEvent(ev: MotionEvent) {
         if ((ev.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN) {
             if (!isTouching) {
                 isTouching = true
                 Handler(Looper.getMainLooper()).postDelayed({
-                    if (isTouching) listener.onLongPress()
+                    if (isTouching) listener()
                 }, timeout)
             }
         } else if ((ev.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
