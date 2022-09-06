@@ -56,7 +56,6 @@
     <string name="pref_ao_behavior">Поведение</string>
     <string name="pref_ao_vibration">Время вибрации (в милисекундах)</string>
     <string name="pref_ao_vibration_summary">Время вибрации телефона при двойном нажатии на экран</string>
-    <string name="pref_ao_animation_delay">Длительность анимации (в минутах)</string>
     <string name="pref_ao_animation_delay_summary">Время между различными позициями содержимого \ Предупреждение. Слишком высокие значения могут стать причиной выгорания экрана!</string>
     <string name="pref_ao_force_brightness">Принудительно установить яркость на AOD</string>
     <string name="pref_ao_force_brightness_summary">Нажмите, чтобы изменить принудительную яркость</string>

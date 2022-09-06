@@ -64,7 +64,7 @@
     <string name="pref_ao_glowStyle_summary">Cambia el aspecto de los bordes brillantes</string>
     <string name="pref_ao_vibration">Duración de la vibración (en milisegundos)</string>
     <string name="pref_ao_vibration_summary">Duración el teléfono cuando vibra al tocar dos veces la pantalla</string>
-    <string name="pref_ao_animation_delay">Demora de la simulación (en minutos)</string>
+    <string name="pref_ao_animation_delay">Demora del movimiento (en minutos)</string>
     <string name="pref_ao_animation_delay_summary">Tiempo entre las diferentes posiciones del contenido: ¡Los valores demasiado altos pueden causar quemaduras en la pantalla!</string>
     <string name="pref_ao_force_brightness">Fuerza un cierto brillo en el AOD</string>
     <string name="pref_ao_force_brightness_summary">Tap para cambiar el brillo forzado</string>

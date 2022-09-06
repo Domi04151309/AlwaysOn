@@ -96,8 +96,10 @@
     <string name="pref_ao_glowColor_summary">Ändert die Farbe der leuchtenden Kanten</string>
     <string name="pref_ao_vibration">Vibrationsdauer (in Millisekunden)</string>
     <string name="pref_ao_vibration_summary">Dauer, die das Telefon vibriert, wenn Sie zweimal auf den Bildschirm tippen</string>
-    <string name="pref_ao_animation_delay">Animationsverzögerung (in Minuten)</string>
+    <string name="pref_ao_animation_delay">Bewegungsverzögerung (in Minuten)</string>
     <string name="pref_ao_animation_delay_summary">Zeit zwischen den verschiedenen Positionen des Inhalts\nWarnung: Zu hohe Werte können zum Einbrennen des Bildschirms führen!</string>
+    <string name="pref_ao_smooth_animation">Bewegung animieren</string>
+    <string name="pref_ao_smooth_animation_summary">Animiert die Positionsänderungen</string>
     <string name="pref_ao_force_brightness">Eine bestimmte Helligkeit auf dem AOD erzwingen</string>
     <string name="pref_ao_force_brightness_summary">Tippen Sie, um die Helligkeit zu ändern</string>
     <string name="pref_ao_force_brightness_title">Helligkeit</string>

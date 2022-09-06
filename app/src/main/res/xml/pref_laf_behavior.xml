@@ -20,6 +20,12 @@
         android:key="ao_animation_delay"
         android:summary="@string/pref_ao_animation_delay_summary"
         android:title="@string/pref_ao_animation_delay" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_speed"
+        android:key="ao_smooth_animation"
+        android:summary="@string/pref_ao_smooth_animation_summary"
+        android:title="@string/pref_ao_smooth_animation" />
     <Preference
         android:icon="@drawable/ic_brightness"
         android:key="ao_force_brightness"
