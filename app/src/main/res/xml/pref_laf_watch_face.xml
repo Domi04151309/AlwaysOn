@@ -18,12 +18,33 @@
         android:summaryOn="@string/pref_enabled"
         android:title="@string/pref_ao_showClock" />
     <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_clock"
+        android:key="hour"
+        android:summaryOff="@string/pref_look_and_feel_hour_summary_off"
+        android:summaryOn="@string/pref_look_and_feel_hour_summary_on"
+        android:title="@string/pref_look_and_feel_hour"
+        android:dependency="ao_clock" />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_clock"
+        android:key="am_pm"
+        android:summary="@string/pref_look_and_feel_am_pm_summary"
+        android:title="@string/pref_look_and_feel_am_pm"
+        android:dependency="hour" />
+    <SwitchPreference
         android:defaultValue="true"
         android:icon="@drawable/ic_date"
         android:key="ao_date"
         android:summaryOff="@string/pref_disabled"
         android:summaryOn="@string/pref_enabled"
         android:title="@string/pref_ao_showDate" />
+    <Preference
+        android:icon="@drawable/ic_date"
+        android:key="ao_date_format"
+        android:summary="@string/pref_ao_date_format_summary"
+        android:title="@string/pref_ao_date_format"
+        android:dependency="ao_date" />
     <SwitchPreference
         android:defaultValue="true"
         android:icon="@drawable/ic_battery"
@@ -51,6 +72,19 @@
         android:key="ao_calendar"
         android:summary="@string/pref_ao_calendar_summary"
         android:title="@string/pref_ao_calendar" />
+    <EditTextPreference
+        android:icon="@drawable/ic_short_text"
+        android:defaultValue=""
+        android:key="ao_message"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="@string/pref_ao_message_summary"
+        android:title="@string/pref_ao_message" />
+    <Preference
+        android:icon="@drawable/ic_cloud"
+        android:key="pref_weather"
+        android:summary="@string/pref_look_and_feel_weather_info_summary"
+        android:title="@string/pref_look_and_feel_weather_info" />
     <SwitchPreference
         android:defaultValue="false"
         android:icon="@drawable/ic_notification"
@@ -70,7 +104,8 @@
         android:icon="@drawable/ic_palette"
         android:key="ao_tint_notifications"
         android:summary="@string/pref_look_and_feel_tint_notifications_summary"
-        android:title="@string/pref_look_and_feel_tint_notifications" />
+        android:title="@string/pref_look_and_feel_tint_notifications"
+        android:dependency="ao_notification_icons" />
     <SwitchPreference
         android:defaultValue="false"
         android:icon="@drawable/ic_fingerprint"
@@ -78,43 +113,13 @@
         android:summaryOff="@string/pref_disabled"
         android:summaryOn="@string/pref_enabled"
         android:title="@string/pref_ao_fingerprint" />
-    <SwitchPreference
-        android:defaultValue="false"
-        android:icon="@drawable/ic_clock"
-        android:key="hour"
-        android:summaryOff="@string/pref_look_and_feel_hour_summary_off"
-        android:summaryOn="@string/pref_look_and_feel_hour_summary_on"
-        android:title="@string/pref_look_and_feel_hour" />
-    <SwitchPreference
-        android:defaultValue="false"
-        android:icon="@drawable/ic_clock"
-        android:key="am_pm"
-        android:summary="@string/pref_look_and_feel_am_pm_summary"
-        android:title="@string/pref_look_and_feel_am_pm" />
-    <Preference
-        android:icon="@drawable/ic_date"
-        android:key="ao_date_format"
-        android:summary="@string/pref_ao_date_format_summary"
-        android:title="@string/pref_ao_date_format" />
-    <EditTextPreference
-        android:icon="@drawable/ic_short_text"
-        android:defaultValue=""
-        android:key="ao_message"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:summary="@string/pref_ao_message_summary"
-        android:title="@string/pref_ao_message" />
-    <Preference
-        android:icon="@drawable/ic_cloud"
-        android:key="pref_weather"
-        android:summary="@string/pref_look_and_feel_weather_info_summary"
-        android:title="@string/pref_look_and_feel_weather_info" />
     <io.github.domi04151309.alwayson.custom.EditIntegerPreference
         android:defaultValue="200"
         android:icon="@drawable/ic_fingerprint"
         android:key="ao_fingerprint_margin"
         android:summary="@string/pref_ao_fingerprint_margin_summary"
-        android:title="@string/pref_ao_fingerprint_margin" />
+        android:title="@string/pref_ao_fingerprint_margin"
+        android:dependency="ao_fingerprint" />
     <SeekBarPreference
         android:icon="@drawable/ic_scale"
         android:key="pref_aod_scale_2"

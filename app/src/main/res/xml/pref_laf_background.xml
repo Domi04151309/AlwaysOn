@@ -23,13 +23,15 @@
         android:icon="@drawable/ic_timer"
         android:key="ao_glowDuration"
         android:summary="@string/pref_ao_glowDuration_summary"
-        android:title="@string/pref_ao_glowDuration" />
+        android:title="@string/pref_ao_glowDuration"
+        android:dependency="ao_edgeGlow" />
     <io.github.domi04151309.alwayson.custom.EditIntegerPreference
         android:defaultValue="4000"
         android:icon="@drawable/ic_timer"
         android:key="ao_glowDelay"
         android:summary="@string/pref_ao_glowDelay_summary"
-        android:title="@string/pref_ao_glowDelay" />
+        android:title="@string/pref_ao_glowDelay"
+        android:dependency="ao_edgeGlow" />
     <ListPreference
         android:defaultValue="all"
         android:entries="@array/pref_ao_glowStyle_display"
@@ -37,7 +39,8 @@
         android:icon="@drawable/ic_palette"
         android:key="ao_glowStyle"
         android:summary="@string/pref_ao_glowStyle_summary"
-        android:title="@string/pref_ao_glowStyle" />
+        android:title="@string/pref_ao_glowStyle"
+        android:dependency="ao_edgeGlow" />
     <com.jaredrummler.android.colorpicker.ColorPreferenceCompat
         android:defaultValue="0xffffffff"
         android:icon="@drawable/ic_palette"
@@ -45,6 +48,7 @@
         android:summary="@string/pref_ao_glowColor_summary"
         android:title="@string/pref_ao_glowColor"
         app:cpv_showAlphaSlider="true"
-        app:cpv_showColorShades="false" />
+        app:cpv_showColorShades="false"
+        android:dependency="ao_edgeGlow" />
 
 </PreferenceScreen>
