@@ -334,11 +334,8 @@ class AlwaysOnCustomView : View {
             )
 
         return max(
-            max(
-                currentHeight.toInt(),
-                (suggestedMinimumHeight + paddingTop + paddingBottom)
-            ),
-            measuredWidth
+            currentHeight.toInt(),
+            (suggestedMinimumHeight + paddingTop + paddingBottom)
         )
     }
 
