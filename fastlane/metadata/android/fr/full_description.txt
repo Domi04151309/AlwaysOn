@@ -1,0 +1,25 @@
+ToujoursAllumé est une application pour tout appareil avec un écran AMOLED ou OLED.
+Elle ajoute un affichage permanent avec plusieurs éléments de personnalisation sur le style de l'horloge, le comportement et le fond d'écran.
+Regardez votre téléphone et ayez tout ce dont vous avez besoin à un seul endroit: le temps, la date, l'état de la batterie, les notifications, et plus encore.
+
+<font color="#2467d6"><b>Fonctionnalités</b></font>
+- Affichage permanent
+- Plusieurs types d'horloges
+- Accès aux notifications
+- Accès à la musique écoutée
+- Lueur sur les bords
+- Règles
+- Double appui pour réveiller
+- Mode poche
+- Mode ne pas déranger
+- Luminosité ajustable
+- Disponible via les tuiles rapides
+- Widgets
+- Mode économie d'énergie [ pour appareil rooté ]
+- Mouvement du contenu pour empêcher le phénomène de brûlures
+- Peu de permissions demandées
+
+<font color="#2467d6"><b>Liens connexes</b></font>
+Code source: <a href="https://github.com/Domi04151309/AlwaysOn">https://github.com/Domi04151309/AlwaysOn</a>
+Site internet: <a href="https://domi04151309.github.io/Android/AlwaysOn">https://domi04151309.github.io/Android/AlwaysOn</a>
+Icons8: <a href="https://icons8.com/">https://icons8.com/</a>
