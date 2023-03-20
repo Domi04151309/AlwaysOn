@@ -1,0 +1,4 @@
+- Ajout d'une traduction russe
+- Ajout d'un style similaire au OnePlus
+- L'AOD s'arrêtera maintenant lors d'appel entrant
+- Améliorations générales

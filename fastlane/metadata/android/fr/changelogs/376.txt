@@ -1,0 +1,1 @@
+Vous pouvez maintenant faire en sorte que l'écran persistant aparaîsse plus grand ou petit, en fonction de vos préférences. Cette version inclue des corrections de bogues lié à la date et au crash relatif aux notifications.

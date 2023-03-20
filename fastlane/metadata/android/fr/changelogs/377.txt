@@ -1,0 +1,1 @@
+Cette mise à jour inclue des améliorations de performance, des corrections de crash, de bogues, de meilleure configuration de durée pour les lueurs de coin, et la toute-nouvelle fonctionnalité qui permet de sélectionner les couleurs d'éléments individuels sur votre affichage persistant.

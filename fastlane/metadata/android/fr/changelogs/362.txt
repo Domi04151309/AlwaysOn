@@ -1,0 +1,7 @@
+- Ajout d'un paramètre sur l'orientation de l'écran
+- Ajout de style de lueur au bord
+- Amélioration de l'expérience utilisateur pour la configuration
+- Autoriser seulement une seule notification par application
+- Ajout d'une capacité pour cacher les notifications d'alerte
+- Ajout d'une capacité pour filtrer les notifications
+- Amélioration des performances

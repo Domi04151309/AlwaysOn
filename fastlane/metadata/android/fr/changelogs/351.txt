@@ -1,0 +1,5 @@
+- Ajout du mode ne pas déranger
+- Paramètres de l'application catégorisés
+- Basculement à un service de premier plan
+- Amélioration de l'interface utilisateur
+- Améliorations mineures
