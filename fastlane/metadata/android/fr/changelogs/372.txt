@@ -1,0 +1,6 @@
+- Correction de la traduction espagnole
+- Amélioration des règles
+- Ajout d'une capacité pour afficher un message sur l'AOD
+- Ajout d'une capacité pour afficher les contrôles de musique (expérimental)
+- Correction d'un comportement non désiré avec les règles du délai
+- Amélioration des performances

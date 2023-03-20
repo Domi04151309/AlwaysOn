@@ -1,0 +1,1 @@
+Cette mise à jour inclue des améliorations de performance, des corrections de crash, de bogues, et de personnalisation de lueur de coins. De plus, il est maintenant possible d'activer un mode d'ambiance.

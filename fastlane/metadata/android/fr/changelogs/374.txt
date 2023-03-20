@@ -1,0 +1,1 @@
+Les paramètres de l'application sera maintenant affiché en mode jours par défaut, mais vous pouvez toujours ré-activer le mode sombre dans les paramètres. Cette version inclut de même des améliorations d'expériences utilisateur, des corrections de bogues et des améliorations de performances.

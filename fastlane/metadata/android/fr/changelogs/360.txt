@@ -1,0 +1,4 @@
+- Ajout d'icône de notifications
+- Ajout d'une option pour désactiver le double appui
+- Activation d'un mode paysage
+- Ajout d'une traduction allemande et hollandaise
