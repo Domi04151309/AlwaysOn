@@ -1,4 +1,4 @@
-ToujoursAllumé est une application pour tout appareil avec un écran AMOLED ou OLED.
+AlwaysOn est une application pour tout appareil avec un écran AMOLED ou OLED.
 Elle ajoute un affichage permanent avec plusieurs éléments de personnalisation sur le style de l'horloge, le comportement et le fond d'écran.
 Regardez votre téléphone et ayez tout ce dont vous avez besoin à un seul endroit: le temps, la date, l'état de la batterie, les notifications, et plus encore.
 
