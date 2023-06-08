@@ -100,10 +100,10 @@ class AlwaysOnCustomView : View {
     }
 
     constructor(context: Context) : super(context) {
-        init()
+        init(context)
     }
 
-    private fun init(context: Context? = null) {
+    private fun init(context: Context) {
         prefs = P(PreferenceManager.getDefaultSharedPreferences(context))
 
         padding2 = dpToPx(2f).toInt()
@@ -221,7 +221,7 @@ class AlwaysOnCustomView : View {
                     else "h:mm"
                 } else "H:mm", Locale.getDefault()
             )
-            if (Permissions.hasCalendarPermission(context ?: throw IllegalStateException())) {
+            if (Permissions.hasCalendarPermission(context)) {
                 val cursor = context.contentResolver.query(
                     CalendarContract.Events.CONTENT_URI,
                     arrayOf("title", "dtstart", "dtend"),

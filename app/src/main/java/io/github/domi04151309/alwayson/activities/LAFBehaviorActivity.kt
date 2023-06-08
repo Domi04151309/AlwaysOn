@@ -32,7 +32,7 @@ class LAFBehaviorActivity : AppCompatActivity() {
                 startActivity(Intent(context, LAFBrightnessActivity::class.java))
                 true
             }
-            if (!preferenceManager.sharedPreferences.getBoolean(P.ROOT_MODE, false)) {
+            if (preferenceManager.sharedPreferences?.getBoolean(P.ROOT_MODE, false) != true) {
                 findPreference<SwitchPreference>(P.POWER_SAVING_MODE)?.isEnabled = false
                 findPreference<SwitchPreference>(P.DISABLE_HEADS_UP_NOTIFICATIONS)
                     ?.isEnabled = false
@@ -41,12 +41,12 @@ class LAFBehaviorActivity : AppCompatActivity() {
 
         override fun onStart() {
             super.onStart()
-            preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+            preferenceManager.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
         }
 
         override fun onStop() {
             super.onStop()
-            preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+            preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
         }
 
         override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {

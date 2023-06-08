@@ -44,7 +44,7 @@ class LAFRulesActivity : AppCompatActivity() {
             rulesBatteryLevel = findPreference(P.RULES_BATTERY) ?: return
             rulesTime = findPreference("rules_time") ?: return
             rulesTimeout = findPreference(P.RULES_TIMEOUT) ?: return
-            val is24Hour = !preferenceManager.sharedPreferences.getBoolean("hour", false)
+            val is24Hour = preferenceManager.sharedPreferences?.getBoolean("hour", false) != true
 
             if (!Permissions.isNotificationServiceEnabled(requireContext())) {
                 var currentPref: Preference?
@@ -99,17 +99,17 @@ class LAFRulesActivity : AppCompatActivity() {
                 TimePickerDialog(
                     context,
                     { _, selectedStartHour, selectedStartMinute ->
-                        preferenceManager.sharedPreferences.edit().putString(
+                        preferenceManager.sharedPreferences?.edit()?.putString(
                             "rules_time_start",
                             formatTime(selectedStartHour, selectedStartMinute)
-                        ).apply()
+                        )?.apply()
                         TimePickerDialog(
                             context,
                             { _, selectedEndHour, selectedEndMinute ->
-                                preferenceManager.sharedPreferences.edit().putString(
+                                preferenceManager.sharedPreferences?.edit()?.putString(
                                     "rules_time_end",
                                     formatTime(selectedEndHour, selectedEndMinute)
-                                ).apply()
+                                )?.apply()
                             },
                             parseInt(rulesTimeEndValue.substringBefore(":")),
                             parseInt(rulesTimeEndValue.substringAfter(":")),
@@ -126,21 +126,27 @@ class LAFRulesActivity : AppCompatActivity() {
 
         private fun updateSummaries() {
             val rulesBatteryLevelValue =
-                preferenceManager.sharedPreferences.getInt(P.RULES_BATTERY, P.RULES_BATTERY_DEFAULT)
-            rulesTimeStartValue = preferenceManager.sharedPreferences.getString(
+                preferenceManager.sharedPreferences?.getInt(
+                    P.RULES_BATTERY,
+                    P.RULES_BATTERY_DEFAULT
+                ) ?: P.RULES_BATTERY_DEFAULT
+            rulesTimeStartValue = preferenceManager.sharedPreferences?.getString(
                 "rules_time_start",
                 DEFAULT_START_TIME
-            )
-                ?: DEFAULT_START_TIME
+            ) ?: DEFAULT_START_TIME
             rulesTimeEndValue =
-                preferenceManager.sharedPreferences.getString("rules_time_end", DEFAULT_END_TIME)
+                preferenceManager.sharedPreferences?.getString("rules_time_end", DEFAULT_END_TIME)
                     ?: DEFAULT_END_TIME
             val rulesTimeoutValue =
-                preferenceManager.sharedPreferences.getInt(P.RULES_TIMEOUT, P.RULES_TIMEOUT_DEFAULT)
+                preferenceManager.sharedPreferences?.getInt(
+                    P.RULES_TIMEOUT,
+                    P.RULES_TIMEOUT_DEFAULT
+                ) ?: P.RULES_TIMEOUT_DEFAULT
 
             if (rulesBatteryLevelValue > 100) {
-                preferenceManager.sharedPreferences.edit().putInt(P.RULES_BATTERY, 100)
-                    .apply()
+                preferenceManager.sharedPreferences?.edit()
+                    ?.putInt(P.RULES_BATTERY, 100)
+                    ?.apply()
                 return
             }
 
@@ -173,12 +179,12 @@ class LAFRulesActivity : AppCompatActivity() {
 
         override fun onStart() {
             super.onStart()
-            preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+            preferenceManager.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
         }
 
         override fun onStop() {
             super.onStop()
-            preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+            preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
         }
 
         override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {

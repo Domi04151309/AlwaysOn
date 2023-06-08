@@ -35,7 +35,7 @@ class LAFWeatherActivity : AppCompatActivity() {
                 val dialogView = layoutInflater.inflate(R.layout.dialog_edit_text, null, false)
                 val editText = dialogView.findViewById<EditText>(R.id.editText)
                 editText.setText(
-                    preferenceManager.sharedPreferences.getString(
+                    preferenceManager.sharedPreferences?.getString(
                         P.WEATHER_FORMAT,
                         P.WEATHER_FORMAT_DEFAULT
                     )
@@ -44,8 +44,8 @@ class LAFWeatherActivity : AppCompatActivity() {
                     .setTitle(R.string.pref_look_and_feel_weather_format)
                     .setView(dialogView)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
-                        preferenceManager.sharedPreferences.edit()
-                            .putString(P.WEATHER_FORMAT, editText.text.toString()).apply()
+                        preferenceManager.sharedPreferences?.edit()
+                            ?.putString(P.WEATHER_FORMAT, editText.text.toString())?.apply()
                     }
                     .setNegativeButton(android.R.string.cancel) { _, _ -> }
                     .setNeutralButton(R.string.pref_ao_date_format_dialog_neutral) { _, _ ->
@@ -83,12 +83,12 @@ class LAFWeatherActivity : AppCompatActivity() {
 
         override fun onStart() {
             super.onStart()
-            preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+            preferenceManager.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
         }
 
         override fun onStop() {
             super.onStop()
-            preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+            preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
         }
 
         override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {

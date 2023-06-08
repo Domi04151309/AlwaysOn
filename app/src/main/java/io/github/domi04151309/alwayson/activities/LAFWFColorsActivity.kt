@@ -28,12 +28,12 @@ class LAFWFColorsActivity : AppCompatActivity() {
 
         override fun onStart() {
             super.onStart()
-            preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+            preferenceManager.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
         }
 
         override fun onStop() {
             super.onStop()
-            preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+            preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
         }
 
         override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {

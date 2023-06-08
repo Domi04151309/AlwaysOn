@@ -53,7 +53,7 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
         override fun onStart() {
             super.onStart()
             blockedArray = JSONArray(
-                preferenceManager.sharedPreferences.getString("blocked_notifications", "[]")
+                preferenceManager.sharedPreferences?.getString("blocked_notifications", "[]")
             )
             if (!JSON.isEmpty(blockedArray)) {
                 blocked.removeAll()
@@ -83,9 +83,9 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
 
         override fun onStop() {
             super.onStop()
-            preferenceManager.sharedPreferences.edit()
-                .putString("blocked_notifications", blockedArray.toString())
-                .apply()
+            preferenceManager.sharedPreferences?.edit()
+                ?.putString("blocked_notifications", blockedArray.toString())
+                ?.apply()
             AlwaysOn.finish()
         }
 
