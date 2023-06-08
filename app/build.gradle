@@ -9,8 +9,8 @@ android {
         applicationId "io.github.domi04151309.alwayson"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 390
-        versionName "3.9.0"
+        versionCode 391
+        versionName "3.9.1"
     }
     buildTypes {
         debug {
