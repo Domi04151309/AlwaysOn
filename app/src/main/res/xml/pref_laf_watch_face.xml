@@ -113,7 +113,7 @@
         android:summaryOff="@string/pref_disabled"
         android:summaryOn="@string/pref_enabled"
         android:title="@string/pref_ao_fingerprint" />
-    <io.github.domi04151309.alwayson.custom.EditIntegerPreference
+    <io.github.hsushjk.alwayson.custom.EditIntegerPreference
         android:defaultValue="200"
         android:icon="@drawable/ic_fingerprint"
         android:key="ao_fingerprint_margin"

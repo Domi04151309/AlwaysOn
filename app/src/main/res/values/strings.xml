@@ -1,32 +1,32 @@
 <resources>
-    <string name="device_admin_description">Allow AlwaysOn to turn off your screen</string>
-    <string name="notification_listener_description">Show notifications on the always on display</string>
+    <string name="device_admin_description">允许 AlwaysOn 关闭屏幕</string>
+    <string name="notification_listener_description">在息屏显示上显示通知</string>
 
-    <string name="service_text">AlwaysOn is running in the background</string>
-    <string name="service_channel">Service channel</string>
+    <string name="service_text">AlwaysOn 正在后台运行</string>
+    <string name="service_channel">服务模式</string>
 
-    <string name="setup_header">Setup</string>
-    <string name="setup_root_failed">Root request failed! Please try again or switch mode!</string>
-    <string name="device_admin">Device Admin</string>
-    <string name="device_admin_summary">You need to activate this device admin or switch to root mode for this app to work.</string>
-    <string name="notification_listener_service">Notification Access</string>
-    <string name="notification_listener_service_summary">You need to enable notification access for the app to display your notifications on the always on display.</string>
-    <string name="setup_draw_over_other_apps">Display over other apps</string>
-    <string name="setup_draw_over_other_apps_summary">This permission is required to show the always on display.</string>
-    <string name="setup_phone_state">Read phone state</string>
-    <string name="setup_phone_state_summary">This permission is required to stop the always on display for incoming calls.</string>
-    <string name="setup_calendar">Read calendar</string>
-    <string name="setup_calendar_summary">You need to enable calendar access for the app to display your events on the always on display.</string>
-    <string name="setup_skip">Skip</string>
-    <string name="setup_continue">Continue</string>
-    <string name="setup_error">Something went wrong! Please try again!</string>
+    <string name="setup_header">设置</string>
+    <string name="setup_root_failed">Root请求失败！请重试或切换模式！</string>
+    <string name="device_admin">设备管理员</string>
+    <string name="device_admin_summary">您需要激活此设备管理员或切换到 Root 模式才能使此应用程序正常工作。</string>
+    <string name="notification_listener_service">通知访问</string>
+    <string name="notification_listener_service_summary">您需要为应用程序启用通知访问权限，才能在息屏显示上显示您的通知。</string>
+    <string name="setup_draw_over_other_apps">显示在其他应用之上</string>
+    <string name="setup_draw_over_other_apps_summary">需要此权限才能显示始终显示的内容。</string>
+    <string name="setup_phone_state">读取手机状态</string>
+    <string name="setup_phone_state_summary">需要此权限在来电时停止息屏显示</string>
+    <string name="setup_calendar">读取日历</string>
+    <string name="setup_calendar_summary">您需要为应用程序启用日历访问才能在始终显示的情况下显示您的事件。</string>
+    <string name="setup_skip">跳过</string>
+    <string name="setup_continue">继续</string>
+    <string name="setup_error">出了些问题！请再试一次！</string>
 
-    <string name="dialog_device_admin_text">Please note that you have to deactivate the app\'s device admin privileges before uninstalling it! To make sure you understood this please perform the following operation:\n7 + 12</string>
-    <string name="dialog_device_admin_result">Result</string>
-    <string name="dialog_device_admin_error">Wrong result. Try again.</string>
+    <string name="dialog_device_admin_text">请注意，在卸载之前，您必须停用该应用程序的设备管理员权限！为了确保您理解这一点，请执行以下操作:\n7 + 12</string>
+    <string name="dialog_device_admin_result">结果</string>
+    <string name="dialog_device_admin_error">结果错误。再试一次</string>
 
     <string name="app_name" translatable="false">AlwaysOn</string>
-    <string name="app_description">Android app which adds an always on display</string>
+    <string name="app_description">添加始终显示的功能的 Android 应用程序</string>
 
     <string name="AlwaysOn">Always on display</string>
 
@@ -35,37 +35,37 @@
     <string name="charged">%1$d%% Charged</string>
     <string name="music" translatable="false">%1$s - %2$s</string>
 
-    <string name="shortcut_disabled">Disabled</string>
+    <string name="shortcut_disabled">关闭</string>
 
     <!-- Strings related to Settings -->
-    <string name="pref_int_failed">This value cannot be used</string>
+    <string name="pref_int_failed">该值不能使用</string>
 
-    <string name="pref_general">General settings</string>
-    <string name="pref_enabled">Currently enabled</string>
-    <string name="pref_disabled">Currently disabled</string>
-    <string name="pref_always_on">Always on display</string>
-    <string name="pref_charging">Charging animation</string>
+    <string name="pref_general">常规设置</string>
+    <string name="pref_enabled">目前已启用</string>
+    <string name="pref_disabled">目前已禁用</string>
+    <string name="pref_always_on">Always on Display</string>
+    <string name="pref_charging">充电动画</string>
 
-    <string name="pref_look_and_feel">Look and feel</string>
+    <string name="pref_look_and_feel">界面外观</string>
 
-    <string name="pref_ao_watch_face">Watch face</string>
-    <string name="pref_ao_watch_face_summary">Settings related to the watch face of the AOD</string>
-    <string name="pref_ao_background">Background</string>
-    <string name="pref_ao_background_summary">Settings related to the background of the AOD</string>
-    <string name="pref_ao_behavior">Behavior</string>
-    <string name="pref_ao_behavior_summary">Settings related to the behavior of the app</string>
-    <string name="pref_ao_other">Other settings</string>
+    <string name="pref_ao_watch_face">表盘</string>
+    <string name="pref_ao_watch_face_summary">表盘相关设置</string>
+    <string name="pref_ao_background">背景</string>
+    <string name="pref_ao_background_summary">背景相关设置</string>
+    <string name="pref_ao_behavior">行为</string>
+    <string name="pref_ao_behavior_summary">与应用程序行为相关的设置</string>
+    <string name="pref_ao_other">其他设置</string>
 
-    <string name="pref_look_and_feel_dark">Dark mode</string>
-    <string name="pref_look_and_feel_dark_summary">Changes the look of the app to a dark style</string>
-    <string name="pref_look_and_feel_hour">Use 12-hour clock</string>
-    <string name="pref_look_and_feel_hour_summary_on">Currently used: 12-hour clock</string>
-    <string name="pref_look_and_feel_hour_summary_off">Currently used: 24-hour clock</string>
-    <string name="pref_look_and_feel_am_pm">Show AM / PM</string>
-    <string name="pref_look_and_feel_am_pm_summary">Show AM / PM when using 12-hour clock</string>
+    <string name="pref_look_and_feel_dark">深色模式</string>
+    <string name="pref_look_and_feel_dark_summary">将应用程序的外观更改为深色风格</string>
+    <string name="pref_look_and_feel_hour">使用 12 小时制</string>
+    <string name="pref_look_and_feel_hour_summary_on">目前使用：12小时制</string>
+    <string name="pref_look_and_feel_hour_summary_off">目前使用：24小时制</string>
+    <string name="pref_look_and_feel_am_pm">显示 AM / PM</string>
+    <string name="pref_look_and_feel_am_pm_summary">使用 12 小时制时显示 AM / PM </string>
 
     <string name="pref_look_and_feel_ao">Always on look</string>
-    <string name="pref_look_and_feel_ao_summary">Changes the look of the always on display</string>
+    <string name="pref_look_and_feel_ao_summary">更改息屏显示的外观</string>
     <string-array name="pref_look_and_feel_ao_array_display">
         <item>G-Style</item>
         <item>O-Style</item>
@@ -81,77 +81,78 @@
         <item>Western</item>
         <item>Analog</item>
     </string-array>
-    <string name="pref_look_and_feel_colors">Colors</string>
-    <string name="pref_look_and_feel_colors_summary">Select colors for certain elements</string>
-    <string name="pref_look_and_feel_colors_clock">Clock color</string>
-    <string name="pref_look_and_feel_colors_date">Date color</string>
-    <string name="pref_look_and_feel_colors_battery">Battery color</string>
-    <string name="pref_look_and_feel_colors_music_controls">Music controls color</string>
-    <string name="pref_look_and_feel_colors_calendar">Calendar event color</string>
-    <string name="pref_look_and_feel_colors_message">Message color</string>
-    <string name="pref_look_and_feel_colors_weather">Weather color</string>
-    <string name="pref_look_and_feel_colors_notification">Notification color</string>
-    <string name="pref_look_and_feel_colors_fingerprint">Fingerprint icon color</string>
-    <string name="pref_ao_showClock">Display the time</string>
-    <string name="pref_ao_showDate">Display the date</string>
-    <string name="pref_ao_showBatteryIcn">Display a battery icon</string>
-    <string name="pref_ao_showBattery">Display the battery percentage</string>
-    <string name="pref_ao_showMusicControls">Display music controls</string>
-    <string name="pref_ao_showNotifications">Display a notification count</string>
-    <string name="pref_ao_showNotificationIcons">Display notification icons</string>
-    <string name="pref_ao_fingerprint">Display a fingerprint icon</string>
-    <string name="pref_ao_fingerprint_margin">Fingerprint margin</string>
-    <string name="pref_ao_fingerprint_margin_summary">Space below the fingerprint icon</string>
-    <string name="pref_ao_edgeGlow">Edge glow</string>
-    <string name="pref_ao_edgeGlow_summary">Glowing edges when a notification is received</string>
-    <string name="pref_ao_glowDuration">Glowing duration (in milliseconds)</string>
-    <string name="pref_ao_glowDuration_summary">Duration the edges are glowing</string>
-    <string name="pref_ao_glowDelay">Glowing delay (in milliseconds)</string>
-    <string name="pref_ao_glowDelay_summary">Interval between the glows</string>
-    <string name="pref_ao_glowStyle">Edge glow style</string>
-    <string name="pref_ao_glowStyle_summary">Changes the look of the glowing edges</string>
-    <string name="pref_ao_glowColor">Edge glow color</string>
-    <string name="pref_ao_glowColor_summary">Changes the color of the glowing edges</string>
-    <string name="pref_ao_vibration">Vibration duration (in milliseconds)</string>
-    <string name="pref_ao_vibration_summary">Duration the phone vibrates when you double-tap the screen</string>
-    <string name="pref_ao_animation_delay">Movement delay (in minutes)</string>
-    <string name="pref_ao_animation_delay_summary">Time between the different positions of the content\nWarning: Too high values can cause screen burn-ins!</string>
-    <string name="pref_ao_smooth_animation">Animate motion</string>
-    <string name="pref_ao_smooth_animation_summary">Animate the position changes</string>
-    <string name="pref_ao_force_brightness">Force a certain brightness on the AOD</string>
-    <string name="pref_ao_force_brightness_summary">Tap to change the forced brightness</string>
-    <string name="pref_ao_force_brightness_title">Brightness</string>
-    <string name="pref_ao_force_brightness_example">This is how bright the text on your always on display will appear.</string>
-    <string name="pref_ao_pocket_mode">Pocket mode</string>
-    <string name="pref_ao_pocket_mode_summary">Disables the always on display in your pocket\nWarning: Sensor usage may cause increased battery usage!</string>
-    <string name="pref_ao_dnd">Do not disturb</string>
-    <string name="pref_ao_dnd_summary">Turns on do not disturb mode while the always on display is running</string>
-    <string name="pref_ao_power_saving">Power saving mode (root)</string>
-    <string name="pref_ao_power_saving_summary">Turns on the system\'s power saver mode when the always on display is enabled</string>
-    <string name="pref_ao_double_tap_speed">Double-tap speed</string>
-    <string name="pref_ao_double_tap_speed_summary">The time two taps can be apart (in milliseconds)</string>
-    <string name="pref_ao_double_tap_disabled">Disable double-tap</string>
-    <string name="pref_ao_double_tap_disabled_summary">Disables double-tap to exit the AOD (not recommended)</string>
-    <string name="pref_ao_message">Message</string>
-    <string name="pref_ao_message_summary">A message that is displayed on the AOD</string>
-    <string name="pref_ao_date_format">Date format</string>
-    <string name="pref_ao_date_format_summary">The date format used on the AOD</string>
-    <string name="pref_ao_date_format_dialog_text">You have to follow a specific pattern</string>
-    <string name="pref_ao_date_format_dialog_neutral">Learn more</string>
-    <string name="pref_ao_date_format_illegal">Illegal format</string>
-    <string name="pref_ao_calendar">Show events</string>
-    <string name="pref_ao_calendar_summary">Show events in the next 24h on your AOD</string>
+    <string name="pref_look_and_feel_colors">颜色</string>
+    <string name="pref_look_and_feel_colors_summary">为某些元素选择颜色</string>
+    <string name="pref_look_and_feel_colors_clock">时钟的颜色</string>
+    <string name="pref_look_and_feel_colors_date">日期的颜色</string>
+    <string name="pref_look_and_feel_colors_battery">电量的颜色</string>
+    <string name="pref_look_and_feel_colors_music_controls">音乐控制的颜色</string>
+    <string name="pref_look_and_feel_colors_calendar">日历事件的颜色</string>
+    <string name="pref_look_and_feel_colors_message">信息的颜色</string>
+    <string name="pref_look_and_feel_colors_weather">天气的颜色</string>
+    <string name="pref_look_and_feel_colors_notification">通知的颜色</string>
+    <string name="pref_look_and_feel_colors_fingerprint">指纹图标的颜色</string>
+    <string name="pref_ao_showClock">显示时间</string>
+    <string name="pref_ao_showDate">显示日期</string>
+    <string name="pref_ao_showBatteryIcn">显示电池图标</string>
+    <string name="pref_ao_showBattery">显示电池百分比</string>
+    <string name="pref_ao_showMusicControls">显示音乐控件</string>
+    <string name="pref_ao_showNotifications">显示通知计数</string>
+    <string name="pref_ao_showNotificationIcons">显示通知图标</string>
+    <string name="pref_ao_fingerprint">显示指纹图标</string>
+    <string name="pref_ao_fingerprint_margin">指纹边距</string>
+    <string name="pref_ao_fingerprint_margin_summary">指纹图标下方的空间</string>
+    <string name="pref_ao_edgeGlow">边缘发光</string>
+    <string name="pref_ao_edgeGlow_summary">收到通知时边缘发光</string>
+    <string name="pref_ao_glowDuration">发光持续时间（以毫秒为单位）
+    </string>
+    <string name="pref_ao_glowDuration_summary">边缘发光的持续时间</string>
+    <string name="pref_ao_glowDelay">发光延迟（以毫秒为单位）</string>
+    <string name="pref_ao_glowDelay_summary">发光之间的间隔</string>
+    <string name="pref_ao_glowStyle">边缘发光风格</string>
+    <string name="pref_ao_glowStyle_summary">改变发光边缘的外观</string>
+    <string name="pref_ao_glowColor">边缘发光颜色</string>
+    <string name="pref_ao_glowColor_summary">更改发光边缘的颜色</string>
+    <string name="pref_ao_vibration">振动持续时间（以毫秒为单位）</string>
+    <string name="pref_ao_vibration_summary">双击屏幕时手机振动的时长</string>
+    <string name="pref_ao_animation_delay">活动延迟（以分钟为单位）</string>
+    <string name="pref_ao_animation_delay_summary">内容位置变换的时间间隔\n警告：值太高可能会导致屏幕烧屏！</string>
+    <string name="pref_ao_smooth_animation">动画运动</string>
+    <string name="pref_ao_smooth_animation_summary">动画位置变化</string>
+    <string name="pref_ao_force_brightness">强制息屏显示具有一定的亮度</string>
+    <string name="pref_ao_force_brightness_summary">点击可更改强制亮度</string>
+    <string name="pref_ao_force_brightness_title">亮度</string>
+    <string name="pref_ao_force_brightness_example">这是息屏显示上文本的亮度</string>
+    <string name="pref_ao_pocket_mode">口袋模式</string>
+    <string name="pref_ao_pocket_mode_summary">当设备在口袋中时禁用息屏显示\n警告：使用传感器可能会导致电池使用量增加！</string>
+    <string name="pref_ao_dnd">请勿打扰</string>
+    <string name="pref_ao_dnd_summary">当常亮显示屏运行时打开请勿打扰模式</string>
+    <string name="pref_ao_power_saving">省电模式（Root）</string>
+    <string name="pref_ao_power_saving_summary">当息屏显示启用时，打开系统的省电模式</string>
+    <string name="pref_ao_double_tap_speed">双击速度</string>
+    <string name="pref_ao_double_tap_speed_summary">双击可间隔的时间（以毫秒为单位）</string>
+    <string name="pref_ao_double_tap_disabled">禁用双击</string>
+    <string name="pref_ao_double_tap_disabled_summary">禁用双击退出息屏显示（不推荐）</string>
+    <string name="pref_ao_message">信息</string>
+    <string name="pref_ao_message_summary">息屏显示上显示的消息</string>
+    <string name="pref_ao_date_format">日期格式</string>
+    <string name="pref_ao_date_format_summary">息屏显示上使用的日期格式</string>
+    <string name="pref_ao_date_format_dialog_text">你必须遵循特定的模式</string>
+    <string name="pref_ao_date_format_dialog_neutral">了解更多</string>
+    <string name="pref_ao_date_format_illegal">非法格式</string>
+    <string name="pref_ao_calendar">活动显示</string>
+    <string name="pref_ao_calendar_summary">在您的息屏显示上显示未来 24 小时内的活动</string>
 
-    <string name="pref_look_and_feel_charging">Charging animation look</string>
-    <string name="pref_look_and_feel_charging_summary">Changes the look of the charging animation</string>
+    <string name="pref_look_and_feel_charging">充电动画外观</string>
+    <string name="pref_look_and_feel_charging_summary">更改充电动画的外观</string>
     <string-array name="pref_look_and_feel_charging_array_display" translatable="false">
         <item>Circle</item>
         <item>Flash</item>
         <item>iOS</item>
     </string-array>
 
-    <string name="pref_ao_background_image">Background image</string>
-    <string name="pref_ao_background_image_summary">Change the background image of the AOD</string>
+    <string name="pref_ao_background_image">背景图</string>
+    <string name="pref_ao_background_image_summary">更改息屏显示的背景图片</string>
     <string-array name="pref_ao_background_image_array_display">
         <item>None</item>
         <item>Daniel Olah</item>
@@ -168,101 +169,103 @@
         <item>Tyler Lastovich</item>
         <item>Custom</item>
     </string-array>
-    <string name="pref_look_and_feel_hide_display_cutouts">Hide display cutouts</string>
-    <string name="pref_look_and_feel_hide_display_cutouts_summary">Hide display cutouts on fullscreen content</string>
-    <string name="pref_look_and_feel_orientation">Orientation</string>
-    <string name="pref_look_and_feel_orientation_summary">Changes the display\'s orientation</string>
-    <string name="pref_look_and_feel_heads_up">Hide heads up notifications (root)</string>
-    <string name="pref_look_and_feel_heads_up_summary">Prevents the heads up notifications from showing (experimental)</string>
+    <string name="pref_look_and_feel_hide_display_cutouts">隐藏刘海屏</string>
+    <string name="pref_look_and_feel_hide_display_cutouts_summary">隐藏全屏内容上的刘海屏</string>
+    <string name="pref_look_and_feel_orientation">方向</string>
+    <string name="pref_look_and_feel_orientation_summary">更改显示器的方向</string>
+    <string name="pref_look_and_feel_heads_up">隐藏浮动通知（Root）</string>
+    <string name="pref_look_and_feel_heads_up_summary">阻止显示浮动通知（实验性）</string>
 
-    <string name="pref_look_and_feel_weather">Weather</string>
-    <string name="pref_look_and_feel_weather_info">Show weather info</string>
-    <string name="pref_look_and_feel_weather_info_summary">Configure weather info on your AOD</string>
-    <string name="pref_look_and_feel_weather_show_summary">Show weather info on your AOD</string>
-    <string name="pref_look_and_feel_weather_provider">AlwaysOn uses wtrr.in for weather data. Fetching the weather may transfer identifiable data.</string>
+    <string name="pref_look_and_feel_weather">天气</string>
+    <string name="pref_look_and_feel_weather_info">显示天气信息</string>
+    <string name="pref_look_and_feel_weather_info_summary">在息屏显示上配置天气信息</string>
+    <string name="pref_look_and_feel_weather_show_summary">在您的息屏显示上显示天气信息</string>
+    <string name="pref_look_and_feel_weather_provider">AlwaysOn 使用 wtrr.in 获取天气数据。获取天气可能会传输可识别数据。</string>
     <string name="pref_look_and_feel_weather_provider_name" translatable="false">wttr.in</string>
-    <string name="pref_look_and_feel_weather_location">Weather location</string>
-    <string name="pref_look_and_feel_weather_location_summary">The location for the weather report. Leave this empty for auto-location.</string>
-    <string name="pref_look_and_feel_weather_format">Weather format</string>
-    <string name="pref_look_and_feel_weather_format_summary">The weather format used on the AOD</string>
+    <string name="pref_look_and_feel_weather_location">天气位置</string>
+    <string name="pref_look_and_feel_weather_location_summary">天气预报的位置。将此项留空以便自动定位。</string>
+    <string name="pref_look_and_feel_weather_format">天气格式</string>
+    <string name="pref_look_and_feel_weather_format_summary">息屏显示上使用的天气格式</string>
 
-    <string name="pref_look_and_feel_filter_notifications">Filter notifications</string>
-    <string name="pref_look_and_feel_filter_notifications_summary">Choose, which notifications not to show</string>
-    <string name="pref_look_and_feel_filter_notifications_explanation">Tap on the entries to block or unblock them</string>
-    <string name="pref_look_and_feel_filter_notifications_blocked">Block notifications from</string>
-    <string name="pref_look_and_feel_filter_notifications_shown">Notifications available from</string>
-    <string name="pref_look_and_feel_filter_notifications_empty">No notifications available</string>
-    <string name="pref_look_and_feel_filter_notifications_empty_summary">It seems that there is nothing to show</string>
-    <string name="pref_look_and_feel_filter_notifications_unknown">Unknown application</string>
+    <string name="pref_look_and_feel_filter_notifications">过滤通知</string>
+    <string name="pref_look_and_feel_filter_notifications_summary">选择不显示哪些通知</string>
+    <string name="pref_look_and_feel_filter_notifications_explanation">点击条目即可阻止或取消阻止它们</string>
+    <string name="pref_look_and_feel_filter_notifications_blocked">阻止来自以下来源的通知</string>
+    <string name="pref_look_and_feel_filter_notifications_shown">允许的通知</string>
+    <string name="pref_look_and_feel_filter_notifications_empty">没有可用的通知</string>
+    <string name="pref_look_and_feel_filter_notifications_empty_summary">好像没什么可展示的</string>
+    <string name="pref_look_and_feel_filter_notifications_unknown">未知应用</string>
 
-    <string name="pref_look_and_feel_tint_notifications">Tint notifications</string>
-    <string name="pref_look_and_feel_tint_notifications_summary">Tint notifications in their app colors</string>
-    <string name="pref_look_and_feel_display_size">Display size</string>
-    <string name="pref_look_and_feel_display_size_summary">The display size of the AOD is %1$d%%</string>
+    <string name="pref_look_and_feel_tint_notifications">通知着色</string>
+    <string name="pref_look_and_feel_tint_notifications_summary">为通知设置应用颜色</string>
+    <string name="pref_look_and_feel_display_size">显示屏尺寸</string>
+    <string name="pref_look_and_feel_display_size_summary">息屏显示的显示尺寸为 %1$d%%</string>
 
-    <string name="pref_look_and_feel_rules">Rules</string>
-    <string name="pref_look_and_feel_rules_summary">Control when to show the AOD</string>
-    <string name="pref_look_and_feel_rules_charging_state">Charging state</string>
-    <string name="pref_look_and_feel_rules_charger">Charging type</string>
-    <string name="pref_look_and_feel_rules_charger_summary">Choose which charging types count as charging</string>
-    <string name="pref_look_and_feel_rules_battery_level">Battery level</string>
-    <string name="pref_look_and_feel_rules_battery_level_summary">Show only above %1$d%%</string>
-    <string name="pref_look_and_feel_rules_battery_level_summary_zero">Show at any battery level</string>
-    <string name="pref_look_and_feel_rules_time">Time period</string>
-    <string name="pref_look_and_feel_rules_time_summary">Show from %1$s to %2$s</string>
-    <string name="pref_look_and_feel_rules_timeout">Timeout</string>
-    <string name="pref_look_and_feel_rules_timeout_summary_zero">No timeout has been set</string>
-    <string name="pref_look_and_feel_rules_ambient_mode">Ambient mode</string>
-    <string name="pref_look_and_feel_rules_ambient_mode_summary">Only show after a notification was received</string>
+    <string name="pref_look_and_feel_rules">规则</string>
+    <string name="pref_look_and_feel_rules_summary">控制何时显示息屏显示</string>
+    <string name="pref_look_and_feel_rules_charging_state">充电状态</string>
+    <string name="pref_look_and_feel_rules_charger">充电类型</string>
+    <string name="pref_look_and_feel_rules_charger_summary">选择哪些充电类型算作充电</string>
+    <string name="pref_look_and_feel_rules_battery_level">电池电量</string>
+    <string name="pref_look_and_feel_rules_battery_level_summary">仅显示 %1$d%% 以上</string>
+    <string name="pref_look_and_feel_rules_battery_level_summary_zero">在任何电池电量下显示l</string>
+    <string name="pref_look_and_feel_rules_time">时间段</string>
+    <string name="pref_look_and_feel_rules_time_summary">显示从 %1$s 到 %2$s</string>
+    <string name="pref_look_and_feel_rules_timeout">暂停</string>
+    <string name="pref_look_and_feel_rules_timeout_summary_zero">没有设置暂停时间</string>
+    <string name="pref_look_and_feel_rules_ambient_mode">环境模式</string>
+    <string name="pref_look_and_feel_rules_ambient_mode_summary">仅在收到通知后显示</string>
 
-    <string name="pref_permissions">Permissions</string>
-    <string name="pref_permissions_summary">Settings related to permissions</string>
-    <string name="pref_ignore_battery_optimizations">Ignore battery optimizations</string>
-    <string name="pref_ignore_battery_optimizations_summary">Prevents delays caused by the system</string>
-    <string name="pref_notification">Notification access</string>
-    <string name="pref_notification_summary">Enable or disable notification access</string>
-    <string name="pref_draw_over_other_apps">Display over other apps</string>
-    <string name="pref_draw_over_other_apps_summary">Enable or disable this permission</string>
-    <string name="pref_admin">Device admin</string>
-    <string name="pref_admin_summary">Activate this device admin for normal mode\nPlease note that you have to deactivate the app\'s device admin privileges before uninstalling it!</string>
-    <string name="pref_root_mode">Root mode</string>
-    <string name="pref_root_mode_summary">Enables root functionality</string>
+    <string name="pref_permissions">权限</string>
+    <string name="pref_permissions_summary">权限相关设置</string>
+    <string name="pref_ignore_battery_optimizations">忽略 电池优化/杀后台</string>
+    <string name="pref_ignore_battery_optimizations_summary">阻止系统杀后台</string>
+    <string name="pref_notification">通知访问</string>
+    <string name="pref_notification_summary">启用或禁用通知访问</string>
+    <string name="pref_draw_over_other_apps">显示在其他应用之上</string>
+    <string name="pref_draw_over_other_apps_summary">启用或禁用此权限</string>
+    <string name="pref_admin">设备管理员</string>
+    <string name="pref_admin_summary">激活此设备管理员以进入正常模式\n请注意，在卸载之前，您必须停用该应用程序的设备管理员权限！</string>
+    <string name="pref_root_mode">Root 模式</string>
+    <string name="pref_root_mode_summary">启用 Root 功能</string>
 
-    <string name="help_center">Help center</string>
-    <string name="help_center_summary">Uninstalling, unresponsiveness, battery drain</string>
-    <string name="help_center_missing_permissions_text">When a setting is grayed out and tells you to enable something first, you have not enabled the needed permissions yet. To grant missing permissions open the “Permissions” page on the main page and consent to using the required permissions. You can now enable the settings that need those permissions.</string>
-    <string name="help_center_uninstall">How to uninstall</string>
-    <string name="help_center_uninstall_text">The uninstall process can fail due to a design flaw in the Android operating system. If the device admin permission was not disabled before uninstalling the process will fail. You have to disable the device admin permission before uninstalling.</string>
-    <string name="help_center_uninstall_button">Uninstall now</string>
-    <string name="help_center_delays">How to fix delays</string>
-    <string name="help_center_delays_text">Some manufacturers prefer battery life over app functionality which is why this app may only work with delays or not at all on some devices. If you are experiencing delays try disabling battery optimizations for the app or check other manufacturer-specific settings.</string>
-    <string name="help_center_delays_button_one">Battery Settings</string>
-    <string name="help_center_delays_button_two">Manufacturer-specific</string>
-    <string name="help_center_battery_drain">Figuring out the source of battery drain</string>
-    <string name="help_center_battery_drain_text">One reason for battery drain could be that you are using a phone with an LCD display. This app is designed for phones with an OLED display that can turn off black pixels to save energy. LCD displays cannot turn off black pixels which will result in the display using a lot more energy when the always on display is enabled.Another reason could be that other apps are running in the background while the always on display is running. Android will display their battery consumption as part of AlwaysOn’s battery consumption.</string>
+    <string name="help_center">帮助中心</string>
+    <string name="help_center_summary">卸载、无响应、电池耗尽</string>
+    <string name="help_center_missing_permissions_text">当某项设置呈灰色并告诉您首先启用某些内容时，您尚未启用所需的权限。要授予缺少的权限，请打开主页上的“权限”页面并同意使用所需的权限。您现在可以启用需要这些权限的设置。</string>
+    <string name="help_center_uninstall">如何卸载</string>
+    <string name="help_center_uninstall_text">由于 Android 操作系统的设计特性，卸载过程可能会失败。如果在卸载之前未禁用设备管理员权限，则卸载过程将失败。卸载前您必须禁用设备管理员权限。</string>
+    <string name="help_center_uninstall_button">立即卸载</string>
+    <string name="help_center_delays">如何解决杀后台问题</string>
+    <string name="help_center_delays_text">一些制造商更喜欢电池寿命而不是应用程序功能，这就是为什么此应用程序可能只能在某些设备上运行延迟或根本无法运行。如果您遇到延迟，请尝试禁用应用程序的电池优化或检查其他制造商特定的设置。</string>
+    <string name="help_center_delays_button_one">电池设置</string>
+    <string name="help_center_delays_button_two">制造商特定</string>
+    <string name="help_center_battery_drain">找出电池消耗的来源</string>
+    <string name="help_center_battery_drain_text">电池耗尽的原因之一可能是您使用的是带有 LCD 显示屏的手机。该应用程序专为配备 OLED 显示屏的手机而设计，可以关闭黑色像素以节省能源。 LCD 显示器无法关闭黑色像素，这将导致在启用常亮显示时显示器消耗更多能量。另一个原因可能是当常亮显示运行时其他应用程序正在后台运行。 Android 会将其电池消耗显示为 AlwaysOn 电池消耗的一部分。</string>
 
-    <string name="loading">Loading</string>
-    <string name="missing_permissions">Missing Permissions</string>
-    <string name="permissions_notification_access">Turn on notification access for this feature</string>
-    <string name="permissions_device_admin_or_root">Turn on device admin or root for this feature</string>
+    <string name="loading">加载中</string>
+    <string name="missing_permissions">缺少权限</string>
+    <string name="permissions_notification_access">打开此功能的通知访问权限</string>
+    <string name="permissions_device_admin_or_root">为此功能启用设备管理员或 Root</string>
 
-    <string name="about">About</string>
-    <string name="about_summary">About the app</string>
-    <string name="about_app_version">App version</string>
+    <string name="about">关于</string>
+    <string name="about_summary">关于此应用</string>
+    <string name="about_app_version">应用版本</string>
     <string name="about_app_version_desc" translatable="false">%1$s (%2$d)</string>
-    <string name="about_privacy">External Content</string>
-    <string name="about_privacy_desc">Contributors are loaded from GitHub. Read their privacy policy for further information.</string>
-    <string name="about_privacy_policy">Privacy Policy</string>
-    <string name="about_contributors">Contributors</string>
-    <string name="about_contributors_desc">A list of the contributors</string>
-    <string name="about_general">General</string>
-    <string name="about_github">GitHub repository</string>
-    <string name="about_license">License</string>
+    <string name="about_privacy">外部内容</string>
+    <string name="about_privacy_desc">贡献者从 GitHub 加载。请阅读他们的隐私政策以获取更多信息。</string>
+    <string name="about_privacy_policy">隐私政策</string>
+    <string name="about_contributors">贡献者</string>
+    <string name="about_contributors_desc">贡献者名单</string>
+    <string name="about_general">常规</string>
+    <string name="about_github">GitHub 仓库</string>
+    <string name="about_upstream">上游 GitHub 仓库</string>
+    <string name="about_upstream_desc" translatable="false">https://github.com/Domi04151309/AlwaysOn</string>
+    <string name="about_license">许可证</string>
     <string name="about_license_desc" translatable="false">GPL-3.0</string>
-    <string name="about_icons">Icons</string>
-    <string name="about_icons_desc">Icons by Icons8 and Google</string>
-    <string name="about_libraries">Libraries</string>
-    <string name="about_libraries_desc">A list of all used libraries</string>
+    <string name="about_icons">图标</string>
+    <string name="about_icons_desc">由 Icons8 和 Google 提供的图标</string>
+    <string name="about_libraries">库</string>
+    <string name="about_libraries_desc">所有使用过的库的列表</string>
 
     <string-array name="about_libraries" translatable="false">
         <item>Android AppCompat Library</item>
@@ -274,47 +277,47 @@
     </string-array>
 
     <string-array name="pref_look_and_feel_rules_charging_state_display">
-        <item>Show at any charging state</item>
-        <item>Show only while charging</item>
-        <item>Show only while discharging</item>
+        <item>任意充电状态下显示</item>
+        <item>仅在充电时显示</item>
+        <item>仅在放电时显示</item>
     </string-array>
     <string-array name="pref_look_and_feel_rules_charging_state_values" translatable="false">
-        <item>always</item>
-        <item>charging</item>
-        <item>discharging</item>
+        <item>总是</item>
+        <item>充电</item>
+        <item>放电</item>
     </string-array>
 
     <string-array name="pref_look_and_feel_rules_charger_display">
-        <item>AC</item>
+        <item>交流电</item>
         <item>USB</item>
-        <item>Wireless</item>
+        <item>无线</item>
     </string-array>
     <string-array name="pref_look_and_feel_rules_charger_values" translatable="false">
-        <item>ac</item>
+        <item>交流电</item>
         <item>usb</item>
-        <item>wireless</item>
+        <item>无线</item>
     </string-array>
 
     <string-array name="pref_look_and_feel_orientation_display">
-        <item>Auto-lock</item>
-        <item>Portrait</item>
-        <item>Landscape</item>
+        <item>自动锁定</item>
+        <item>竖屏</item>
+        <item>横屏</item>
     </string-array>
     <string-array name="pref_look_and_feel_orientation_values" translatable="false">
-        <item>locked</item>
-        <item>portrait</item>
-        <item>landscape</item>
+        <item>锁定</item>
+        <item>竖屏</item>
+        <item>横屏</item>
     </string-array>
 
     <string-array name="pref_ao_glowStyle_display">
-        <item>All sides</item>
-        <item>Left and right sides</item>
-        <item>Top and bottom sides</item>
+        <item>所有侧面</item>
+        <item>左侧和右侧</item>
+        <item>顶部和底部</item>
     </string-array>
     <string-array name="pref_ao_glowStyle_values" translatable="false">
-        <item>all</item>
-        <item>vertical</item>
-        <item>horizontal</item>
+        <item>全部</item>
+        <item>垂直</item>
+        <item>水平</item>
     </string-array>
 
     <string-array name="about_icons_array" translatable="false">

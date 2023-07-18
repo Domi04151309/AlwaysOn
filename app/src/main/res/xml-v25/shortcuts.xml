@@ -8,8 +8,8 @@
         android:shortcutDisabledMessage="@string/shortcut_disabled">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.alwayson.activities.LAFWatchFaceActivity" />
+            android:targetPackage="io.github.hsushjk.alwayson"
+            android:targetClass="io.github.hsushjk.alwayson.activities.LAFWatchFaceActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
     <shortcut
@@ -21,8 +21,8 @@
         android:shortcutDisabledMessage="@string/shortcut_disabled">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.alwayson.activities.LAFBackgroundActivity" />
+            android:targetPackage="io.github.hsushjk.alwayson"
+            android:targetClass="io.github.hsushjk.alwayson.activities.LAFBackgroundActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
     <shortcut
@@ -34,8 +34,8 @@
         android:shortcutDisabledMessage="@string/shortcut_disabled">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.alwayson.activities.LAFRulesActivity" />
+            android:targetPackage="io.github.hsushjk.alwayson"
+            android:targetClass="io.github.hsushjk.alwayson.activities.LAFRulesActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
     <shortcut
@@ -47,8 +47,8 @@
         android:shortcutDisabledMessage="@string/shortcut_disabled">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="io.github.domi04151309.alwayson"
-            android:targetClass="io.github.domi04151309.alwayson.activities.LAFBehaviorActivity" />
+            android:targetPackage="io.github.hsushjk.alwayson"
+            android:targetClass="io.github.hsushjk.alwayson.activities.LAFBehaviorActivity" />
         <categories android:name="android.shortcut.conversation" />
     </shortcut>
 </shortcuts>

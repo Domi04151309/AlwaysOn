@@ -16,6 +16,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CALENDAR"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
 
     <!-- Needed for some notification icons -->
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"
@@ -105,7 +108,7 @@
         </receiver>
 
         <activity
-            android:name="io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn"
+            android:name="io.github.hsushjk.alwayson.actions.alwayson.AlwaysOn"
             android:configChanges="orientation|screenSize"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
@@ -114,7 +117,7 @@
             android:theme="@style/AppThemeScreenOff" />
 
         <service
-            android:name="io.github.domi04151309.alwayson.services.AlwaysOnTileService"
+            android:name="io.github.hsushjk.alwayson.services.AlwaysOnTileService"
             android:icon="@drawable/ic_always_on_black"
             android:label="@string/AlwaysOn"
             android:exported="true"
@@ -177,12 +180,12 @@
         </activity>
 
         <receiver
-            android:name="io.github.domi04151309.alwayson.receivers.AlwaysOnAppWidgetProvider"
+            android:name="io.github.hsushjk.alwayson.receivers.AlwaysOnAppWidgetProvider"
             android:exported="true"
             android:label="@string/AlwaysOn">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="io.github.domi04151309.alwayson.ALWAYS_ON_STATE_CHANGED" />
+                <action android:name="io.github.hsushjk.alwayson.ALWAYS_ON_STATE_CHANGED" />
             </intent-filter>
 
             <meta-data

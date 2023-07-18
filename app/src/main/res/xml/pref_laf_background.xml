@@ -18,14 +18,14 @@
         android:key="ao_edgeGlow"
         android:summary="@string/pref_ao_edgeGlow_summary"
         android:title="@string/pref_ao_edgeGlow" />
-    <io.github.domi04151309.alwayson.custom.EditIntegerPreference
+    <io.github.hsushjk.alwayson.custom.EditIntegerPreference
         android:defaultValue="2000"
         android:icon="@drawable/ic_timer"
         android:key="ao_glowDuration"
         android:summary="@string/pref_ao_glowDuration_summary"
         android:title="@string/pref_ao_glowDuration"
         android:dependency="ao_edgeGlow" />
-    <io.github.domi04151309.alwayson.custom.EditIntegerPreference
+    <io.github.hsushjk.alwayson.custom.EditIntegerPreference
         android:defaultValue="4000"
         android:icon="@drawable/ic_timer"
         android:key="ao_glowDelay"
