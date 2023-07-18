@@ -2,8 +2,6 @@
 # AlwaysOn for Android™
 zh-Hans：AlwaysOn是一款适用于所有AMOLED或OLED显示屏设备的息屏显示应用程序。它为AOD添加了有关表盘、行为和背景的各种自定义选项。通过查看您的手机，您所需要的一切都在一个地方：时间、日期、电池状态、通知等。
 
-## 项目汉化中，敬请期待
-
 ## 关于本分支
 
 <a href="https://github.com/hsushjk/AlwaysOn/blob/master/aboutfork.md">声明</a>
