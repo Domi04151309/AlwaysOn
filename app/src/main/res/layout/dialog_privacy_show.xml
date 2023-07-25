@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_privacy_shape"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_btn_bottom"
+            android:layout_marginBottom="15dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="用户协议和隐私政策"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:fadingEdgeLength="50dp"
+                android:requiresFadingEdge="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:singleLine="false"
+                    android:text=""
+                    android:textColor="#000000" />
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_btn_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+
+            >
+            <Button
+                android:id="@+id/btn_agree"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginRight="15dp"
+                android:text="同意"
+                android:onClick="onClickAgree"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/button_shape"/>
+            <Button
+                android:id="@+id/btn_disagree"
+                android:layout_width="130dp"
+                android:layout_marginBottom="2dp"
+                android:layout_height="wrap_content"
+                android:text="放弃使用"
+                android:onClick="onClickDisagree"
+                android:textColor="#000000"
+                android:background="@drawable/button_shape"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

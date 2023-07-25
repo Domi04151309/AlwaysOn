@@ -30,6 +30,13 @@ android {
         disable "MissingTranslation"
     }
     namespace 'io.github.hsushjk.alwayson'
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src\\main\\assets'
+            }
+        }
+    }
 }
 
 preBuild.doFirst {
