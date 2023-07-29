@@ -4,13 +4,13 @@ apply plugin: 'kotlin-android'
 def readAndUnderstoodLicense = false
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 34
     defaultConfig {
-        applicationId "io.github.domi04151309.alwayson"
+        applicationId "io.hsushjk.alwayson"
         minSdkVersion 24
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode 391
-        versionName "3.9.1"
+        versionName "zh-Hans-3.9.1"
     }
     buildTypes {
         debug {
@@ -29,7 +29,14 @@ android {
     lint {
         disable "MissingTranslation"
     }
-    namespace 'io.github.domi04151309.alwayson'
+    namespace 'io.github.hsushjk.alwayson'
+    sourceSets {
+        main {
+            assets {
+                srcDirs 'src\\main\\assets'
+            }
+        }
+    }
 }
 
 preBuild.doFirst {
@@ -39,7 +46,7 @@ preBuild.doFirst {
                     'to publish your modified version of this app. ' +
                     'Please read the project\'s LICENSE.'
     )
-    if (!(android.defaultConfig.applicationId.contains('domi04151309') || readAndUnderstoodLicense)) {
+    if (!(android.defaultConfig.applicationId.contains('hsushjk') || readAndUnderstoodLicense)) {
         throw new Exception(
                 'Please make sure you have read and understood the LICENSE!'
         )

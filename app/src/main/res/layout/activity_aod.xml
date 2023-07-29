@@ -1,4 +1,4 @@
-<io.github.domi04151309.alwayson.custom.CustomFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.github.hsushjk.alwayson.custom.CustomFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frame"
     android:layout_width="match_parent"
@@ -7,17 +7,17 @@
     android:keepScreenOn="true"
     tools:context=".actions.alwayson.AlwaysOn">
 
-    <io.github.domi04151309.alwayson.actions.alwayson.AlwaysOnCustomView
+    <io.github.hsushjk.alwayson.actions.alwayson.AlwaysOnCustomView
         android:id="@+id/customView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/edge_glow_width"
         android:padding="?dialogPreferredPadding" />
 
-    <io.github.domi04151309.alwayson.custom.FingerprintView
+    <io.github.hsushjk.alwayson.custom.FingerprintView
         android:id="@+id/fingerprintIcn"
         android:layout_width="@dimen/aod_fingerprint_size"
         android:layout_height="@dimen/aod_fingerprint_size"
         android:layout_gravity="center_horizontal|bottom"
         android:visibility="gone"/>
-</io.github.domi04151309.alwayson.custom.CustomFrameLayout>
+</io.github.hsushjk.alwayson.custom.CustomFrameLayout>

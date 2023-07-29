@@ -20,6 +20,6 @@ Take a look at your phone and have everything you need in one place: the time, t
 - Minimal permissions
 
 <font color="#2467d6"><b>Related Links</b></font>
-Source code: <a href="https://github.com/Domi04151309/AlwaysOn">https://github.com/Domi04151309/AlwaysOn</a>
-Website: <a href="https://domi04151309.github.io/Android/AlwaysOn">https://domi04151309.github.io/Android/AlwaysOn</a>
+Source code: <a href="https://github.com/hsushjk/AlwaysOn">https://github.com/hsushjk/AlwaysOn</a>
+Website: <a href="https://github.com/hsushjk/AlwaysOn">https://github.com/hsushjk/AlwaysOn</a>
 Icons8: <a href="https://icons8.com/">https://icons8.com/</a>

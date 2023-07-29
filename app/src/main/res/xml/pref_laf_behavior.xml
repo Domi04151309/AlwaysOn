@@ -8,13 +8,13 @@
         android:key="orientation"
         android:summary="@string/pref_look_and_feel_orientation_summary"
         android:title="@string/pref_look_and_feel_orientation" />
-    <io.github.domi04151309.alwayson.custom.EditIntegerPreference
+    <io.github.hsushjk.alwayson.custom.EditIntegerPreference
         android:defaultValue="64"
         android:icon="@drawable/ic_vibration"
         android:key="ao_vibration"
         android:summary="@string/pref_ao_vibration_summary"
         android:title="@string/pref_ao_vibration" />
-    <io.github.domi04151309.alwayson.custom.EditIntegerPreference
+    <io.github.hsushjk.alwayson.custom.EditIntegerPreference
         android:defaultValue="2"
         android:icon="@drawable/ic_speed"
         android:key="ao_animation_delay"
@@ -31,7 +31,7 @@
         android:key="ao_force_brightness"
         android:summary="@string/pref_ao_force_brightness_summary"
         android:title="@string/pref_ao_force_brightness" />
-    <io.github.domi04151309.alwayson.custom.EditIntegerPreference
+    <io.github.hsushjk.alwayson.custom.EditIntegerPreference
         android:defaultValue="300"
         android:icon="@drawable/ic_touch_app"
         android:key="ao_double_tap_speed"

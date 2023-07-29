@@ -18,6 +18,12 @@
 
         <Preference
             app:icon="@drawable/ic_about_github"
+            app:key="upstream"
+            app:summary="@string/about_upstream_desc"
+            app:title="@string/about_upstream" />
+
+        <Preference
+            app:icon="@drawable/ic_about_github"
             app:key="license"
             app:summary="@string/about_license_desc"
             app:title="@string/about_license" />

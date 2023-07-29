@@ -32,7 +32,7 @@
         android:summary="@string/pref_look_and_feel_rules_charger_summary"
         android:title="@string/pref_look_and_feel_rules_charger" />
 
-    <io.github.domi04151309.alwayson.custom.EditIntegerPreference
+    <io.github.hsushjk.alwayson.custom.EditIntegerPreference
         android:defaultValue="0"
         android:icon="@drawable/ic_percent"
         android:key="rules_battery_level"
@@ -45,7 +45,7 @@
         android:summary="@string/loading"
         android:title="@string/pref_look_and_feel_rules_time" />
 
-    <io.github.domi04151309.alwayson.custom.EditIntegerPreference
+    <io.github.hsushjk.alwayson.custom.EditIntegerPreference
         android:defaultValue="0"
         android:icon="@drawable/ic_timer"
         android:key="rules_timeout_sec"
