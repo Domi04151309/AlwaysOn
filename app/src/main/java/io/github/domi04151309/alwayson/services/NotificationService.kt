@@ -39,7 +39,8 @@ class NotificationService : NotificationListenerService() {
             !CombinedServiceReceiver.isScreenOn &&
             !CombinedServiceReceiver.isAlwaysOnRunning &&
             Rules.isAmbientMode(this) &&
-            rules.canShow(this)
+            rules.canShow(this) &&
+            count >= 1
         ) {
             startActivity(
                 Intent(
