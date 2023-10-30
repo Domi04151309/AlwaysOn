@@ -53,6 +53,14 @@ class NotificationService : NotificationListenerService() {
 
     override fun onNotificationRemoved(notification: StatusBarNotification) {
         updateValues()
+
+        if (
+            CombinedServiceReceiver.isAlwaysOnRunning &&
+            Rules.isAmbientMode(this) &&
+            count < 1
+        ) {
+            AlwaysOn.finish()
+        }
     }
 
     private fun updateValues() {
