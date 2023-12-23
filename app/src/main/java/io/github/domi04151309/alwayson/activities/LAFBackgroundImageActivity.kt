@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
@@ -111,13 +112,6 @@ class LAFBackgroundImageActivity : AppCompatActivity() {
                 override fun onItemClick(position: Int) {
                     if (position == ITEM_CUSTOM) {
                         showCustomImage()
-                        if (!hasPermission()) {
-                            ActivityCompat.requestPermissions(
-                                this@LAFBackgroundImageActivity,
-                                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                                0
-                            )
-                        }
                         if (hasPermission()) {
                             customImageResult.launch(Intent(Intent.ACTION_PICK).apply {
                                 setDataAndType(
@@ -131,6 +125,16 @@ class LAFBackgroundImageActivity : AppCompatActivity() {
                                 R.string.missing_permissions,
                                 Toast.LENGTH_LONG
                             ).show()
+                            ActivityCompat.requestPermissions(
+                                this@LAFBackgroundImageActivity,
+                                arrayOf(
+                                    if (
+                                        Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                                    ) Manifest.permission.READ_MEDIA_IMAGES
+                                    else Manifest.permission.READ_EXTERNAL_STORAGE
+                                ),
+                                0
+                            )
                         }
 
                     } else preview.setImageResource(drawables[position])
@@ -200,9 +204,15 @@ class LAFBackgroundImageActivity : AppCompatActivity() {
     }
 
     internal fun hasPermission(): Boolean {
-        return applicationContext.checkSelfPermission(
-            Manifest.permission.READ_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            applicationContext.checkSelfPermission(
+                Manifest.permission.READ_MEDIA_IMAGES
+            ) == PackageManager.PERMISSION_GRANTED
+        } else {
+            applicationContext.checkSelfPermission(
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED
+        }
     }
 
     companion object {
