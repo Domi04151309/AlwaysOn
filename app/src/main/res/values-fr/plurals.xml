@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <plurals name="pref_look_and_feel_rules_timeout_summary">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <plurals name="pref_look_and_feel_rules_timeout_summary" tools:ignore="MissingQuantity">
         <item quantity="one">Arrêt après %d seconde</item>
         <item quantity="other">Arrêt après %d secondes</item>
     </plurals>
-    <plurals name="about_contributions">
+    <plurals name="about_contributions" tools:ignore="MissingQuantity">
         <item quantity="one">%1$d contribution</item>
         <item quantity="other">%1$d contributions</item>
     </plurals>
