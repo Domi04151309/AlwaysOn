@@ -1,8 +1,12 @@
 ![App Icon](https://raw.githubusercontent.com/Domi04151309/AlwaysOn/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
+
 # AlwaysOn for Android™
+
 AlwaysOn is an app for every device with an AMOLED or OLED display.
-It adds an always-on display with various customization options regarding the watch face, the behavior, and the background.
-Take a look at your phone and have everything you need in one place: the time, the date, the battery state, your notifications, and more.
+It adds an always-on display with various customization options regarding the watch face, the
+behavior, and the background.
+Take a look at your phone and have everything you need in one place: the time, the date, the battery
+state, your notifications, and more.
 
 <a href='https://play.google.com/store/apps/details?id=io.github.domi04151309.alwayson'>
   <img src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'
@@ -16,6 +20,7 @@ Take a look at your phone and have everything you need in one place: the time, t
 </a>
 
 ## Donate
+
 Support the development by donating.
 
 <a href="https://www.paypal.com/donate/?hosted_button_id=487FTCX52P9WA">
@@ -23,11 +28,14 @@ Support the development by donating.
 </a>
 
 ## Previews
+
 <img src="https://raw.githubusercontent.com/Domi04151309/AlwaysOn/master/fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" width="18%" /><img src="https://raw.githubusercontent.com/Domi04151309/AlwaysOn/master/fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpg" width="18%" /><img src="https://raw.githubusercontent.com/Domi04151309/AlwaysOn/master/fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpg" width="18%" /><img src="https://raw.githubusercontent.com/Domi04151309/AlwaysOn/master/fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpg" width="18%" /><img src="https://raw.githubusercontent.com/Domi04151309/AlwaysOn/master/fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg" width="18%" /><img src="https://raw.githubusercontent.com/Domi04151309/AlwaysOn/master/fastlane/metadata/android/en-US/images/phoneScreenshots/6.jpg" width="18%" /><img src="https://raw.githubusercontent.com/Domi04151309/AlwaysOn/master/fastlane/metadata/android/en-US/images/phoneScreenshots/7.jpg" width="18%" />
 
-<i style="color:gray;">Android, Google Play and the Google Play logo are trademarks of Google LLC.</i>
+<i style="color:gray;">Android, Google Play and the Google Play logo are trademarks of Google
+LLC.</i>
 
 ## Legal Notice
+
 Copyright (C) 2020 Domi04151309
 
 This program is free software: you can redistribute it and/or modify
@@ -37,10 +45,10 @@ the Free Software Foundation, either version 3 of the License, or
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
+along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 <a href="https://anvil-solutions.com/de/imprint">Impressum</a>

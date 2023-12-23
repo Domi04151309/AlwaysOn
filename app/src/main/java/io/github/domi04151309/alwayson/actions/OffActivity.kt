@@ -42,6 +42,7 @@ open class OffActivity : Activity() {
                 (getSystemService(Context.AUDIO_SERVICE) as AudioManager)
                     .adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, 0)
             }
+
             KeyEvent.KEYCODE_VOLUME_DOWN -> {
                 (getSystemService(Context.AUDIO_SERVICE) as AudioManager)
                     .adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, 0)

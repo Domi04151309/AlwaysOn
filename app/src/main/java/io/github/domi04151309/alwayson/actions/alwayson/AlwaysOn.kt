@@ -100,9 +100,11 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                         ) == BatteryManager.BATTERY_STATUS_CHARGING
                     )
                 }
+
                 Intent.ACTION_POWER_CONNECTED -> {
                     if (!Rules.matchesChargingState(this@AlwaysOn, prefs.prefs)) finishAndOff()
                 }
+
                 Intent.ACTION_POWER_DISCONNECTED -> {
                     if (!Rules.matchesChargingState(this@AlwaysOn, prefs.prefs)) finishAndOff()
                 }

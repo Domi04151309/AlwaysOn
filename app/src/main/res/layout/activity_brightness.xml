@@ -14,7 +14,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/white128" />
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/brightnessSwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

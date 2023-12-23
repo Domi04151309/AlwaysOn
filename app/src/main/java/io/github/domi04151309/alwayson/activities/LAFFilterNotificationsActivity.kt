@@ -115,7 +115,6 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
                         )
                     )
                 } else {
-                    @Suppress("DEPRECATION")
                     packageManager.getApplicationLabel(
                         packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
                     )

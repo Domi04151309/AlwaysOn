@@ -35,6 +35,7 @@ class EditIntegerPreference : EditTextPreference {
 
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, getAttr(context))
 
+    @Suppress("unused")
     constructor(context: Context) : this(context, null)
 
     override fun getPersistedString(defaultReturnValue: String?): String {

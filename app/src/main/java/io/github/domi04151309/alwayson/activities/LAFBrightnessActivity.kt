@@ -3,8 +3,8 @@ package io.github.domi04151309.alwayson.activities
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.SeekBar
-import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
@@ -14,7 +14,7 @@ class LAFBrightnessActivity : AppCompatActivity() {
 
     internal var savedBrightness: Int = 50
     private lateinit var prefs: SharedPreferences
-    private lateinit var brightnessSwitch: Switch
+    private lateinit var brightnessSwitch: SwitchCompat
     private lateinit var seekBar: SeekBar
 
     override fun onCreate(savedInstanceState: Bundle?) {

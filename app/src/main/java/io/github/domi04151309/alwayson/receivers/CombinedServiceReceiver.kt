@@ -58,6 +58,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                     )
                 }
             }
+
             Intent.ACTION_POWER_DISCONNECTED -> {
                 if (rules.isAlwaysOnDisplayEnabled()
                     && !isScreenOn
@@ -73,6 +74,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                     )
                 }
             }
+
             Intent.ACTION_SCREEN_OFF -> {
                 isScreenOn = false
                 val alwaysOn = prefs.getBoolean("always_on", false)
@@ -102,6 +104,7 @@ class CombinedServiceReceiver : BroadcastReceiver() {
                     isAlwaysOnRunning = false
                 }
             }
+
             Intent.ACTION_SCREEN_ON -> {
                 isScreenOn = true
             }

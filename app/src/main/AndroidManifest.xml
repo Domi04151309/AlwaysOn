@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.REORDER_TASKS" />
     <uses-permission android:name="android.permission.USES_POLICY_FORCE_LOCK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -142,6 +143,7 @@
             android:name=".services.ForegroundService"
             android:enabled="true"
             android:exported="false"
+            android:foregroundServiceType="specialUse"
             android:permission="" />
         <service
             android:name=".services.NotificationService"

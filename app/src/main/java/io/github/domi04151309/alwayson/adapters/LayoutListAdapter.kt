@@ -25,7 +25,7 @@ class LayoutListAdapter(
     private var selectedItem = -1
 
     interface OnItemClickListener {
-        fun onItemClick(view: View, position: Int)
+        fun onItemClick(position: Int)
     }
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
@@ -39,7 +39,7 @@ class LayoutListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.view.setOnClickListener {
             setSelectedItem(position)
-            onItemClickListener.onItemClick(holder.view, position)
+            onItemClickListener.onItemClick(position)
         }
 
         if (position == selectedItem) holder.view.findViewById<LinearLayout>(R.id.linearLayout)

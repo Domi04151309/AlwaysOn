@@ -39,8 +39,10 @@ class SetupActivity : AppCompatActivity() {
             when (currentFragment) {
                 NO_FRAGMENT ->
                     swapContentFragment(DrawOverOtherAppsFragment(), DRAW_OVER_OTHER_APPS_FRAGMENT)
+
                 DRAW_OVER_OTHER_APPS_FRAGMENT ->
                     swapContentFragment(PhoneStateFragment(), PHONE_STATE_FRAGMENT)
+
                 PHONE_STATE_FRAGMENT ->
                     startActivity(Intent(this, MainActivity::class.java))
             }
@@ -51,6 +53,7 @@ class SetupActivity : AppCompatActivity() {
                 NO_FRAGMENT -> {
                     swapContentFragment(DrawOverOtherAppsFragment(), DRAW_OVER_OTHER_APPS_FRAGMENT)
                 }
+
                 DRAW_OVER_OTHER_APPS_FRAGMENT -> {
                     if (Settings.canDrawOverlays(this)) {
                         swapContentFragment(PhoneStateFragment(), PHONE_STATE_FRAGMENT)
@@ -59,6 +62,7 @@ class SetupActivity : AppCompatActivity() {
                         isActionRequired = true
                     }
                 }
+
                 PHONE_STATE_FRAGMENT -> {
                     if (applicationContext.checkSelfPermission(Manifest.permission.READ_PHONE_STATE)
                         != PackageManager.PERMISSION_GRANTED

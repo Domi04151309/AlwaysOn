@@ -3,7 +3,6 @@ package io.github.domi04151309.alwayson.activities
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -54,7 +53,7 @@ class LAFAlwaysOnLookActivity : AppCompatActivity() {
             drawables,
             resources.getStringArray(R.array.pref_look_and_feel_ao_array_display),
             object : LayoutListAdapter.OnItemClickListener {
-                override fun onItemClick(view: View, position: Int) {
+                override fun onItemClick(position: Int) {
                     preview.setImageResource(drawables[position])
                     value = when (position) {
                         ITEM_GOOGLE -> P.USER_THEME_GOOGLE

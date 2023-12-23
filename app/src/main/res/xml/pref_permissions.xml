@@ -10,6 +10,7 @@
         android:icon="@drawable/ic_notification"
         android:summary="@string/pref_notification_summary"
         android:title="@string/pref_notification">
+        <!--suppress AndroidDomInspection -->
         <intent
             android:targetClass="com.android.settings.Settings$NotificationAccessSettingsActivity"
             android:targetPackage="com.android.settings" />
@@ -18,6 +19,7 @@
         android:icon="@drawable/ic_brush"
         android:summary="@string/pref_draw_over_other_apps_summary"
         android:title="@string/pref_draw_over_other_apps">
+        <!--suppress AndroidDomInspection -->
         <intent
             android:targetClass="com.android.settings.Settings$OverlaySettingsActivity"
             android:targetPackage="com.android.settings" />

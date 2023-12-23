@@ -39,7 +39,8 @@
             android:layout_marginBottom="?dialogPreferredPadding"
             android:background="@null"
             android:text="@string/setup_continue"
-            android:textColor="?attr/colorAccent" />
+            android:textColor="?attr/colorAccent"
+            tools:ignore="RelativeOverlap" />
 
         <Button
             android:id="@+id/skipBtn"

@@ -121,6 +121,7 @@ class AlwaysOnCustomView : View {
                 setFont(R.font.roboto_medium)
                 flags[FLAG_MULTILINE_CLOCK] = true
             }
+
             P.USER_THEME_SAMSUNG2 -> {
                 bigTextSize = spToPx(36f)
                 mediumTextSize = spToPx(18f)
@@ -129,6 +130,7 @@ class AlwaysOnCustomView : View {
                 templatePaint.textAlign = Paint.Align.LEFT
                 flags[FLAG_SAMSUNG_2] = true
             }
+
             else -> {
                 bigTextSize = spToPx(75f)
                 mediumTextSize = spToPx(25f)
@@ -140,10 +142,12 @@ class AlwaysOnCustomView : View {
                         flags[FLAG_MULTILINE_CLOCK] = true
                         flags[FLAG_CAPS_DATE] = true
                     }
+
                     P.USER_THEME_SAMSUNG3 -> {
                         setFont(R.font.roboto_regular)
                         flags[FLAG_SAMSUNG_3] = true
                     }
+
                     P.USER_THEME_80S -> setFont(R.font.monoton_regular)
                     P.USER_THEME_FAST -> setFont(R.font.faster_one_regular)
                     P.USER_THEME_FLOWER -> setFont(R.font.akronim_regular)
@@ -643,10 +647,12 @@ class AlwaysOnCustomView : View {
                     onSkipPreviousClicked()
                     return performClick()
                 }
+
                 abs(event.x.toInt() - skipPositions[1]) < padding16 -> {
                     onSkipNextClicked()
                     return performClick()
                 }
+
                 abs(event.x.toInt() - relativePoint) < abs(skipPositions[1] - relativePoint) -> {
                     onTitleClicked()
                     return performClick()

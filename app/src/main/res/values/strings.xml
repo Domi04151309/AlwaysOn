@@ -21,7 +21,7 @@
     <string name="setup_continue">Continue</string>
     <string name="setup_error">Something went wrong! Please try again!</string>
 
-    <string name="dialog_device_admin_text">Please note that you have to deactivate the app\'s device admin privileges before uninstalling it! To make sure you understood this please perform the following operation:\n7 + 12</string>
+    <string name="dialog_device_admin_text">Please note that you have to deactivate the app\’s device admin privileges before uninstalling it! To make sure you understood this please perform the following operation:\n7 + 12</string>
     <string name="dialog_device_admin_result">Result</string>
     <string name="dialog_device_admin_error">Wrong result. Try again.</string>
 
@@ -127,7 +127,7 @@
     <string name="pref_ao_dnd">Do not disturb</string>
     <string name="pref_ao_dnd_summary">Turns on do not disturb mode while the always on display is running</string>
     <string name="pref_ao_power_saving">Power saving mode (root)</string>
-    <string name="pref_ao_power_saving_summary">Turns on the system\'s power saver mode when the always on display is enabled</string>
+    <string name="pref_ao_power_saving_summary">Turns on the system\’s power saver mode when the always on display is enabled</string>
     <string name="pref_ao_double_tap_speed">Double-tap speed</string>
     <string name="pref_ao_double_tap_speed_summary">The time two taps can be apart (in milliseconds)</string>
     <string name="pref_ao_double_tap_disabled">Disable double-tap</string>
@@ -171,7 +171,7 @@
     <string name="pref_look_and_feel_hide_display_cutouts">Hide display cutouts</string>
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Hide display cutouts on fullscreen content</string>
     <string name="pref_look_and_feel_orientation">Orientation</string>
-    <string name="pref_look_and_feel_orientation_summary">Changes the display\'s orientation</string>
+    <string name="pref_look_and_feel_orientation_summary">Changes the display\’s orientation</string>
     <string name="pref_look_and_feel_heads_up">Hide heads up notifications (root)</string>
     <string name="pref_look_and_feel_heads_up_summary">Prevents the heads up notifications from showing (experimental)</string>
 
@@ -224,7 +224,7 @@
     <string name="pref_draw_over_other_apps">Display over other apps</string>
     <string name="pref_draw_over_other_apps_summary">Enable or disable this permission</string>
     <string name="pref_admin">Device admin</string>
-    <string name="pref_admin_summary">Activate this device admin for normal mode\nPlease note that you have to deactivate the app\'s device admin privileges before uninstalling it!</string>
+    <string name="pref_admin_summary">Activate this device admin for normal mode\nPlease note that you have to deactivate the app\’s device admin privileges before uninstalling it!</string>
     <string name="pref_root_mode">Root mode</string>
     <string name="pref_root_mode_summary">Enables root functionality</string>
 
