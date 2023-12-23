@@ -6,6 +6,7 @@ import android.widget.Toast
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOnCustomView
 
+@Suppress("MagicNumber")
 class AODTestActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

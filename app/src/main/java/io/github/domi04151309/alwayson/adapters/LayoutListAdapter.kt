@@ -20,6 +20,10 @@ class LayoutListAdapter(
     private val titles: Array<String>,
     private val onItemClickListener: OnItemClickListener,
 ) : RecyclerView.Adapter<LayoutListAdapter.ViewHolder>() {
+    companion object {
+        private const val SELECTED_BACKGROUND_ALPHA = 64
+    }
+
     private var selectedItem = -1
 
     interface OnItemClickListener {
@@ -51,7 +55,7 @@ class LayoutListAdapter(
                 .setBackgroundColor(
                     ColorUtils.setAlphaComponent(
                         getColor(holder.view.context, R.color.colorAccent),
-                        64,
+                        SELECTED_BACKGROUND_ALPHA,
                     ),
                 )
         } else {

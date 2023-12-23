@@ -25,6 +25,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Global
+import io.github.domi04151309.alwayson.helpers.IconHelper
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Permissions
 import io.github.domi04151309.alwayson.services.NotificationService
@@ -913,18 +914,7 @@ class AlwaysOnCustomView : View {
     ) {
         batteryCharging = charging
         batteryLevel = level
-        batteryIcon =
-            when {
-                batteryLevel >= 100 -> R.drawable.ic_battery_100
-                batteryLevel >= 90 -> R.drawable.ic_battery_90
-                batteryLevel >= 80 -> R.drawable.ic_battery_80
-                batteryLevel >= 60 -> R.drawable.ic_battery_60
-                batteryLevel >= 50 -> R.drawable.ic_battery_50
-                batteryLevel >= 30 -> R.drawable.ic_battery_30
-                batteryLevel >= 20 -> R.drawable.ic_battery_20
-                batteryLevel >= 0 -> R.drawable.ic_battery_0
-                else -> R.drawable.ic_battery_unknown
-            }
+        batteryIcon = IconHelper.getBatteryIcon(level)
         invalidate()
     }
 

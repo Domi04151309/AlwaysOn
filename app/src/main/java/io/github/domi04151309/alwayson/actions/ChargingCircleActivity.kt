@@ -10,6 +10,11 @@ import android.widget.TextView
 import io.github.domi04151309.alwayson.R
 
 class ChargingCircleActivity : OffActivity() {
+    companion object {
+        private const val ANIMATION_DELAY = 3000L
+        private const val ANIMATION_DURATION = 1000L
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_charging_circle)
@@ -27,9 +32,9 @@ class ChargingCircleActivity : OffActivity() {
 
         object : Thread() {
             override fun run() {
-                sleep(3000)
-                content.animate().alpha(0f).duration = 1000
-                sleep(1000)
+                sleep(ANIMATION_DELAY)
+                content.animate().alpha(0f).duration = ANIMATION_DURATION
+                sleep(ANIMATION_DURATION)
                 runOnUiThread {
                     finishAndOff()
                 }

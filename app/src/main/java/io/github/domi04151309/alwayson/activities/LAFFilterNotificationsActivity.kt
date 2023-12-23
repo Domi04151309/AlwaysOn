@@ -112,7 +112,7 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
             pref.setIcon(R.drawable.ic_notification)
             pref.title =
                 try {
-                    if (Build.VERSION.SDK_INT >= 33) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         packageManager.getApplicationLabel(
                             packageManager.getApplicationInfo(
                                 packageName,

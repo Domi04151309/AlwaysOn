@@ -27,6 +27,7 @@ class NotificationService : NotificationListenerService() {
     }
 
     companion object {
+        private const val MINIMUM_UPDATE_DELAY = 1000L
         internal var count: Int = 0
             private set
         internal var icons: ArrayList<Pair<Icon, Int>> = arrayListOf()
@@ -107,7 +108,7 @@ class NotificationService : NotificationListenerService() {
             cache = count
             listeners.forEach { it.onNotificationsChanged() }
         }
-        Handler(Looper.getMainLooper()).postDelayed({ sentRecently = false }, 500)
+        Handler(Looper.getMainLooper()).postDelayed({ sentRecently = false }, MINIMUM_UPDATE_DELAY)
     }
 
     private fun isValidNotification(notification: StatusBarNotification): Boolean {

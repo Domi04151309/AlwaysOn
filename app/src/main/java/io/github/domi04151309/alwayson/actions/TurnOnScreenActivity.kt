@@ -9,6 +9,10 @@ import android.os.Looper
 import android.view.WindowManager
 
 class TurnOnScreenActivity : Activity() {
+    companion object {
+        private const val TINY_DELAY = 10L
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,6 +33,6 @@ class TurnOnScreenActivity : Activity() {
                     .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             )
             finish()
-        }, 10)
+        }, TINY_DELAY)
     }
 }

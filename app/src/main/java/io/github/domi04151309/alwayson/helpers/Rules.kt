@@ -13,6 +13,8 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
     private var end = 0L
 
     companion object {
+        const val BATTERY_FULL: Int = 100
+
         internal fun getBatteryStatus(c: Context): Intent? =
             IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { filter ->
                 c.registerReceiver(
@@ -96,7 +98,7 @@ class Rules(private val c: Context, private val prefs: SharedPreferences) {
             getBatteryStatus(c)?.getIntExtra(
                 BatteryManager.EXTRA_LEVEL,
                 0,
-            ) ?: 100
+            ) ?: BATTERY_FULL
         ) > prefs.getInt(P.RULES_BATTERY, P.RULES_BATTERY_DEFAULT)
     }
 

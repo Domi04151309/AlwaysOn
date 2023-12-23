@@ -12,8 +12,16 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.helpers.IconHelper
 
 class ChargingIOSActivity : OffActivity() {
+    companion object {
+        private const val TINY_DELAY = 10L
+        private const val ANIMATION_DELAY = 3000L
+        private const val ANIMATION_DURATION = 1000L
+        private const val FRACTIONAL_VIEW_POSITION = 8
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_charging_ios)
@@ -29,29 +37,21 @@ class ChargingIOSActivity : OffActivity() {
                 ?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
                 ?: 0
         findViewById<TextView>(R.id.batteryTxt).text = resources.getString(R.string.charged, level)
-        when {
-            level >= 100 -> batteryIcn.setImageResource(R.drawable.ic_battery_100)
-            level >= 90 -> batteryIcn.setImageResource(R.drawable.ic_battery_90)
-            level >= 80 -> batteryIcn.setImageResource(R.drawable.ic_battery_80)
-            level >= 60 -> batteryIcn.setImageResource(R.drawable.ic_battery_60)
-            level >= 50 -> batteryIcn.setImageResource(R.drawable.ic_battery_50)
-            level >= 30 -> batteryIcn.setImageResource(R.drawable.ic_battery_30)
-            level >= 20 -> batteryIcn.setImageResource(R.drawable.ic_battery_20)
-            level >= 0 -> batteryIcn.setImageResource(R.drawable.ic_battery_0)
-            else -> batteryIcn.setImageResource(R.drawable.ic_battery_unknown)
-        }
+        batteryIcn.setImageResource(IconHelper.getBatteryIcon(level))
 
         object : Thread() {
             override fun run() {
-                while (content.height == 0) sleep(10)
+                while (content.height == 0) sleep(TINY_DELAY)
                 val size = Point()
                 (getSystemService(Context.DISPLAY_SERVICE) as DisplayManager)
                     .getDisplay(Display.DEFAULT_DISPLAY)
                     .getSize(size)
-                runOnUiThread { content.translationY = (size.y - content.height).toFloat() / 8 }
-                sleep(3000)
-                content.animate().alpha(0f).duration = 1000
-                sleep(1000)
+                runOnUiThread {
+                    content.translationY = (size.y - content.height).toFloat() / FRACTIONAL_VIEW_POSITION
+                }
+                sleep(ANIMATION_DELAY)
+                content.animate().alpha(0f).duration = ANIMATION_DURATION
+                sleep(ANIMATION_DURATION)
                 runOnUiThread {
                     finishAndOff()
                 }

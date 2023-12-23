@@ -53,7 +53,7 @@ class LAFBackgroundActivity : AppCompatActivity() {
                 startActivity(Intent(context, LAFBackgroundImageActivity::class.java))
                 true
             }
-            if (Build.VERSION.SDK_INT < 28) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
                 preferenceScreen.removePreference(
                     findPreference("hide_display_cutouts") ?: error("Invalid layout."),
                 )

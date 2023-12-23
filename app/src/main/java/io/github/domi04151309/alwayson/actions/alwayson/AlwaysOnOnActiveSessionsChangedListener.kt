@@ -11,6 +11,10 @@ import io.github.domi04151309.alwayson.helpers.Global
 class AlwaysOnOnActiveSessionsChangedListener(
     private val view: AlwaysOnCustomView,
 ) : MediaSessionManager.OnActiveSessionsChangedListener {
+    companion object {
+        private const val MAX_STRING_LENGTH = 20
+    }
+
     @JvmField
     internal var controller: MediaController? = null
 
@@ -45,8 +49,12 @@ class AlwaysOnOnActiveSessionsChangedListener(
             view.musicVisible = true
             var artist = controller?.metadata?.getString(MediaMetadata.METADATA_KEY_ARTIST) ?: ""
             var title = controller?.metadata?.getString(MediaMetadata.METADATA_KEY_TITLE) ?: ""
-            if (artist.length > 20) artist = artist.substring(0, 19) + '…'
-            if (title.length > 20) title = title.substring(0, 19) + '…'
+            if (artist.length > MAX_STRING_LENGTH) {
+                artist = artist.substring(0, MAX_STRING_LENGTH - 1) + '…'
+            }
+            if (title.length > MAX_STRING_LENGTH) {
+                title = title.substring(0, MAX_STRING_LENGTH - 1) + '…'
+            }
             when {
                 artist == "" -> view.musicString = title
                 title == "" -> view.musicString = artist

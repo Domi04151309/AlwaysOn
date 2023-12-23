@@ -30,6 +30,10 @@ class ContributorActivity : AppCompatActivity() {
     }
 
     class GeneralPreferenceFragment : PreferenceFragmentCompat() {
+        companion object {
+            private const val PICTURE_SIZE = 192
+        }
+
         private var entries: Array<Preference?> = arrayOf()
 
         private fun addPreference(
@@ -84,8 +88,8 @@ class ContributorActivity : AppCompatActivity() {
                                         )
                                         if (i == response.length() - 1) loadPreferences()
                                     },
-                                    192,
-                                    192,
+                                    PICTURE_SIZE,
+                                    PICTURE_SIZE,
                                     ImageView.ScaleType.CENTER_INSIDE,
                                     null,
                                     { error ->

@@ -13,6 +13,7 @@ import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.custom.EditIntegerPreference
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Permissions
+import io.github.domi04151309.alwayson.helpers.Rules
 import io.github.domi04151309.alwayson.helpers.Theme
 import java.lang.Integer.parseInt
 
@@ -133,9 +134,9 @@ class LAFRulesActivity : AppCompatActivity() {
                     P.RULES_TIMEOUT_DEFAULT,
                 ) ?: P.RULES_TIMEOUT_DEFAULT
 
-            if (rulesBatteryLevelValue > 100) {
+            if (rulesBatteryLevelValue > Rules.BATTERY_FULL) {
                 preferenceManager.sharedPreferences?.edit()
-                    ?.putInt(P.RULES_BATTERY, 100)
+                    ?.putInt(P.RULES_BATTERY, P.RULES_BATTERY_DEFAULT)
                     ?.apply()
                 return
             }
@@ -170,15 +171,9 @@ class LAFRulesActivity : AppCompatActivity() {
         }
 
         private fun formatTime(
-            hour: Int,
-            minute: Int,
-        ): String {
-            return if (minute < 10) {
-                "$hour:0$minute"
-            } else {
-                "$hour:$minute"
-            }
-        }
+            hours: Int,
+            minutes: Int,
+        ): String = hours.toString() + ":" + minutes.toString().padStart(2, '0')
 
         override fun onStart() {
             super.onStart()

@@ -21,7 +21,7 @@ internal class P(val prefs: SharedPreferences) {
         default: Int,
     ): Int = prefs.getInt(key, default)
 
-    fun displayScale(): Float = prefs.getInt("pref_aod_scale_2", 100) / 100F
+    fun displayScale(): Float = prefs.getInt("pref_aod_scale_2", DISPLAY_SCALE_DEFAULT) / NUMBER_TO_PERCENT
 
     companion object {
         const val RULES_CHARGING_STATE = "rules_charging_state"
@@ -69,6 +69,7 @@ internal class P(val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_WEATHER = "display_color_weather"
         const val DISPLAY_COLOR_FINGERPRINT = "display_color_fingerprint"
         const val DISPLAY_COLOR_EDGE_GLOW = "display_color_edge_glow"
+        const val FORCE_BRIGHTNESS_VALUE = "ao_force_brightness_value"
 
         const val CHARGING_STYLE = "charging_style"
 
@@ -151,9 +152,13 @@ internal class P(val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_WEATHER_DEFAULT = -1
         const val DISPLAY_COLOR_FINGERPRINT_DEFAULT = -1
         const val DISPLAY_COLOR_EDGE_GLOW_DEFAULT = -1
+        const val FORCE_BRIGHTNESS_VALUE_DEFAULT = 50
 
         const val CHARGING_STYLE_DEFAULT = CHARGING_STYLE_CIRCLE
 
         val DOUBLE_TAP_SPEED_DEFAULT = ViewConfiguration.getDoubleTapTimeout()
+
+        private const val DISPLAY_SCALE_DEFAULT = 100
+        private const val NUMBER_TO_PERCENT = 100f
     }
 }

@@ -82,18 +82,18 @@ class LAFBackgroundImageActivity : AppCompatActivity() {
                                 size,
                                 size,
                             )
-                        if (bitmap.width > 1080) {
+                        if (bitmap.width > MAXIMUM_BACKGROUND_RESOLUTION) {
                             bitmap =
                                 Bitmap.createScaledBitmap(
                                     bitmap,
-                                    1080,
-                                    1080,
+                                    MAXIMUM_BACKGROUND_RESOLUTION,
+                                    MAXIMUM_BACKGROUND_RESOLUTION,
                                     true,
                                 )
                         }
 
                         val os = ByteArrayOutputStream()
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 60, os)
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, BACKGROUND_QUALITY, os)
                         val encoded: String =
                             Base64.encodeToString(
                                 os.toByteArray(),
@@ -249,5 +249,7 @@ class LAFBackgroundImageActivity : AppCompatActivity() {
         private const val ITEM_TYLER_LASTOVICH_2 = 11
         private const val ITEM_TYLER_LASTOVICH_3 = 12
         private const val ITEM_CUSTOM = 13
+        private const val MAXIMUM_BACKGROUND_RESOLUTION = 1080
+        private const val BACKGROUND_QUALITY = 60
     }
 }

@@ -44,6 +44,7 @@ import io.github.domi04151309.alwayson.services.NotificationService
 
 class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListener {
     companion object {
+        private const val MILLISECONDS_PER_SECOND: Long = 1000
         private const val SENSOR_DELAY_SLOW: Int = 1000000
         private var instance: AlwaysOn? = null
 
@@ -160,7 +161,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         // Brightness
         if (prefs.get(P.FORCE_BRIGHTNESS, P.FORCE_BRIGHTNESS_DEFAULT)) {
             window.attributes.screenBrightness =
-                prefs.get("ao_force_brightness_value", 50) / 255.toFloat()
+                prefs.get(P.FORCE_BRIGHTNESS_VALUE, P.FORCE_BRIGHTNESS_VALUE_DEFAULT) / 255.toFloat()
         }
 
         // Variables
@@ -461,7 +462,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         ) {
             rulesHandler.postDelayed(
                 { finishAndOff() },
-                prefs.get(P.RULES_TIMEOUT, P.RULES_TIMEOUT_DEFAULT) * 1000L,
+                prefs.get(P.RULES_TIMEOUT, P.RULES_TIMEOUT_DEFAULT) * MILLISECONDS_PER_SECOND,
             )
         }
         if (prefs.get(
