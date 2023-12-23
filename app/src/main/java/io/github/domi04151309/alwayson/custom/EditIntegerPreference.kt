@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.widget.Toast
 import androidx.preference.EditTextPreference
 import io.github.domi04151309.alwayson.R
+import java.lang.NumberFormatException
 
 class EditIntegerPreference : EditTextPreference {
     constructor(
@@ -47,7 +48,7 @@ class EditIntegerPreference : EditTextPreference {
         val intValue: Int
         try {
             intValue = Integer.parseInt(value)
-        } catch (e: Exception) {
+        } catch (e: NumberFormatException) {
             Toast.makeText(context, R.string.pref_int_failed, Toast.LENGTH_LONG).show()
             return false
         }

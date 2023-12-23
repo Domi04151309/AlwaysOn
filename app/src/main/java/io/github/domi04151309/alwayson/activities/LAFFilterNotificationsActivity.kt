@@ -3,12 +3,14 @@ package io.github.domi04151309.alwayson.activities
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
+import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.JSON
 import io.github.domi04151309.alwayson.helpers.Theme
 import io.github.domi04151309.alwayson.services.NotificationService
@@ -125,6 +127,7 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
                         )
                     } as String
                 } catch (e: Exception) {
+                    Log.w(Global.LOG_TAG, e.toString())
                     resources.getString(R.string.pref_look_and_feel_filter_notifications_unknown)
                 }
             pref.summary = packageName

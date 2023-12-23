@@ -4,6 +4,7 @@ package io.github.domi04151309.alwayson.helpers
 
 import android.util.Log
 import java.io.DataOutputStream
+import java.io.IOException
 
 internal object Root {
     fun request(): Boolean {
@@ -15,8 +16,8 @@ internal object Root {
             os.writeBytes("exit\n")
             os.flush()
             true
-        } catch (e: Exception) {
-            Log.e(Global.LOG_TAG, e.toString())
+        } catch (e: IOException) {
+            Log.w(Global.LOG_TAG, e.toString())
             false
         }
     }
@@ -25,8 +26,8 @@ internal object Root {
         try {
             val p = Runtime.getRuntime().exec(arrayOf("su", "-c", command))
             p.waitFor()
-        } catch (e: Exception) {
-            Log.e("Superuser", e.toString())
+        } catch (e: IOException) {
+            Log.w("Superuser", e.toString())
         }
     }
 }

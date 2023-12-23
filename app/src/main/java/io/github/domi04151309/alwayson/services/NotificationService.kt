@@ -72,44 +72,42 @@ class NotificationService : NotificationListenerService() {
     }
 
     private fun updateVars() {
-        if (!sentRecently) {
-            sentRecently = true
-            val apps: ArrayList<String>
-            icons = arrayListOf()
-            count = 0
-            try {
-                detailed = activeNotifications
-                apps = ArrayList(detailed.size)
-                icons = ArrayList(detailed.size)
-                for (notification in detailed) {
-                    if (isValidNotification(notification)) {
-                        if (
-                            notification.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0
-                        ) {
-                            count++
-                        }
-                        if (!apps.contains(notification.packageName)) {
-                            apps += notification.packageName
-                            icons.add(
-                                Pair(
-                                    notification.notification.smallIcon,
-                                    notification.notification.color,
-                                ),
-                            )
-                        }
-                    }
+        if (sentRecently) return
+        sentRecently = true
+        val apps: ArrayList<String>
+        icons = arrayListOf()
+        count = 0
+        try {
+            detailed = activeNotifications
+            apps = ArrayList(detailed.size)
+            icons = ArrayList(detailed.size)
+            for (notification in detailed) {
+                if (!isValidNotification(notification)) continue
+                if (
+                    notification.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0
+                ) {
+                    count++
                 }
-            } catch (e: Exception) {
-                Log.e(Global.LOG_TAG, e.toString())
-                count = 0
-                icons = arrayListOf()
+                if (!apps.contains(notification.packageName)) {
+                    apps += notification.packageName
+                    icons.add(
+                        Pair(
+                            notification.notification.smallIcon,
+                            notification.notification.color,
+                        ),
+                    )
+                }
             }
-            if (cache != count) {
-                cache = count
-                listeners.forEach { it.onNotificationsChanged() }
-            }
-            Handler(Looper.getMainLooper()).postDelayed({ sentRecently = false }, 500)
+        } catch (e: Exception) {
+            Log.e(Global.LOG_TAG, e.toString())
+            count = 0
+            icons = arrayListOf()
         }
+        if (cache != count) {
+            cache = count
+            listeners.forEach { it.onNotificationsChanged() }
+        }
+        Handler(Looper.getMainLooper()).postDelayed({ sentRecently = false }, 500)
     }
 
     private fun isValidNotification(notification: StatusBarNotification): Boolean {

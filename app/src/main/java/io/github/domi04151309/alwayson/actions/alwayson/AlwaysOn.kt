@@ -214,7 +214,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                     ),
                 )
             } catch (e: Exception) {
-                Log.e(Global.LOG_TAG, e.toString())
+                Log.w(Global.LOG_TAG, e.toString())
                 viewHolder.customView.musicString =
                     resources.getString(R.string.missing_permissions)
             }
@@ -316,8 +316,8 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                                         sleep(1000)
                                     }
                                 }
-                            } catch (e: Exception) {
-                                Log.e(Global.LOG_TAG, e.toString())
+                            } catch (e: InterruptedException) {
+                                Log.w(Global.LOG_TAG, e.toString())
                             }
                         }
                     }
@@ -377,8 +377,8 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                                 }
                             }
                         }
-                    } catch (e: Exception) {
-                        Log.e(Global.LOG_TAG, e.toString())
+                    } catch (e: InterruptedException) {
+                        Log.w(Global.LOG_TAG, e.toString())
                     }
                 }
             }
@@ -420,7 +420,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                 }
             (getSystemService(AUDIO_SERVICE) as AudioManager).addOnModeChangedListener(
                 mainExecutor,
-                onModeChangedListener ?: throw IllegalStateException(),
+                onModeChangedListener ?: error("onModeChangedListener is null."),
             )
         }
 
@@ -555,7 +555,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && onModeChangedListener != null) {
             (getSystemService(AUDIO_SERVICE) as AudioManager).removeOnModeChangedListener(
-                onModeChangedListener ?: throw IllegalStateException(),
+                onModeChangedListener ?: error("onModeChangedListener is null."),
             )
         }
         unregisterReceiver(systemReceiver)

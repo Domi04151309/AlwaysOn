@@ -41,15 +41,17 @@ object Permissions {
     fun isNotificationServiceEnabled(context: Context): Boolean {
         val flat =
             Settings.Secure.getString(context.contentResolver, "enabled_notification_listeners")
-        if (!TextUtils.isEmpty(flat)) {
-            val names = flat.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-            for (name in names) {
-                val cn = ComponentName.unflattenFromString(name)
-                if (cn != null) {
-                    if (TextUtils.equals(context.packageName, cn.packageName)) {
-                        return true
-                    }
-                }
+        if (TextUtils.isEmpty(flat)) return false
+        val names = flat.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        for (name in names) {
+            val componentName = ComponentName.unflattenFromString(name)
+            if (componentName != null &&
+                TextUtils.equals(
+                    context.packageName,
+                    componentName.packageName,
+                )
+            ) {
+                return true
             }
         }
         return false

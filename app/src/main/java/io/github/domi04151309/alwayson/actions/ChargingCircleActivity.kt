@@ -4,12 +4,10 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.Bundle
-import android.util.Log
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.helpers.Global
 
 class ChargingCircleActivity : OffActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,15 +27,11 @@ class ChargingCircleActivity : OffActivity() {
 
         object : Thread() {
             override fun run() {
-                try {
-                    sleep(3000)
-                    content.animate().alpha(0f).duration = 1000
-                    sleep(1000)
-                    runOnUiThread {
-                        finishAndOff()
-                    }
-                } catch (e: Exception) {
-                    Log.e(Global.LOG_TAG, e.toString())
+                sleep(3000)
+                content.animate().alpha(0f).duration = 1000
+                sleep(1000)
+                runOnUiThread {
+                    finishAndOff()
                 }
             }
         }.start()

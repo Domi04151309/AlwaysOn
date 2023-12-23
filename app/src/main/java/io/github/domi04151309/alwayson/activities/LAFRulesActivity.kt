@@ -50,42 +50,30 @@ class LAFRulesActivity : AppCompatActivity() {
 
             if (!Permissions.isNotificationServiceEnabled(requireContext())) {
                 var currentPref: Preference?
-                var currentPrefAsSwitch: SwitchPreference?
                 Permissions.NOTIFICATION_PERMISSION_PREFS.forEach {
                     currentPref = findPreference(it)
-                    if (currentPref != null) {
-                        currentPref?.isEnabled = false
-                        currentPref?.setSummary(R.string.permissions_notification_access)
-                        currentPrefAsSwitch = currentPref as? SwitchPreference
-                        if (currentPrefAsSwitch != null) {
-                            currentPrefAsSwitch?.setSummaryOff(
-                                R.string.permissions_notification_access,
-                            )
-                            currentPrefAsSwitch?.setSummaryOn(
-                                R.string.permissions_notification_access,
-                            )
-                        }
+                    currentPref?.apply {
+                        isEnabled = false
+                        setSummary(R.string.permissions_notification_access)
+                    }
+                    (currentPref as? SwitchPreference)?.apply {
+                        setSummaryOff(R.string.permissions_notification_access)
+                        setSummaryOn(R.string.permissions_notification_access)
                     }
                 }
             }
 
             if (!Permissions.isDeviceAdminOrRoot(requireContext())) {
                 var currentPref: Preference?
-                var currentPrefAsSwitch: SwitchPreference?
                 Permissions.DEVICE_ADMIN_OR_ROOT_PERMISSION_PREFS.forEach {
                     currentPref = findPreference(it)
-                    if (currentPref != null) {
-                        currentPref?.isEnabled = false
-                        currentPref?.setSummary(R.string.permissions_device_admin_or_root)
-                        currentPrefAsSwitch = currentPref as? SwitchPreference
-                        if (currentPrefAsSwitch != null) {
-                            currentPrefAsSwitch?.setSummaryOff(
-                                R.string.permissions_device_admin_or_root,
-                            )
-                            currentPrefAsSwitch?.setSummaryOn(
-                                R.string.permissions_device_admin_or_root,
-                            )
-                        }
+                    currentPref?.apply {
+                        isEnabled = false
+                        setSummary(R.string.permissions_device_admin_or_root)
+                    }
+                    (currentPref as? SwitchPreference)?.apply {
+                        setSummaryOff(R.string.permissions_device_admin_or_root)
+                        setSummaryOn(R.string.permissions_device_admin_or_root)
                     }
                 }
             } else {

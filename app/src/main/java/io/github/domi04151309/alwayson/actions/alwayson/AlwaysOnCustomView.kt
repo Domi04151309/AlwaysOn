@@ -387,7 +387,7 @@ class AlwaysOnCustomView : View {
         if (nonScaleBackground != null && measuredWidth > 0) {
             nonScaleBackground =
                 Bitmap.createScaledBitmap(
-                    nonScaleBackground ?: throw IllegalStateException(),
+                    nonScaleBackground ?: error("Impossible state."),
                     measuredWidth,
                     measuredWidth,
                     true,
@@ -419,7 +419,7 @@ class AlwaysOnCustomView : View {
         // Background
         if (nonScaleBackground != null) {
             canvas.drawBitmap(
-                nonScaleBackground ?: throw IllegalStateException(),
+                nonScaleBackground ?: error("Impossible state."),
                 0F,
                 0F,
                 null,

@@ -36,21 +36,15 @@ class LAFBackgroundActivity : AppCompatActivity() {
 
             if (!Permissions.isNotificationServiceEnabled(requireContext())) {
                 var currentPref: Preference?
-                var currentPrefAsSwitch: SwitchPreference?
                 Permissions.NOTIFICATION_PERMISSION_PREFS.forEach {
                     currentPref = findPreference(it)
-                    if (currentPref != null) {
-                        currentPref?.isEnabled = false
-                        currentPref?.setSummary(R.string.permissions_notification_access)
-                        currentPrefAsSwitch = currentPref as? SwitchPreference
-                        if (currentPrefAsSwitch != null) {
-                            currentPrefAsSwitch?.setSummaryOff(
-                                R.string.permissions_notification_access,
-                            )
-                            currentPrefAsSwitch?.setSummaryOn(
-                                R.string.permissions_notification_access,
-                            )
-                        }
+                    currentPref?.apply {
+                        isEnabled = false
+                        setSummary(R.string.permissions_notification_access)
+                    }
+                    (currentPref as? SwitchPreference)?.apply {
+                        setSummaryOff(R.string.permissions_notification_access)
+                        setSummaryOn(R.string.permissions_notification_access)
                     }
                 }
             }
@@ -61,7 +55,7 @@ class LAFBackgroundActivity : AppCompatActivity() {
             }
             if (Build.VERSION.SDK_INT < 28) {
                 preferenceScreen.removePreference(
-                    findPreference("hide_display_cutouts") ?: throw IllegalStateException(),
+                    findPreference("hide_display_cutouts") ?: error("Invalid layout."),
                 )
             }
         }

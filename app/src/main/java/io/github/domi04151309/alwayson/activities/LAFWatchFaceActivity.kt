@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -17,10 +18,10 @@ import androidx.preference.SeekBarPreference
 import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
+import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Permissions
 import io.github.domi04151309.alwayson.helpers.Theme
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -47,21 +48,15 @@ class LAFWatchFaceActivity : AppCompatActivity() {
 
             if (!Permissions.isNotificationServiceEnabled(requireContext())) {
                 var currentPref: Preference?
-                var currentPrefAsSwitch: SwitchPreference?
                 Permissions.NOTIFICATION_PERMISSION_PREFS.forEach {
                     currentPref = findPreference(it)
-                    if (currentPref != null) {
-                        currentPref?.isEnabled = false
-                        currentPref?.setSummary(R.string.permissions_notification_access)
-                        currentPrefAsSwitch = currentPref as? SwitchPreference
-                        if (currentPrefAsSwitch != null) {
-                            currentPrefAsSwitch?.setSummaryOff(
-                                R.string.permissions_notification_access,
-                            )
-                            currentPrefAsSwitch?.setSummaryOn(
-                                R.string.permissions_notification_access,
-                            )
-                        }
+                    currentPref?.apply {
+                        isEnabled = false
+                        setSummary(R.string.permissions_notification_access)
+                    }
+                    (currentPref as? SwitchPreference)?.apply {
+                        setSummaryOff(R.string.permissions_notification_access)
+                        setSummaryOn(R.string.permissions_notification_access)
                     }
                 }
             }
@@ -109,7 +104,8 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                             ?.putString(P.DATE_FORMAT, editText.text.toString())
                             ?.apply()
                         dialog.dismiss()
-                    } catch (e: Exception) {
+                    } catch (e: IllegalArgumentException) {
+                        Log.w(Global.LOG_TAG, e.toString())
                         Toast.makeText(
                             requireContext(),
                             R.string.pref_ao_date_format_illegal,

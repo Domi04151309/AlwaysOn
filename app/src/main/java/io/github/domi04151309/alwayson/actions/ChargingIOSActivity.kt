@@ -7,13 +7,11 @@ import android.graphics.Point
 import android.hardware.display.DisplayManager
 import android.os.BatteryManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Display
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.helpers.Global
 
 class ChargingIOSActivity : OffActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,21 +43,17 @@ class ChargingIOSActivity : OffActivity() {
 
         object : Thread() {
             override fun run() {
-                try {
-                    while (content.height == 0) sleep(10)
-                    val size = Point()
-                    (getSystemService(Context.DISPLAY_SERVICE) as DisplayManager)
-                        .getDisplay(Display.DEFAULT_DISPLAY)
-                        .getSize(size)
-                    runOnUiThread { content.translationY = (size.y - content.height).toFloat() / 8 }
-                    sleep(3000)
-                    content.animate().alpha(0f).duration = 1000
-                    sleep(1000)
-                    runOnUiThread {
-                        finishAndOff()
-                    }
-                } catch (e: Exception) {
-                    Log.e(Global.LOG_TAG, e.toString())
+                while (content.height == 0) sleep(10)
+                val size = Point()
+                (getSystemService(Context.DISPLAY_SERVICE) as DisplayManager)
+                    .getDisplay(Display.DEFAULT_DISPLAY)
+                    .getSize(size)
+                runOnUiThread { content.translationY = (size.y - content.height).toFloat() / 8 }
+                sleep(3000)
+                content.animate().alpha(0f).duration = 1000
+                sleep(1000)
+                runOnUiThread {
+                    finishAndOff()
                 }
             }
         }.start()

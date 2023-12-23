@@ -39,9 +39,13 @@ class LAFBrightnessActivity : AppCompatActivity() {
                     window.attributes = lp
                 }
 
-                override fun onStartTrackingTouch(seekBar: SeekBar) {}
+                override fun onStartTrackingTouch(seekBar: SeekBar) {
+                    // Do nothing.
+                }
 
-                override fun onStopTrackingTouch(seekBar: SeekBar) {}
+                override fun onStopTrackingTouch(seekBar: SeekBar) {
+                    // Do nothing.
+                }
             },
         )
     }
