@@ -111,7 +111,6 @@ class LAFBackgroundImageActivity : AppCompatActivity() {
             }
         layoutList.adapter =
             LayoutListAdapter(
-                this,
                 drawables,
                 resources.getStringArray(R.array.pref_ao_background_image_array_display),
                 object : LayoutListAdapter.OnItemClickListener {

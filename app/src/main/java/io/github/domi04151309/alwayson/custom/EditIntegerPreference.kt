@@ -57,9 +57,13 @@ class EditIntegerPreference : EditTextPreference {
     companion object {
         fun getAttr(context: Context): Int {
             val value = TypedValue()
-            context.theme.resolveAttribute(R.attr.editTextPreferenceStyle, value, true)
+            context.theme.resolveAttribute(
+                androidx.preference.R.attr.editTextPreferenceStyle,
+                value,
+                true,
+            )
             return if (value.resourceId != 0) {
-                R.attr.editTextPreferenceStyle
+                androidx.preference.R.attr.editTextPreferenceStyle
             } else {
                 android.R.attr.editTextPreferenceStyle
             }

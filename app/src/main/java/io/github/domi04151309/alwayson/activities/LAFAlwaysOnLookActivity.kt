@@ -51,7 +51,6 @@ class LAFAlwaysOnLookActivity : AppCompatActivity() {
             }
         layoutList.adapter =
             LayoutListAdapter(
-                this,
                 drawables,
                 resources.getStringArray(R.array.pref_look_and_feel_ao_array_display),
                 object : LayoutListAdapter.OnItemClickListener {

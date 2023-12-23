@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.R
 
 class LayoutListAdapter(
-    private val context: Context,
     private val drawables: Array<Int>,
     private val titles: Array<String>,
     private val onItemClickListener: OnItemClickListener,
@@ -50,14 +49,17 @@ class LayoutListAdapter(
         if (position == selectedItem) {
             holder.view.findViewById<LinearLayout>(R.id.linearLayout)
                 .setBackgroundColor(
-                    ColorUtils.setAlphaComponent(getColor(context, R.color.colorAccent), 64),
+                    ColorUtils.setAlphaComponent(
+                        getColor(holder.view.context, R.color.colorAccent),
+                        64,
+                    ),
                 )
         } else {
             holder.view.findViewById<LinearLayout>(R.id.linearLayout).background =
-                context.getAttr(R.attr.selectableItemBackground)
+                getAttr(holder.view.context)
         }
         holder.view.findViewById<ImageView>(R.id.drawable)
-            .setImageDrawable(ContextCompat.getDrawable(context, drawables[position]))
+            .setImageDrawable(ContextCompat.getDrawable(holder.view.context, drawables[position]))
         holder.view.findViewById<TextView>(R.id.title).text = titles[position]
     }
 
@@ -70,11 +72,13 @@ class LayoutListAdapter(
         notifyItemChanged(selectedItem)
     }
 
-    private fun Context.getAttr(
-        attr: Int,
-        typedValue: TypedValue = TypedValue(),
-    ): Drawable? {
-        theme.resolveAttribute(attr, typedValue, true)
-        return ContextCompat.getDrawable(context, typedValue.resourceId)
+    private fun getAttr(context: Context): Drawable? {
+        val value = TypedValue()
+        context.theme.resolveAttribute(
+            androidx.appcompat.R.attr.selectableItemBackground,
+            value,
+            true,
+        )
+        return ContextCompat.getDrawable(context, value.resourceId)
     }
 }

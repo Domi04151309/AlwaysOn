@@ -40,7 +40,6 @@ class LAFChargingLookActivity : AppCompatActivity() {
             }
         layoutList.adapter =
             LayoutListAdapter(
-                this,
                 drawables,
                 resources.getStringArray(R.array.pref_look_and_feel_charging_array_display),
                 object : LayoutListAdapter.OnItemClickListener {
