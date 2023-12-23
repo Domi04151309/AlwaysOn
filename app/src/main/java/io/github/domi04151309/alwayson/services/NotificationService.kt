@@ -2,7 +2,6 @@ package io.github.domi04151309.alwayson.services
 
 import android.app.Notification
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.drawable.Icon
 import android.os.Handler
 import android.os.Looper
@@ -18,9 +17,8 @@ import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 import org.json.JSONArray
 
 class NotificationService : NotificationListenerService() {
-    private lateinit var prefs: SharedPreferences
     private var sentRecently: Boolean = false
-    private var cache: Int = -1
+    private var previousCount: Int = -1
 
     interface OnNotificationsChangedListener {
         fun onNotificationsChanged()
@@ -41,23 +39,19 @@ class NotificationService : NotificationListenerService() {
 
     override fun onCreate() {
         super.onCreate()
-        prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        updateVars()
+        updateValues()
     }
 
-    override fun onNotificationPosted(sbn: StatusBarNotification) {
-        updateVars()
+    override fun onNotificationPosted(notification: StatusBarNotification) {
+        updateValues()
 
-        val rules = Rules(this, prefs)
+        val rules = Rules(this)
         if (
-            isValidNotification(sbn) &&
+            isValidNotification(notification) &&
             !CombinedServiceReceiver.isScreenOn &&
             !CombinedServiceReceiver.isAlwaysOnRunning &&
-            rules.isAlwaysOnDisplayEnabled() &&
-            rules.isAmbientMode() &&
-            rules.matchesChargingState() &&
-            rules.matchesBatteryPercentage() &&
-            rules.isInTimePeriod()
+            Rules.isAmbientMode(this) &&
+            rules.canShow(this)
         ) {
             startActivity(
                 Intent(
@@ -68,20 +62,19 @@ class NotificationService : NotificationListenerService() {
         }
     }
 
-    override fun onNotificationRemoved(sbn: StatusBarNotification) {
-        updateVars()
+    override fun onNotificationRemoved(notification: StatusBarNotification) {
+        updateValues()
     }
 
-    private fun updateVars() {
+    private fun updateValues() {
         if (sentRecently) return
+
         sentRecently = true
-        val apps: ArrayList<String>
-        icons = arrayListOf()
-        count = 0
         try {
+            val apps = ArrayList<String>(detailed.size)
             detailed = activeNotifications
-            apps = ArrayList(detailed.size)
             icons = ArrayList(detailed.size)
+            count = 0
             for (notification in detailed) {
                 if (!isValidNotification(notification)) continue
                 if (
@@ -99,13 +92,13 @@ class NotificationService : NotificationListenerService() {
                     )
                 }
             }
-        } catch (e: Exception) {
-            Log.e(Global.LOG_TAG, e.toString())
+        } catch (exception: Exception) {
+            Log.e(Global.LOG_TAG, exception.toString())
             count = 0
             icons = arrayListOf()
         }
-        if (cache != count) {
-            cache = count
+        if (previousCount != count) {
+            previousCount = count
             listeners.forEach { it.onNotificationsChanged() }
         }
         Handler(Looper.getMainLooper()).postDelayed({ sentRecently = false }, MINIMUM_UPDATE_DELAY)
@@ -114,7 +107,10 @@ class NotificationService : NotificationListenerService() {
     private fun isValidNotification(notification: StatusBarNotification): Boolean {
         return !notification.isOngoing &&
             !JSON.contains(
-                JSONArray(prefs.getString("blocked_notifications", "[]")),
+                JSONArray(
+                    PreferenceManager.getDefaultSharedPreferences(this)
+                        .getString("blocked_notifications", "[]"),
+                ),
                 notification.packageName,
             )
     }

@@ -15,14 +15,12 @@ class AlwaysOnTileService : TileService() {
     }
 
     private fun updateTile(isActive: Boolean) {
-        val tile = qsTile
-        val newState: Int =
+        qsTile.state =
             if (isActive) {
                 Tile.STATE_ACTIVE
             } else {
                 Tile.STATE_INACTIVE
             }
-        tile.state = newState
-        tile.updateTile()
+        qsTile.updateTile()
     }
 }

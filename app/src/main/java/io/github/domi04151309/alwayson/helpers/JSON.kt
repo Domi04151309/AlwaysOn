@@ -26,6 +26,6 @@ internal object JSON {
     }
 
     fun isEmpty(jsonArray: JSONArray): Boolean {
-        return jsonArray.length() < 1
+        return jsonArray.length() == 0
     }
 }

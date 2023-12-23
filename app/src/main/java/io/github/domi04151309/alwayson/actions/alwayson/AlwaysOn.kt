@@ -119,11 +119,11 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                     }
 
                     Intent.ACTION_POWER_CONNECTED -> {
-                        if (!Rules.matchesChargingState(this@AlwaysOn, prefs.prefs)) finishAndOff()
+                        if (!Rules.matchesChargingState(this@AlwaysOn)) finishAndOff()
                     }
 
                     Intent.ACTION_POWER_DISCONNECTED -> {
-                        if (!Rules.matchesChargingState(this@AlwaysOn, prefs.prefs)) finishAndOff()
+                        if (!Rules.matchesChargingState(this@AlwaysOn)) finishAndOff()
                     }
                 }
             }
@@ -453,7 +453,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         ) {
             onNotificationsChanged()
         }
-        val millisTillEnd: Long = Rules(this, prefs.prefs).millisTillEnd()
+        val millisTillEnd: Long = Rules(this).millisTillEnd()
         if (millisTillEnd > -1L) rulesHandler.postDelayed({ finishAndOff() }, millisTillEnd)
         if (prefs.get(
                 P.RULES_TIMEOUT,

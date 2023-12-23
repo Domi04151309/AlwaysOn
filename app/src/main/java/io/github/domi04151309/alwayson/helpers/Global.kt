@@ -19,9 +19,10 @@ internal object Global {
     }
 
     fun changeAlwaysOnState(context: Context): Boolean {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val value = !prefs.getBoolean("always_on", false)
-        prefs.edit().putBoolean("always_on", value).apply()
+        val value =
+            !PreferenceManager.getDefaultSharedPreferences(context).getBoolean("always_on", false)
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("always_on", value)
+            .apply()
         TileService.requestListeningState(
             context,
             ComponentName(context, AlwaysOnTileService::class.java),

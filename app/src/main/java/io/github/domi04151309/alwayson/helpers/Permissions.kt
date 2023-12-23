@@ -4,11 +4,9 @@ import android.Manifest
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.provider.Settings
 import android.text.TextUtils
-import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 
 object Permissions {
@@ -34,10 +32,6 @@ object Permissions {
             P.SHOW_CALENDAR,
         )
 
-    private fun prefs(c: Context): SharedPreferences =
-        PreferenceManager
-            .getDefaultSharedPreferences(c)
-
     fun isNotificationServiceEnabled(context: Context): Boolean {
         val flat =
             Settings.Secure.getString(context.contentResolver, "enabled_notification_listeners")
@@ -58,7 +52,7 @@ object Permissions {
     }
 
     fun needsNotificationPermissions(context: Context): Boolean {
-        val prefs = prefs(context).all
+        val prefs = P.getPreferences(context).all
         for (i in NOTIFICATION_PERMISSION_PREFS) {
             if (prefs.containsKey(i) && prefs[i] is Boolean && prefs[i] == true) {
                 return !isNotificationServiceEnabled(context)
@@ -69,7 +63,7 @@ object Permissions {
 
     fun isDeviceAdminOrRoot(context: Context): Boolean {
         return if (
-            prefs(context).getBoolean("root_mode", false)
+            P.getPreferences(context).getBoolean("root_mode", false)
         ) {
             true
         } else {
@@ -79,7 +73,7 @@ object Permissions {
     }
 
     fun needsDeviceAdminOrRoot(context: Context): Boolean {
-        val prefs = prefs(context).all
+        val prefs = P.getPreferences(context).all
         for (i in DEVICE_ADMIN_OR_ROOT_PERMISSION_PREFS) {
             if (prefs.containsKey(i) && prefs[i] is Boolean && prefs[i] == true) {
                 return !isDeviceAdminOrRoot(context)
@@ -103,7 +97,7 @@ object Permissions {
     }
 
     fun needsCalendarPermission(context: Context): Boolean {
-        val prefs = prefs(context).all
+        val prefs = P.getPreferences(context).all
         for (i in CALENDAR_PERMISSION_PREFS) {
             if (prefs.containsKey(i) && prefs[i] is Boolean && prefs[i] == true) {
                 return !hasCalendarPermission(context)

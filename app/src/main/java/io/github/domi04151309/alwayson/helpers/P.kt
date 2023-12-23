@@ -2,10 +2,12 @@
 
 package io.github.domi04151309.alwayson.helpers
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.view.ViewConfiguration
+import androidx.preference.PreferenceManager
 
-internal class P(val prefs: SharedPreferences) {
+internal class P(private val prefs: SharedPreferences) {
     fun get(
         key: String,
         default: Boolean,
@@ -24,6 +26,9 @@ internal class P(val prefs: SharedPreferences) {
     fun displayScale(): Float = prefs.getInt("pref_aod_scale_2", DISPLAY_SCALE_DEFAULT) / NUMBER_TO_PERCENT
 
     companion object {
+        @Suppress("NOTHING_TO_INLINE")
+        inline fun getPreferences(context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+
         const val RULES_CHARGING_STATE = "rules_charging_state"
         const val RULES_BATTERY = "rules_battery_level"
         const val RULES_TIMEOUT = "rules_timeout_sec"
