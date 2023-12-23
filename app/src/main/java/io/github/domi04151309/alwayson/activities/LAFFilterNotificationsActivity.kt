@@ -16,7 +16,6 @@ import org.json.JSONArray
 import java.lang.Exception
 
 class LAFFilterNotificationsActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -28,33 +27,38 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
     }
 
     class PreferenceFragment : PreferenceFragmentCompat() {
-
         private var blockedArray: JSONArray = JSONArray()
         private lateinit var blocked: PreferenceCategory
         private lateinit var shown: PreferenceCategory
         private lateinit var packageManager: PackageManager
         private lateinit var empty: Preference
 
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        override fun onCreatePreferences(
+            savedInstanceState: Bundle?,
+            rootKey: String?,
+        ) {
             addPreferencesFromResource(R.xml.pref_laf_wf_filter_notifications)
             blocked = findPreference("blocked") ?: return
             shown = findPreference("shown") ?: return
             packageManager = requireContext().packageManager
             empty = Preference(preferenceScreen.context)
             empty.setIcon(R.drawable.ic_notification)
-            empty.title = requireContext().resources.getString(
-                R.string.pref_look_and_feel_filter_notifications_empty
-            )
-            empty.summary = requireContext().resources.getString(
-                R.string.pref_look_and_feel_filter_notifications_empty_summary
-            )
+            empty.title =
+                requireContext().resources.getString(
+                    R.string.pref_look_and_feel_filter_notifications_empty,
+                )
+            empty.summary =
+                requireContext().resources.getString(
+                    R.string.pref_look_and_feel_filter_notifications_empty_summary,
+                )
         }
 
         override fun onStart() {
             super.onStart()
-            blockedArray = JSONArray(
-                preferenceManager.sharedPreferences?.getString("blocked_notifications", "[]")
-            )
+            blockedArray =
+                JSONArray(
+                    preferenceManager.sharedPreferences?.getString("blocked_notifications", "[]"),
+                )
             if (!JSON.isEmpty(blockedArray)) {
                 blocked.removeAll()
                 for (i in 0 until blockedArray.length()) {
@@ -104,24 +108,25 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
         private fun generatePref(packageName: String): Preference {
             val pref = Preference(preferenceScreen.context)
             pref.setIcon(R.drawable.ic_notification)
-            pref.title = try {
-                if (Build.VERSION.SDK_INT >= 33) {
-                    packageManager.getApplicationLabel(
-                        packageManager.getApplicationInfo(
-                            packageName,
-                            PackageManager.ApplicationInfoFlags.of(
-                                PackageManager.GET_META_DATA.toLong()
-                            )
+            pref.title =
+                try {
+                    if (Build.VERSION.SDK_INT >= 33) {
+                        packageManager.getApplicationLabel(
+                            packageManager.getApplicationInfo(
+                                packageName,
+                                PackageManager.ApplicationInfoFlags.of(
+                                    PackageManager.GET_META_DATA.toLong(),
+                                ),
+                            ),
                         )
-                    )
-                } else {
-                    packageManager.getApplicationLabel(
-                        packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA)
-                    )
-                } as String
-            } catch (e: Exception) {
-                resources.getString(R.string.pref_look_and_feel_filter_notifications_unknown)
-            }
+                    } else {
+                        packageManager.getApplicationLabel(
+                            packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA),
+                        )
+                    } as String
+                } catch (e: Exception) {
+                    resources.getString(R.string.pref_look_and_feel_filter_notifications_unknown)
+                }
             pref.summary = packageName
             return pref
         }

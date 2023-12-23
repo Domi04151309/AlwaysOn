@@ -15,7 +15,6 @@ import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 
 class ForegroundService : Service() {
-
     private val combinedServiceReceiver = CombinedServiceReceiver()
 
     override fun onCreate() {
@@ -31,7 +30,7 @@ class ForegroundService : Service() {
         registerReceiver(combinedServiceReceiver, filter)
         TileService.requestListeningState(
             this,
-            ComponentName(this, AlwaysOnTileService::class.java)
+            ComponentName(this, AlwaysOnTileService::class.java),
         )
     }
 
@@ -40,7 +39,11 @@ class ForegroundService : Service() {
         unregisterReceiver(combinedServiceReceiver)
     }
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+    override fun onStartCommand(
+        intent: Intent,
+        flags: Int,
+        startId: Int,
+    ): Int {
         createNotificationChannel()
         startForeground(
             1,
@@ -49,7 +52,7 @@ class ForegroundService : Service() {
                 .setSmallIcon(R.drawable.ic_always_on_black)
                 .setColor(ContextCompat.getColor(this, R.color.colorAccent))
                 .setShowWhen(false)
-                .build()
+                .build(),
         )
         return START_REDELIVER_INTENT
     }
@@ -60,11 +63,12 @@ class ForegroundService : Service() {
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                CHANNEL_ID,
-                resources.getString(R.string.service_channel),
-                NotificationManager.IMPORTANCE_LOW
-            )
+            val channel =
+                NotificationChannel(
+                    CHANNEL_ID,
+                    resources.getString(R.string.service_channel),
+                    NotificationManager.IMPORTANCE_LOW,
+                )
             channel.setShowBadge(false)
             getSystemService(NotificationManager::class.java)?.createNotificationChannel(channel)
         }

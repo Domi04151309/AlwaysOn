@@ -30,8 +30,8 @@ class HelpActivity : AppCompatActivity() {
         findViewById<Button>(R.id.manufacturer).setOnClickListener {
             startActivity(
                 Intent(Intent.ACTION_VIEW).setData(
-                    Uri.parse("https://dontkillmyapp.com/")
-                )
+                    Uri.parse("https://dontkillmyapp.com/"),
+                ),
             )
         }
     }

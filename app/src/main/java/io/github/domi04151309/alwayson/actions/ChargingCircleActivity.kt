@@ -1,15 +1,17 @@
 package io.github.domi04151309.alwayson.actions
 
-import android.content.*
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.Bundle
 import android.util.Log
-import android.widget.*
-import io.github.domi04151309.alwayson.helpers.Global
+import android.widget.ProgressBar
+import android.widget.RelativeLayout
+import android.widget.TextView
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.helpers.Global
 
 class ChargingCircleActivity : OffActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_charging_circle)
@@ -18,9 +20,10 @@ class ChargingCircleActivity : OffActivity() {
         turnOnScreen()
         fullscreen(content)
 
-        val level = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-            ?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
-            ?: 0
+        val level =
+            registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+                ?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
+                ?: 0
         findViewById<TextView>(R.id.batteryTxt).text = resources.getString(R.string.percent, level)
         findViewById<ProgressBar>(R.id.chargingProgress).progress = level
 

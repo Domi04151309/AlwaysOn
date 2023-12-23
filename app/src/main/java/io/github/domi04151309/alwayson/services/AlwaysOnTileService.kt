@@ -5,7 +5,6 @@ import android.service.quicksettings.TileService
 import io.github.domi04151309.alwayson.helpers.Global
 
 class AlwaysOnTileService : TileService() {
-
     override fun onStartListening() {
         super.onStartListening()
         updateTile(Global.currentAlwaysOnState(this))
@@ -17,11 +16,12 @@ class AlwaysOnTileService : TileService() {
 
     private fun updateTile(isActive: Boolean) {
         val tile = qsTile
-        val newState: Int = if (isActive) {
-            Tile.STATE_ACTIVE
-        } else {
-            Tile.STATE_INACTIVE
-        }
+        val newState: Int =
+            if (isActive) {
+                Tile.STATE_ACTIVE
+            } else {
+                Tile.STATE_INACTIVE
+            }
         tile.state = newState
         tile.updateTile()
     }

@@ -13,7 +13,6 @@ import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Theme
 
 class LAFBehaviorActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -24,9 +23,13 @@ class LAFBehaviorActivity : AppCompatActivity() {
             .commit()
     }
 
-    class PreferenceFragment : PreferenceFragmentCompat(),
+    class PreferenceFragment :
+        PreferenceFragmentCompat(),
         SharedPreferences.OnSharedPreferenceChangeListener {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        override fun onCreatePreferences(
+            savedInstanceState: Bundle?,
+            rootKey: String?,
+        ) {
             addPreferencesFromResource(R.xml.pref_laf_behavior)
             findPreference<Preference>(P.FORCE_BRIGHTNESS)?.setOnPreferenceClickListener {
                 startActivity(Intent(context, LAFBrightnessActivity::class.java))
@@ -49,7 +52,10 @@ class LAFBehaviorActivity : AppCompatActivity() {
             preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
         }
 
-        override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {
+        override fun onSharedPreferenceChanged(
+            p0: SharedPreferences?,
+            p1: String?,
+        ) {
             AlwaysOn.finish()
         }
     }

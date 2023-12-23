@@ -15,7 +15,6 @@ import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Theme
 
 class LAFWeatherActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -26,9 +25,13 @@ class LAFWeatherActivity : AppCompatActivity() {
             .commit()
     }
 
-    class PreferenceFragment : PreferenceFragmentCompat(),
+    class PreferenceFragment :
+        PreferenceFragmentCompat(),
         SharedPreferences.OnSharedPreferenceChangeListener {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        override fun onCreatePreferences(
+            savedInstanceState: Bundle?,
+            rootKey: String?,
+        ) {
             addPreferencesFromResource(R.xml.pref_laf_wf_weather)
 
             findPreference<Preference>(P.WEATHER_FORMAT)?.setOnPreferenceClickListener {
@@ -37,8 +40,8 @@ class LAFWeatherActivity : AppCompatActivity() {
                 editText.setText(
                     preferenceManager.sharedPreferences?.getString(
                         P.WEATHER_FORMAT,
-                        P.WEATHER_FORMAT_DEFAULT
-                    )
+                        P.WEATHER_FORMAT_DEFAULT,
+                    ),
                 )
                 AlertDialog.Builder(requireContext())
                     .setTitle(R.string.pref_look_and_feel_weather_format)
@@ -53,9 +56,9 @@ class LAFWeatherActivity : AppCompatActivity() {
                             Intent(Intent.ACTION_VIEW)
                                 .setData(
                                     Uri.parse(
-                                        "https://github.com/chubin/wttr.in#one-line-output"
-                                    )
-                                )
+                                        "https://github.com/chubin/wttr.in#one-line-output",
+                                    ),
+                                ),
                         )
                     }
                     .show()
@@ -72,10 +75,11 @@ class LAFWeatherActivity : AppCompatActivity() {
                 .setNeutralButton(R.string.pref_look_and_feel_weather_provider_name) { _, _ ->
                     startActivity(
                         Intent(
-                            Intent.ACTION_VIEW, Uri.parse(
-                                "https://github.com/chubin/wttr.in"
-                            )
-                        )
+                            Intent.ACTION_VIEW,
+                            Uri.parse(
+                                "https://github.com/chubin/wttr.in",
+                            ),
+                        ),
                     )
                 }
                 .show()
@@ -91,7 +95,10 @@ class LAFWeatherActivity : AppCompatActivity() {
             preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
         }
 
-        override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {
+        override fun onSharedPreferenceChanged(
+            p0: SharedPreferences?,
+            p1: String?,
+        ) {
             AlwaysOn.finish()
         }
     }

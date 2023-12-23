@@ -3,11 +3,10 @@ package io.github.domi04151309.alwayson.actions
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
-import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.helpers.Global
 
 class ChargingFlashActivity : OffActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_charging_flash)

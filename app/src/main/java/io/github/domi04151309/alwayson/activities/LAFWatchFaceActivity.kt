@@ -22,10 +22,9 @@ import io.github.domi04151309.alwayson.helpers.Permissions
 import io.github.domi04151309.alwayson.helpers.Theme
 import java.lang.Exception
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 class LAFWatchFaceActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -36,10 +35,14 @@ class LAFWatchFaceActivity : AppCompatActivity() {
             .commit()
     }
 
-    class PreferenceFragment : PreferenceFragmentCompat(),
+    class PreferenceFragment :
+        PreferenceFragmentCompat(),
         SharedPreferences.OnSharedPreferenceChangeListener {
         @SuppressLint("InflateParams")
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        override fun onCreatePreferences(
+            savedInstanceState: Bundle?,
+            rootKey: String?,
+        ) {
             addPreferencesFromResource(R.xml.pref_laf_watch_face)
 
             if (!Permissions.isNotificationServiceEnabled(requireContext())) {
@@ -53,10 +56,10 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                         currentPrefAsSwitch = currentPref as? SwitchPreference
                         if (currentPrefAsSwitch != null) {
                             currentPrefAsSwitch?.setSummaryOff(
-                                R.string.permissions_notification_access
+                                R.string.permissions_notification_access,
                             )
                             currentPrefAsSwitch?.setSummaryOn(
-                                R.string.permissions_notification_access
+                                R.string.permissions_notification_access,
                             )
                         }
                     }
@@ -77,7 +80,7 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                         ActivityCompat.requestPermissions(
                             requireActivity(),
                             arrayOf(Manifest.permission.READ_CALENDAR),
-                            0
+                            0,
                         )
                     }
                     true
@@ -88,16 +91,17 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                 editText.setText(
                     preferenceManager.sharedPreferences?.getString(
                         P.DATE_FORMAT,
-                        P.DATE_FORMAT_DEFAULT
-                    )
+                        P.DATE_FORMAT_DEFAULT,
+                    ),
                 )
-                val dialog = AlertDialog.Builder(requireContext())
-                    .setTitle(R.string.pref_ao_date_format)
-                    .setView(dialogView)
-                    .setPositiveButton(android.R.string.ok, null)
-                    .setNegativeButton(android.R.string.cancel) { _, _ -> }
-                    .setNeutralButton(R.string.pref_ao_date_format_dialog_neutral, null)
-                    .show()
+                val dialog =
+                    AlertDialog.Builder(requireContext())
+                        .setTitle(R.string.pref_ao_date_format)
+                        .setView(dialogView)
+                        .setPositiveButton(android.R.string.ok, null)
+                        .setNegativeButton(android.R.string.cancel) { _, _ -> }
+                        .setNeutralButton(R.string.pref_ao_date_format_dialog_neutral, null)
+                        .show()
                 dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                     try {
                         SimpleDateFormat(editText.text.toString(), Locale.getDefault())
@@ -109,7 +113,7 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                         Toast.makeText(
                             requireContext(),
                             R.string.pref_ao_date_format_illegal,
-                            Toast.LENGTH_LONG
+                            Toast.LENGTH_LONG,
                         ).show()
                     }
                 }
@@ -118,9 +122,10 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                         Intent(Intent.ACTION_VIEW)
                             .setData(
                                 Uri.parse(
-                                    "https://developer.android.com/reference/java/text/SimpleDateFormat#date-and-time-patterns"
-                                )
-                            )
+                                    "https://developer.android.com/reference/java/text" +
+                                        "/SimpleDateFormat#date-and-time-patterns",
+                                ),
+                            ),
                     )
                 }
                 true
@@ -130,15 +135,17 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                 true
             }
             val prefAodScale = findPreference<SeekBarPreference>("pref_aod_scale_2") ?: return
-            prefAodScale.summary = resources.getString(
-                R.string.pref_look_and_feel_display_size_summary,
-                prefAodScale.value
-            )
-            prefAodScale.setOnPreferenceChangeListener { preference, newValue ->
-                preference.summary = resources.getString(
+            prefAodScale.summary =
+                resources.getString(
                     R.string.pref_look_and_feel_display_size_summary,
-                    newValue as Int
+                    prefAodScale.value,
                 )
+            prefAodScale.setOnPreferenceChangeListener { preference, newValue ->
+                preference.summary =
+                    resources.getString(
+                        R.string.pref_look_and_feel_display_size_summary,
+                        newValue as Int,
+                    )
                 true
             }
         }
@@ -153,7 +160,10 @@ class LAFWatchFaceActivity : AppCompatActivity() {
             preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
         }
 
-        override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {
+        override fun onSharedPreferenceChanged(
+            p0: SharedPreferences?,
+            p1: String?,
+        ) {
             AlwaysOn.finish()
         }
     }

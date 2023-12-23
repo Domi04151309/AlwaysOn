@@ -6,7 +6,6 @@ import io.github.domi04151309.alwayson.custom.CustomFrameLayout
 import io.github.domi04151309.alwayson.custom.FingerprintView
 
 class AlwaysOnViewHolder(activity: Activity) {
-
     @JvmField
     val frame: CustomFrameLayout = activity.findViewById(R.id.frame)
 

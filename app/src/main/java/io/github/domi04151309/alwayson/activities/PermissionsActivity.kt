@@ -16,9 +16,7 @@ import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Root
 import io.github.domi04151309.alwayson.helpers.Theme
 
-
 class PermissionsActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -30,7 +28,10 @@ class PermissionsActivity : AppCompatActivity() {
     }
 
     class PreferencePermissions : PreferenceFragmentCompat() {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        override fun onCreatePreferences(
+            savedInstanceState: Bundle?,
+            rootKey: String?,
+        ) {
             addPreferencesFromResource(R.xml.pref_permissions)
             findPreference<Preference>("ignore_battery_optimizations")
                 ?.setOnPreferenceClickListener {
@@ -45,17 +46,20 @@ class PermissionsActivity : AppCompatActivity() {
                     .setView(dialogView)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
                         if (editText.text.toString().trim() == "19") {
-                            startActivity(Intent().apply {
-                                component = ComponentName(
-                                    "com.android.settings",
-                                    "com.android.settings.Settings\$DeviceAdminSettingsActivity"
-                                )
-                            })
+                            startActivity(
+                                Intent().apply {
+                                    component =
+                                        ComponentName(
+                                            "com.android.settings",
+                                            "com.android.settings.Settings\$DeviceAdminSettingsActivity",
+                                        )
+                                },
+                            )
                         } else {
                             Toast.makeText(
                                 requireContext(),
                                 R.string.dialog_device_admin_error,
-                                Toast.LENGTH_LONG
+                                Toast.LENGTH_LONG,
                             ).show()
                         }
                     }

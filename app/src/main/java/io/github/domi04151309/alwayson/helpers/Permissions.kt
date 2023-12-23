@@ -12,24 +12,31 @@ import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
 
 object Permissions {
+    val NOTIFICATION_PERMISSION_PREFS: Array<String> =
+        arrayOf(
+            P.SHOW_MUSIC_CONTROLS, P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_ICONS,
+            P.TINT_NOTIFICATIONS, "pref_filter_notifications", P.EDGE_GLOW, "ao_glowDuration",
+            "ao_glowDelay", "ao_glowStyle", P.DISPLAY_COLOR_EDGE_GLOW, "rules_ambient_mode",
+        )
 
-    val NOTIFICATION_PERMISSION_PREFS: Array<String> = arrayOf(
-        P.SHOW_MUSIC_CONTROLS, P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_ICONS,
-        P.TINT_NOTIFICATIONS, "pref_filter_notifications", P.EDGE_GLOW, "ao_glowDuration",
-        "ao_glowDelay", "ao_glowStyle", P.DISPLAY_COLOR_EDGE_GLOW, "rules_ambient_mode"
-    )
+    val DEVICE_ADMIN_OR_ROOT_PERMISSION_PREFS: Array<String> =
+        arrayOf(
+            "charging_animation",
+            P.RULES_CHARGING_STATE,
+            P.RULES_BATTERY,
+            "rules_time",
+            P.RULES_TIMEOUT,
+            P.CHARGING_STYLE,
+        )
 
-    val DEVICE_ADMIN_OR_ROOT_PERMISSION_PREFS: Array<String> = arrayOf(
-        "charging_animation", P.RULES_CHARGING_STATE, P.RULES_BATTERY, "rules_time",
-        P.RULES_TIMEOUT, P.CHARGING_STYLE
-    )
+    private val CALENDAR_PERMISSION_PREFS: Array<String> =
+        arrayOf(
+            P.SHOW_CALENDAR,
+        )
 
-    private val CALENDAR_PERMISSION_PREFS: Array<String> = arrayOf(
-        P.SHOW_CALENDAR
-    )
-
-    private fun prefs(c: Context): SharedPreferences = PreferenceManager
-        .getDefaultSharedPreferences(c)
+    private fun prefs(c: Context): SharedPreferences =
+        PreferenceManager
+            .getDefaultSharedPreferences(c)
 
     fun isNotificationServiceEnabled(context: Context): Boolean {
         val flat =
@@ -81,14 +88,16 @@ object Permissions {
 
     fun hasPhoneStatePermission(context: Context): Boolean {
         return context.applicationContext
-            .checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager
-            .PERMISSION_GRANTED
+            .checkSelfPermission(Manifest.permission.READ_PHONE_STATE) ==
+            PackageManager
+                .PERMISSION_GRANTED
     }
 
     fun hasCalendarPermission(context: Context): Boolean {
         return context.applicationContext
-            .checkSelfPermission(Manifest.permission.READ_CALENDAR) == PackageManager
-            .PERMISSION_GRANTED
+            .checkSelfPermission(Manifest.permission.READ_CALENDAR) ==
+            PackageManager
+                .PERMISSION_GRANTED
     }
 
     fun needsCalendarPermission(context: Context): Boolean {

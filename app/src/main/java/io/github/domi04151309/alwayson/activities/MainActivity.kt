@@ -19,22 +19,21 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.services.AlwaysOnTileService
 import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Permissions
 import io.github.domi04151309.alwayson.helpers.Theme
 import io.github.domi04151309.alwayson.receivers.AlwaysOnAppWidgetProvider
+import io.github.domi04151309.alwayson.services.AlwaysOnTileService
 import io.github.domi04151309.alwayson.services.ForegroundService
 
 class MainActivity : AppCompatActivity() {
-
     enum class Dialogs {
         DEVICE_ADMIN,
         NOTIFICATION_ACCESS,
         DISPLAY_OVER_OTHER_APPS,
         PHONE_STATE,
-        CALENDAR
+        CALENDAR,
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         onBackPressedDispatcher.addCallback {
             startActivity(
                 Intent(Intent.ACTION_MAIN).addCategory(Intent.CATEGORY_HOME)
-                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             )
         }
     }
@@ -114,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                     ActivityCompat.requestPermissions(
                         this,
                         arrayOf(Manifest.permission.READ_PHONE_STATE),
-                        0
+                        0,
                     )
                 }
             }
@@ -126,7 +125,7 @@ class MainActivity : AppCompatActivity() {
                     ActivityCompat.requestPermissions(
                         this,
                         arrayOf(Manifest.permission.READ_CALENDAR),
-                        0
+                        0,
                     )
                 }
             }
@@ -139,7 +138,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     class GeneralPreferenceFragment : PreferenceFragmentCompat() {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        override fun onCreatePreferences(
+            savedInstanceState: Bundle?,
+            rootKey: String?,
+        ) {
             addPreferencesFromResource(R.xml.pref_main)
 
             if (!Permissions.isDeviceAdminOrRoot(requireContext())) {
@@ -153,10 +155,10 @@ class MainActivity : AppCompatActivity() {
                         currentPrefAsSwitch = currentPref as? SwitchPreference
                         if (currentPrefAsSwitch != null) {
                             currentPrefAsSwitch?.setSummaryOff(
-                                R.string.permissions_device_admin_or_root
+                                R.string.permissions_device_admin_or_root,
                             )
                             currentPrefAsSwitch?.setSummaryOn(
-                                R.string.permissions_device_admin_or_root
+                                R.string.permissions_device_admin_or_root,
                             )
                         }
                     }
@@ -166,11 +168,11 @@ class MainActivity : AppCompatActivity() {
             findPreference<Preference>("always_on")?.setOnPreferenceClickListener {
                 TileService.requestListeningState(
                     context,
-                    ComponentName(requireContext(), AlwaysOnTileService::class.java)
+                    ComponentName(requireContext(), AlwaysOnTileService::class.java),
                 )
                 requireContext().sendBroadcast(
                     Intent(context, AlwaysOnAppWidgetProvider::class.java)
-                        .setAction(Global.ALWAYS_ON_STATE_CHANGED)
+                        .setAction(Global.ALWAYS_ON_STATE_CHANGED),
                 )
                 true
             }

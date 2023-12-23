@@ -3,13 +3,12 @@ package io.github.domi04151309.alwayson.helpers
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import androidx.preference.PreferenceManager
 import android.service.quicksettings.TileService
+import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.receivers.AlwaysOnAppWidgetProvider
 import io.github.domi04151309.alwayson.services.AlwaysOnTileService
 
 internal object Global {
-
     const val LOG_TAG: String = "AlwaysOn"
 
     const val ALWAYS_ON_STATE_CHANGED: String =
@@ -25,11 +24,11 @@ internal object Global {
         prefs.edit().putBoolean("always_on", value).apply()
         TileService.requestListeningState(
             context,
-            ComponentName(context, AlwaysOnTileService::class.java)
+            ComponentName(context, AlwaysOnTileService::class.java),
         )
         context.sendBroadcast(
             Intent(context, AlwaysOnAppWidgetProvider::class.java)
-                .setAction(ALWAYS_ON_STATE_CHANGED)
+                .setAction(ALWAYS_ON_STATE_CHANGED),
         )
         return value
     }

@@ -7,14 +7,17 @@ import android.view.View
 import androidx.preference.PreferenceManager
 
 class AnimationHelper(private val x: Float) {
-
     companion object {
         private const val FRAME_RATE: Int = 15
     }
 
     private val animationHandler = Handler(Looper.getMainLooper())
 
-    fun animate(view: View, positionY: Float, duration: Int) {
+    fun animate(
+        view: View,
+        positionY: Float,
+        duration: Int,
+    ) {
         if (positionY == view.translationY) return
 
         view.translationX = x + burnInOffset(view.resources)
@@ -39,6 +42,5 @@ class AnimationHelper(private val x: Float) {
         }
     }
 
-    private fun burnInOffset(r: Resources): Float =
-        ((0 until 16).random() - 8) * r.displayMetrics.density
+    private fun burnInOffset(r: Resources): Float = ((0 until 16).random() - 8) * r.displayMetrics.density
 }

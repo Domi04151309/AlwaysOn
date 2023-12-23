@@ -19,9 +19,8 @@ class LayoutListAdapter(
     private val context: Context,
     private val drawables: Array<Int>,
     private val titles: Array<String>,
-    private val onItemClickListener: OnItemClickListener
+    private val onItemClickListener: OnItemClickListener,
 ) : RecyclerView.Adapter<LayoutListAdapter.ViewHolder>() {
-
     private var selectedItem = -1
 
     interface OnItemClickListener {
@@ -30,23 +29,30 @@ class LayoutListAdapter(
 
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.layout_list_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.layout_list_item, parent, false),
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
         holder.view.setOnClickListener {
             setSelectedItem(position)
             onItemClickListener.onItemClick(position)
         }
 
-        if (position == selectedItem) holder.view.findViewById<LinearLayout>(R.id.linearLayout)
-            .setBackgroundColor(
-                ColorUtils.setAlphaComponent(getColor(context, R.color.colorAccent), 64)
-            )
-        else {
+        if (position == selectedItem) {
+            holder.view.findViewById<LinearLayout>(R.id.linearLayout)
+                .setBackgroundColor(
+                    ColorUtils.setAlphaComponent(getColor(context, R.color.colorAccent), 64),
+                )
+        } else {
             holder.view.findViewById<LinearLayout>(R.id.linearLayout).background =
                 context.getAttr(R.attr.selectableItemBackground)
         }
@@ -66,7 +72,7 @@ class LayoutListAdapter(
 
     private fun Context.getAttr(
         attr: Int,
-        typedValue: TypedValue = TypedValue()
+        typedValue: TypedValue = TypedValue(),
     ): Drawable? {
         theme.resolveAttribute(attr, typedValue, true)
         return ContextCompat.getDrawable(context, typedValue.resourceId)

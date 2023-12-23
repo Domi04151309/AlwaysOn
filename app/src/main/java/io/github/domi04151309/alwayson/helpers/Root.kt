@@ -6,7 +6,6 @@ import android.util.Log
 import java.io.DataOutputStream
 
 internal object Root {
-
     fun request(): Boolean {
         val p: Process
         return try {

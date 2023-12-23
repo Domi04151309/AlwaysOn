@@ -9,7 +9,6 @@ import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Theme
 
 class LibraryActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -21,20 +20,23 @@ class LibraryActivity : AppCompatActivity() {
     }
 
     class GeneralPreferenceFragment : PreferenceFragmentCompat() {
-
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        override fun onCreatePreferences(
+            savedInstanceState: Bundle?,
+            rootKey: String?,
+        ) {
             addPreferencesFromResource(R.xml.pref_about_list)
             preferenceScreen.removeAll()
             resources.getStringArray(R.array.about_libraries).forEach {
                 preferenceScreen.addPreference(
                     Preference(requireContext()).apply {
-                        icon = ResourcesCompat.getDrawable(
-                            requireContext().resources,
-                            R.drawable.ic_about_library,
-                            requireContext().theme
-                        )
+                        icon =
+                            ResourcesCompat.getDrawable(
+                                requireContext().resources,
+                                R.drawable.ic_about_library,
+                                requireContext().theme,
+                            )
                         title = it
-                    }
+                    },
                 )
             }
         }

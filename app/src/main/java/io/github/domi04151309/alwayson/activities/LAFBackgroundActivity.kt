@@ -15,7 +15,6 @@ import io.github.domi04151309.alwayson.helpers.Permissions
 import io.github.domi04151309.alwayson.helpers.Theme
 
 class LAFBackgroundActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -26,9 +25,13 @@ class LAFBackgroundActivity : AppCompatActivity() {
             .commit()
     }
 
-    class PreferenceFragment : PreferenceFragmentCompat(),
+    class PreferenceFragment :
+        PreferenceFragmentCompat(),
         SharedPreferences.OnSharedPreferenceChangeListener {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        override fun onCreatePreferences(
+            savedInstanceState: Bundle?,
+            rootKey: String?,
+        ) {
             addPreferencesFromResource(R.xml.pref_laf_background)
 
             if (!Permissions.isNotificationServiceEnabled(requireContext())) {
@@ -42,10 +45,10 @@ class LAFBackgroundActivity : AppCompatActivity() {
                         currentPrefAsSwitch = currentPref as? SwitchPreference
                         if (currentPrefAsSwitch != null) {
                             currentPrefAsSwitch?.setSummaryOff(
-                                R.string.permissions_notification_access
+                                R.string.permissions_notification_access,
                             )
                             currentPrefAsSwitch?.setSummaryOn(
-                                R.string.permissions_notification_access
+                                R.string.permissions_notification_access,
                             )
                         }
                     }
@@ -56,10 +59,11 @@ class LAFBackgroundActivity : AppCompatActivity() {
                 startActivity(Intent(context, LAFBackgroundImageActivity::class.java))
                 true
             }
-            if (Build.VERSION.SDK_INT < 28)
+            if (Build.VERSION.SDK_INT < 28) {
                 preferenceScreen.removePreference(
-                    findPreference("hide_display_cutouts") ?: throw IllegalStateException()
+                    findPreference("hide_display_cutouts") ?: throw IllegalStateException(),
                 )
+            }
         }
 
         override fun onStart() {
@@ -72,7 +76,10 @@ class LAFBackgroundActivity : AppCompatActivity() {
             preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
         }
 
-        override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {
+        override fun onSharedPreferenceChanged(
+            p0: SharedPreferences?,
+            p1: String?,
+        ) {
             AlwaysOn.finish()
         }
     }

@@ -9,7 +9,6 @@ import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.helpers.Theme
 
 class LAFWFColorsActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Theme.set(this)
         super.onCreate(savedInstanceState)
@@ -20,9 +19,13 @@ class LAFWFColorsActivity : AppCompatActivity() {
             .commit()
     }
 
-    class PreferenceFragment : PreferenceFragmentCompat(),
+    class PreferenceFragment :
+        PreferenceFragmentCompat(),
         SharedPreferences.OnSharedPreferenceChangeListener {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        override fun onCreatePreferences(
+            savedInstanceState: Bundle?,
+            rootKey: String?,
+        ) {
             addPreferencesFromResource(R.xml.pref_laf_wf_colors)
         }
 
@@ -36,7 +39,10 @@ class LAFWFColorsActivity : AppCompatActivity() {
             preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
         }
 
-        override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {
+        override fun onSharedPreferenceChanged(
+            p0: SharedPreferences?,
+            p1: String?,
+        ) {
             AlwaysOn.finish()
         }
     }

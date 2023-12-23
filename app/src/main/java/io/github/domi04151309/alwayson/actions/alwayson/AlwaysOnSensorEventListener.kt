@@ -5,9 +5,8 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 
 class AlwaysOnSensorEventListener(
-    private val viewHolder: AlwaysOnViewHolder
+    private val viewHolder: AlwaysOnViewHolder,
 ) : SensorEventListener {
-
     override fun onSensorChanged(event: SensorEvent) {
         if (event.sensor.type == Sensor.TYPE_PROXIMITY) {
             if (event.values[0] == event.sensor.maximumRange) {
@@ -18,5 +17,8 @@ class AlwaysOnSensorEventListener(
         }
     }
 
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+    override fun onAccuracyChanged(
+        sensor: Sensor?,
+        accuracy: Int,
+    ) {}
 }

@@ -6,10 +6,20 @@ import android.content.SharedPreferences
 import android.view.ViewConfiguration
 
 internal class P(val prefs: SharedPreferences) {
+    fun get(
+        key: String,
+        default: Boolean,
+    ): Boolean = prefs.getBoolean(key, default)
 
-    fun get(key: String, default: Boolean): Boolean = prefs.getBoolean(key, default)
-    fun get(key: String, default: String): String = prefs.getString(key, default) ?: default
-    fun get(key: String, default: Int): Int = prefs.getInt(key, default)
+    fun get(
+        key: String,
+        default: String,
+    ): String = prefs.getString(key, default) ?: default
+
+    fun get(
+        key: String,
+        default: Int,
+    ): Int = prefs.getInt(key, default)
 
     fun displayScale(): Float = prefs.getInt("pref_aod_scale_2", 100) / 100F
 

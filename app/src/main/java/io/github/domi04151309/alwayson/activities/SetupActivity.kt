@@ -14,11 +14,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.activities.setup.*
+import io.github.domi04151309.alwayson.activities.setup.DrawOverOtherAppsFragment
+import io.github.domi04151309.alwayson.activities.setup.PhoneStateFragment
 import io.github.domi04151309.alwayson.helpers.P
 
 class SetupActivity : AppCompatActivity() {
-
     private var currentFragment = DRAW_OVER_OTHER_APPS_FRAGMENT
     private var isActionRequired = false
 
@@ -29,9 +29,12 @@ class SetupActivity : AppCompatActivity() {
         val prefsEditor = PreferenceManager.getDefaultSharedPreferences(this).edit()
         swapContentFragment(DrawOverOtherAppsFragment(), DRAW_OVER_OTHER_APPS_FRAGMENT)
 
-        if (DateFormat.is24HourFormat(this)) prefsEditor.putBoolean(P.USE_12_HOUR_CLOCK, false)
-            .apply()
-        else prefsEditor.putBoolean(P.USE_12_HOUR_CLOCK, true).apply()
+        if (DateFormat.is24HourFormat(this)) {
+            prefsEditor.putBoolean(P.USE_12_HOUR_CLOCK, false)
+                .apply()
+        } else {
+            prefsEditor.putBoolean(P.USE_12_HOUR_CLOCK, true).apply()
+        }
 
         prefsEditor.putInt(P.DOUBLE_TAP_SPEED, P.DOUBLE_TAP_SPEED_DEFAULT).apply()
 
@@ -70,7 +73,7 @@ class SetupActivity : AppCompatActivity() {
                         ActivityCompat.requestPermissions(
                             this,
                             arrayOf(Manifest.permission.READ_PHONE_STATE),
-                            0
+                            0,
                         )
                     } else {
                         prefsEditor.putBoolean("setup_complete", true).apply()
@@ -102,7 +105,10 @@ class SetupActivity : AppCompatActivity() {
         if (currentFragment > NO_FRAGMENT) currentFragment--
     }
 
-    private fun swapContentFragment(fragment: Fragment, id: Byte) {
+    private fun swapContentFragment(
+        fragment: Fragment,
+        id: Byte,
+    ) {
         currentFragment = id
         supportFragmentManager.beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

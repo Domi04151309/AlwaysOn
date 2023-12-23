@@ -11,7 +11,6 @@ import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.helpers.Theme
 
 class LAFBrightnessActivity : AppCompatActivity() {
-
     internal var savedBrightness: Int = 50
     private lateinit var prefs: SharedPreferences
     private lateinit var brightnessSwitch: SwitchCompat
@@ -26,18 +25,25 @@ class LAFBrightnessActivity : AppCompatActivity() {
         brightnessSwitch = findViewById(R.id.brightnessSwitch)
         seekBar = findViewById(R.id.seekBar)
 
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                savedBrightness = progress
-                val brightness: Float = progress / 255.toFloat()
-                val lp = window.attributes
-                lp.screenBrightness = brightness
-                window.attributes = lp
-            }
+        seekBar.setOnSeekBarChangeListener(
+            object : SeekBar.OnSeekBarChangeListener {
+                override fun onProgressChanged(
+                    seekBar: SeekBar,
+                    progress: Int,
+                    fromUser: Boolean,
+                ) {
+                    savedBrightness = progress
+                    val brightness: Float = progress / 255.toFloat()
+                    val lp = window.attributes
+                    lp.screenBrightness = brightness
+                    window.attributes = lp
+                }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar) {}
-            override fun onStopTrackingTouch(seekBar: SeekBar) {}
-        })
+                override fun onStartTrackingTouch(seekBar: SeekBar) {}
+
+                override fun onStopTrackingTouch(seekBar: SeekBar) {}
+            },
+        )
     }
 
     override fun onStart() {

@@ -12,7 +12,6 @@ import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.Theme
 
 class AboutActivity : AppCompatActivity() {
-
     companion object {
         internal const val GITHUB_REPOSITORY: String = "Domi04151309/AlwaysOn"
         private const val REPOSITORY_URL: String = "https://github.com/$GITHUB_REPOSITORY"
@@ -29,21 +28,24 @@ class AboutActivity : AppCompatActivity() {
     }
 
     class GeneralPreferenceFragment : PreferenceFragmentCompat() {
-
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        override fun onCreatePreferences(
+            savedInstanceState: Bundle?,
+            rootKey: String?,
+        ) {
             addPreferencesFromResource(R.xml.pref_about)
             findPreference<Preference>("app_version")?.apply {
-                summary = requireContext().getString(
-                    R.string.about_app_version_desc,
-                    BuildConfig.VERSION_NAME,
-                    BuildConfig.VERSION_CODE
-                )
+                summary =
+                    requireContext().getString(
+                        R.string.about_app_version_desc,
+                        BuildConfig.VERSION_NAME,
+                        BuildConfig.VERSION_CODE,
+                    )
                 setOnPreferenceClickListener {
                     startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse("$REPOSITORY_URL/releases")
-                        )
+                            Uri.parse("$REPOSITORY_URL/releases"),
+                        ),
                     )
                     true
                 }
@@ -59,8 +61,8 @@ class AboutActivity : AppCompatActivity() {
                 startActivity(
                     Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse("$REPOSITORY_URL/blob/master/LICENSE")
-                    )
+                        Uri.parse("$REPOSITORY_URL/blob/master/LICENSE"),
+                    ),
                 )
                 true
             }
@@ -70,14 +72,15 @@ class AboutActivity : AppCompatActivity() {
                     .setItems(resources.getStringArray(R.array.about_icons_array)) { _, which ->
                         startActivity(
                             Intent(
-                                Intent.ACTION_VIEW, Uri.parse(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(
                                     when (which) {
                                         0 -> "https://icons8.com/"
                                         1 -> "https://fonts.google.com/icons?selected=Material+Icons"
                                         else -> "about:blank"
-                                    }
-                                )
-                            )
+                                    },
+                                ),
+                            ),
                         )
                     }
                     .show()
@@ -94,10 +97,11 @@ class AboutActivity : AppCompatActivity() {
                     .setNeutralButton(R.string.about_privacy_policy) { _, _ ->
                         startActivity(
                             Intent(
-                                Intent.ACTION_VIEW, Uri.parse(
-                                    "https://docs.github.com/en/github/site-policy/github-privacy-statement"
-                                )
-                            )
+                                Intent.ACTION_VIEW,
+                                Uri.parse(
+                                    "https://docs.github.com/en/github/site-policy/github-privacy-statement",
+                                ),
+                            ),
                         )
                     }
                     .show()

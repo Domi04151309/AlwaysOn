@@ -7,9 +7,8 @@ import android.view.ViewConfiguration
 
 class LongPressDetector(
     private val listener: () -> Unit,
-    private val timeout: Long = ViewConfiguration.getLongPressTimeout().toLong()
+    private val timeout: Long = ViewConfiguration.getLongPressTimeout().toLong(),
 ) {
-
     private var isTouching = false
 
     fun onTouchEvent(ev: MotionEvent) {

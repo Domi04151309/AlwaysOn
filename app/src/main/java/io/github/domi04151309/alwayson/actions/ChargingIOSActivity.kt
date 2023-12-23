@@ -1,6 +1,8 @@
 package io.github.domi04151309.alwayson.actions
 
-import android.content.*
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Point
 import android.hardware.display.DisplayManager
 import android.os.BatteryManager
@@ -10,11 +12,10 @@ import android.view.Display
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.helpers.Global
 
 class ChargingIOSActivity : OffActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_charging_ios)
@@ -25,9 +26,10 @@ class ChargingIOSActivity : OffActivity() {
         turnOnScreen()
         fullscreen(content)
 
-        val level = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
-            ?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
-            ?: 0
+        val level =
+            registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+                ?.getIntExtra(BatteryManager.EXTRA_LEVEL, 0)
+                ?: 0
         findViewById<TextView>(R.id.batteryTxt).text = resources.getString(R.string.charged, level)
         when {
             level >= 100 -> batteryIcn.setImageResource(R.drawable.ic_battery_100)
