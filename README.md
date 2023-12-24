@@ -1,4 +1,4 @@
-![App Icon](https://raw.githubusercontent.com/Domi04151309/AlwaysOn/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png)
+![App Icon](https://raw.githubusercontent.com/Domi04151309/AlwaysOn/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp)
 
 # AlwaysOn for Android™
 
