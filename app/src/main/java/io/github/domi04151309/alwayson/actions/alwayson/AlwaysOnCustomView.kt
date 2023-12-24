@@ -393,8 +393,11 @@ class AlwaysOnCustomView : View {
         }
 
         return max(
-            utils.viewHeight.toInt(),
-            (suggestedMinimumHeight + paddingTop + paddingBottom),
+            max(
+                utils.viewHeight.toInt(),
+                (suggestedMinimumHeight + paddingTop + paddingBottom),
+            ),
+            if (nonScaleBackground != null) measuredWidth else 0,
         )
     }
 
