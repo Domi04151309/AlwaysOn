@@ -15,7 +15,6 @@ import io.github.domi04151309.alwayson.helpers.JSON
 import io.github.domi04151309.alwayson.helpers.Theme
 import io.github.domi04151309.alwayson.services.NotificationService
 import org.json.JSONArray
-import java.lang.Exception
 
 class LAFFilterNotificationsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -137,8 +136,8 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
                             ),
                         )
                     } as String
-                } catch (e: Exception) {
-                    Log.w(Global.LOG_TAG, e.toString())
+                } catch (exception: PackageManager.NameNotFoundException) {
+                    Log.w(Global.LOG_TAG, exception.toString())
                     resources.getString(R.string.pref_look_and_feel_filter_notifications_unknown)
                 }
             pref.summary = packageName

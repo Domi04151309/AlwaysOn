@@ -153,7 +153,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     class GeneralPreferenceFragment : BasePreferenceFragment() {
+        companion object {
+            private const val CLICKS_TIL_TEST = 4
+        }
+
         private var debugClicker = 0
+
         private fun onAlwaysOnClicked(): Boolean {
             TileService.requestListeningState(
                 context,
@@ -165,7 +170,7 @@ class MainActivity : AppCompatActivity() {
             )
             if (BuildConfig.DEBUG) {
                 debugClicker++
-                if (debugClicker == 4) {
+                if (debugClicker == CLICKS_TIL_TEST) {
                     debugClicker = 0
                     startActivity(Intent(requireContext(), AODTestActivity::class.java))
                 }

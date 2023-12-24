@@ -4,21 +4,25 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.util.Log
 import android.util.TypedValue
 import androidx.core.content.res.ResourcesCompat
 import androidx.preference.PreferenceManager
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
-import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.P
 import kotlin.math.cos
 import kotlin.math.sin
 
-class Utils(private val context: Context) {
+class Utils(
+    @JvmField
+    internal val context: Context,
+) {
     companion object {
         private const val PADDING_2: Float = 2f
         private const val PADDING_16: Float = 16f
         private const val DRAWABLE_SIZE: Float = 24f
+        private const val HOUR_HAND_LENGTH: Float = .5f
+        private const val MINUTE_HAND_LENGTH: Float = .9f
+        private const val MINUTE_ANGLE_SCALE: Int = 30
     }
 
     @JvmField
@@ -65,11 +69,8 @@ class Utils(private val context: Context) {
      * Utility functions
      */
     internal fun setFont(resId: Int) {
-        try {
-            paint.typeface = ResourcesCompat.getFont(context, resId)
-        } catch (e: Exception) {
-            Log.w(Global.LOG_TAG, e.toString())
-        }
+        val typeface = ResourcesCompat.getFont(context, resId)
+        if (typeface != null) paint.typeface = typeface
     }
 
     internal fun getPaint(
@@ -86,7 +87,7 @@ class Utils(private val context: Context) {
         return -paint.ascent() + paint.descent()
     }
 
-    internal fun getVerticalCenter(paint: Paint) = (-this.paint.ascent() + this.paint.descent()) / 2
+    internal fun getVerticalCenter(paint: Paint) = (-paint.ascent() + paint.descent()) / 2
 
     internal fun dpToPx(dp: Float): Float =
         TypedValue.applyDimension(
@@ -157,12 +158,16 @@ class Utils(private val context: Context) {
 
     internal fun drawHand(
         canvas: Canvas,
-        location: Int,
+        minutes: Int,
         isHour: Boolean,
     ) {
-        val angle = (Math.PI * location / 30 - Math.PI / 2).toFloat()
+        val angle = (Math.PI * minutes / MINUTE_ANGLE_SCALE - Math.PI / 2).toFloat()
         val handRadius: Float =
-            if (isHour) getTextHeight(bigTextSize) * .5f else getTextHeight(bigTextSize) * .9f
+            if (isHour) {
+                getTextHeight(bigTextSize) * HOUR_HAND_LENGTH
+            } else {
+                getTextHeight(bigTextSize) * MINUTE_HAND_LENGTH
+            }
         canvas.drawLine(
             horizontalRelativePoint,
             viewHeight + getTextHeight(bigTextSize),

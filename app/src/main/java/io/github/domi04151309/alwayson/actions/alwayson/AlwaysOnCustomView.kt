@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
 import android.provider.CalendarContract
@@ -15,7 +14,6 @@ import android.util.Base64
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import androidx.core.content.ContextCompat
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -24,15 +22,14 @@ import io.github.domi04151309.alwayson.actions.alwayson.draw.Battery
 import io.github.domi04151309.alwayson.actions.alwayson.draw.Message
 import io.github.domi04151309.alwayson.actions.alwayson.draw.MusicControls
 import io.github.domi04151309.alwayson.actions.alwayson.draw.NotificationCount
+import io.github.domi04151309.alwayson.actions.alwayson.draw.NotificationIcons
 import io.github.domi04151309.alwayson.actions.alwayson.draw.Utils
 import io.github.domi04151309.alwayson.actions.alwayson.draw.Weather
 import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.IconHelper
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Permissions
-import io.github.domi04151309.alwayson.services.NotificationService
 import java.lang.Integer.max
-import java.lang.Integer.min
 import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -59,7 +56,7 @@ class AlwaysOnCustomView : View {
     private lateinit var dateFormat: SimpleDateFormat
     private var nonScaleBackground: Bitmap? = null
     private var batteryIsCharging = false
-    private var batteryLevel = -1
+    private var batteryLevel = 0
     private var batteryIcon = R.drawable.ic_battery_unknown
     private var events = listOf<String>()
     private var weather = ""
@@ -109,6 +106,58 @@ class AlwaysOnCustomView : View {
     constructor(context: Context) : super(context) {
         init(context)
     }
+
+    private fun setWeather() {
+        Volley.newRequestQueue(context).add(
+            StringRequest(
+                Request.Method.GET,
+                "https://wttr.in/" +
+                    URLEncoder.encode(
+                        utils.prefs.get(
+                            P.WEATHER_LOCATION,
+                            P.WEATHER_LOCATION_DEFAULT,
+                        ),
+                        "utf-8",
+                    ) + "?T&format=" +
+                    URLEncoder.encode(
+                        utils.prefs.get(
+                            P.WEATHER_FORMAT,
+                            P.WEATHER_FORMAT_DEFAULT,
+                        ),
+                        "utf-8",
+                    ),
+                { response ->
+                    weather = response
+                    invalidate()
+                },
+                {
+                    Log.e(Global.LOG_TAG, it.toString())
+                },
+            ),
+        )
+    }
+
+    private fun getMultiLineTimeFormat() =
+        if (utils.prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
+            if (utils.prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
+                "hh\nmm\na"
+            } else {
+                "hh\nmm"
+            }
+        } else {
+            "HH\nmm"
+        }
+
+    private fun getSingleLineTimeFormat() =
+        if (utils.prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
+            if (utils.prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
+                "h:mm a"
+            } else {
+                "h:mm"
+            }
+        } else {
+            "H:mm"
+        }
 
     private fun init(context: Context) {
         utils = Utils(context)
@@ -217,25 +266,9 @@ class AlwaysOnCustomView : View {
                         P.USER_THEME_DEFAULT,
                     ) == P.USER_THEME_ONEPLUS
                 ) {
-                    if (utils.prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
-                        if (utils.prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
-                            "hh\nmm\na"
-                        } else {
-                            "hh\nmm"
-                        }
-                    } else {
-                        "HH\nmm"
-                    }
+                    getMultiLineTimeFormat()
                 } else {
-                    if (utils.prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
-                        if (utils.prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
-                            "h:mm a"
-                        } else {
-                            "h:mm"
-                        }
-                    } else {
-                        "H:mm"
-                    }
+                    getSingleLineTimeFormat()
                 },
                 Locale.getDefault(),
             )
@@ -245,15 +278,7 @@ class AlwaysOnCustomView : View {
         if (utils.prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
             val singleLineClock =
                 SimpleDateFormat(
-                    if (utils.prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
-                        if (utils.prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
-                            "h:mm a"
-                        } else {
-                            "h:mm"
-                        }
-                    } else {
-                        "H:mm"
-                    },
+                    getSingleLineTimeFormat(),
                     Locale.getDefault(),
                 )
             if (Permissions.hasCalendarPermission(context)) {
@@ -294,33 +319,7 @@ class AlwaysOnCustomView : View {
         }
 
         if (utils.prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT)) {
-            Volley.newRequestQueue(context).add(
-                StringRequest(
-                    Request.Method.GET,
-                    "https://wttr.in/" +
-                        URLEncoder.encode(
-                            utils.prefs.get(
-                                P.WEATHER_LOCATION,
-                                P.WEATHER_LOCATION_DEFAULT,
-                            ),
-                            "utf-8",
-                        ) + "?T&format=" +
-                        URLEncoder.encode(
-                            utils.prefs.get(
-                                P.WEATHER_FORMAT,
-                                P.WEATHER_FORMAT_DEFAULT,
-                            ),
-                            "utf-8",
-                        ),
-                    { response ->
-                        weather = response
-                        invalidate()
-                    },
-                    {
-                        Log.e(Global.LOG_TAG, it.toString())
-                    },
-                ),
-            )
+            setWeather()
         }
     }
 
@@ -411,7 +410,12 @@ class AlwaysOnCustomView : View {
      */
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        utils.horizontalRelativePoint = if (utils.paint.textAlign == Paint.Align.LEFT) utils.padding16.toFloat() else measuredWidth / 2f
+        utils.horizontalRelativePoint =
+            if (utils.paint.textAlign == Paint.Align.LEFT) {
+                utils.padding16.toFloat()
+            } else {
+                measuredWidth / 2f
+            }
         utils.viewHeight = 0f
         utils.viewHeight += paddingTop
 
@@ -443,13 +447,14 @@ class AlwaysOnCustomView : View {
                 )
                 utils.paint.style = Paint.Style.FILL
 
-                val c = Calendar.getInstance()
+                val calendar = Calendar.getInstance()
                 utils.drawHand(
                     canvas,
-                    (c[Calendar.HOUR_OF_DAY] % HOURS_ON_ANALOG_CLOCK + c.get(Calendar.MINUTE) / 60) * 5,
+                    (calendar[Calendar.HOUR_OF_DAY] % HOURS_ON_ANALOG_CLOCK) * 5 +
+                        calendar[Calendar.MINUTE],
                     true,
                 )
-                utils.drawHand(canvas, c.get(Calendar.MINUTE), false)
+                utils.drawHand(canvas, calendar[Calendar.MINUTE], false)
 
                 utils.viewHeight += 2 * utils.getTextHeight(utils.bigTextSize) + utils.padding16
             } else {
@@ -563,77 +568,7 @@ class AlwaysOnCustomView : View {
 
         // Notification Icons
         if (utils.prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)) {
-            var drawable: Drawable
-            var x: Int =
-                if (utils.paint.textAlign == Paint.Align.LEFT) {
-                    utils.horizontalRelativePoint.toInt()
-                } else {
-                    (
-                        width - (
-                            min(
-                                NotificationService.icons.size, NOTIFICATION_ROW_LENGTH,
-                            ) - 1
-                        ) * utils.drawableSize
-                    ) / 2
-                }
-            utils.viewHeight += utils.padding16 + utils.drawableSize / 2
-            for (index in 0 until NotificationService.icons.size) {
-                val (icon, color) = NotificationService.icons[index]
-                try {
-                    drawable =
-                        if (index == NOTIFICATION_LIMIT - 1) {
-                            ContextCompat.getDrawable(context, R.drawable.ic_more)
-                                ?: break
-                        } else {
-                            icon.loadDrawable(context) ?: continue
-                        }
-                    drawable.setTint(
-                        if (utils.prefs.get(P.TINT_NOTIFICATIONS, P.TINT_NOTIFICATIONS_DEFAULT)) {
-                            color
-                        } else {
-                            utils.prefs.get(
-                                P.DISPLAY_COLOR_NOTIFICATION,
-                                P.DISPLAY_COLOR_NOTIFICATION_DEFAULT,
-                            )
-                        },
-                    )
-                    if (
-                        utils.paint.textAlign != Paint.Align.LEFT &&
-                        index / NOTIFICATION_ROW_LENGTH == NotificationService.icons.size /
-                        NOTIFICATION_ROW_LENGTH &&
-                        index % NOTIFICATION_ROW_LENGTH == 0
-                    ) {
-                        x = (
-                            width - (
-                                NotificationService.icons.size % NOTIFICATION_ROW_LENGTH - 1
-                            ) * utils.drawableSize
-                        ) / 2
-                    }
-                    if (utils.paint.textAlign == Paint.Align.LEFT) {
-                        drawable.setBounds(
-                            x + utils.drawableSize * (index % NOTIFICATION_ROW_LENGTH),
-                            utils.viewHeight.toInt() - utils.drawableSize / 2 +
-                                index / NOTIFICATION_ROW_LENGTH * utils.drawableSize,
-                            x + utils.drawableSize * ((index + 1) % NOTIFICATION_ROW_LENGTH),
-                            utils.viewHeight.toInt() + utils.drawableSize / 2 +
-                                index / NOTIFICATION_ROW_LENGTH * utils.drawableSize,
-                        )
-                    } else {
-                        drawable.setBounds(
-                            x - utils.drawableSize / 2 + utils.drawableSize * (index % NOTIFICATION_ROW_LENGTH),
-                            utils.viewHeight.toInt() - utils.drawableSize / 2 +
-                                index / NOTIFICATION_ROW_LENGTH * utils.drawableSize,
-                            x + utils.drawableSize / 2 + utils.drawableSize * (index % NOTIFICATION_ROW_LENGTH),
-                            utils.viewHeight.toInt() + utils.drawableSize / 2 +
-                                index / NOTIFICATION_ROW_LENGTH * utils.drawableSize,
-                        )
-                    }
-                    drawable.draw(canvas)
-                    if (index == NOTIFICATION_LIMIT - 1) break
-                } catch (e: Exception) {
-                    Log.e(Global.LOG_TAG, e.toString())
-                }
-            }
+            NotificationIcons.draw(canvas, utils, width)
         }
     }
 

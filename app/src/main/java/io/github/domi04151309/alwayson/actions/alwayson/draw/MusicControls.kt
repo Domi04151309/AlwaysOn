@@ -6,42 +6,45 @@ import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.P
 
 object MusicControls {
+    private fun getPositions(
+        utils: Utils,
+        musicString: String,
+    ) = intArrayOf(
+        if (utils.paint.textAlign == Paint.Align.LEFT) {
+            utils.horizontalRelativePoint.toInt()
+        } else {
+            (
+                utils.horizontalRelativePoint -
+                    utils.getPaint(utils.smallTextSize).measureText(musicString) / 2
+            ).toInt() -
+                utils.padding16
+        },
+        if (utils.paint.textAlign == Paint.Align.LEFT) {
+            (
+                utils.horizontalRelativePoint +
+                    utils.getPaint(utils.smallTextSize).measureText(
+                        musicString,
+                    )
+            ).toInt() + utils.drawableSize
+        } else {
+            (
+                utils.horizontalRelativePoint +
+                    utils.getPaint(utils.smallTextSize).measureText(musicString) / 2
+            ).toInt() +
+                utils.padding16
+        },
+        (
+            utils.viewHeight + utils.padding2 +
+                utils.getVerticalCenter(utils.getPaint(utils.smallTextSize))
+        ).toInt(),
+    )
+
     internal fun draw(
         canvas: Canvas,
         utils: Utils,
         musicString: String,
     ): IntArray {
-        val skipPositions = intArrayOf(0, 0, 0)
-        skipPositions[0] =
-            if (utils.paint.textAlign == Paint.Align.LEFT) {
-                utils.horizontalRelativePoint.toInt()
-            } else {
-                (
-                    utils.horizontalRelativePoint -
-                        utils.getPaint(utils.smallTextSize).measureText(musicString) / 2
-                ).toInt() -
-                    utils.padding16
-            }
-        skipPositions[1] =
-            if (utils.paint.textAlign == Paint.Align.LEFT) {
-                (
-                    utils.horizontalRelativePoint +
-                        utils.getPaint(utils.smallTextSize).measureText(
-                            musicString,
-                        )
-                ).toInt() + utils.drawableSize
-            } else {
-                (
-                    utils.horizontalRelativePoint +
-                        utils.getPaint(utils.smallTextSize).measureText(musicString) / 2
-                ).toInt() +
-                    utils.padding16
-            }
-        skipPositions[2] =
-            (
-                utils.viewHeight + utils.padding2 +
-                    utils.getVerticalCenter(utils.getPaint(utils.smallTextSize))
-            ).toInt()
+        val skipPositions = getPositions(utils, musicString)
         utils.drawVector(
             canvas,
             R.drawable.ic_skip_previous_white,

@@ -58,8 +58,8 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                         ?.putString(P.DATE_FORMAT, editText.text.toString())
                         ?.apply()
                     dialog.dismiss()
-                } catch (e: IllegalArgumentException) {
-                    Log.w(Global.LOG_TAG, e.toString())
+                } catch (exception: IllegalArgumentException) {
+                    Log.w(Global.LOG_TAG, exception.toString())
                     Toast.makeText(
                         requireContext(),
                         R.string.pref_ao_date_format_illegal,

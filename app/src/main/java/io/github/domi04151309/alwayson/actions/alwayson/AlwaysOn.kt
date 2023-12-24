@@ -222,8 +222,8 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                         notificationListener,
                     ),
                 )
-            } catch (e: Exception) {
-                Log.w(Global.LOG_TAG, e.toString())
+            } catch (exception: SecurityException) {
+                Log.w(Global.LOG_TAG, exception.toString())
                 viewHolder.customView.musicString =
                     resources.getString(R.string.missing_permissions)
             }
@@ -325,8 +325,8 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                                         sleep(NotificationService.MINIMUM_UPDATE_DELAY)
                                     }
                                 }
-                            } catch (e: InterruptedException) {
-                                Log.w(Global.LOG_TAG, e.toString())
+                            } catch (exception: InterruptedException) {
+                                Log.w(Global.LOG_TAG, exception.toString())
                             }
                         }
                     }
@@ -388,8 +388,8 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                                 }
                             }
                         }
-                    } catch (e: InterruptedException) {
-                        Log.w(Global.LOG_TAG, e.toString())
+                    } catch (exception: InterruptedException) {
+                        Log.w(Global.LOG_TAG, exception.toString())
                     }
                 }
             }
