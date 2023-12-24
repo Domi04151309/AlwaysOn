@@ -21,6 +21,7 @@ object NotificationIcons {
         index: Int,
     ) {
         val (icon, color) = NotificationService.icons[index]
+        @Suppress("TooGenericExceptionCaught")
         try {
             val drawable =
                 if (index == NOTIFICATION_LIMIT - 1) {
@@ -59,8 +60,8 @@ object NotificationIcons {
                 )
             }
             drawable.draw(canvas)
-        } catch (e: Exception) {
-            Log.e(Global.LOG_TAG, e.toString())
+        } catch (exception: Exception) {
+            Log.e(Global.LOG_TAG, exception.toString())
         }
     }
 

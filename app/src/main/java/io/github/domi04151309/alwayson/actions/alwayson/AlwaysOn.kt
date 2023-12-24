@@ -51,6 +51,9 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         private const val ANIMATION_DURATION: Int = 10000
         private const val SENSOR_DELAY_SLOW: Int = 1000000
         private const val MINIMUM_ANIMATION_DURATION: Int = 100
+        private const val FRACTIONAL_VIEW_POSITION: Int = 4
+        private const val FINGERPRINT_ICON_BURN_IN_OFFSET: Float = 64f
+        private const val HALF: Float = 0.5f
         private var instance: AlwaysOn? = null
 
         fun finish() {
@@ -159,7 +162,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             (getSystemService(Context.DISPLAY_SERVICE) as DisplayManager)
                 .getDisplay(Display.DEFAULT_DISPLAY)
                 .getSize(size)
-            offsetX = (size.x - size.x * prefs.displayScale()) * (-.5f)
+            offsetX = (size.x - size.x * prefs.displayScale()) * -HALF
             viewHolder.customView.translationX = offsetX
         }
 
@@ -347,7 +350,9 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                     try {
                         while (viewHolder.customView.height == 0) sleep(TINY_DELAY)
                         screenSize = calculateScreenSize()
-                        runOnUiThread { viewHolder.customView.translationY = screenSize / 4 }
+                        runOnUiThread {
+                            viewHolder.customView.translationY = screenSize / FRACTIONAL_VIEW_POSITION
+                        }
                         while (!isInterrupted) {
                             sleep(animationDelay)
                             runOnUiThread {
@@ -363,7 +368,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                                 ) {
                                     animationHelper.animate(
                                         viewHolder.fingerprintIcn,
-                                        64f,
+                                        FINGERPRINT_ICON_BURN_IN_OFFSET,
                                         ANIMATION_DURATION,
                                     )
                                 }
@@ -372,7 +377,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                             runOnUiThread {
                                 animationHelper.animate(
                                     viewHolder.customView,
-                                    screenSize / 4,
+                                    screenSize / FRACTIONAL_VIEW_POSITION,
                                     ANIMATION_DURATION,
                                 )
                                 if (prefs.get(

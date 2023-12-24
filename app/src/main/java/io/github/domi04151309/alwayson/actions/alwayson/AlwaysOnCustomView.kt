@@ -49,12 +49,14 @@ class AlwaysOnCustomView : View {
         private const val FLAG_ANALOG_CLOCK: Int = 4
         private const val MILLISECONDS_PER_DAY: Long = 24 * 60 * 60 * 1000
         private const val HOURS_ON_ANALOG_CLOCK: Int = 12
+        private const val MINUTES_PER_HOUR_ANGLE: Int = 5
+        private const val ANALOG_CLOCK_STROKE_WIDTH: Float = 4f
     }
 
     private lateinit var utils: Utils
     private lateinit var timeFormat: SimpleDateFormat
     private lateinit var dateFormat: SimpleDateFormat
-    private var nonScaleBackground: Bitmap? = null
+    private var customBackground: Bitmap? = null
     private var batteryIsCharging = false
     private var batteryLevel = 0
     private var batteryIcon = R.drawable.ic_battery_unknown
@@ -107,47 +109,6 @@ class AlwaysOnCustomView : View {
         init(context)
     }
 
-    private fun setWeather() {
-        Volley.newRequestQueue(context).add(
-            StringRequest(
-                Request.Method.GET,
-                "https://wttr.in/" +
-                    URLEncoder.encode(
-                        utils.prefs.get(
-                            P.WEATHER_LOCATION,
-                            P.WEATHER_LOCATION_DEFAULT,
-                        ),
-                        "utf-8",
-                    ) + "?T&format=" +
-                    URLEncoder.encode(
-                        utils.prefs.get(
-                            P.WEATHER_FORMAT,
-                            P.WEATHER_FORMAT_DEFAULT,
-                        ),
-                        "utf-8",
-                    ),
-                { response ->
-                    weather = response
-                    invalidate()
-                },
-                {
-                    Log.e(Global.LOG_TAG, it.toString())
-                },
-            ),
-        )
-    }
-
-    private fun getMultiLineTimeFormat() =
-        if (utils.prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
-            if (utils.prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
-                "hh\nmm\na"
-            } else {
-                "hh\nmm"
-            }
-        } else {
-            "HH\nmm"
-        }
-
     private fun getSingleLineTimeFormat() =
         if (utils.prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
             if (utils.prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
@@ -159,12 +120,16 @@ class AlwaysOnCustomView : View {
             "H:mm"
         }
 
-    private fun init(context: Context) {
-        utils = Utils(context)
-        utils.paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        utils.paint.textAlign = Paint.Align.CENTER
+    private fun getMultiLineTimeFormat(): String {
+        val singleLineFormat = getSingleLineTimeFormat()
+        return singleLineFormat[0] +
+            singleLineFormat
+                .replace(':', '\n')
+                .replace(' ', '\n')
+    }
 
-        @Suppress("MagicNumber")
+    @Suppress("MagicNumber", "CyclomaticComplexMethod")
+    private fun prepareTheme() {
         when (utils.prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT)) {
             P.USER_THEME_ONEPLUS -> {
                 utils.bigTextSize = utils.spToPx(75f)
@@ -215,15 +180,22 @@ class AlwaysOnCustomView : View {
                 }
             }
         }
+    }
 
-        if (utils.prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT) != P.BACKGROUND_IMAGE_NONE) {
+    @Suppress("CyclomaticComplexMethod")
+    private fun prepareBackground() {
+        if (utils.prefs.get(
+                P.BACKGROUND_IMAGE,
+                P.BACKGROUND_IMAGE_DEFAULT,
+            ) != P.BACKGROUND_IMAGE_NONE
+        ) {
             if (utils.prefs.get(
                     P.BACKGROUND_IMAGE,
                     P.BACKGROUND_IMAGE_DEFAULT,
                 ) == P.BACKGROUND_IMAGE_CUSTOM
             ) {
                 val decoded = Base64.decode(utils.prefs.get(P.CUSTOM_BACKGROUND, ""), 0)
-                nonScaleBackground = BitmapFactory.decodeByteArray(decoded, 0, decoded.size)
+                customBackground = BitmapFactory.decodeByteArray(decoded, 0, decoded.size)
             } else {
                 val backgroundId =
                     when (utils.prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT)) {
@@ -248,14 +220,16 @@ class AlwaysOnCustomView : View {
                         else -> null
                     }
                 if (backgroundId != null) {
-                    nonScaleBackground =
+                    customBackground =
                         BitmapFactory.decodeResource(
                             resources, backgroundId,
                         )
                 }
             }
         }
+    }
 
+    private fun prepareDateFormats() {
         timeFormat =
             SimpleDateFormat(
                 if (utils.prefs.get(
@@ -273,54 +247,99 @@ class AlwaysOnCustomView : View {
                 Locale.getDefault(),
             )
         dateFormat =
-            SimpleDateFormat(utils.prefs.get(P.DATE_FORMAT, P.DATE_FORMAT_DEFAULT), Locale.getDefault())
+            SimpleDateFormat(
+                utils.prefs.get(P.DATE_FORMAT, P.DATE_FORMAT_DEFAULT),
+                Locale.getDefault(),
+            )
+    }
 
+    private fun prepareCalendar() {
         if (utils.prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
+            if (!Permissions.hasCalendarPermission(context)) {
+                events = listOf(context.resources.getString(R.string.missing_permissions))
+                return
+            }
             val singleLineClock =
                 SimpleDateFormat(
                     getSingleLineTimeFormat(),
                     Locale.getDefault(),
                 )
-            if (Permissions.hasCalendarPermission(context)) {
-                val cursor =
-                    context.contentResolver.query(
-                        CalendarContract.Events.CONTENT_URI,
-                        arrayOf("title", "dtstart", "dtend"),
-                        null,
-                        null,
-                        null,
+            val cursor =
+                context.contentResolver.query(
+                    CalendarContract.Events.CONTENT_URI,
+                    arrayOf("title", "dtstart", "dtend"),
+                    null,
+                    null,
+                    null,
+                )
+            cursor?.moveToFirst()
+            val millis = System.currentTimeMillis()
+            val eventArray = arrayListOf<Pair<Long, String>>()
+            var startTime: Long
+            var endTime: Long
+            do {
+                startTime = (cursor?.getString(1) ?: "0").toLong()
+                endTime = (cursor?.getString(2) ?: "0").toLong()
+                if (endTime > millis && startTime < millis + MILLISECONDS_PER_DAY) {
+                    eventArray.add(
+                        Pair(
+                            startTime,
+                            singleLineClock.format(startTime) + " - " +
+                                singleLineClock.format(endTime) + " | " +
+                                cursor?.getString(0),
+                        ),
                     )
-                cursor?.moveToFirst()
-                val millis = System.currentTimeMillis()
-                val eventArray = arrayListOf<Pair<Long, String>>()
-                var startTime: Long
-                var endTime: Long
-                for (i in 0 until (cursor?.count ?: 0)) {
-                    startTime = (cursor?.getString(1) ?: "0").toLong()
-                    endTime = (cursor?.getString(2) ?: "0").toLong()
-                    if (endTime > millis && startTime < millis + MILLISECONDS_PER_DAY) {
-                        eventArray.add(
-                            Pair(
-                                startTime,
-                                singleLineClock.format(startTime) + " - " +
-                                    singleLineClock.format(endTime) + " | " +
-                                    cursor?.getString(0),
-                            ),
-                        )
-                    }
-                    cursor?.moveToNext()
                 }
-                cursor?.close()
-                eventArray.sortBy { it.first }
-                events = eventArray.map { it.second }
-            } else {
-                events = listOf(context.resources.getString(R.string.missing_permissions))
-            }
+            } while (cursor?.moveToNext() == true)
+            cursor?.close()
+            eventArray.sortBy { it.first }
+            events = eventArray.map { it.second }
         }
+    }
 
+    private fun prepareWeather() {
         if (utils.prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT)) {
-            setWeather()
+            Volley.newRequestQueue(context)
+                .add(
+                    StringRequest(
+                        Request.Method.GET,
+                        "https://wttr.in/" +
+                            URLEncoder.encode(
+                                utils.prefs.get(
+                                    P.WEATHER_LOCATION,
+                                    P.WEATHER_LOCATION_DEFAULT,
+                                ),
+                                "utf-8",
+                            ) + "?T&format=" +
+                            URLEncoder.encode(
+                                utils.prefs.get(
+                                    P.WEATHER_FORMAT,
+                                    P.WEATHER_FORMAT_DEFAULT,
+                                ),
+                                "utf-8",
+                            ),
+                        { response ->
+                            weather = response
+                            invalidate()
+                        },
+                        {
+                            Log.e(Global.LOG_TAG, it.toString())
+                        },
+                    ),
+                )
         }
+    }
+
+    private fun init(context: Context) {
+        utils = Utils(context)
+        utils.paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        utils.paint.textAlign = Paint.Align.CENTER
+
+        prepareTheme()
+        prepareBackground()
+        prepareDateFormats()
+        prepareCalendar()
+        prepareWeather()
     }
 
     /*
@@ -382,10 +401,10 @@ class AlwaysOnCustomView : View {
         utils.viewHeight += paddingBottom
 
         // Scale background
-        if (nonScaleBackground != null && measuredWidth > 0) {
-            nonScaleBackground =
+        if (customBackground != null && measuredWidth > 0) {
+            customBackground =
                 Bitmap.createScaledBitmap(
-                    nonScaleBackground ?: error("Impossible state."),
+                    customBackground ?: error("Impossible state."),
                     measuredWidth,
                     measuredWidth,
                     true,
@@ -397,7 +416,7 @@ class AlwaysOnCustomView : View {
                 utils.viewHeight.toInt(),
                 (suggestedMinimumHeight + paddingTop + paddingBottom),
             ),
-            if (nonScaleBackground != null) measuredWidth else 0,
+            customBackground?.height ?: 0,
         )
     }
 
@@ -423,9 +442,9 @@ class AlwaysOnCustomView : View {
         utils.viewHeight += paddingTop
 
         // Background
-        if (nonScaleBackground != null) {
+        if (customBackground != null) {
             canvas.drawBitmap(
-                nonScaleBackground ?: error("Impossible state."),
+                customBackground ?: error("Impossible state."),
                 0F,
                 0F,
                 null,
@@ -441,7 +460,7 @@ class AlwaysOnCustomView : View {
                 utils.paint.color =
                     utils.prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)
                 utils.paint.style = Paint.Style.STROKE
-                utils.paint.strokeWidth = utils.dpToPx(4f)
+                utils.paint.strokeWidth = utils.dpToPx(ANALOG_CLOCK_STROKE_WIDTH)
                 canvas.drawCircle(
                     utils.horizontalRelativePoint,
                     utils.viewHeight + utils.getTextHeight(utils.bigTextSize),
@@ -453,8 +472,8 @@ class AlwaysOnCustomView : View {
                 val calendar = Calendar.getInstance()
                 utils.drawHand(
                     canvas,
-                    (calendar[Calendar.HOUR_OF_DAY] % HOURS_ON_ANALOG_CLOCK) * 5 +
-                        calendar[Calendar.MINUTE],
+                    (calendar[Calendar.HOUR_OF_DAY] % HOURS_ON_ANALOG_CLOCK) *
+                        MINUTES_PER_HOUR_ANGLE + calendar[Calendar.MINUTE],
                     true,
                 )
                 utils.drawHand(canvas, calendar[Calendar.MINUTE], false)
@@ -537,7 +556,13 @@ class AlwaysOnCustomView : View {
         if (utils.prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT) &&
             utils.prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)
         ) {
-            Battery.drawIconAndPercentage(canvas, utils, batteryIcon, batteryLevel, batteryIsCharging)
+            Battery.drawIconAndPercentage(
+                canvas,
+                utils,
+                batteryIcon,
+                batteryLevel,
+                batteryIsCharging,
+            )
         } else if (utils.prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)) {
             Battery.drawIcon(canvas, utils, batteryIcon, batteryIsCharging)
         } else if (utils.prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)) {
@@ -551,7 +576,11 @@ class AlwaysOnCustomView : View {
 
         // Calendar
         if (utils.prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
-            io.github.domi04151309.alwayson.actions.alwayson.draw.Calendar.draw(canvas, utils, events)
+            io.github.domi04151309.alwayson.actions.alwayson.draw.Calendar.draw(
+                canvas,
+                utils,
+                events,
+            )
         }
 
         // Message
@@ -584,7 +613,7 @@ class AlwaysOnCustomView : View {
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (
             event.action == MotionEvent.ACTION_DOWN &&
-            abs(event.y.toInt() - skipPositions[2]) < 64 &&
+            abs(event.y.toInt() - skipPositions[2]) < utils.padding16 &&
             utils.prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)
         ) {
             when {

@@ -46,6 +46,7 @@ class NotificationService : NotificationListenerService() {
         updateValues()
 
         val rules = Rules(this)
+        @Suppress("ComplexCondition")
         if (
             isValidNotification(notification) &&
             !CombinedServiceReceiver.isScreenOn &&
@@ -70,6 +71,7 @@ class NotificationService : NotificationListenerService() {
         if (sentRecently) return
 
         sentRecently = true
+        @Suppress("TooGenericExceptionCaught")
         try {
             val apps = ArrayList<String>(detailed.size)
             detailed = activeNotifications

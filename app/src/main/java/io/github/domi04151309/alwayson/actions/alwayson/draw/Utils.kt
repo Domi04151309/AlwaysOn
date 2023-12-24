@@ -106,6 +106,7 @@ class Utils(
     /*
      * Drawing functions
      */
+    @Suppress("LongParameterList")
     internal fun drawRelativeText(
         canvas: Canvas,
         text: String,

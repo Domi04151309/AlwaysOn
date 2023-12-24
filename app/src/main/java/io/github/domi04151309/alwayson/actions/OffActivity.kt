@@ -58,11 +58,12 @@ open class OffActivity : Activity() {
 
     override fun onPause() {
         super.onPause()
+        @Suppress("TooGenericExceptionCaught")
         try {
             (getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
                 .moveTaskToFront(taskId, 0)
-        } catch (e: Exception) {
-            Log.w(Global.LOG_TAG, e.toString())
+        } catch (exception: Exception) {
+            Log.w(Global.LOG_TAG, exception.toString())
         }
     }
 
