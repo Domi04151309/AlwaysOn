@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.os.Handler
 import android.os.Looper
@@ -19,10 +18,13 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.actions.alwayson.draw.Battery
+import io.github.domi04151309.alwayson.actions.alwayson.draw.Clock
+import io.github.domi04151309.alwayson.actions.alwayson.draw.Date
 import io.github.domi04151309.alwayson.actions.alwayson.draw.Message
 import io.github.domi04151309.alwayson.actions.alwayson.draw.MusicControls
 import io.github.domi04151309.alwayson.actions.alwayson.draw.NotificationCount
 import io.github.domi04151309.alwayson.actions.alwayson.draw.NotificationIcons
+import io.github.domi04151309.alwayson.actions.alwayson.draw.ThemeSpecials
 import io.github.domi04151309.alwayson.actions.alwayson.draw.Utils
 import io.github.domi04151309.alwayson.actions.alwayson.draw.Weather
 import io.github.domi04151309.alwayson.helpers.Global
@@ -32,7 +34,6 @@ import io.github.domi04151309.alwayson.helpers.Permissions
 import java.lang.Integer.max
 import java.net.URLEncoder
 import java.text.SimpleDateFormat
-import java.util.Calendar
 import java.util.Locale
 import kotlin.math.abs
 
@@ -41,16 +42,13 @@ class AlwaysOnCustomView : View {
         private const val UPDATE_DELAY: Long = 60000
         private const val NOTIFICATION_ROW_LENGTH: Int = 10
         private const val NOTIFICATION_LIMIT: Int = 20
-        private const val FLAG_CAPS_DATE: Int = 0
+        const val FLAG_CAPS_DATE: Int = 0
         private const val FLAG_SAMSUNG_2: Int = 1
-        private const val FLAG_BIG_DATE: Int = 1
-        private const val FLAG_SAMSUNG_3: Int = 2
+        const val FLAG_BIG_DATE: Int = 1
+        const val FLAG_SAMSUNG_3: Int = 2
         private const val FLAG_MULTILINE_CLOCK: Int = 3
-        private const val FLAG_ANALOG_CLOCK: Int = 4
+        const val FLAG_ANALOG_CLOCK: Int = 4
         private const val MILLISECONDS_PER_DAY: Long = 24 * 60 * 60 * 1000
-        private const val HOURS_ON_ANALOG_CLOCK: Int = 12
-        private const val MINUTES_PER_HOUR_ANGLE: Int = 5
-        private const val ANALOG_CLOCK_STROKE_WIDTH: Float = 4f
     }
 
     private lateinit var utils: Utils
@@ -345,6 +343,7 @@ class AlwaysOnCustomView : View {
     /*
      * On measure
      */
+    @Suppress("LongMethod", "CyclomaticComplexMethod")
     private fun measureHeight(): Int {
         utils.viewHeight = 0f
         utils.viewHeight += paddingTop
@@ -430,8 +429,7 @@ class AlwaysOnCustomView : View {
     /*
      * On draw
      */
-    override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
+    private fun prepareDrawing() {
         utils.horizontalRelativePoint =
             if (utils.paint.textAlign == Paint.Align.LEFT) {
                 utils.padding16.toFloat()
@@ -439,7 +437,12 @@ class AlwaysOnCustomView : View {
                 measuredWidth / 2f
             }
         utils.viewHeight = 0f
-        utils.viewHeight += paddingTop
+    }
+
+    @Suppress("CyclomaticComplexMethod")
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        prepareDrawing()
 
         // Background
         if (customBackground != null) {
@@ -454,103 +457,16 @@ class AlwaysOnCustomView : View {
         // Clock
         val tempHeight = utils.viewHeight
         if (utils.prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT)) {
-            if (flags[FLAG_ANALOG_CLOCK]) {
-                utils.viewHeight += utils.padding2
-
-                utils.paint.color =
-                    utils.prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)
-                utils.paint.style = Paint.Style.STROKE
-                utils.paint.strokeWidth = utils.dpToPx(ANALOG_CLOCK_STROKE_WIDTH)
-                canvas.drawCircle(
-                    utils.horizontalRelativePoint,
-                    utils.viewHeight + utils.getTextHeight(utils.bigTextSize),
-                    utils.getTextHeight(utils.bigTextSize),
-                    utils.paint,
-                )
-                utils.paint.style = Paint.Style.FILL
-
-                val calendar = Calendar.getInstance()
-                utils.drawHand(
-                    canvas,
-                    (calendar[Calendar.HOUR_OF_DAY] % HOURS_ON_ANALOG_CLOCK) *
-                        MINUTES_PER_HOUR_ANGLE + calendar[Calendar.MINUTE],
-                    true,
-                )
-                utils.drawHand(canvas, calendar[Calendar.MINUTE], false)
-
-                utils.viewHeight += 2 * utils.getTextHeight(utils.bigTextSize) + utils.padding16
-            } else {
-                utils.drawRelativeText(
-                    canvas,
-                    timeFormat.format(System.currentTimeMillis()),
-                    utils.padding16,
-                    utils.padding2,
-                    utils.getPaint(
-                        utils.bigTextSize,
-                        utils.prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT),
-                    ),
-                    if (flags[FLAG_SAMSUNG_3]) {
-                        -utils.paint.measureText(
-                            timeFormat.format(System.currentTimeMillis()),
-                        ).toInt() / 2 - utils.padding16
-                    } else {
-                        0
-                    },
-                )
-            }
+            Clock.draw(canvas, utils, flags, timeFormat)
         }
 
         // Date
         if (utils.prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
-            if (flags[FLAG_SAMSUNG_3]) {
-                utils.viewHeight =
-                    tempHeight + utils.getVerticalCenter(utils.getPaint(utils.bigTextSize))
-            }
-            utils.drawRelativeText(
-                canvas,
-                dateFormat.format(System.currentTimeMillis()).run {
-                    if (flags[FLAG_CAPS_DATE]) {
-                        this.uppercase()
-                    } else {
-                        this
-                    }
-                },
-                utils.padding2,
-                utils.padding2,
-                utils.getPaint(
-                    if (flags[FLAG_BIG_DATE]) utils.bigTextSize else utils.mediumTextSize,
-                    utils.prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT),
-                ),
-                if (flags[FLAG_SAMSUNG_3]) {
-                    utils.paint.measureText(
-                        dateFormat.format(System.currentTimeMillis()),
-                    ).toInt() / 2 + utils.padding16
-                } else {
-                    0
-                },
-            )
-            if (flags[FLAG_SAMSUNG_3]) {
-                utils.viewHeight =
-                    tempHeight + utils.getTextHeight(utils.bigTextSize) + utils.padding16
-            }
+            Date.draw(canvas, utils, flags, tempHeight, dateFormat)
         }
 
         // Samsung 3 divider
-        if (flags[FLAG_SAMSUNG_3] && (
-                utils.prefs.get(
-                    P.SHOW_CLOCK,
-                    P.SHOW_CLOCK_DEFAULT,
-                ) || utils.prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)
-            )
-        ) {
-            canvas.drawRect(
-                utils.horizontalRelativePoint - utils.padding2 / 2,
-                tempHeight + utils.padding16 * 2,
-                utils.horizontalRelativePoint + utils.padding2 / 2,
-                utils.viewHeight - utils.padding16,
-                utils.getPaint(utils.bigTextSize, Color.WHITE),
-            )
-        }
+        ThemeSpecials.drawDivider(canvas, utils, flags, tempHeight)
 
         // Battery
         if (utils.prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT) &&

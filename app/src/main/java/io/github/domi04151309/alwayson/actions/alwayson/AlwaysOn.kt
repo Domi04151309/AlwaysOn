@@ -72,7 +72,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
     internal lateinit var prefs: P
 
     // Threads
-    private var aoEdgeGlowThread: Thread = Thread()
+    private var edgeGlowThread: EdgeGlowThread = EdgeGlowThread(this, null)
     private var animationThread: Thread = Thread()
 
     // Media Controls
@@ -137,13 +137,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             }
         }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        instance = this
-
-        // Check prefs
-        prefs = P(getDefaultSharedPreferences(this))
-
+    private fun prepareView() {
         // Cutouts
         if (prefs.get("hide_display_cutouts", false)) {
             setTheme(R.style.CutoutHide)
@@ -175,9 +169,6 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                 ) / 255.toFloat()
         }
 
-        // Variables
-        userPowerSaving = (getSystemService(Context.POWER_SERVICE) as PowerManager).isPowerSaveMode
-
         // Show on lock screen
         Handler(Looper.getMainLooper()).postDelayed({
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
@@ -200,6 +191,150 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             ) fullscreen(viewHolder.frame)
             windowInsets
         }*/
+    }
+
+    private fun prepareMusicControls() {
+        val mediaSessionManager =
+            getSystemService(Context.MEDIA_SESSION_SERVICE) as MediaSessionManager
+        val notificationListener =
+            ComponentName(applicationContext, NotificationService::class.java.name)
+        onActiveSessionsChangedListener =
+            AlwaysOnOnActiveSessionsChangedListener(viewHolder.customView)
+        try {
+            mediaSessionManager.addOnActiveSessionsChangedListener(
+                onActiveSessionsChangedListener
+                    ?: return,
+                notificationListener,
+            )
+            onActiveSessionsChangedListener?.onActiveSessionsChanged(
+                mediaSessionManager.getActiveSessions(
+                    notificationListener,
+                ),
+            )
+        } catch (exception: SecurityException) {
+            Log.w(Global.LOG_TAG, exception.toString())
+            viewHolder.customView.musicString =
+                resources.getString(R.string.missing_permissions)
+        }
+        viewHolder.customView.onTitleClicked = {
+            if (onActiveSessionsChangedListener?.state == PlaybackState.STATE_PLAYING) {
+                onActiveSessionsChangedListener?.controller?.transportControls?.pause()
+            } else if (onActiveSessionsChangedListener?.state == PlaybackState.STATE_PAUSED) {
+                onActiveSessionsChangedListener?.controller?.transportControls?.play()
+            }
+        }
+        viewHolder.customView.onSkipPreviousClicked = {
+            onActiveSessionsChangedListener?.controller?.transportControls?.skipToPrevious()
+        }
+        viewHolder.customView.onSkipNextClicked = {
+            onActiveSessionsChangedListener?.controller?.transportControls?.skipToNext()
+        }
+    }
+
+    private fun prepareFingerprintIcon() {
+        viewHolder.fingerprintIcn.visibility = View.VISIBLE
+        (viewHolder.fingerprintIcn.layoutParams as ViewGroup.MarginLayoutParams)
+            .bottomMargin = prefs.get(P.FINGERPRINT_MARGIN, P.FINGERPRINT_MARGIN_DEFAULT)
+        val longPressDetector =
+            LongPressDetector({
+                finish()
+            })
+        viewHolder.fingerprintIcn.setOnTouchListener { v, event ->
+            longPressDetector.onTouchEvent(event)
+            v.performClick()
+        }
+    }
+
+    private fun prepareProximity() {
+        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensorEventListener = AlwaysOnSensorEventListener(viewHolder)
+    }
+
+    private fun prepareDoNotDisturb() {
+        notificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationAccess = notificationManager?.isNotificationPolicyAccessGranted ?: false
+        if (notificationAccess) {
+            userDND = notificationManager?.currentInterruptionFilter
+                ?: NotificationManager.INTERRUPTION_FILTER_ALL
+        }
+    }
+
+    private fun prepareEdgeGlow() {
+        if (prefs.get(P.EDGE_GLOW_DURATION, P.EDGE_GLOW_DURATION_DEFAULT) >= MINIMUM_ANIMATION_DURATION) {
+            viewHolder.frame.background =
+                when (prefs.get(P.EDGE_GLOW_STYLE, P.EDGE_GLOW_STYLE_DEFAULT)) {
+                    P.EDGE_GLOW_STYLE_VERTICAL ->
+                        ContextCompat.getDrawable(
+                            this, R.drawable.edge_glow_vertical,
+                        )
+
+                    P.EDGE_GLOW_STYLE_HORIZONTAL ->
+                        ContextCompat.getDrawable(
+                            this, R.drawable.edge_glow_horizontal,
+                        )
+
+                    else -> ContextCompat.getDrawable(this, R.drawable.edge_glow)
+                }
+            viewHolder.frame.background.setTint(
+                prefs.get(
+                    P.DISPLAY_COLOR_EDGE_GLOW,
+                    P.DISPLAY_COLOR_EDGE_GLOW_DEFAULT,
+                ),
+            )
+            edgeGlowThread = EdgeGlowThread(this, viewHolder.frame.background as TransitionDrawable)
+            edgeGlowThread.start()
+        }
+    }
+
+    private fun prepareDoubleTap() {
+        val doubleTapDetector =
+            DoubleTapDetector({
+                val duration = prefs.get(P.VIBRATION_DURATION, P.VIBRATION_DURATION_DEFAULT).toLong()
+                if (duration > 0) {
+                    val vibrator =
+                        getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        vibrator.vibrate(
+                            VibrationEffect.createOneShot(
+                                duration,
+                                VibrationEffect.DEFAULT_AMPLITUDE,
+                            ),
+                        )
+                    } else {
+                        @Suppress("DEPRECATION")
+                        vibrator.vibrate(duration)
+                    }
+                }
+                finish()
+            }, prefs.get(P.DOUBLE_TAP_SPEED, P.DOUBLE_TAP_SPEED_DEFAULT))
+        viewHolder.frame.setOnTouchListener { v, event ->
+            doubleTapDetector.onTouchEvent(event)
+            v.performClick()
+        }
+    }
+
+    private fun prepareCallRecognition() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            onModeChangedListener =
+                AudioManager.OnModeChangedListener { mode ->
+                    if (mode == AudioManager.MODE_RINGTONE) finish()
+                }
+            (getSystemService(AUDIO_SERVICE) as AudioManager).addOnModeChangedListener(
+                mainExecutor,
+                onModeChangedListener ?: error("onModeChangedListener is null."),
+            )
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        instance = this
+
+        prefs = P(getDefaultSharedPreferences(this))
+        userPowerSaving = (getSystemService(Context.POWER_SERVICE) as PowerManager).isPowerSaveMode
+
+        prepareView()
 
         // Battery
         systemFilter.addAction(Intent.ACTION_BATTERY_CHANGED)
@@ -208,41 +343,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
         // Music Controls
         if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)) {
-            val mediaSessionManager =
-                getSystemService(Context.MEDIA_SESSION_SERVICE) as MediaSessionManager
-            val notificationListener =
-                ComponentName(applicationContext, NotificationService::class.java.name)
-            onActiveSessionsChangedListener =
-                AlwaysOnOnActiveSessionsChangedListener(viewHolder.customView)
-            try {
-                mediaSessionManager.addOnActiveSessionsChangedListener(
-                    onActiveSessionsChangedListener
-                        ?: return,
-                    notificationListener,
-                )
-                onActiveSessionsChangedListener?.onActiveSessionsChanged(
-                    mediaSessionManager.getActiveSessions(
-                        notificationListener,
-                    ),
-                )
-            } catch (exception: SecurityException) {
-                Log.w(Global.LOG_TAG, exception.toString())
-                viewHolder.customView.musicString =
-                    resources.getString(R.string.missing_permissions)
-            }
-            viewHolder.customView.onTitleClicked = {
-                if (onActiveSessionsChangedListener?.state == PlaybackState.STATE_PLAYING) {
-                    onActiveSessionsChangedListener?.controller?.transportControls?.pause()
-                } else if (onActiveSessionsChangedListener?.state == PlaybackState.STATE_PAUSED) {
-                    onActiveSessionsChangedListener?.controller?.transportControls?.play()
-                }
-            }
-            viewHolder.customView.onSkipPreviousClicked = {
-                onActiveSessionsChangedListener?.controller?.transportControls?.skipToPrevious()
-            }
-            viewHolder.customView.onSkipNextClicked = {
-                onActiveSessionsChangedListener?.controller?.transportControls?.skipToNext()
-            }
+            prepareMusicControls()
         }
 
         // Notifications
@@ -256,85 +357,22 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
         // Fingerprint icon
         if (prefs.get(P.SHOW_FINGERPRINT_ICON, P.SHOW_FINGERPRINT_ICON_DEFAULT)) {
-            viewHolder.fingerprintIcn.visibility = View.VISIBLE
-            (viewHolder.fingerprintIcn.layoutParams as ViewGroup.MarginLayoutParams)
-                .bottomMargin = prefs.get(P.FINGERPRINT_MARGIN, P.FINGERPRINT_MARGIN_DEFAULT)
-            val longPressDetector =
-                LongPressDetector({
-                    finish()
-                })
-            viewHolder.fingerprintIcn.setOnTouchListener { v, event ->
-                longPressDetector.onTouchEvent(event)
-                v.performClick()
-            }
+            prepareFingerprintIcon()
         }
 
         // Proximity
         if (prefs.get(P.POCKET_MODE, P.POCKET_MODE_DEFAULT)) {
-            sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-            sensorEventListener = AlwaysOnSensorEventListener(viewHolder)
+            prepareProximity()
         }
 
         // DND
         if (prefs.get(P.DO_NOT_DISTURB, P.DO_NOT_DISTURB_DEFAULT)) {
-            notificationManager =
-                getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationAccess = notificationManager?.isNotificationPolicyAccessGranted ?: false
-            if (notificationAccess) {
-                userDND = notificationManager?.currentInterruptionFilter
-                    ?: NotificationManager.INTERRUPTION_FILTER_ALL
-            }
+            prepareDoNotDisturb()
         }
 
         // Edge Glow
         if (prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) {
-            val transitionTime = prefs.get(P.EDGE_GLOW_DURATION, P.EDGE_GLOW_DURATION_DEFAULT)
-            if (transitionTime >= MINIMUM_ANIMATION_DURATION) {
-                val transitionDelay = prefs.get(P.EDGE_GLOW_DELAY, P.EDGE_GLOW_DELAY_DEFAULT)
-                viewHolder.frame.background =
-                    when (prefs.get(P.EDGE_GLOW_STYLE, P.EDGE_GLOW_STYLE_DEFAULT)) {
-                        P.EDGE_GLOW_STYLE_VERTICAL ->
-                            ContextCompat.getDrawable(
-                                this, R.drawable.edge_glow_vertical,
-                            )
-
-                        P.EDGE_GLOW_STYLE_HORIZONTAL ->
-                            ContextCompat.getDrawable(
-                                this, R.drawable.edge_glow_horizontal,
-                            )
-
-                        else -> ContextCompat.getDrawable(this, R.drawable.edge_glow)
-                    }
-                viewHolder.frame.background.setTint(
-                    prefs.get(
-                        P.DISPLAY_COLOR_EDGE_GLOW,
-                        P.DISPLAY_COLOR_EDGE_GLOW_DEFAULT,
-                    ),
-                )
-                val transition = viewHolder.frame.background as TransitionDrawable
-                aoEdgeGlowThread =
-                    object : Thread() {
-                        override fun run() {
-                            try {
-                                while (!isInterrupted) {
-                                    if (notificationAvailable) {
-                                        runOnUiThread { transition.startTransition(transitionTime) }
-                                        sleep(transitionTime.toLong())
-                                        runOnUiThread {
-                                            transition.reverseTransition(transitionTime)
-                                        }
-                                        sleep((transitionTime + transitionDelay).toLong())
-                                    } else {
-                                        sleep(NotificationService.MINIMUM_UPDATE_DELAY)
-                                    }
-                                }
-                            } catch (exception: InterruptedException) {
-                                Log.w(Global.LOG_TAG, exception.toString())
-                            }
-                        }
-                    }
-                aoEdgeGlowThread.start()
-            }
+            prepareEdgeGlow()
         }
 
         // Animation
@@ -402,43 +440,11 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
         // DoubleTap
         if (!prefs.get(P.DISABLE_DOUBLE_TAP, P.DISABLE_DOUBLE_TAP_DEFAULT)) {
-            val doubleTapDetector =
-                DoubleTapDetector({
-                    val duration = prefs.get(P.VIBRATION_DURATION, P.VIBRATION_DURATION_DEFAULT).toLong()
-                    if (duration > 0) {
-                        val vibrator =
-                            getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            vibrator.vibrate(
-                                VibrationEffect.createOneShot(
-                                    duration,
-                                    VibrationEffect.DEFAULT_AMPLITUDE,
-                                ),
-                            )
-                        } else {
-                            @Suppress("DEPRECATION")
-                            vibrator.vibrate(duration)
-                        }
-                    }
-                    finish()
-                }, prefs.get(P.DOUBLE_TAP_SPEED, P.DOUBLE_TAP_SPEED_DEFAULT))
-            viewHolder.frame.setOnTouchListener { v, event ->
-                doubleTapDetector.onTouchEvent(event)
-                v.performClick()
-            }
+            prepareDoubleTap()
         }
 
         // Call recognition
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            onModeChangedListener =
-                AudioManager.OnModeChangedListener { mode ->
-                    if (mode == AudioManager.MODE_RINGTONE) finish()
-                }
-            (getSystemService(AUDIO_SERVICE) as AudioManager).addOnModeChangedListener(
-                mainExecutor,
-                onModeChangedListener ?: error("onModeChangedListener is null."),
-            )
-        }
+        prepareCallRecognition()
 
         // Broadcast Receivers
         registerReceiver(systemReceiver, systemFilter)
@@ -449,6 +455,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         screenSize = calculateScreenSize()
     }
 
+    @Suppress("LongMethod")
     override fun onStart() {
         super.onStart()
         CombinedServiceReceiver.isAlwaysOnRunning = true
@@ -560,7 +567,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         super.onDestroy()
         instance = null
         CombinedServiceReceiver.isAlwaysOnRunning = false
-        if (prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) aoEdgeGlowThread.interrupt()
+        if (prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) edgeGlowThread.interrupt()
         animationThread.interrupt()
         if (
             prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT) ||
