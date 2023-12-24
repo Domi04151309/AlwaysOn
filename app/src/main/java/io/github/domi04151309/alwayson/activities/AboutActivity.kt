@@ -29,6 +29,7 @@ class AboutActivity : AppCompatActivity() {
     }
 
     class GeneralPreferenceFragment : PreferenceFragmentCompat() {
+        @Suppress("SameReturnValue")
         private fun onIconsClicked(): Boolean {
             AlertDialog.Builder(requireContext())
                 .setTitle(R.string.about_icons)
@@ -50,6 +51,7 @@ class AboutActivity : AppCompatActivity() {
             return true
         }
 
+        @Suppress("SameReturnValue")
         private fun onContributorsClicked(): Boolean {
             AlertDialog.Builder(requireContext())
                 .setTitle(R.string.about_privacy)

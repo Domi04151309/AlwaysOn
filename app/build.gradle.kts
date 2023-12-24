@@ -51,6 +51,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    lint {
+        disable += "MissingTranslation"
+    }
     project.tasks.preBuild.dependsOn("license")
 }
 

@@ -159,6 +159,7 @@ class MainActivity : AppCompatActivity() {
 
         private var debugClicker = 0
 
+        @Suppress("SameReturnValue")
         private fun onAlwaysOnClicked(): Boolean {
             TileService.requestListeningState(
                 context,

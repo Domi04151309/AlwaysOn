@@ -182,7 +182,7 @@ internal class P(private val prefs: SharedPreferences) {
         const val CHARGING_STYLE_FLASH = "flash"
         const val CHARGING_STYLE_IOS = "ios"
 
-        const val EDGE_GLOW_STYLE_ALL = "all"
+        private const val EDGE_GLOW_STYLE_ALL = "all"
         const val EDGE_GLOW_STYLE_VERTICAL = "vertical"
         const val EDGE_GLOW_STYLE_HORIZONTAL = "horizontal"
 

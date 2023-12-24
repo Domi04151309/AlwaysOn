@@ -34,6 +34,7 @@ class LAFWatchFaceActivity : AppCompatActivity() {
     }
 
     class PreferenceFragment : BasePreferenceFragment() {
+        @Suppress("SameReturnValue")
         private fun onDateFormatClicked(): Boolean {
             val dialogView = layoutInflater.inflate(R.layout.dialog_edit_text, null, false)
             val editText = dialogView.findViewById<EditText>(R.id.editText)
