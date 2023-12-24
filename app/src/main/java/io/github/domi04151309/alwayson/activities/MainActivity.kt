@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
+import io.github.domi04151309.alwayson.BuildConfig
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.custom.BasePreferenceFragment
 import io.github.domi04151309.alwayson.helpers.Global
@@ -152,6 +153,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     class GeneralPreferenceFragment : BasePreferenceFragment() {
+        private var debugClicker = 0
+        private fun onAlwaysOnClicked(): Boolean {
+            TileService.requestListeningState(
+                context,
+                ComponentName(requireContext(), AlwaysOnTileService::class.java),
+            )
+            requireContext().sendBroadcast(
+                Intent(context, AlwaysOnAppWidgetProvider::class.java)
+                    .setAction(Global.ALWAYS_ON_STATE_CHANGED),
+            )
+            if (BuildConfig.DEBUG) {
+                debugClicker++
+                if (debugClicker == 4) {
+                    debugClicker = 0
+                    startActivity(Intent(requireContext(), AODTestActivity::class.java))
+                }
+            }
+            return true
+        }
+
         override fun onCreatePreferences(
             savedInstanceState: Bundle?,
             rootKey: String?,
@@ -160,15 +181,7 @@ class MainActivity : AppCompatActivity() {
             checkPermissions()
 
             findPreference<Preference>("always_on")?.setOnPreferenceClickListener {
-                TileService.requestListeningState(
-                    context,
-                    ComponentName(requireContext(), AlwaysOnTileService::class.java),
-                )
-                requireContext().sendBroadcast(
-                    Intent(context, AlwaysOnAppWidgetProvider::class.java)
-                        .setAction(Global.ALWAYS_ON_STATE_CHANGED),
-                )
-                true
+                onAlwaysOnClicked()
             }
             PreferenceScreenHelper.linkPreferenceToActivity(
                 this,
