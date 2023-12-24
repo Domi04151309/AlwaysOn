@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.view.ViewConfiguration
 import androidx.preference.PreferenceManager
+import io.github.domi04151309.alwayson.R
+import java.net.URLEncoder
 
 internal class P(private val prefs: SharedPreferences) {
     fun get(
@@ -24,6 +26,65 @@ internal class P(private val prefs: SharedPreferences) {
     ): Int = prefs.getInt(key, default)
 
     fun displayScale(): Float = prefs.getInt("pref_aod_scale_2", DISPLAY_SCALE_DEFAULT) / NUMBER_TO_PERCENT
+
+    fun backgroundImage(): Int? =
+        when (get(BACKGROUND_IMAGE, BACKGROUND_IMAGE_DEFAULT)) {
+            BACKGROUND_IMAGE_DANIEL_OLAH_1 -> R.drawable.unsplash_daniel_olah_1
+            BACKGROUND_IMAGE_DANIEL_OLAH_2 -> R.drawable.unsplash_daniel_olah_2
+            BACKGROUND_IMAGE_DANIEL_OLAH_3 -> R.drawable.unsplash_daniel_olah_3
+            BACKGROUND_IMAGE_DANIEL_OLAH_4 -> R.drawable.unsplash_daniel_olah_4
+            BACKGROUND_IMAGE_DANIEL_OLAH_5 -> R.drawable.unsplash_daniel_olah_5
+            BACKGROUND_IMAGE_DANIEL_OLAH_6 -> R.drawable.unsplash_daniel_olah_6
+            BACKGROUND_IMAGE_DANIEL_OLAH_7 -> R.drawable.unsplash_daniel_olah_7
+            BACKGROUND_IMAGE_DANIEL_OLAH_8 -> R.drawable.unsplash_daniel_olah_8
+            BACKGROUND_IMAGE_FILIP_BAOTIC_1 -> R.drawable.unsplash_filip_baotic_1
+            BACKGROUND_IMAGE_TYLER_LASTOVICH_1 ->
+                R.drawable.unsplash_tyler_lastovich_1
+
+            BACKGROUND_IMAGE_TYLER_LASTOVICH_2 ->
+                R.drawable.unsplash_tyler_lastovich_2
+
+            BACKGROUND_IMAGE_TYLER_LASTOVICH_3 ->
+                R.drawable.unsplash_tyler_lastovich_3
+
+            else -> null
+        }
+
+    fun getSingleLineTimeFormat() =
+        if (get(USE_12_HOUR_CLOCK, USE_12_HOUR_CLOCK_DEFAULT)) {
+            if (get(SHOW_AM_PM, SHOW_AM_PM_DEFAULT)) {
+                "h:mm a"
+            } else {
+                "h:mm"
+            }
+        } else {
+            "H:mm"
+        }
+
+    fun getMultiLineTimeFormat(): String {
+        val singleLineFormat = getSingleLineTimeFormat()
+        return singleLineFormat[0] +
+            singleLineFormat
+                .replace(':', '\n')
+                .replace(' ', '\n')
+    }
+
+    fun getWeatherUrl(): String =
+        "https://wttr.in/" +
+            URLEncoder.encode(
+                get(
+                    WEATHER_LOCATION,
+                    WEATHER_LOCATION_DEFAULT,
+                ),
+                "utf-8",
+            ) + "?T&format=" +
+            URLEncoder.encode(
+                get(
+                    WEATHER_FORMAT,
+                    WEATHER_FORMAT_DEFAULT,
+                ),
+                "utf-8",
+            )
 
     companion object {
         @Suppress("NOTHING_TO_INLINE")

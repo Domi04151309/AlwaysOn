@@ -7,7 +7,6 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.os.Handler
 import android.os.Looper
-import android.provider.CalendarContract
 import android.util.AttributeSet
 import android.util.Base64
 import android.util.Log
@@ -17,6 +16,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.actions.alwayson.data.Data
 import io.github.domi04151309.alwayson.actions.alwayson.draw.Battery
 import io.github.domi04151309.alwayson.actions.alwayson.draw.Clock
 import io.github.domi04151309.alwayson.actions.alwayson.draw.Date
@@ -30,13 +30,12 @@ import io.github.domi04151309.alwayson.actions.alwayson.draw.Weather
 import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.IconHelper
 import io.github.domi04151309.alwayson.helpers.P
-import io.github.domi04151309.alwayson.helpers.Permissions
 import java.lang.Integer.max
-import java.net.URLEncoder
 import java.text.SimpleDateFormat
 import java.util.Locale
 import kotlin.math.abs
 
+@Suppress("TooManyFunctions")
 class AlwaysOnCustomView : View {
     companion object {
         private const val UPDATE_DELAY: Long = 60000
@@ -48,7 +47,6 @@ class AlwaysOnCustomView : View {
         const val FLAG_SAMSUNG_3: Int = 2
         private const val FLAG_MULTILINE_CLOCK: Int = 3
         const val FLAG_ANALOG_CLOCK: Int = 4
-        private const val MILLISECONDS_PER_DAY: Long = 24 * 60 * 60 * 1000
     }
 
     private lateinit var utils: Utils
@@ -105,25 +103,6 @@ class AlwaysOnCustomView : View {
 
     constructor(context: Context) : super(context) {
         init(context)
-    }
-
-    private fun getSingleLineTimeFormat() =
-        if (utils.prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
-            if (utils.prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
-                "h:mm a"
-            } else {
-                "h:mm"
-            }
-        } else {
-            "H:mm"
-        }
-
-    private fun getMultiLineTimeFormat(): String {
-        val singleLineFormat = getSingleLineTimeFormat()
-        return singleLineFormat[0] +
-            singleLineFormat
-                .replace(':', '\n')
-                .replace(' ', '\n')
     }
 
     @Suppress("MagicNumber", "CyclomaticComplexMethod")
@@ -195,28 +174,7 @@ class AlwaysOnCustomView : View {
                 val decoded = Base64.decode(utils.prefs.get(P.CUSTOM_BACKGROUND, ""), 0)
                 customBackground = BitmapFactory.decodeByteArray(decoded, 0, decoded.size)
             } else {
-                val backgroundId =
-                    when (utils.prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT)) {
-                        P.BACKGROUND_IMAGE_DANIEL_OLAH_1 -> R.drawable.unsplash_daniel_olah_1
-                        P.BACKGROUND_IMAGE_DANIEL_OLAH_2 -> R.drawable.unsplash_daniel_olah_2
-                        P.BACKGROUND_IMAGE_DANIEL_OLAH_3 -> R.drawable.unsplash_daniel_olah_3
-                        P.BACKGROUND_IMAGE_DANIEL_OLAH_4 -> R.drawable.unsplash_daniel_olah_4
-                        P.BACKGROUND_IMAGE_DANIEL_OLAH_5 -> R.drawable.unsplash_daniel_olah_5
-                        P.BACKGROUND_IMAGE_DANIEL_OLAH_6 -> R.drawable.unsplash_daniel_olah_6
-                        P.BACKGROUND_IMAGE_DANIEL_OLAH_7 -> R.drawable.unsplash_daniel_olah_7
-                        P.BACKGROUND_IMAGE_DANIEL_OLAH_8 -> R.drawable.unsplash_daniel_olah_8
-                        P.BACKGROUND_IMAGE_FILIP_BAOTIC_1 -> R.drawable.unsplash_filip_baotic_1
-                        P.BACKGROUND_IMAGE_TYLER_LASTOVICH_1 ->
-                            R.drawable.unsplash_tyler_lastovich_1
-
-                        P.BACKGROUND_IMAGE_TYLER_LASTOVICH_2 ->
-                            R.drawable.unsplash_tyler_lastovich_2
-
-                        P.BACKGROUND_IMAGE_TYLER_LASTOVICH_3 ->
-                            R.drawable.unsplash_tyler_lastovich_3
-
-                        else -> null
-                    }
+                val backgroundId = utils.prefs.backgroundImage()
                 if (backgroundId != null) {
                     customBackground =
                         BitmapFactory.decodeResource(
@@ -238,9 +196,9 @@ class AlwaysOnCustomView : View {
                         P.USER_THEME_DEFAULT,
                     ) == P.USER_THEME_ONEPLUS
                 ) {
-                    getMultiLineTimeFormat()
+                    utils.prefs.getMultiLineTimeFormat()
                 } else {
-                    getSingleLineTimeFormat()
+                    utils.prefs.getSingleLineTimeFormat()
                 },
                 Locale.getDefault(),
             )
@@ -251,71 +209,13 @@ class AlwaysOnCustomView : View {
             )
     }
 
-    private fun prepareCalendar() {
-        if (utils.prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
-            if (!Permissions.hasCalendarPermission(context)) {
-                events = listOf(context.resources.getString(R.string.missing_permissions))
-                return
-            }
-            val singleLineClock =
-                SimpleDateFormat(
-                    getSingleLineTimeFormat(),
-                    Locale.getDefault(),
-                )
-            val cursor =
-                context.contentResolver.query(
-                    CalendarContract.Events.CONTENT_URI,
-                    arrayOf("title", "dtstart", "dtend"),
-                    null,
-                    null,
-                    null,
-                )
-            cursor?.moveToFirst()
-            val millis = System.currentTimeMillis()
-            val eventArray = arrayListOf<Pair<Long, String>>()
-            var startTime: Long
-            var endTime: Long
-            do {
-                startTime = (cursor?.getString(1) ?: "0").toLong()
-                endTime = (cursor?.getString(2) ?: "0").toLong()
-                if (endTime > millis && startTime < millis + MILLISECONDS_PER_DAY) {
-                    eventArray.add(
-                        Pair(
-                            startTime,
-                            singleLineClock.format(startTime) + " - " +
-                                singleLineClock.format(endTime) + " | " +
-                                cursor?.getString(0),
-                        ),
-                    )
-                }
-            } while (cursor?.moveToNext() == true)
-            cursor?.close()
-            eventArray.sortBy { it.first }
-            events = eventArray.map { it.second }
-        }
-    }
-
     private fun prepareWeather() {
         if (utils.prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT)) {
             Volley.newRequestQueue(context)
                 .add(
                     StringRequest(
                         Request.Method.GET,
-                        "https://wttr.in/" +
-                            URLEncoder.encode(
-                                utils.prefs.get(
-                                    P.WEATHER_LOCATION,
-                                    P.WEATHER_LOCATION_DEFAULT,
-                                ),
-                                "utf-8",
-                            ) + "?T&format=" +
-                            URLEncoder.encode(
-                                utils.prefs.get(
-                                    P.WEATHER_FORMAT,
-                                    P.WEATHER_FORMAT_DEFAULT,
-                                ),
-                                "utf-8",
-                            ),
+                        utils.prefs.getWeatherUrl(),
                         { response ->
                             weather = response
                             invalidate()
@@ -336,7 +236,7 @@ class AlwaysOnCustomView : View {
         prepareTheme()
         prepareBackground()
         prepareDateFormats()
-        prepareCalendar()
+        events = Data.getCalendar(utils)
         prepareWeather()
     }
 

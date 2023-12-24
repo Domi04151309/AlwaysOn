@@ -42,6 +42,7 @@ import io.github.domi04151309.alwayson.helpers.Rules
 import io.github.domi04151309.alwayson.receivers.CombinedServiceReceiver
 import io.github.domi04151309.alwayson.services.NotificationService
 
+@Suppress("TooManyFunctions")
 class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListener {
     companion object {
         private const val TINY_DELAY: Long = 10
