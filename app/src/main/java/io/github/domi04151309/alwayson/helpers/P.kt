@@ -27,7 +27,10 @@ internal class P(private val prefs: SharedPreferences) {
 
     companion object {
         @Suppress("NOTHING_TO_INLINE")
-        inline fun getPreferences(context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        inline fun getPreferences(context: Context): SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(
+                context,
+            )
 
         const val RULES_CHARGING_STATE = "rules_charging_state"
         const val RULES_BATTERY = "rules_battery_level"

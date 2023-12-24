@@ -6,13 +6,11 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
+import io.github.domi04151309.alwayson.custom.BasePreferenceFragment
 import io.github.domi04151309.alwayson.custom.EditIntegerPreference
 import io.github.domi04151309.alwayson.helpers.P
-import io.github.domi04151309.alwayson.helpers.Permissions
+import io.github.domi04151309.alwayson.helpers.PreferenceScreenHelper
 import io.github.domi04151309.alwayson.helpers.Rules
 import io.github.domi04151309.alwayson.helpers.Theme
 import java.lang.Integer.parseInt
@@ -29,7 +27,7 @@ class LAFRulesActivity : AppCompatActivity() {
     }
 
     class PreferenceFragment :
-        PreferenceFragmentCompat(),
+        BasePreferenceFragment(),
         SharedPreferences.OnSharedPreferenceChangeListener {
         private var rulesTimeStartValue = DEFAULT_START_TIME
         private var rulesTimeEndValue = DEFAULT_END_TIME
@@ -44,47 +42,19 @@ class LAFRulesActivity : AppCompatActivity() {
         ) {
             addPreferencesFromResource(R.xml.pref_laf_rules)
 
-            rulesBatteryLevel = findPreference(P.RULES_BATTERY) ?: return
-            rulesTime = findPreference("rules_time") ?: return
-            rulesTimeout = findPreference(P.RULES_TIMEOUT) ?: return
+            rulesBatteryLevel = findPreference(P.RULES_BATTERY) ?: error("Invalid layout.")
+            rulesTime = findPreference("rules_time") ?: error("Invalid layout.")
+            rulesTimeout = findPreference(P.RULES_TIMEOUT) ?: error("Invalid layout.")
             val is24Hour = preferenceManager.sharedPreferences?.getBoolean("hour", false) != true
 
-            if (!Permissions.isNotificationServiceEnabled(requireContext())) {
-                var currentPref: Preference?
-                Permissions.NOTIFICATION_PERMISSION_PREFS.forEach {
-                    currentPref = findPreference(it)
-                    currentPref?.apply {
-                        isEnabled = false
-                        setSummary(R.string.permissions_notification_access)
-                    }
-                    (currentPref as? SwitchPreference)?.apply {
-                        setSummaryOff(R.string.permissions_notification_access)
-                        setSummaryOn(R.string.permissions_notification_access)
-                    }
-                }
-            }
+            updateSummaries()
+            checkPermissions()
 
-            if (!Permissions.isDeviceAdminOrRoot(requireContext())) {
-                var currentPref: Preference?
-                Permissions.DEVICE_ADMIN_OR_ROOT_PERMISSION_PREFS.forEach {
-                    currentPref = findPreference(it)
-                    currentPref?.apply {
-                        isEnabled = false
-                        setSummary(R.string.permissions_device_admin_or_root)
-                    }
-                    (currentPref as? SwitchPreference)?.apply {
-                        setSummaryOff(R.string.permissions_device_admin_or_root)
-                        setSummaryOn(R.string.permissions_device_admin_or_root)
-                    }
-                }
-            } else {
-                updateSummaries()
-            }
-
-            findPreference<Preference>("pref_filter_notifications")?.setOnPreferenceClickListener {
-                startActivity(Intent(context, LAFFilterNotificationsActivity::class.java))
-                true
-            }
+            PreferenceScreenHelper.linkPreferenceToActivity(
+                this,
+                "pref_filter_notifications",
+                Intent(requireContext(), LAFFilterNotificationsActivity::class.java),
+            )
 
             rulesTime.setOnPreferenceClickListener {
                 TimePickerDialog(
@@ -186,11 +156,10 @@ class LAFRulesActivity : AppCompatActivity() {
         }
 
         override fun onSharedPreferenceChanged(
-            p0: SharedPreferences?,
-            p1: String?,
+            preferences: SharedPreferences,
+            key: String?,
         ) {
             updateSummaries()
-            AlwaysOn.finish()
         }
 
         companion object {

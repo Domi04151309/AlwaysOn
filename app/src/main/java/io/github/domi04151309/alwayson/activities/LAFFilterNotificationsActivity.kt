@@ -32,31 +32,19 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
         private var blockedArray: JSONArray = JSONArray()
         private lateinit var blocked: PreferenceCategory
         private lateinit var shown: PreferenceCategory
-        private lateinit var packageManager: PackageManager
-        private lateinit var empty: Preference
 
         override fun onCreatePreferences(
             savedInstanceState: Bundle?,
             rootKey: String?,
         ) {
             addPreferencesFromResource(R.xml.pref_laf_wf_filter_notifications)
-            blocked = findPreference("blocked") ?: return
-            shown = findPreference("shown") ?: return
-            packageManager = requireContext().packageManager
-            empty = Preference(preferenceScreen.context)
-            empty.setIcon(R.drawable.ic_notification)
-            empty.title =
-                requireContext().resources.getString(
-                    R.string.pref_look_and_feel_filter_notifications_empty,
-                )
-            empty.summary =
-                requireContext().resources.getString(
-                    R.string.pref_look_and_feel_filter_notifications_empty_summary,
-                )
+            blocked = findPreference("blocked") ?: error("Invalid layout.")
+            shown = findPreference("shown") ?: error("Invalid layout.")
         }
 
         override fun onStart() {
             super.onStart()
+            val packageManager = requireContext().packageManager
             blockedArray =
                 JSONArray(
                     preferenceManager.sharedPreferences?.getString("blocked_notifications", "[]"),
@@ -64,7 +52,7 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
             if (!JSON.isEmpty(blockedArray)) {
                 blocked.removeAll()
                 for (i in 0 until blockedArray.length()) {
-                    addToList(blockedArray.getString(i))
+                    addToList(packageManager, blockedArray.getString(i))
                 }
             }
 
@@ -74,10 +62,10 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
             NotificationService.detailed.forEach { notification ->
                 if (!apps.contains(notification.packageName)) {
                     apps += notification.packageName
-                    pref = generatePref(notification.packageName)
+                    pref = generatePref(packageManager, notification.packageName)
                     pref.setOnPreferenceClickListener {
                         if (!JSON.contains(blockedArray, notification.packageName)) {
-                            addToList(notification.packageName)
+                            addToList(packageManager, notification.packageName)
                             blockedArray.put(notification.packageName)
                         }
                         true
@@ -95,19 +83,39 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
             AlwaysOn.finish()
         }
 
-        private fun addToList(packageName: String) {
+        private fun addToList(
+            packageManager: PackageManager,
+            packageName: String,
+        ) {
             if (JSON.isEmpty(blockedArray)) blocked.removeAll()
-            val pref = generatePref(packageName)
+            val pref = generatePref(packageManager, packageName)
             pref.setOnPreferenceClickListener {
                 JSON.remove(blockedArray, packageName)
                 blocked.removePreference(it)
-                if (JSON.isEmpty(blockedArray)) blocked.addPreference(empty)
+                if (JSON.isEmpty(blockedArray)) {
+                    blocked.addPreference(
+                        Preference(preferenceScreen.context).apply {
+                            setIcon(R.drawable.ic_notification)
+                            title =
+                                requireContext().resources.getString(
+                                    R.string.pref_look_and_feel_filter_notifications_empty,
+                                )
+                            summary =
+                                requireContext().resources.getString(
+                                    R.string.pref_look_and_feel_filter_notifications_empty_summary,
+                                )
+                        },
+                    )
+                }
                 true
             }
             blocked.addPreference(pref)
         }
 
-        private fun generatePref(packageName: String): Preference {
+        private fun generatePref(
+            packageManager: PackageManager,
+            packageName: String,
+        ): Preference {
             val pref = Preference(preferenceScreen.context)
             pref.setIcon(R.drawable.ic_notification)
             pref.title =
@@ -123,7 +131,10 @@ class LAFFilterNotificationsActivity : AppCompatActivity() {
                         )
                     } else {
                         packageManager.getApplicationLabel(
-                            packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA),
+                            packageManager.getApplicationInfo(
+                                packageName,
+                                PackageManager.GET_META_DATA,
+                            ),
                         )
                     } as String
                 } catch (e: Exception) {

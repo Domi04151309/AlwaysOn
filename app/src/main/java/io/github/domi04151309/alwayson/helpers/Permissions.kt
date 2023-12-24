@@ -32,6 +32,7 @@ object Permissions {
             P.SHOW_CALENDAR,
         )
 
+    @Suppress("ReturnCount")
     fun isNotificationServiceEnabled(context: Context): Boolean {
         val flat =
             Settings.Secure.getString(context.contentResolver, "enabled_notification_listeners")

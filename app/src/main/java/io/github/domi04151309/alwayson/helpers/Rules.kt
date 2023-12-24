@@ -56,9 +56,17 @@ class Rules(context: Context) {
                 (ruleChargingState == P.RULES_CHARGING_STATE_DISCHARGING && !charging)
         }
 
-        fun isAlwaysOnDisplayEnabled(context: Context): Boolean = P.getPreferences(context).getBoolean("always_on", false)
+        fun isAlwaysOnDisplayEnabled(context: Context): Boolean =
+            P.getPreferences(context).getBoolean(
+                "always_on",
+                false,
+            )
 
-        fun isAmbientMode(context: Context): Boolean = P.getPreferences(context).getBoolean("rules_ambient_mode", false)
+        fun isAmbientMode(context: Context): Boolean =
+            P.getPreferences(context).getBoolean(
+                "rules_ambient_mode",
+                false,
+            )
 
         fun matchesBatteryPercentage(context: Context): Boolean =
             (

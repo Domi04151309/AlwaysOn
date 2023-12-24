@@ -13,6 +13,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.helpers.PreferenceScreenHelper
 import io.github.domi04151309.alwayson.helpers.Root
 import io.github.domi04151309.alwayson.helpers.Theme
 
@@ -33,11 +34,11 @@ class PermissionsActivity : AppCompatActivity() {
             rootKey: String?,
         ) {
             addPreferencesFromResource(R.xml.pref_permissions)
-            findPreference<Preference>("ignore_battery_optimizations")
-                ?.setOnPreferenceClickListener {
-                    startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
-                    true
-                }
+            PreferenceScreenHelper.linkPreferenceToActivity(
+                this,
+                "ignore_battery_optimizations",
+                Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS),
+            )
             findPreference<Preference>("device_admin")?.setOnPreferenceClickListener {
                 val dialogView = layoutInflater.inflate(R.layout.dialog_device_admin, null, false)
                 val editText = dialogView.findViewById<EditText>(R.id.editText)
