@@ -40,6 +40,24 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 class AlwaysOnCustomView : View {
+    companion object {
+        private const val UPDATE_DELAY: Long = 60000
+        private const val NOTIFICATION_ROW_LENGTH: Int = 10
+        private const val NOTIFICATION_LIMIT: Int = 20
+        private const val FLAG_CAPS_DATE: Int = 0
+        private const val FLAG_SAMSUNG_2: Int = 1
+        private const val FLAG_BIG_DATE: Int = 1
+        private const val FLAG_LEFT_ALIGN: Int = 1
+        private const val FLAG_SAMSUNG_3: Int = 2
+        private const val FLAG_MULTILINE_CLOCK: Int = 3
+        private const val FLAG_ANALOG_CLOCK: Int = 4
+        private const val PADDING_2: Float = 2f
+        private const val PADDING_16: Float = 16f
+        private const val DRAWABLE_SIZE: Float = 24f
+        private const val MILLISECONDS_PER_DAY: Long = 24 * 60 * 60 * 1000
+        private const val HOURS_ON_ANALOG_CLOCK: Int = 12
+    }
+
     private var padding2 = 0
     private var padding16 = 0
     private var drawableSize = 0
@@ -111,13 +129,14 @@ class AlwaysOnCustomView : View {
     private fun init(context: Context) {
         prefs = P(PreferenceManager.getDefaultSharedPreferences(context))
 
-        padding2 = dpToPx(2f).toInt()
-        padding16 = dpToPx(16f).toInt()
-        drawableSize = dpToPx(24f).toInt()
+        padding2 = dpToPx(PADDING_2).toInt()
+        padding16 = dpToPx(PADDING_16).toInt()
+        drawableSize = dpToPx(DRAWABLE_SIZE).toInt()
 
         templatePaint = Paint(Paint.ANTI_ALIAS_FLAG)
         templatePaint.textAlign = Paint.Align.CENTER
 
+        @Suppress("MagicNumber")
         when (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT)) {
             P.USER_THEME_ONEPLUS -> {
                 bigTextSize = spToPx(75f)
@@ -275,7 +294,7 @@ class AlwaysOnCustomView : View {
                 for (i in 0 until (cursor?.count ?: 0)) {
                     startTime = (cursor?.getString(1) ?: "0").toLong()
                     endTime = (cursor?.getString(2) ?: "0").toLong()
-                    if (endTime > millis && startTime < millis + 24 * 60 * 60 * 1000) {
+                    if (endTime > millis && startTime < millis + MILLISECONDS_PER_DAY) {
                         eventArray.add(
                             Pair(
                                 startTime,
@@ -446,14 +465,11 @@ class AlwaysOnCustomView : View {
                 templatePaint.style = Paint.Style.FILL
 
                 val c = Calendar.getInstance()
-                val hour =
-                    if (c[Calendar.HOUR_OF_DAY] > 12) {
-                        c[Calendar.HOUR_OF_DAY] - 12
-                    } else {
-                        c[Calendar.HOUR_OF_DAY]
-                    }
-
-                drawHand(canvas, (hour + c.get(Calendar.MINUTE) / 60) * 5, true)
+                drawHand(
+                    canvas,
+                    (c[Calendar.HOUR_OF_DAY] % HOURS_ON_ANALOG_CLOCK + c.get(Calendar.MINUTE) / 60) * 5,
+                    true,
+                )
                 drawHand(canvas, c.get(Calendar.MINUTE), false)
 
                 currentHeight += 2 * getTextHeight(bigTextSize) + padding16
@@ -770,6 +786,7 @@ class AlwaysOnCustomView : View {
         return true
     }
 
+    @Suppress("ReturnCount")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (
             event.action == MotionEvent.ACTION_DOWN &&
@@ -937,18 +954,5 @@ class AlwaysOnCustomView : View {
 
     fun stopClockHandler() {
         updateHandler.removeCallbacksAndMessages(null)
-    }
-
-    companion object {
-        private const val UPDATE_DELAY: Long = 60000
-        private const val NOTIFICATION_ROW_LENGTH: Int = 10
-        private const val NOTIFICATION_LIMIT: Int = 20
-        private const val FLAG_CAPS_DATE: Int = 0
-        private const val FLAG_SAMSUNG_2: Int = 1
-        private const val FLAG_BIG_DATE: Int = 1
-        private const val FLAG_LEFT_ALIGN: Int = 1
-        private const val FLAG_SAMSUNG_3: Int = 2
-        private const val FLAG_MULTILINE_CLOCK: Int = 3
-        private const val FLAG_ANALOG_CLOCK: Int = 4
     }
 }

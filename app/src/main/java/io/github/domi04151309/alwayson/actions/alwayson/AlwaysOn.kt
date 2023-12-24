@@ -44,8 +44,13 @@ import io.github.domi04151309.alwayson.services.NotificationService
 
 class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListener {
     companion object {
+        private const val TINY_DELAY: Long = 10
+        private const val SMALL_DELAY: Long = 300
         private const val MILLISECONDS_PER_SECOND: Long = 1000
+        private const val MILLISECONDS_PER_MINUTE: Long = 60000
+        private const val ANIMATION_DURATION: Int = 10000
         private const val SENSOR_DELAY_SLOW: Int = 1000000
+        private const val MINIMUM_ANIMATION_DURATION: Int = 100
         private var instance: AlwaysOn? = null
 
         fun finish() {
@@ -161,7 +166,10 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         // Brightness
         if (prefs.get(P.FORCE_BRIGHTNESS, P.FORCE_BRIGHTNESS_DEFAULT)) {
             window.attributes.screenBrightness =
-                prefs.get(P.FORCE_BRIGHTNESS_VALUE, P.FORCE_BRIGHTNESS_VALUE_DEFAULT) / 255.toFloat()
+                prefs.get(
+                    P.FORCE_BRIGHTNESS_VALUE,
+                    P.FORCE_BRIGHTNESS_VALUE_DEFAULT,
+                ) / 255.toFloat()
         }
 
         // Variables
@@ -171,7 +179,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         Handler(Looper.getMainLooper()).postDelayed({
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
             turnOnScreen()
-        }, 300L)
+        }, SMALL_DELAY)
 
         // Hide UI
         fullscreen(viewHolder.frame)
@@ -277,17 +285,17 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
         // Edge Glow
         if (prefs.get(P.EDGE_GLOW, P.EDGE_GLOW_DEFAULT)) {
-            val transitionTime = prefs.get("ao_glowDuration", 2000)
-            if (transitionTime >= 100) {
-                val transitionDelay = prefs.get("ao_glowDelay", 2000)
+            val transitionTime = prefs.get(P.EDGE_GLOW_DURATION, P.EDGE_GLOW_DURATION_DEFAULT)
+            if (transitionTime >= MINIMUM_ANIMATION_DURATION) {
+                val transitionDelay = prefs.get(P.EDGE_GLOW_DELAY, P.EDGE_GLOW_DELAY_DEFAULT)
                 viewHolder.frame.background =
-                    when (prefs.get("ao_glowStyle", "all")) {
-                        "vertical" ->
+                    when (prefs.get(P.EDGE_GLOW_STYLE, P.EDGE_GLOW_STYLE_DEFAULT)) {
+                        P.EDGE_GLOW_STYLE_VERTICAL ->
                             ContextCompat.getDrawable(
                                 this, R.drawable.edge_glow_vertical,
                             )
 
-                        "horizontal" ->
+                        P.EDGE_GLOW_STYLE_HORIZONTAL ->
                             ContextCompat.getDrawable(
                                 this, R.drawable.edge_glow_horizontal,
                             )
@@ -314,7 +322,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                                         }
                                         sleep((transitionTime + transitionDelay).toLong())
                                     } else {
-                                        sleep(1000)
+                                        sleep(NotificationService.MINIMUM_UPDATE_DELAY)
                                     }
                                 }
                             } catch (e: InterruptedException) {
@@ -328,14 +336,16 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
         // Animation
         val animationHelper = AnimationHelper(offsetX)
-        val animationDuration = 10000
         val animationDelay =
-            (prefs.get("ao_animation_delay", 2) * 60000 + animationDuration + 1000).toLong()
+            prefs.get(
+                "ao_animation_delay",
+                2,
+            ) * MILLISECONDS_PER_MINUTE + ANIMATION_DURATION + MILLISECONDS_PER_SECOND
         animationThread =
             object : Thread() {
                 override fun run() {
                     try {
-                        while (viewHolder.customView.height == 0) sleep(10)
+                        while (viewHolder.customView.height == 0) sleep(TINY_DELAY)
                         screenSize = calculateScreenSize()
                         runOnUiThread { viewHolder.customView.translationY = screenSize / 4 }
                         while (!isInterrupted) {
@@ -344,7 +354,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                                 animationHelper.animate(
                                     viewHolder.customView,
                                     screenSize / 2,
-                                    animationDuration,
+                                    ANIMATION_DURATION,
                                 )
                                 if (prefs.get(
                                         P.SHOW_FINGERPRINT_ICON,
@@ -354,7 +364,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                                     animationHelper.animate(
                                         viewHolder.fingerprintIcn,
                                         64f,
-                                        animationDuration,
+                                        ANIMATION_DURATION,
                                     )
                                 }
                             }
@@ -363,7 +373,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                                 animationHelper.animate(
                                     viewHolder.customView,
                                     screenSize / 4,
-                                    animationDuration,
+                                    ANIMATION_DURATION,
                                 )
                                 if (prefs.get(
                                         P.SHOW_FINGERPRINT_ICON,
@@ -373,7 +383,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                                     animationHelper.animate(
                                         viewHolder.fingerprintIcn,
                                         0f,
-                                        animationDuration,
+                                        ANIMATION_DURATION,
                                     )
                                 }
                             }
@@ -389,7 +399,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         if (!prefs.get(P.DISABLE_DOUBLE_TAP, P.DISABLE_DOUBLE_TAP_DEFAULT)) {
             val doubleTapDetector =
                 DoubleTapDetector({
-                    val duration = prefs.get("ao_vibration", 64).toLong()
+                    val duration = prefs.get(P.VIBRATION_DURATION, P.VIBRATION_DURATION_DEFAULT).toLong()
                     if (duration > 0) {
                         val vibrator =
                             getSystemService(Context.VIBRATOR_SERVICE) as Vibrator

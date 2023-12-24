@@ -78,6 +78,10 @@ internal class P(private val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_FINGERPRINT = "display_color_fingerprint"
         const val DISPLAY_COLOR_EDGE_GLOW = "display_color_edge_glow"
         const val FORCE_BRIGHTNESS_VALUE = "ao_force_brightness_value"
+        const val VIBRATION_DURATION = "ao_vibration"
+        const val EDGE_GLOW_DURATION = "ao_glowDuration"
+        const val EDGE_GLOW_DELAY = "ao_glowDelay"
+        const val EDGE_GLOW_STYLE = "ao_glowStyle"
 
         const val CHARGING_STYLE = "charging_style"
 
@@ -116,6 +120,10 @@ internal class P(private val prefs: SharedPreferences) {
         const val CHARGING_STYLE_CIRCLE = "circle"
         const val CHARGING_STYLE_FLASH = "flash"
         const val CHARGING_STYLE_IOS = "ios"
+
+        const val EDGE_GLOW_STYLE_ALL = "all"
+        const val EDGE_GLOW_STYLE_VERTICAL = "vertical"
+        const val EDGE_GLOW_STYLE_HORIZONTAL = "horizontal"
 
         const val RULES_CHARGING_STATE_DEFAULT = "always"
         const val RULES_BATTERY_DEFAULT = 0
@@ -161,8 +169,12 @@ internal class P(private val prefs: SharedPreferences) {
         const val DISPLAY_COLOR_FINGERPRINT_DEFAULT = -1
         const val DISPLAY_COLOR_EDGE_GLOW_DEFAULT = -1
         const val FORCE_BRIGHTNESS_VALUE_DEFAULT = 50
+        const val VIBRATION_DURATION_DEFAULT = 64
+        const val EDGE_GLOW_DURATION_DEFAULT = 2000
+        const val EDGE_GLOW_DELAY_DEFAULT = 2000
 
         const val CHARGING_STYLE_DEFAULT = CHARGING_STYLE_CIRCLE
+        const val EDGE_GLOW_STYLE_DEFAULT = EDGE_GLOW_STYLE_ALL
 
         val DOUBLE_TAP_SPEED_DEFAULT = ViewConfiguration.getDoubleTapTimeout()
 

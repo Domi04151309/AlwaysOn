@@ -25,7 +25,7 @@ class NotificationService : NotificationListenerService() {
     }
 
     companion object {
-        private const val MINIMUM_UPDATE_DELAY = 1000L
+        const val MINIMUM_UPDATE_DELAY: Long = 1000
         internal var count: Int = 0
             private set
         internal var icons: ArrayList<Pair<Icon, Int>> = arrayListOf()

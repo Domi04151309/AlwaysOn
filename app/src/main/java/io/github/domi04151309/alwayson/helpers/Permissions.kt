@@ -13,8 +13,8 @@ object Permissions {
     val NOTIFICATION_PERMISSION_PREFS: Array<String> =
         arrayOf(
             P.SHOW_MUSIC_CONTROLS, P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_ICONS,
-            P.TINT_NOTIFICATIONS, "pref_filter_notifications", P.EDGE_GLOW, "ao_glowDuration",
-            "ao_glowDelay", "ao_glowStyle", P.DISPLAY_COLOR_EDGE_GLOW, "rules_ambient_mode",
+            P.TINT_NOTIFICATIONS, "pref_filter_notifications", P.EDGE_GLOW, P.EDGE_GLOW_DURATION,
+            P.EDGE_GLOW_DELAY, P.EDGE_GLOW_STYLE, P.DISPLAY_COLOR_EDGE_GLOW, "rules_ambient_mode",
         )
 
     val DEVICE_ADMIN_OR_ROOT_PERMISSION_PREFS: Array<String> =
