@@ -13,17 +13,19 @@ import android.provider.CalendarContract
 import android.util.AttributeSet
 import android.util.Base64
 import android.util.Log
-import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.preference.PreferenceManager
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import io.github.domi04151309.alwayson.R
+import io.github.domi04151309.alwayson.actions.alwayson.draw.Battery
+import io.github.domi04151309.alwayson.actions.alwayson.draw.Message
+import io.github.domi04151309.alwayson.actions.alwayson.draw.MusicControls
+import io.github.domi04151309.alwayson.actions.alwayson.draw.NotificationCount
+import io.github.domi04151309.alwayson.actions.alwayson.draw.Utils
+import io.github.domi04151309.alwayson.actions.alwayson.draw.Weather
 import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.IconHelper
 import io.github.domi04151309.alwayson.helpers.P
@@ -36,8 +38,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import kotlin.math.abs
-import kotlin.math.cos
-import kotlin.math.sin
 
 class AlwaysOnCustomView : View {
     companion object {
@@ -47,34 +47,18 @@ class AlwaysOnCustomView : View {
         private const val FLAG_CAPS_DATE: Int = 0
         private const val FLAG_SAMSUNG_2: Int = 1
         private const val FLAG_BIG_DATE: Int = 1
-        private const val FLAG_LEFT_ALIGN: Int = 1
         private const val FLAG_SAMSUNG_3: Int = 2
         private const val FLAG_MULTILINE_CLOCK: Int = 3
         private const val FLAG_ANALOG_CLOCK: Int = 4
-        private const val PADDING_2: Float = 2f
-        private const val PADDING_16: Float = 16f
-        private const val DRAWABLE_SIZE: Float = 24f
         private const val MILLISECONDS_PER_DAY: Long = 24 * 60 * 60 * 1000
         private const val HOURS_ON_ANALOG_CLOCK: Int = 12
     }
 
-    private var padding2 = 0
-    private var padding16 = 0
-    private var drawableSize = 0
-
-    private lateinit var templatePaint: Paint
-    private var bigTextSize = 0f
-    private var mediumTextSize = 0f
-    private var smallTextSize = 0f
-
-    private var relativePoint = 0f
-    private var currentHeight = 0f
-
-    private lateinit var prefs: P
-    private lateinit var clockFormat: SimpleDateFormat
+    private lateinit var utils: Utils
+    private lateinit var timeFormat: SimpleDateFormat
     private lateinit var dateFormat: SimpleDateFormat
     private var nonScaleBackground: Bitmap? = null
-    private var batteryCharging = false
+    private var batteryIsCharging = false
     private var batteryLevel = -1
     private var batteryIcon = R.drawable.ic_battery_unknown
     private var events = listOf<String>()
@@ -100,7 +84,7 @@ class AlwaysOnCustomView : View {
     @JvmField
     var onTitleClicked: () -> Unit = {}
 
-    private val skipPositions = intArrayOf(0, 0, 0)
+    private var skipPositions = intArrayOf(0, 0, 0)
 
     private val flags = booleanArrayOf(false, false, false, false, false)
 
@@ -127,60 +111,55 @@ class AlwaysOnCustomView : View {
     }
 
     private fun init(context: Context) {
-        prefs = P(PreferenceManager.getDefaultSharedPreferences(context))
-
-        padding2 = dpToPx(PADDING_2).toInt()
-        padding16 = dpToPx(PADDING_16).toInt()
-        drawableSize = dpToPx(DRAWABLE_SIZE).toInt()
-
-        templatePaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        templatePaint.textAlign = Paint.Align.CENTER
+        utils = Utils(context)
+        utils.paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        utils.paint.textAlign = Paint.Align.CENTER
 
         @Suppress("MagicNumber")
-        when (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT)) {
+        when (utils.prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT)) {
             P.USER_THEME_ONEPLUS -> {
-                bigTextSize = spToPx(75f)
-                mediumTextSize = spToPx(20f)
-                smallTextSize = spToPx(15f)
-                setFont(R.font.roboto_medium)
+                utils.bigTextSize = utils.spToPx(75f)
+                utils.mediumTextSize = utils.spToPx(20f)
+                utils.smallTextSize = utils.spToPx(15f)
+                utils.setFont(R.font.roboto_medium)
                 flags[FLAG_MULTILINE_CLOCK] = true
             }
 
             P.USER_THEME_SAMSUNG2 -> {
-                bigTextSize = spToPx(36f)
-                mediumTextSize = spToPx(18f)
-                smallTextSize = spToPx(16f)
-                setFont(R.font.roboto_light)
-                templatePaint.textAlign = Paint.Align.LEFT
+                utils.bigTextSize = utils.spToPx(36f)
+                utils.mediumTextSize = utils.spToPx(18f)
+                utils.smallTextSize = utils.spToPx(16f)
+                utils.setFont(R.font.roboto_light)
+                utils.paint.textAlign = Paint.Align.LEFT
                 flags[FLAG_SAMSUNG_2] = true
             }
 
             else -> {
-                bigTextSize = spToPx(75f)
-                mediumTextSize = spToPx(25f)
-                smallTextSize = spToPx(18f)
-                when (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT)) {
-                    P.USER_THEME_GOOGLE -> setFont(R.font.roboto_regular)
+                utils.bigTextSize = utils.spToPx(75f)
+                utils.mediumTextSize = utils.spToPx(25f)
+                utils.smallTextSize = utils.spToPx(18f)
+                when (utils.prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT)) {
+                    P.USER_THEME_GOOGLE -> utils.setFont(R.font.roboto_regular)
                     P.USER_THEME_SAMSUNG -> {
-                        setFont(R.font.roboto_light)
+                        utils.setFont(R.font.roboto_light)
                         flags[FLAG_MULTILINE_CLOCK] = true
                         flags[FLAG_CAPS_DATE] = true
                     }
 
                     P.USER_THEME_SAMSUNG3 -> {
-                        setFont(R.font.roboto_regular)
+                        utils.setFont(R.font.roboto_regular)
                         flags[FLAG_SAMSUNG_3] = true
                     }
 
-                    P.USER_THEME_80S -> setFont(R.font.monoton_regular)
-                    P.USER_THEME_FAST -> setFont(R.font.faster_one_regular)
-                    P.USER_THEME_FLOWER -> setFont(R.font.akronim_regular)
-                    P.USER_THEME_GAME -> setFont(R.font.vt323_regular)
-                    P.USER_THEME_HANDWRITTEN -> setFont(R.font.patrick_hand_regular)
-                    P.USER_THEME_JUNGLE -> setFont(R.font.hanalei_regular)
-                    P.USER_THEME_WESTERN -> setFont(R.font.ewert_regular)
+                    P.USER_THEME_80S -> utils.setFont(R.font.monoton_regular)
+                    P.USER_THEME_FAST -> utils.setFont(R.font.faster_one_regular)
+                    P.USER_THEME_FLOWER -> utils.setFont(R.font.akronim_regular)
+                    P.USER_THEME_GAME -> utils.setFont(R.font.vt323_regular)
+                    P.USER_THEME_HANDWRITTEN -> utils.setFont(R.font.patrick_hand_regular)
+                    P.USER_THEME_JUNGLE -> utils.setFont(R.font.hanalei_regular)
+                    P.USER_THEME_WESTERN -> utils.setFont(R.font.ewert_regular)
                     P.USER_THEME_ANALOG -> {
-                        setFont(R.font.roboto_regular)
+                        utils.setFont(R.font.roboto_regular)
                         flags[FLAG_MULTILINE_CLOCK] = true
                         flags[FLAG_ANALOG_CLOCK] = true
                     }
@@ -188,17 +167,17 @@ class AlwaysOnCustomView : View {
             }
         }
 
-        if (prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT) != P.BACKGROUND_IMAGE_NONE) {
-            if (prefs.get(
+        if (utils.prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT) != P.BACKGROUND_IMAGE_NONE) {
+            if (utils.prefs.get(
                     P.BACKGROUND_IMAGE,
                     P.BACKGROUND_IMAGE_DEFAULT,
                 ) == P.BACKGROUND_IMAGE_CUSTOM
             ) {
-                val decoded = Base64.decode(prefs.get(P.CUSTOM_BACKGROUND, ""), 0)
+                val decoded = Base64.decode(utils.prefs.get(P.CUSTOM_BACKGROUND, ""), 0)
                 nonScaleBackground = BitmapFactory.decodeByteArray(decoded, 0, decoded.size)
             } else {
                 val backgroundId =
-                    when (prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT)) {
+                    when (utils.prefs.get(P.BACKGROUND_IMAGE, P.BACKGROUND_IMAGE_DEFAULT)) {
                         P.BACKGROUND_IMAGE_DANIEL_OLAH_1 -> R.drawable.unsplash_daniel_olah_1
                         P.BACKGROUND_IMAGE_DANIEL_OLAH_2 -> R.drawable.unsplash_daniel_olah_2
                         P.BACKGROUND_IMAGE_DANIEL_OLAH_3 -> R.drawable.unsplash_daniel_olah_3
@@ -228,18 +207,18 @@ class AlwaysOnCustomView : View {
             }
         }
 
-        clockFormat =
+        timeFormat =
             SimpleDateFormat(
-                if (prefs.get(
+                if (utils.prefs.get(
                         P.USER_THEME,
                         P.USER_THEME_DEFAULT,
-                    ) == P.USER_THEME_SAMSUNG || prefs.get(
+                    ) == P.USER_THEME_SAMSUNG || utils.prefs.get(
                         P.USER_THEME,
                         P.USER_THEME_DEFAULT,
                     ) == P.USER_THEME_ONEPLUS
                 ) {
-                    if (prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
-                        if (prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
+                    if (utils.prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
+                        if (utils.prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
                             "hh\nmm\na"
                         } else {
                             "hh\nmm"
@@ -248,8 +227,8 @@ class AlwaysOnCustomView : View {
                         "HH\nmm"
                     }
                 } else {
-                    if (prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
-                        if (prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
+                    if (utils.prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
+                        if (utils.prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
                             "h:mm a"
                         } else {
                             "h:mm"
@@ -261,13 +240,13 @@ class AlwaysOnCustomView : View {
                 Locale.getDefault(),
             )
         dateFormat =
-            SimpleDateFormat(prefs.get(P.DATE_FORMAT, P.DATE_FORMAT_DEFAULT), Locale.getDefault())
+            SimpleDateFormat(utils.prefs.get(P.DATE_FORMAT, P.DATE_FORMAT_DEFAULT), Locale.getDefault())
 
-        if (prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
+        if (utils.prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
             val singleLineClock =
                 SimpleDateFormat(
-                    if (prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
-                        if (prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
+                    if (utils.prefs.get(P.USE_12_HOUR_CLOCK, P.USE_12_HOUR_CLOCK_DEFAULT)) {
+                        if (utils.prefs.get(P.SHOW_AM_PM, P.SHOW_AM_PM_DEFAULT)) {
                             "h:mm a"
                         } else {
                             "h:mm"
@@ -314,20 +293,20 @@ class AlwaysOnCustomView : View {
             }
         }
 
-        if (prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT)) {
+        if (utils.prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT)) {
             Volley.newRequestQueue(context).add(
                 StringRequest(
                     Request.Method.GET,
                     "https://wttr.in/" +
                         URLEncoder.encode(
-                            prefs.get(
+                            utils.prefs.get(
                                 P.WEATHER_LOCATION,
                                 P.WEATHER_LOCATION_DEFAULT,
                             ),
                             "utf-8",
                         ) + "?T&format=" +
                         URLEncoder.encode(
-                            prefs.get(
+                            utils.prefs.get(
                                 P.WEATHER_FORMAT,
                                 P.WEATHER_FORMAT_DEFAULT,
                             ),
@@ -349,13 +328,13 @@ class AlwaysOnCustomView : View {
      * On measure
      */
     private fun measureHeight(): Int {
-        currentHeight = 0f
-        currentHeight += paddingTop
+        utils.viewHeight = 0f
+        utils.viewHeight += paddingTop
 
-        val tempHeight = currentHeight
-        if (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT)) {
-            currentHeight += padding16 + padding2 +
-                getTextHeight(bigTextSize).run {
+        val tempHeight = utils.viewHeight
+        if (utils.prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT)) {
+            utils.viewHeight += utils.padding16 + utils.padding2 +
+                utils.getTextHeight(utils.bigTextSize).run {
                     if (flags[FLAG_MULTILINE_CLOCK]) {
                         this * 2
                     } else {
@@ -363,45 +342,45 @@ class AlwaysOnCustomView : View {
                     }
                 }
         }
-        if (prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
+        if (utils.prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
             if (flags[FLAG_SAMSUNG_3]) {
-                currentHeight =
-                    tempHeight + getTextHeight(bigTextSize) + padding16
+                utils.viewHeight =
+                    tempHeight + utils.getTextHeight(utils.bigTextSize) + utils.padding16
             } else {
-                currentHeight += getTextHeight(
-                    if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize,
-                ) + 2 * padding2
+                utils.viewHeight += utils.getTextHeight(
+                    if (flags[FLAG_BIG_DATE]) utils.bigTextSize else utils.mediumTextSize,
+                ) + 2 * utils.padding2
             }
         }
         if (
-            prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT) ||
-            prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)
+            utils.prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT) ||
+            utils.prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)
         ) {
-            currentHeight += getTextHeight(mediumTextSize) + 2 * padding16
+            utils.viewHeight += utils.getTextHeight(utils.mediumTextSize) + 2 * utils.padding16
         }
-        if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)) {
-            currentHeight += getTextHeight(smallTextSize) + 2 * padding2
+        if (utils.prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)) {
+            utils.viewHeight += utils.getTextHeight(utils.smallTextSize) + 2 * utils.padding2
         }
-        if (prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
-            currentHeight += 2 * padding16 + events.size * (
-                getTextHeight(smallTextSize) + 2 * padding2
+        if (utils.prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
+            utils.viewHeight += 2 * utils.padding16 + events.size * (
+                utils.getTextHeight(utils.smallTextSize) + 2 * utils.padding2
             )
         }
-        if (prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT) != "") {
-            currentHeight += getTextHeight(smallTextSize) + 2 * padding2
+        if (utils.prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT) != "") {
+            utils.viewHeight += utils.getTextHeight(utils.smallTextSize) + 2 * utils.padding2
         }
-        if (prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT)) {
-            currentHeight += getTextHeight(smallTextSize) + 2 * padding2
+        if (utils.prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT)) {
+            utils.viewHeight += utils.getTextHeight(utils.smallTextSize) + 2 * utils.padding2
         }
-        if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)) {
-            currentHeight += getTextHeight(mediumTextSize) + 2 * padding16
+        if (utils.prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)) {
+            utils.viewHeight += utils.getTextHeight(utils.mediumTextSize) + 2 * utils.padding16
         }
-        if (prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)) {
-            currentHeight += (NOTIFICATION_LIMIT / NOTIFICATION_ROW_LENGTH + 1) * drawableSize +
-                2 * padding16
+        if (utils.prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)) {
+            utils.viewHeight += (NOTIFICATION_LIMIT / NOTIFICATION_ROW_LENGTH + 1) * utils.drawableSize +
+                2 * utils.padding16
         }
 
-        currentHeight += paddingBottom
+        utils.viewHeight += paddingBottom
 
         // Scale background
         if (nonScaleBackground != null && measuredWidth > 0) {
@@ -415,7 +394,7 @@ class AlwaysOnCustomView : View {
         }
 
         return max(
-            currentHeight.toInt(),
+            utils.viewHeight.toInt(),
             (suggestedMinimumHeight + paddingTop + paddingBottom),
         )
     }
@@ -432,9 +411,9 @@ class AlwaysOnCustomView : View {
      */
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        relativePoint = if (flags[FLAG_LEFT_ALIGN]) padding16.toFloat() else measuredWidth / 2f
-        currentHeight = 0f
-        currentHeight += paddingTop
+        utils.horizontalRelativePoint = if (utils.paint.textAlign == Paint.Align.LEFT) utils.padding16.toFloat() else measuredWidth / 2f
+        utils.viewHeight = 0f
+        utils.viewHeight += paddingTop
 
         // Background
         if (nonScaleBackground != null) {
@@ -447,45 +426,46 @@ class AlwaysOnCustomView : View {
         }
 
         // Clock
-        val tempHeight = currentHeight
-        if (prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT)) {
+        val tempHeight = utils.viewHeight
+        if (utils.prefs.get(P.SHOW_CLOCK, P.SHOW_CLOCK_DEFAULT)) {
             if (flags[FLAG_ANALOG_CLOCK]) {
-                currentHeight += padding2
+                utils.viewHeight += utils.padding2
 
-                templatePaint.color =
-                    prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)
-                templatePaint.style = Paint.Style.STROKE
-                templatePaint.strokeWidth = dpToPx(4f)
+                utils.paint.color =
+                    utils.prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT)
+                utils.paint.style = Paint.Style.STROKE
+                utils.paint.strokeWidth = utils.dpToPx(4f)
                 canvas.drawCircle(
-                    relativePoint,
-                    currentHeight + getTextHeight(bigTextSize),
-                    getTextHeight(bigTextSize),
-                    templatePaint,
+                    utils.horizontalRelativePoint,
+                    utils.viewHeight + utils.getTextHeight(utils.bigTextSize),
+                    utils.getTextHeight(utils.bigTextSize),
+                    utils.paint,
                 )
-                templatePaint.style = Paint.Style.FILL
+                utils.paint.style = Paint.Style.FILL
 
                 val c = Calendar.getInstance()
-                drawHand(
+                utils.drawHand(
                     canvas,
                     (c[Calendar.HOUR_OF_DAY] % HOURS_ON_ANALOG_CLOCK + c.get(Calendar.MINUTE) / 60) * 5,
                     true,
                 )
-                drawHand(canvas, c.get(Calendar.MINUTE), false)
+                utils.drawHand(canvas, c.get(Calendar.MINUTE), false)
 
-                currentHeight += 2 * getTextHeight(bigTextSize) + padding16
+                utils.viewHeight += 2 * utils.getTextHeight(utils.bigTextSize) + utils.padding16
             } else {
-                canvas.drawRelativeText(
-                    clockFormat.format(System.currentTimeMillis()),
-                    padding16,
-                    padding2,
-                    getPaint(
-                        bigTextSize,
-                        prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT),
+                utils.drawRelativeText(
+                    canvas,
+                    timeFormat.format(System.currentTimeMillis()),
+                    utils.padding16,
+                    utils.padding2,
+                    utils.getPaint(
+                        utils.bigTextSize,
+                        utils.prefs.get(P.DISPLAY_COLOR_CLOCK, P.DISPLAY_COLOR_CLOCK_DEFAULT),
                     ),
                     if (flags[FLAG_SAMSUNG_3]) {
-                        -templatePaint.measureText(
-                            clockFormat.format(System.currentTimeMillis()),
-                        ).toInt() / 2 - padding16
+                        -utils.paint.measureText(
+                            timeFormat.format(System.currentTimeMillis()),
+                        ).toInt() / 2 - utils.padding16
                     } else {
                         0
                     },
@@ -494,12 +474,13 @@ class AlwaysOnCustomView : View {
         }
 
         // Date
-        if (prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
+        if (utils.prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)) {
             if (flags[FLAG_SAMSUNG_3]) {
-                currentHeight =
-                    tempHeight + getPaint(bigTextSize).getVerticalCenter()
+                utils.viewHeight =
+                    tempHeight + utils.getVerticalCenter(utils.getPaint(utils.bigTextSize))
             }
-            canvas.drawRelativeText(
+            utils.drawRelativeText(
+                canvas,
                 dateFormat.format(System.currentTimeMillis()).run {
                     if (flags[FLAG_CAPS_DATE]) {
                         this.uppercase()
@@ -507,220 +488,95 @@ class AlwaysOnCustomView : View {
                         this
                     }
                 },
-                padding2,
-                padding2,
-                getPaint(
-                    if (flags[FLAG_BIG_DATE]) bigTextSize else mediumTextSize,
-                    prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT),
+                utils.padding2,
+                utils.padding2,
+                utils.getPaint(
+                    if (flags[FLAG_BIG_DATE]) utils.bigTextSize else utils.mediumTextSize,
+                    utils.prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT),
                 ),
                 if (flags[FLAG_SAMSUNG_3]) {
-                    templatePaint.measureText(
+                    utils.paint.measureText(
                         dateFormat.format(System.currentTimeMillis()),
-                    ).toInt() / 2 + padding16
+                    ).toInt() / 2 + utils.padding16
                 } else {
                     0
                 },
             )
             if (flags[FLAG_SAMSUNG_3]) {
-                currentHeight =
-                    tempHeight + getTextHeight(bigTextSize) + padding16
+                utils.viewHeight =
+                    tempHeight + utils.getTextHeight(utils.bigTextSize) + utils.padding16
             }
         }
 
         // Samsung 3 divider
         if (flags[FLAG_SAMSUNG_3] && (
-                prefs.get(
+                utils.prefs.get(
                     P.SHOW_CLOCK,
                     P.SHOW_CLOCK_DEFAULT,
-                ) || prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)
+                ) || utils.prefs.get(P.SHOW_DATE, P.SHOW_DATE_DEFAULT)
             )
         ) {
             canvas.drawRect(
-                relativePoint - padding2 / 2,
-                tempHeight + padding16 * 2,
-                relativePoint + padding2 / 2,
-                currentHeight - padding16,
-                getPaint(bigTextSize, Color.WHITE),
+                utils.horizontalRelativePoint - utils.padding2 / 2,
+                tempHeight + utils.padding16 * 2,
+                utils.horizontalRelativePoint + utils.padding2 / 2,
+                utils.viewHeight - utils.padding16,
+                utils.getPaint(utils.bigTextSize, Color.WHITE),
             )
         }
 
         // Battery
-        if (prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT) &&
-            prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)
+        if (utils.prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT) &&
+            utils.prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)
         ) {
-            canvas.drawVector(
-                batteryIcon,
-                (
-                    relativePoint +
-                        (getPaint(mediumTextSize).measureText("$batteryLevel%")).run {
-                            if (flags[FLAG_LEFT_ALIGN]) {
-                                this
-                            } else {
-                                this / 2
-                            }
-                        }
-                ).toInt(),
-                (currentHeight + padding16 + getPaint(mediumTextSize).getVerticalCenter()).toInt(),
-                if (batteryCharging) {
-                    ResourcesCompat.getColor(resources, R.color.charging, null)
-                } else {
-                    prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)
-                },
-            )
-            canvas.drawRelativeText(
-                "$batteryLevel%",
-                padding16,
-                padding16,
-                getPaint(
-                    mediumTextSize,
-                    prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT),
-                ),
-                if (flags[FLAG_LEFT_ALIGN]) 0 else -drawableSize / 2,
-            )
-        } else if (prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)) {
-            canvas.drawVector(
-                batteryIcon,
-                relativePoint.toInt(),
-                (currentHeight + padding16 + getPaint(mediumTextSize).getVerticalCenter()).toInt(),
-                if (batteryCharging) {
-                    ResourcesCompat.getColor(resources, R.color.charging, null)
-                } else {
-                    prefs.get(P.DISPLAY_COLOR_BATTERY, P.DISPLAY_COLOR_BATTERY_DEFAULT)
-                },
-            )
-            currentHeight += padding16 - templatePaint.ascent() + templatePaint.descent() +
-                padding16
-        } else if (prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)) {
-            canvas.drawRelativeText(
-                "$batteryLevel%",
-                padding16,
-                padding16,
-                getPaint(mediumTextSize),
-            )
+            Battery.drawIconAndPercentage(canvas, utils, batteryIcon, batteryLevel, batteryIsCharging)
+        } else if (utils.prefs.get(P.SHOW_BATTERY_ICON, P.SHOW_BATTERY_ICON_DEFAULT)) {
+            Battery.drawIcon(canvas, utils, batteryIcon, batteryIsCharging)
+        } else if (utils.prefs.get(P.SHOW_BATTERY_PERCENTAGE, P.SHOW_BATTERY_PERCENTAGE_DEFAULT)) {
+            Battery.drawPercentage(canvas, utils, batteryLevel)
         }
 
         // Music Controls
-        if (musicVisible && prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)) {
-            skipPositions[0] =
-                if (flags[FLAG_LEFT_ALIGN]) {
-                    relativePoint.toInt()
-                } else {
-                    (relativePoint - getPaint(smallTextSize).measureText(musicString) / 2).toInt() -
-                        padding16
-                }
-            skipPositions[1] =
-                if (flags[FLAG_LEFT_ALIGN]) {
-                    (
-                        relativePoint +
-                            getPaint(smallTextSize).measureText(
-                                musicString,
-                            )
-                    ).toInt() + drawableSize
-                } else {
-                    (relativePoint + getPaint(smallTextSize).measureText(musicString) / 2).toInt() +
-                        padding16
-                }
-            skipPositions[2] =
-                (currentHeight + padding2 + getPaint(smallTextSize).getVerticalCenter()).toInt()
-            canvas.drawVector(
-                R.drawable.ic_skip_previous_white,
-                skipPositions[0],
-                skipPositions[2],
-                prefs.get(P.DISPLAY_COLOR_MUSIC_CONTROLS, P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT),
-            )
-            canvas.drawVector(
-                R.drawable.ic_skip_next_white,
-                skipPositions[1],
-                skipPositions[2],
-                prefs.get(P.DISPLAY_COLOR_MUSIC_CONTROLS, P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT),
-            )
-            canvas.drawRelativeText(
-                musicString,
-                padding2,
-                padding2,
-                getPaint(
-                    smallTextSize,
-                    prefs.get(
-                        P.DISPLAY_COLOR_MUSIC_CONTROLS,
-                        P.DISPLAY_COLOR_MUSIC_CONTROLS_DEFAULT,
-                    ),
-                ),
-                if (flags[FLAG_LEFT_ALIGN]) drawableSize else 0,
-            )
+        if (musicVisible && utils.prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)) {
+            skipPositions = MusicControls.draw(canvas, utils, musicString)
         }
 
         // Calendar
-        if (prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
-            currentHeight += padding16
-            for (it in events) {
-                canvas.drawRelativeText(
-                    it,
-                    padding2,
-                    padding2,
-                    getPaint(
-                        smallTextSize,
-                        prefs.get(P.DISPLAY_COLOR_CALENDAR, P.DISPLAY_COLOR_CALENDAR_DEFAULT),
-                    ),
-                )
-            }
-            currentHeight += padding16
+        if (utils.prefs.get(P.SHOW_CALENDAR, P.SHOW_CALENDAR_DEFAULT)) {
+            io.github.domi04151309.alwayson.actions.alwayson.draw.Calendar.draw(canvas, utils, events)
         }
 
         // Message
-        if (prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT) != "") {
-            canvas.drawRelativeText(
-                prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT),
-                padding2,
-                padding2,
-                getPaint(
-                    smallTextSize,
-                    prefs.get(P.DISPLAY_COLOR_MESSAGE, P.DISPLAY_COLOR_MESSAGE_DEFAULT),
-                ),
-            )
+        if (utils.prefs.get(P.MESSAGE, P.MESSAGE_DEFAULT) != "") {
+            Message.draw(canvas, utils)
         }
 
         // Weather
-        if (prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT)) {
-            canvas.drawRelativeText(
-                weather,
-                padding2,
-                padding2,
-                getPaint(
-                    smallTextSize,
-                    prefs.get(P.DISPLAY_COLOR_WEATHER, P.DISPLAY_COLOR_WEATHER_DEFAULT),
-                ),
-            )
+        if (utils.prefs.get(P.SHOW_WEATHER, P.SHOW_WEATHER_DEFAULT)) {
+            Weather.draw(canvas, utils, weather)
         }
 
         // Notification Count
-        if (prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)) {
-            canvas.drawRelativeText(
-                if (NotificationService.count != 0) NotificationService.count.toString() else "",
-                padding16,
-                padding16,
-                getPaint(
-                    mediumTextSize,
-                    prefs.get(P.DISPLAY_COLOR_NOTIFICATION, P.DISPLAY_COLOR_NOTIFICATION_DEFAULT),
-                ),
-            )
+        if (utils.prefs.get(P.SHOW_NOTIFICATION_COUNT, P.SHOW_NOTIFICATION_COUNT_DEFAULT)) {
+            NotificationCount.draw(canvas, utils)
         }
 
         // Notification Icons
-        if (prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)) {
+        if (utils.prefs.get(P.SHOW_NOTIFICATION_ICONS, P.SHOW_NOTIFICATION_ICONS_DEFAULT)) {
             var drawable: Drawable
             var x: Int =
-                if (flags[FLAG_LEFT_ALIGN]) {
-                    relativePoint.toInt()
+                if (utils.paint.textAlign == Paint.Align.LEFT) {
+                    utils.horizontalRelativePoint.toInt()
                 } else {
                     (
                         width - (
                             min(
                                 NotificationService.icons.size, NOTIFICATION_ROW_LENGTH,
                             ) - 1
-                        ) * drawableSize
+                        ) * utils.drawableSize
                     ) / 2
                 }
-            currentHeight += padding16 + drawableSize / 2
+            utils.viewHeight += utils.padding16 + utils.drawableSize / 2
             for (index in 0 until NotificationService.icons.size) {
                 val (icon, color) = NotificationService.icons[index]
                 try {
@@ -732,17 +588,17 @@ class AlwaysOnCustomView : View {
                             icon.loadDrawable(context) ?: continue
                         }
                     drawable.setTint(
-                        if (prefs.get(P.TINT_NOTIFICATIONS, P.TINT_NOTIFICATIONS_DEFAULT)) {
+                        if (utils.prefs.get(P.TINT_NOTIFICATIONS, P.TINT_NOTIFICATIONS_DEFAULT)) {
                             color
                         } else {
-                            prefs.get(
+                            utils.prefs.get(
                                 P.DISPLAY_COLOR_NOTIFICATION,
                                 P.DISPLAY_COLOR_NOTIFICATION_DEFAULT,
                             )
                         },
                     )
                     if (
-                        !flags[FLAG_LEFT_ALIGN] &&
+                        utils.paint.textAlign != Paint.Align.LEFT &&
                         index / NOTIFICATION_ROW_LENGTH == NotificationService.icons.size /
                         NOTIFICATION_ROW_LENGTH &&
                         index % NOTIFICATION_ROW_LENGTH == 0
@@ -750,26 +606,26 @@ class AlwaysOnCustomView : View {
                         x = (
                             width - (
                                 NotificationService.icons.size % NOTIFICATION_ROW_LENGTH - 1
-                            ) * drawableSize
+                            ) * utils.drawableSize
                         ) / 2
                     }
-                    if (flags[FLAG_LEFT_ALIGN]) {
+                    if (utils.paint.textAlign == Paint.Align.LEFT) {
                         drawable.setBounds(
-                            x + drawableSize * (index % NOTIFICATION_ROW_LENGTH),
-                            currentHeight.toInt() - drawableSize / 2 +
-                                index / NOTIFICATION_ROW_LENGTH * drawableSize,
-                            x + drawableSize * ((index + 1) % NOTIFICATION_ROW_LENGTH),
-                            currentHeight.toInt() + drawableSize / 2 +
-                                index / NOTIFICATION_ROW_LENGTH * drawableSize,
+                            x + utils.drawableSize * (index % NOTIFICATION_ROW_LENGTH),
+                            utils.viewHeight.toInt() - utils.drawableSize / 2 +
+                                index / NOTIFICATION_ROW_LENGTH * utils.drawableSize,
+                            x + utils.drawableSize * ((index + 1) % NOTIFICATION_ROW_LENGTH),
+                            utils.viewHeight.toInt() + utils.drawableSize / 2 +
+                                index / NOTIFICATION_ROW_LENGTH * utils.drawableSize,
                         )
                     } else {
                         drawable.setBounds(
-                            x - drawableSize / 2 + drawableSize * (index % NOTIFICATION_ROW_LENGTH),
-                            currentHeight.toInt() - drawableSize / 2 +
-                                index / NOTIFICATION_ROW_LENGTH * drawableSize,
-                            x + drawableSize / 2 + drawableSize * (index % NOTIFICATION_ROW_LENGTH),
-                            currentHeight.toInt() + drawableSize / 2 +
-                                index / NOTIFICATION_ROW_LENGTH * drawableSize,
+                            x - utils.drawableSize / 2 + utils.drawableSize * (index % NOTIFICATION_ROW_LENGTH),
+                            utils.viewHeight.toInt() - utils.drawableSize / 2 +
+                                index / NOTIFICATION_ROW_LENGTH * utils.drawableSize,
+                            x + utils.drawableSize / 2 + utils.drawableSize * (index % NOTIFICATION_ROW_LENGTH),
+                            utils.viewHeight.toInt() + utils.drawableSize / 2 +
+                                index / NOTIFICATION_ROW_LENGTH * utils.drawableSize,
                         )
                     }
                     drawable.draw(canvas)
@@ -791,20 +647,21 @@ class AlwaysOnCustomView : View {
         if (
             event.action == MotionEvent.ACTION_DOWN &&
             abs(event.y.toInt() - skipPositions[2]) < 64 &&
-            prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)
+            utils.prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)
         ) {
             when {
-                abs(event.x.toInt() - skipPositions[0]) < padding16 -> {
+                abs(event.x.toInt() - skipPositions[0]) < utils.padding16 -> {
                     onSkipPreviousClicked()
                     return performClick()
                 }
 
-                abs(event.x.toInt() - skipPositions[1]) < padding16 -> {
+                abs(event.x.toInt() - skipPositions[1]) < utils.padding16 -> {
                     onSkipNextClicked()
                     return performClick()
                 }
 
-                abs(event.x.toInt() - relativePoint) < abs(skipPositions[1] - relativePoint) -> {
+                abs(event.x.toInt() - utils.horizontalRelativePoint) <
+                    abs(skipPositions[1] - utils.horizontalRelativePoint) -> {
                     onTitleClicked()
                     return performClick()
                 }
@@ -814,122 +671,13 @@ class AlwaysOnCustomView : View {
     }
 
     /*
-     * Utility functions
-     */
-    private fun setFont(resId: Int) {
-        try {
-            templatePaint.typeface = ResourcesCompat.getFont(context, resId)
-        } catch (e: Exception) {
-            Log.w(Global.LOG_TAG, e.toString())
-        }
-    }
-
-    private fun getPaint(
-        textSize: Float,
-        color: Int? = null,
-    ): Paint {
-        templatePaint.textSize = textSize
-        if (color != null) templatePaint.color = color
-        return templatePaint
-    }
-
-    private fun getTextHeight(textSize: Float): Float {
-        templatePaint.textSize = textSize
-        return -templatePaint.ascent() + templatePaint.descent()
-    }
-
-    private fun Paint.getVerticalCenter() = (-ascent() + descent()) / 2
-
-    private fun dpToPx(dp: Float): Float =
-        TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            dp,
-            resources.displayMetrics,
-        )
-
-    private fun spToPx(sp: Float): Float =
-        TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_SP,
-            sp,
-            resources.displayMetrics,
-        )
-
-    /*
-     * Drawing functions
-     */
-    private fun Canvas.drawRelativeText(
-        text: String,
-        paddingTop: Int,
-        paddingBottom: Int,
-        paint: Paint,
-        offsetX: Int = 0,
-    ) {
-        currentHeight += paddingTop
-        for (line in text.split("\n")) {
-            currentHeight -= paint.ascent()
-            drawText(
-                line,
-                relativePoint + offsetX,
-                currentHeight,
-                paint,
-            )
-        }
-        currentHeight += paddingBottom + paint.descent()
-    }
-
-    private fun Canvas.drawVector(
-        resId: Int,
-        x: Int,
-        y: Int,
-        tint: Int,
-    ) {
-        val vector = VectorDrawableCompat.create(resources, resId, null)
-        if (vector != null) {
-            vector.setTint(tint)
-            if (flags[FLAG_LEFT_ALIGN]) {
-                vector.setBounds(
-                    x,
-                    y - drawableSize / 2,
-                    x + drawableSize,
-                    y + drawableSize / 2,
-                )
-            } else {
-                vector.setBounds(
-                    x - drawableSize / 2,
-                    y - drawableSize / 2,
-                    x + drawableSize / 2,
-                    y + drawableSize / 2,
-                )
-            }
-            vector.draw(this)
-        }
-    }
-
-    private fun drawHand(
-        canvas: Canvas,
-        loc: Int,
-        isHour: Boolean,
-    ) {
-        val angle = (Math.PI * loc / 30 - Math.PI / 2).toFloat()
-        val handRadius: Float =
-            if (isHour) getTextHeight(bigTextSize) * .5f else getTextHeight(bigTextSize) * .9f
-        canvas.drawLine(
-            relativePoint,
-            currentHeight + getTextHeight(bigTextSize),
-            relativePoint + cos(angle) * handRadius,
-            currentHeight + getTextHeight(bigTextSize) + sin(angle) * handRadius,
-            templatePaint,
-        )
-    }
-
-    /*
      * Functions for configuration
      */
     fun setBatteryStatus(
         level: Int,
         charging: Boolean,
     ) {
-        batteryCharging = charging
+        batteryIsCharging = charging
         batteryLevel = level
         batteryIcon = IconHelper.getBatteryIcon(level)
         invalidate()
