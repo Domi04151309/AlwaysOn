@@ -2,19 +2,16 @@ package io.github.domi04151309.alwayson.activities
 
 import android.os.Bundle
 import android.widget.SeekBar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.helpers.P
-import io.github.domi04151309.alwayson.helpers.Theme
 
-class LAFBrightnessActivity : AppCompatActivity() {
+class LAFBrightnessActivity : BaseActivity() {
     private lateinit var brightnessSwitch: SwitchCompat
     private lateinit var seekBar: SeekBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_brightness)
         brightnessSwitch = findViewById(R.id.brightnessSwitch)

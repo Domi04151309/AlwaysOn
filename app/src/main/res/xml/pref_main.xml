@@ -48,12 +48,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_ao_other" >
-        <SwitchPreference
-            android:defaultValue="false"
-            android:icon="@drawable/ic_palette"
-            android:key="dark_mode"
-            android:summary="@string/pref_look_and_feel_dark_summary"
-            android:title="@string/pref_look_and_feel_dark" />
         <Preference
             android:icon="@drawable/ic_security"
             android:key="pref_permissions"

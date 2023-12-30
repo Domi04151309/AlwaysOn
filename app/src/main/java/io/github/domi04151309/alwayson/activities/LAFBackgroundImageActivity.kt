@@ -16,7 +16,6 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,13 +23,12 @@ import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.adapters.LayoutListAdapter
 import io.github.domi04151309.alwayson.helpers.P
-import io.github.domi04151309.alwayson.helpers.Theme
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import java.lang.Integer.min
 
 class LAFBackgroundImageActivity :
-    AppCompatActivity(),
+    BaseActivity(),
     ActivityResultCallback<ActivityResult>,
     LayoutListAdapter.OnItemClickListener {
     internal var value: String = P.BACKGROUND_IMAGE_DEFAULT
@@ -97,7 +95,6 @@ class LAFBackgroundImageActivity :
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_layout_list)
 

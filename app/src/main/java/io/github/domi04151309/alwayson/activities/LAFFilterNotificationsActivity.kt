@@ -4,7 +4,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
@@ -12,13 +11,11 @@ import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.JSON
-import io.github.domi04151309.alwayson.helpers.Theme
 import io.github.domi04151309.alwayson.services.NotificationService
 import org.json.JSONArray
 
-class LAFFilterNotificationsActivity : AppCompatActivity() {
+class LAFFilterNotificationsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         supportFragmentManager

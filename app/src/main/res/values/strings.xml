@@ -56,8 +56,6 @@
     <string name="pref_ao_behavior_summary">Settings related to the behavior of the app</string>
     <string name="pref_ao_other">Other settings</string>
 
-    <string name="pref_look_and_feel_dark">Dark mode</string>
-    <string name="pref_look_and_feel_dark_summary">Changes the look of the app to a dark style</string>
     <string name="pref_look_and_feel_hour">Use 12-hour clock</string>
     <string name="pref_look_and_feel_hour_summary_on">Currently used: 12-hour clock</string>
     <string name="pref_look_and_feel_hour_summary_off">Currently used: 24-hour clock</string>

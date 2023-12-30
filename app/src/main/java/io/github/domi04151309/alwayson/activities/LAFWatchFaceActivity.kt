@@ -9,22 +9,20 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.custom.BasePreferenceFragment
 import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.PreferenceScreenHelper
-import io.github.domi04151309.alwayson.helpers.Theme
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class LAFWatchFaceActivity : AppCompatActivity() {
+class LAFWatchFaceActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         supportFragmentManager
@@ -45,7 +43,7 @@ class LAFWatchFaceActivity : AppCompatActivity() {
                 ),
             )
             val dialog =
-                AlertDialog.Builder(requireContext())
+                MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.pref_ao_date_format)
                     .setView(dialogView)
                     .setPositiveButton(android.R.string.ok, null)

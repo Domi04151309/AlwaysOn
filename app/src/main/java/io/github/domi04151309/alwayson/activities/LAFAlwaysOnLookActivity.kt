@@ -2,16 +2,14 @@ package io.github.domi04151309.alwayson.activities
 
 import android.os.Bundle
 import android.widget.ImageView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.adapters.LayoutListAdapter
 import io.github.domi04151309.alwayson.helpers.P
-import io.github.domi04151309.alwayson.helpers.Theme
 
-class LAFAlwaysOnLookActivity : AppCompatActivity(), LayoutListAdapter.OnItemClickListener {
+class LAFAlwaysOnLookActivity : BaseActivity(), LayoutListAdapter.OnItemClickListener {
     internal var value: String = P.USER_THEME_DEFAULT
     private lateinit var preview: ImageView
     private lateinit var layoutList: RecyclerView
@@ -80,7 +78,6 @@ class LAFAlwaysOnLookActivity : AppCompatActivity(), LayoutListAdapter.OnItemCli
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_layout_list)
 

@@ -14,20 +14,19 @@
         android:contentDescription="@null"/>
 
     <TextView
+        style="@style/MaterialAlertDialog.Material3.Title.Text"
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/aod_spacing_8"
         android:paddingHorizontal="?dialogPreferredPadding"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textIsSelectable="false" />
 
     <TextView
+        style="@style/MaterialAlertDialog.Material3.Body.Text"
         android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="?dialogPreferredPadding"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="?android:attr/textColorSecondary"
         android:textIsSelectable="false" />
 </LinearLayout>

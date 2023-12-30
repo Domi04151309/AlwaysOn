@@ -11,12 +11,11 @@ import android.service.quicksettings.TileService
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.addCallback
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.elevation.SurfaceColors
 import io.github.domi04151309.alwayson.BuildConfig
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.custom.BasePreferenceFragment
@@ -24,12 +23,11 @@ import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Permissions
 import io.github.domi04151309.alwayson.helpers.PreferenceScreenHelper
-import io.github.domi04151309.alwayson.helpers.Theme
 import io.github.domi04151309.alwayson.receivers.AlwaysOnAppWidgetProvider
 import io.github.domi04151309.alwayson.services.AlwaysOnTileService
 import io.github.domi04151309.alwayson.services.ForegroundService
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
     enum class Dialog {
         DEVICE_ADMIN,
         NOTIFICATION_ACCESS,
@@ -39,14 +37,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Theme.set(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
-        val actionBar = supportActionBar ?: error("Invalid layout.")
-        actionBar.displayOptions = ActionBar.DISPLAY_SHOW_CUSTOM
-        actionBar.setDisplayShowCustomEnabled(true)
-        actionBar.setCustomView(R.layout.action_bar)
-        actionBar.elevation = 0f
+        setContentView(R.layout.activity_main)
+
+        window.statusBarColor = SurfaceColors.SURFACE_0.getColor(this)
 
         supportFragmentManager
             .beginTransaction()
@@ -81,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         message: Int,
         onOk: DialogInterface.OnClickListener,
     ) {
-        val builder = AlertDialog.Builder(this)
+        val builder = MaterialAlertDialogBuilder(this)
         val view = layoutInflater.inflate(R.layout.dialog_permission, null, false)
         view.findViewById<ImageView>(R.id.icon).setImageResource(icon)
         view.findViewById<TextView>(R.id.title).setText(title)

@@ -1,16 +1,13 @@
 package io.github.domi04151309.alwayson.activities
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.helpers.Theme
 
-class LibraryActivity : AppCompatActivity() {
+class LibraryActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         supportFragmentManager

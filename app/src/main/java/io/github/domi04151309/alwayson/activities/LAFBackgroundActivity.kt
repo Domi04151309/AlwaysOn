@@ -3,16 +3,13 @@ package io.github.domi04151309.alwayson.activities
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.custom.BasePreferenceFragment
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.PreferenceScreenHelper
-import io.github.domi04151309.alwayson.helpers.Theme
 
-class LAFBackgroundActivity : AppCompatActivity() {
+class LAFBackgroundActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         supportFragmentManager

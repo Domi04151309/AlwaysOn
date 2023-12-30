@@ -25,13 +25,14 @@
         tools:ignore="QueryAllPackagesPermission" />
 
     <application
+        android:name=".Application"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppThemeLight"
+        android:theme="@style/Theme.Material3.DayNight"
         android:dataExtractionRules="@xml/data_extraction_rules"
         tools:targetApi="s">
         <activity android:name=".activities.HelpActivity"
@@ -159,6 +160,7 @@
 
         <activity
             android:name=".activities.MainActivity"
+            android:theme="@style/Theme.Material3.DayNight.NoActionBar"
             android:launchMode="singleTop" />
         <activity
             android:name=".activities.PermissionsActivity"

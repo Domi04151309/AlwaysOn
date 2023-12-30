@@ -7,19 +7,16 @@ import android.provider.Settings
 import android.view.Gravity
 import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.PreferenceScreenHelper
 import io.github.domi04151309.alwayson.helpers.Root
-import io.github.domi04151309.alwayson.helpers.Theme
 
-class PermissionsActivity : AppCompatActivity() {
+class PermissionsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         supportFragmentManager
@@ -42,7 +39,7 @@ class PermissionsActivity : AppCompatActivity() {
             findPreference<Preference>("device_admin")?.setOnPreferenceClickListener {
                 val dialogView = layoutInflater.inflate(R.layout.dialog_device_admin, null, false)
                 val editText = dialogView.findViewById<EditText>(R.id.editText)
-                AlertDialog.Builder(requireContext())
+                MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.device_admin)
                     .setView(dialogView)
                     .setPositiveButton(android.R.string.ok) { _, _ ->

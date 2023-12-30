@@ -53,8 +53,6 @@
     <string name="pref_ao_behavior_summary">Paramètres liés au comportement de l\’application</string>
     <string name="pref_ao_other">Autres paramètres</string>
 
-    <string name="pref_look_and_feel_dark">Mode sombre</string>
-    <string name="pref_look_and_feel_dark_summary">Modifier le style de l\’application pour un style plus sombre</string>
     <string name="pref_look_and_feel_hour">Utiliser l\’affichage 12 heures</string>
     <string name="pref_look_and_feel_hour_summary_on">Utilisé en ce moment: 12 heures</string>
     <string name="pref_look_and_feel_hour_summary_off">Utilisé en ce moment: 24 heures</string>

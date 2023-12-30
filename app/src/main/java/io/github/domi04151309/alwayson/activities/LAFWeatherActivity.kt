@@ -4,17 +4,14 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.Preference
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.custom.BasePreferenceFragment
 import io.github.domi04151309.alwayson.helpers.P
-import io.github.domi04151309.alwayson.helpers.Theme
 
-class LAFWeatherActivity : AppCompatActivity() {
+class LAFWeatherActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        Theme.set(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         supportFragmentManager
@@ -40,7 +37,7 @@ class LAFWeatherActivity : AppCompatActivity() {
                         P.WEATHER_FORMAT_DEFAULT,
                     ),
                 )
-                AlertDialog.Builder(requireContext())
+                MaterialAlertDialogBuilder(requireContext())
                     .setTitle(R.string.pref_look_and_feel_weather_format)
                     .setView(dialogView)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
@@ -62,7 +59,7 @@ class LAFWeatherActivity : AppCompatActivity() {
                 true
             }
 
-            AlertDialog.Builder(requireContext())
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.about_privacy)
                 .setMessage(R.string.pref_look_and_feel_weather_provider)
                 .setPositiveButton(android.R.string.ok) { _, _ -> }
