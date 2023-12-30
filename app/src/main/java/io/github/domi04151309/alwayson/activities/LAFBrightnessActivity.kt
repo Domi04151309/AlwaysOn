@@ -28,7 +28,10 @@ class LAFBrightnessActivity : AppCompatActivity() {
                     progress: Int,
                     fromUser: Boolean,
                 ) {
-                    window.attributes.screenBrightness = progress / 255.toFloat()
+                    // Turning this into a single statement will not work!
+                    val attributes = window.attributes
+                    attributes.screenBrightness = (progress / 100.0).toFloat()
+                    window.attributes = attributes
                 }
 
                 override fun onStartTrackingTouch(seekBar: SeekBar) {

@@ -163,11 +163,13 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
         // Brightness
         if (prefs.get(P.FORCE_BRIGHTNESS, P.FORCE_BRIGHTNESS_DEFAULT)) {
-            window.attributes.screenBrightness =
-                prefs.get(
-                    P.FORCE_BRIGHTNESS_VALUE,
-                    P.FORCE_BRIGHTNESS_VALUE_DEFAULT,
-                ) / 255.toFloat()
+            // Turning this into a single statement will not work!
+            val attributes = window.attributes
+            attributes.screenBrightness = prefs.get(
+                P.FORCE_BRIGHTNESS_VALUE,
+                P.FORCE_BRIGHTNESS_VALUE_DEFAULT,
+            ) / 255.toFloat()
+            window.attributes = attributes
         }
 
         // Show on lock screen
