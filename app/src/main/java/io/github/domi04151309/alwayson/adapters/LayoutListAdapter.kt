@@ -54,13 +54,13 @@ class LayoutListAdapter(
             holder.view.findViewById<LinearLayout>(R.id.linearLayout)
                 .setBackgroundColor(
                     ColorUtils.setAlphaComponent(
-                        getColor(holder.view.context, R.color.colorAccent),
+                        getAccentColor(holder.view.context),
                         SELECTED_BACKGROUND_ALPHA,
                     ),
                 )
         } else {
             holder.view.findViewById<LinearLayout>(R.id.linearLayout).background =
-                getAttr(holder.view.context)
+                getSelectableItemBackground(holder.view.context)
         }
         holder.view.findViewById<ImageView>(R.id.drawable)
             .setImageDrawable(ContextCompat.getDrawable(holder.view.context, drawables[position]))
@@ -76,7 +76,7 @@ class LayoutListAdapter(
         notifyItemChanged(selectedItem)
     }
 
-    private fun getAttr(context: Context): Drawable? {
+    private fun getSelectableItemBackground(context: Context): Drawable? {
         val value = TypedValue()
         context.theme.resolveAttribute(
             androidx.appcompat.R.attr.selectableItemBackground,
@@ -84,5 +84,15 @@ class LayoutListAdapter(
             true,
         )
         return ContextCompat.getDrawable(context, value.resourceId)
+    }
+
+    private fun getAccentColor(context: Context): Int {
+        val value = TypedValue()
+        context.theme.resolveAttribute(
+            androidx.appcompat.R.attr.colorAccent,
+            value,
+            true,
+        )
+        return getColor(context, value.resourceId)
     }
 }

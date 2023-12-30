@@ -7,6 +7,7 @@
     android:layout_marginBottom="16dp"
     app:cardCornerRadius="@dimen/common_corner_radius"
     app:cardElevation="0dp"
+    app:cardBackgroundColor="@android:color/transparent"
     tools:ignore="UseCompoundDrawables">
 
     <LinearLayout

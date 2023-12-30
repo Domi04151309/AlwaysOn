@@ -80,11 +80,6 @@
             android:launchMode="singleTop"
             android:parentActivityName=".activities.MainActivity" />
         <activity
-            android:name=".activities.ContributorActivity"
-            android:label="@string/about_contributors"
-            android:launchMode="singleTop"
-            android:parentActivityName=".activities.AboutActivity" />
-        <activity
             android:name=".activities.LibraryActivity"
             android:label="@string/about_libraries"
             android:launchMode="singleTop"

@@ -238,7 +238,7 @@
     <string name="about_summary">À propos de l\’application</string>
     <string name="about_app_version">Version de l\’application</string>
     <string name="about_privacy">Contenu externe</string>
-    <string name="about_privacy_desc">Les contributeurs sont chargés depuis GitHub. Lisez la politique de confidentialité pour plus d\’information.</string>
+    <string name="about_privacy_desc">Contenu externe est chargés depuis GitHub. Lisez la politique de confidentialité pour plus d\’information.</string>
     <string name="about_privacy_policy">Politique de confidentialité</string>
     <string name="about_contributors">Contributeurs</string>
     <string name="about_contributors_desc">Une liste des contributeurs</string>

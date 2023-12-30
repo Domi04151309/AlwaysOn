@@ -4,8 +4,4 @@
         <item quantity="one">Nach %d Sekunde anhalten</item>
         <item quantity="other">Nach %d Sekunden anhalten</item>
     </plurals>
-    <plurals name="about_contributions">
-        <item quantity="one">%1$d Beitrag</item>
-        <item quantity="other">%1$d Beiträge</item>
-    </plurals>
 </resources>

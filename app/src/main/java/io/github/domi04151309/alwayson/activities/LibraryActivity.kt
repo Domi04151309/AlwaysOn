@@ -23,7 +23,10 @@ class LibraryActivity : BaseActivity() {
         ) {
             addPreferencesFromResource(R.xml.pref_about_list)
             preferenceScreen.removeAll()
-            resources.getStringArray(R.array.about_libraries).forEach {
+            val libraries = resources.getStringArray(R.array.about_libraries)
+            val licenses = resources.getStringArray(R.array.about_libraries_licenses)
+            if (libraries.size != licenses.size) error("Library array size does not match license array size.")
+            for (index in libraries.indices) {
                 preferenceScreen.addPreference(
                     Preference(requireContext()).apply {
                         icon =
@@ -32,7 +35,8 @@ class LibraryActivity : BaseActivity() {
                                 R.drawable.ic_about_library,
                                 requireContext().theme,
                             )
-                        title = it
+                        title = libraries[index]
+                        summary = licenses[index]
                     },
                 )
             }
