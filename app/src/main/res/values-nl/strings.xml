@@ -5,7 +5,6 @@
     <string name="service_text">AlwaysOn draait op de achtergrond</string>
     <string name="service_channel">Dienstkanaal</string>
 
-    <string name="setup_header">Instelhulp</string>
     <string name="setup_root_failed">Rootverzoek mislukt! Probeer het opnieuw of kies een andere modus.</string>
     <string name="device_admin">Apparaatbeheerder</string>
     <string name="device_admin_summary">Schakel deze apparaatbeheerder in of kies voor de rootmodus.</string>

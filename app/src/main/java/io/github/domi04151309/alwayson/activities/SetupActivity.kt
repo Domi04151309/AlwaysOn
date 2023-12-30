@@ -8,23 +8,25 @@ import android.provider.Settings
 import android.text.format.DateFormat
 import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.preference.PreferenceManager
+import com.google.android.material.elevation.SurfaceColors
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.activities.setup.DrawOverOtherAppsFragment
 import io.github.domi04151309.alwayson.activities.setup.PhoneStateFragment
 import io.github.domi04151309.alwayson.helpers.P
 
-class SetupActivity : AppCompatActivity() {
+class SetupActivity : BaseActivity() {
     private var currentFragment = DRAW_OVER_OTHER_APPS_FRAGMENT
     private var isActionRequired = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup)
+
+        window.statusBarColor = SurfaceColors.SURFACE_0.getColor(this)
 
         val prefsEditor = PreferenceManager.getDefaultSharedPreferences(this).edit()
         swapContentFragment(DrawOverOtherAppsFragment(), DRAW_OVER_OTHER_APPS_FRAGMENT)

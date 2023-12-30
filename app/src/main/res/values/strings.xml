@@ -5,7 +5,6 @@
     <string name="service_text">AlwaysOn is running in the background</string>
     <string name="service_channel">Service channel</string>
 
-    <string name="setup_header">Setup</string>
     <string name="setup_root_failed">Root request failed! Please try again or switch mode!</string>
     <string name="device_admin">Device Admin</string>
     <string name="device_admin_summary">You need to activate this device admin or switch to root mode for this app to work.</string>

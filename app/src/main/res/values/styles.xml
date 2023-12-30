@@ -4,15 +4,6 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="SetupTheme" parent="Theme.AppCompat.Light">
-        <item name="colorPrimary">@color/colorAccent</item>
-        <item name="colorPrimaryDark">@color/colorAccent</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/colorAccent</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
     <style name="AppThemeSplash" parent="AppThemeScreenOff">
         <item name="android:windowBackground">@drawable/splash</item>
         <item name="android:textColorSecondary">@android:color/white</item>

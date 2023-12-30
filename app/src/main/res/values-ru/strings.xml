@@ -5,7 +5,6 @@
     <string name="service_text">AlwaysOn работает в фоновом режиме</string>
     <string name="service_channel">Сервисный канал</string>
 
-    <string name="setup_header">Настройка</string>
     <string name="setup_root_failed">Запрос на root права не выполнен! Пожалуйста, попробуйте еще раз или переключите режим!</string>
     <string name="device_admin">Администратор Устройства</string>
     <string name="device_admin_summary">Вам нужно активировать права администратора или переключиться в root, чтобы это приложение работало.</string>

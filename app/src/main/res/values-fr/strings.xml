@@ -5,7 +5,6 @@
     <string name="service_text">AlwaysOn est lancé en arrière plan</string>
     <string name="service_channel">Chaîne de service</string>
 
-    <string name="setup_header">Paramétrage</string>
     <string name="setup_root_failed">La requête root a échoué! Merci de réessayer ou de changer de mode!</string>
     <string name="device_admin">Administrateur de l\’appareil</string>
     <string name="device_admin_summary">Vous devez être root (devenir administrateur) ou changer de mode pour que cette application fonctionne.</string>

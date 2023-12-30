@@ -91,7 +91,7 @@
             android:parentActivityName=".activities.AboutActivity" />
         <activity
             android:name=".activities.SetupActivity"
-            android:theme="@style/SetupTheme" />
+            android:theme="@style/Theme.Material3.DayNight.NoActionBar" />
 
         <receiver
             android:name=".receivers.AdminReceiver"

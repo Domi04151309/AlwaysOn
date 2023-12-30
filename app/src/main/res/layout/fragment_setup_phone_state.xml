@@ -3,27 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="@string/setup_phone_state"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/setup_phone_state_summary"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="?android:attr/textColorSecondary" />
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="?actionBarSize"
+    android:layout_gravity="center"
+    android:padding="?dialogPreferredPadding">
 
     <ImageView
         android:layout_width="@dimen/setup_icon_size"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/setup_icon_size"
         android:layout_gravity="center"
-        android:layout_margin="16dp"
+        android:layout_marginBottom="?dialogPreferredPadding"
         android:contentDescription="@null"
         app:srcCompat="@drawable/ic_color_phone_state" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="?dialogPreferredPadding"
+        android:textAppearance="@style/TextAppearance.Material3.DisplayMedium"
+        android:breakStrategy="balanced"
+        android:text="@string/setup_phone_state" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        android:text="@string/setup_phone_state_summary" />
 </LinearLayout>
