@@ -8,6 +8,10 @@ import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.helpers.P
 
 class LAFBrightnessActivity : BaseActivity() {
+    companion object {
+        private const val FULL_BRIGHTNESS = 100.0
+    }
+
     private lateinit var brightnessSwitch: SwitchCompat
     private lateinit var seekBar: SeekBar
 
@@ -27,7 +31,7 @@ class LAFBrightnessActivity : BaseActivity() {
                 ) {
                     // Turning this into a single statement will not work!
                     val attributes = window.attributes
-                    attributes.screenBrightness = (progress / 100.0).toFloat()
+                    attributes.screenBrightness = (progress / FULL_BRIGHTNESS).toFloat()
                     window.attributes = attributes
                 }
 

@@ -11,21 +11,20 @@ class EdgeGlowThread(
     private val activity: Activity,
     private val background: TransitionDrawable?,
 ) : Thread() {
-    private val transitionTime =
-        P.getPreferences(activity).getInt(
-            P.EDGE_GLOW_DURATION,
-            P.EDGE_GLOW_DURATION_DEFAULT,
-        )
-    private val transitionDelay =
-        P.getPreferences(activity).getInt(
-            P.EDGE_GLOW_DELAY,
-            P.EDGE_GLOW_DELAY_DEFAULT,
-        )
-
     @JvmField
     internal var notificationAvailable: Boolean = false
 
     override fun run() {
+        val transitionTime =
+            P.getPreferences(activity).getInt(
+                P.EDGE_GLOW_DURATION,
+                P.EDGE_GLOW_DURATION_DEFAULT,
+            )
+        val transitionDelay =
+            P.getPreferences(activity).getInt(
+                P.EDGE_GLOW_DELAY,
+                P.EDGE_GLOW_DELAY_DEFAULT,
+            )
         try {
             while (!isInterrupted) {
                 if (notificationAvailable) {
