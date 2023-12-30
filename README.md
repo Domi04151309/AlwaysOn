@@ -8,11 +8,6 @@ behavior, and the background.
 Take a look at your phone and have everything you need in one place: the time, the date, the battery
 state, your notifications, and more.
 
-<a href='https://play.google.com/store/apps/details?id=io.github.domi04151309.alwayson'>
-  <img src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'
-  alt='Get it on Google Play'
-  height="80"/>
-</a>
 <a href="https://f-droid.org/packages/io.github.domi04151309.alwayson">
   <img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
   alt="Get it on F-Droid"
