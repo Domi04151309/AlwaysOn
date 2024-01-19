@@ -17,7 +17,12 @@ jobs:
           chmod a+x ktlint
           sudo mv ktlint /usr/local/bin/
       - name: Run
-        run: ktlint
+        run: ktlint --reporter sarif -l none > ktlint.sarif
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v2
+        if: success() || failure()
+        with:
+          sarif_file: ktlint.sarif
   detekt:
     runs-on: ubuntu-latest
     steps:
@@ -33,6 +38,14 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew detekt
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v2
+        if: success() || failure()
+        with:
+          sarif_file: app/build/reports/detekt/detekt.sarif
+      - name: Job Summary
+        if: success() || failure()
+        run: cat ./app/build/reports/detekt/detekt.md >> $GITHUB_STEP_SUMMARY
   build:
     runs-on: ubuntu-latest
     steps:

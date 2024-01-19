@@ -51,6 +51,11 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+    detekt {
+        config.setFrom(file("detekt-config.yml"))
+        buildUponDefaultConfig = true
+        basePath = rootProject.projectDir.absolutePath
+    }
     lint {
         disable += "MissingTranslation"
     }
