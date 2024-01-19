@@ -7,12 +7,6 @@ import android.view.View
 import androidx.preference.PreferenceManager
 
 class AnimationHelper(private val xOffset: Float) {
-    companion object {
-        private const val MILLISECONDS_PER_SECOND: Long = 1000
-        private const val MAX_OFFSET = 8
-        private const val FRAME_RATE: Int = 15
-    }
-
     private val animationHandler = Handler(Looper.getMainLooper())
 
     fun animate(
@@ -48,4 +42,10 @@ class AnimationHelper(private val xOffset: Float) {
         (
             (0 until MAX_OFFSET * 2).random() - MAX_OFFSET
         ) * resources.displayMetrics.density
+
+    companion object {
+        private const val MILLISECONDS_PER_SECOND: Long = 1000
+        private const val MAX_OFFSET = 8
+        private const val FRAME_RATE: Int = 15
+    }
 }

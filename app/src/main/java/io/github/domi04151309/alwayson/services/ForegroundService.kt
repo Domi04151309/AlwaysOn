@@ -19,7 +19,8 @@ class ForegroundService : Service() {
     override fun onCreate() {
         super.onCreate()
         CombinedServiceReceiver.compat = packageManager.getInstallerPackageName(packageName)
-            ?.hashCode() ?: 0
+            ?.hashCode()
+            ?: 0
         CombinedServiceReceiver.helper = packageName.hashCode()
         val filter = IntentFilter()
         filter.addAction(Intent.ACTION_POWER_CONNECTED)
@@ -55,9 +56,7 @@ class ForegroundService : Service() {
         return START_REDELIVER_INTENT
     }
 
-    override fun onBind(intent: Intent): IBinder? {
-        return null
-    }
+    override fun onBind(intent: Intent): IBinder? = null
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

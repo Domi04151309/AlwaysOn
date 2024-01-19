@@ -20,10 +20,6 @@ class LayoutListAdapter(
     private val titles: Array<String>,
     private val onItemClickListener: OnItemClickListener,
 ) : RecyclerView.Adapter<LayoutListAdapter.ViewHolder>() {
-    companion object {
-        private const val SELECTED_BACKGROUND_ALPHA = 64
-    }
-
     private var selectedItem = -1
 
     interface OnItemClickListener {
@@ -35,11 +31,10 @@ class LayoutListAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): ViewHolder {
-        return ViewHolder(
+    ): ViewHolder =
+        ViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.layout_list_item, parent, false),
         )
-    }
 
     override fun onBindViewHolder(
         holder: ViewHolder,
@@ -94,5 +89,9 @@ class LayoutListAdapter(
             true,
         )
         return getColor(context, value.resourceId)
+    }
+
+    companion object {
+        private const val SELECTED_BACKGROUND_ALPHA = 64
     }
 }

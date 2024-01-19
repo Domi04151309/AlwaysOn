@@ -12,14 +12,6 @@ import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Rules
 
 class CombinedServiceReceiver : BroadcastReceiver() {
-    companion object {
-        var isScreenOn: Boolean = true
-        var isAlwaysOnRunning: Boolean = false
-        var hasRequestedStop: Boolean = false
-        var compat: Int = 0
-        var helper: Int = 0
-    }
-
     private fun getChargingActivity(context: Context) =
         when (
             P.getPreferences(context).getString(P.CHARGING_STYLE, P.CHARGING_STYLE_DEFAULT)
@@ -121,5 +113,13 @@ class CombinedServiceReceiver : BroadcastReceiver() {
             Intent.ACTION_SCREEN_OFF -> onScreenOff(context)
             Intent.ACTION_SCREEN_ON -> onScreenOn()
         }
+    }
+
+    companion object {
+        var isScreenOn: Boolean = true
+        var isAlwaysOnRunning: Boolean = false
+        var hasRequestedStop: Boolean = false
+        var compat: Int = 0
+        var helper: Int = 0
     }
 }

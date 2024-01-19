@@ -37,18 +37,6 @@ import kotlin.math.abs
 
 @Suppress("TooManyFunctions")
 class AlwaysOnCustomView : View {
-    companion object {
-        private const val UPDATE_DELAY: Long = 60000
-        private const val NOTIFICATION_ROW_LENGTH: Int = 10
-        private const val NOTIFICATION_LIMIT: Int = 20
-        const val FLAG_CAPS_DATE: Int = 0
-        private const val FLAG_SAMSUNG_2: Int = 1
-        const val FLAG_BIG_DATE: Int = 1
-        const val FLAG_SAMSUNG_3: Int = 2
-        private const val FLAG_MULTILINE_CLOCK: Int = 3
-        const val FLAG_ANALOG_CLOCK: Int = 4
-    }
-
     private lateinit var utils: Utils
     private lateinit var timeFormat: SimpleDateFormat
     private lateinit var dateFormat: SimpleDateFormat
@@ -105,7 +93,7 @@ class AlwaysOnCustomView : View {
         init(context)
     }
 
-    @Suppress("MagicNumber", "CyclomaticComplexMethod")
+    @Suppress("MagicNumber", "CyclomaticComplexMethod", "LongMethod")
     private fun prepareTheme() {
         when (utils.prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT)) {
             P.USER_THEME_ONEPLUS -> {
@@ -130,25 +118,39 @@ class AlwaysOnCustomView : View {
                 utils.mediumTextSize = utils.spToPx(25f)
                 utils.smallTextSize = utils.spToPx(18f)
                 when (utils.prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT)) {
-                    P.USER_THEME_GOOGLE -> utils.setFont(R.font.roboto_regular)
+                    P.USER_THEME_GOOGLE -> {
+                        utils.setFont(R.font.roboto_regular)
+                    }
                     P.USER_THEME_SAMSUNG -> {
                         utils.setFont(R.font.roboto_light)
                         flags[FLAG_MULTILINE_CLOCK] = true
                         flags[FLAG_CAPS_DATE] = true
                     }
-
                     P.USER_THEME_SAMSUNG3 -> {
                         utils.setFont(R.font.roboto_regular)
                         flags[FLAG_SAMSUNG_3] = true
                     }
-
-                    P.USER_THEME_80S -> utils.setFont(R.font.monoton_regular)
-                    P.USER_THEME_FAST -> utils.setFont(R.font.faster_one_regular)
-                    P.USER_THEME_FLOWER -> utils.setFont(R.font.akronim_regular)
-                    P.USER_THEME_GAME -> utils.setFont(R.font.vt323_regular)
-                    P.USER_THEME_HANDWRITTEN -> utils.setFont(R.font.patrick_hand_regular)
-                    P.USER_THEME_JUNGLE -> utils.setFont(R.font.hanalei_regular)
-                    P.USER_THEME_WESTERN -> utils.setFont(R.font.ewert_regular)
+                    P.USER_THEME_80S -> {
+                        utils.setFont(R.font.monoton_regular)
+                    }
+                    P.USER_THEME_FAST -> {
+                        utils.setFont(R.font.faster_one_regular)
+                    }
+                    P.USER_THEME_FLOWER -> {
+                        utils.setFont(R.font.akronim_regular)
+                    }
+                    P.USER_THEME_GAME -> {
+                        utils.setFont(R.font.vt323_regular)
+                    }
+                    P.USER_THEME_HANDWRITTEN -> {
+                        utils.setFont(R.font.patrick_hand_regular)
+                    }
+                    P.USER_THEME_JUNGLE -> {
+                        utils.setFont(R.font.hanalei_regular)
+                    }
+                    P.USER_THEME_WESTERN -> {
+                        utils.setFont(R.font.ewert_regular)
+                    }
                     P.USER_THEME_ANALOG -> {
                         utils.setFont(R.font.roboto_regular)
                         flags[FLAG_MULTILINE_CLOCK] = true
@@ -313,7 +315,7 @@ class AlwaysOnCustomView : View {
         return max(
             max(
                 utils.viewHeight.toInt(),
-                (suggestedMinimumHeight + paddingTop + paddingBottom),
+                suggestedMinimumHeight + paddingTop + paddingBottom,
             ),
             customBackground?.height ?: 0,
         )
@@ -485,5 +487,17 @@ class AlwaysOnCustomView : View {
 
     fun stopClockHandler() {
         updateHandler.removeCallbacksAndMessages(null)
+    }
+
+    companion object {
+        private const val UPDATE_DELAY: Long = 60_000
+        private const val NOTIFICATION_ROW_LENGTH: Int = 10
+        private const val NOTIFICATION_LIMIT: Int = 20
+        const val FLAG_CAPS_DATE: Int = 0
+        private const val FLAG_SAMSUNG_2: Int = 1
+        const val FLAG_BIG_DATE: Int = 1
+        const val FLAG_SAMSUNG_3: Int = 2
+        private const val FLAG_MULTILINE_CLOCK: Int = 3
+        const val FLAG_ANALOG_CLOCK: Int = 4
     }
 }

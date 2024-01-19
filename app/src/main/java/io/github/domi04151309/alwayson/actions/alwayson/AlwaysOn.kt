@@ -44,24 +44,6 @@ import io.github.domi04151309.alwayson.services.NotificationService
 
 @Suppress("TooManyFunctions")
 class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListener {
-    companion object {
-        private const val TINY_DELAY: Long = 10
-        private const val SMALL_DELAY: Long = 300
-        private const val MILLISECONDS_PER_SECOND: Long = 1000
-        private const val MILLISECONDS_PER_MINUTE: Long = 60000
-        private const val ANIMATION_DURATION: Int = 10000
-        private const val SENSOR_DELAY_SLOW: Int = 1000000
-        private const val MINIMUM_ANIMATION_DURATION: Int = 100
-        private const val FRACTIONAL_VIEW_POSITION: Int = 4
-        private const val FINGERPRINT_ICON_BURN_IN_OFFSET: Float = 64f
-        private const val HALF: Float = 0.5f
-        private var instance: AlwaysOn? = null
-
-        fun finish() {
-            instance?.finish()
-        }
-    }
-
     @JvmField
     internal var servicesRunning: Boolean = false
 
@@ -606,5 +588,23 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
             .getDisplay(Display.DEFAULT_DISPLAY)
             .getSize(size)
         return (size.y - viewHolder.customView.height).toFloat()
+    }
+
+    companion object {
+        private const val TINY_DELAY: Long = 10
+        private const val SMALL_DELAY: Long = 300
+        private const val MILLISECONDS_PER_SECOND: Long = 1_000
+        private const val MILLISECONDS_PER_MINUTE: Long = 60_000
+        private const val ANIMATION_DURATION: Int = 10_000
+        private const val SENSOR_DELAY_SLOW: Int = 1_000_000
+        private const val MINIMUM_ANIMATION_DURATION: Int = 100
+        private const val FRACTIONAL_VIEW_POSITION: Int = 4
+        private const val FINGERPRINT_ICON_BURN_IN_OFFSET: Float = 64f
+        private const val HALF: Float = 0.5f
+        private var instance: AlwaysOn? = null
+
+        fun finish() {
+            instance?.finish()
+        }
     }
 }

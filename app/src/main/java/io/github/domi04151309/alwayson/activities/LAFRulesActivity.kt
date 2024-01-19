@@ -39,9 +39,9 @@ class LAFRulesActivity : BaseActivity() {
         ) {
             addPreferencesFromResource(R.xml.pref_laf_rules)
 
-            rulesBatteryLevel = findPreference(P.RULES_BATTERY) ?: error("Invalid layout.")
-            rulesTime = findPreference("rules_time") ?: error("Invalid layout.")
-            rulesTimeout = findPreference(P.RULES_TIMEOUT) ?: error("Invalid layout.")
+            rulesBatteryLevel = findPreference(P.RULES_BATTERY) ?: error(INVALID_LAYOUT)
+            rulesTime = findPreference("rules_time") ?: error(INVALID_LAYOUT)
+            rulesTimeout = findPreference(P.RULES_TIMEOUT) ?: error(INVALID_LAYOUT)
             val is24Hour = preferenceManager.sharedPreferences?.getBoolean("hour", false) != true
 
             updateSummaries()
@@ -162,6 +162,8 @@ class LAFRulesActivity : BaseActivity() {
         companion object {
             const val DEFAULT_START_TIME: String = "0:00"
             const val DEFAULT_END_TIME: String = "0:00"
+
+            private const val INVALID_LAYOUT = "Invalid layout."
         }
     }
 }

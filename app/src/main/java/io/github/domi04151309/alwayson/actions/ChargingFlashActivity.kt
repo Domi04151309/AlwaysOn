@@ -5,11 +5,6 @@ import android.widget.ImageView
 import io.github.domi04151309.alwayson.R
 
 class ChargingFlashActivity : OffActivity() {
-    companion object {
-        private const val ANIMATION_DELAY = 1500L
-        private const val ANIMATION_DURATION = 1000L
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_charging_flash)
@@ -27,5 +22,10 @@ class ChargingFlashActivity : OffActivity() {
                 }
             }
         }.start()
+    }
+
+    companion object {
+        private const val ANIMATION_DELAY = 1500L
+        private const val ANIMATION_DURATION = 1000L
     }
 }

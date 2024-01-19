@@ -16,15 +16,6 @@ class Utils(
     @JvmField
     internal val context: Context,
 ) {
-    companion object {
-        private const val PADDING_2: Float = 2f
-        private const val PADDING_16: Float = 16f
-        private const val DRAWABLE_SIZE: Float = 24f
-        private const val HOUR_HAND_LENGTH: Float = .5f
-        private const val MINUTE_HAND_LENGTH: Float = .9f
-        private const val MINUTE_ANGLE_SCALE: Int = 30
-    }
-
     @JvmField
     internal var padding2 = 0
 
@@ -176,5 +167,14 @@ class Utils(
             viewHeight + getTextHeight(bigTextSize) + sin(angle) * handRadius,
             paint,
         )
+    }
+
+    companion object {
+        private const val PADDING_2: Float = 2f
+        private const val PADDING_16: Float = 16f
+        private const val DRAWABLE_SIZE: Float = 24f
+        private const val HOUR_HAND_LENGTH: Float = .5f
+        private const val MINUTE_HAND_LENGTH: Float = .9f
+        private const val MINUTE_ANGLE_SCALE: Int = 30
     }
 }

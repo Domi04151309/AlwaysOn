@@ -87,16 +87,11 @@ internal class P(private val prefs: SharedPreferences) {
             )
 
     companion object {
-        @Suppress("NOTHING_TO_INLINE")
-        inline fun getPreferences(context: Context): SharedPreferences =
-            PreferenceManager.getDefaultSharedPreferences(
-                context,
-            )
-
         const val RULES_CHARGING_STATE = "rules_charging_state"
         const val RULES_BATTERY = "rules_battery_level"
         const val RULES_TIMEOUT = "rules_timeout_sec"
 
+        const val ALWAYS_ON = "always_on"
         const val ROOT_MODE = "root_mode"
         const val POWER_SAVING_MODE = "ao_power_saving"
         const val USER_THEME = "ao_style"
@@ -190,6 +185,7 @@ internal class P(private val prefs: SharedPreferences) {
         const val RULES_BATTERY_DEFAULT = 0
         const val RULES_TIMEOUT_DEFAULT = 0
 
+        const val ALWAYS_ON_DEFAULT = false
         const val ROOT_MODE_DEFAULT = false
         const val POWER_SAVING_MODE_DEFAULT = false
         const val USER_THEME_DEFAULT = USER_THEME_GOOGLE
@@ -241,5 +237,11 @@ internal class P(private val prefs: SharedPreferences) {
 
         private const val DISPLAY_SCALE_DEFAULT = 100
         private const val NUMBER_TO_PERCENT = 100f
+
+        @Suppress("NOTHING_TO_INLINE")
+        inline fun getPreferences(context: Context): SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(
+                context,
+            )
     }
 }

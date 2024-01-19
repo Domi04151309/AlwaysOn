@@ -36,7 +36,7 @@ object Clock {
             val calendar = Calendar.getInstance()
             utils.drawHand(
                 canvas,
-                (calendar[Calendar.HOUR_OF_DAY] % HOURS_ON_ANALOG_CLOCK) *
+                calendar[Calendar.HOUR_OF_DAY] % HOURS_ON_ANALOG_CLOCK *
                     MINUTES_PER_HOUR_ANGLE + calendar[Calendar.MINUTE],
                 true,
             )

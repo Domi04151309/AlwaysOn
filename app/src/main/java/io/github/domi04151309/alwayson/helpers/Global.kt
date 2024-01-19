@@ -14,14 +14,15 @@ internal object Global {
     const val ALWAYS_ON_STATE_CHANGED: String =
         "io.github.domi04151309.alwayson.ALWAYS_ON_STATE_CHANGED"
 
-    fun currentAlwaysOnState(context: Context): Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("always_on", false)
-    }
+    fun currentAlwaysOnState(context: Context): Boolean =
+        PreferenceManager
+            .getDefaultSharedPreferences(context)
+            .getBoolean(P.ALWAYS_ON, P.ALWAYS_ON_DEFAULT)
 
     fun changeAlwaysOnState(context: Context): Boolean {
         val value =
-            !PreferenceManager.getDefaultSharedPreferences(context).getBoolean("always_on", false)
-        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("always_on", value)
+            !PreferenceManager.getDefaultSharedPreferences(context).getBoolean(P.ALWAYS_ON, P.ALWAYS_ON_DEFAULT)
+        PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean(P.ALWAYS_ON, value)
             .apply()
         TileService.requestListeningState(
             context,

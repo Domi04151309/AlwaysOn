@@ -7,10 +7,6 @@ import android.hardware.SensorEventListener
 class AlwaysOnSensorEventListener(
     private val viewHolder: AlwaysOnViewHolder,
 ) : SensorEventListener {
-    companion object {
-        private const val ANIMATION_DURATION = 1000L
-    }
-
     override fun onSensorChanged(event: SensorEvent) {
         if (event.sensor.type == Sensor.TYPE_PROXIMITY) {
             if (event.values[0] == event.sensor.maximumRange) {
@@ -26,5 +22,9 @@ class AlwaysOnSensorEventListener(
         accuracy: Int,
     ) {
         // Do nothing.
+    }
+
+    companion object {
+        private const val ANIMATION_DURATION = 1000L
     }
 }

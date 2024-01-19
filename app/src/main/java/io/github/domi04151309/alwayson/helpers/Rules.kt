@@ -11,6 +11,50 @@ class Rules(context: Context) {
     private var start = 0L
     private var end = 0L
 
+    init {
+        val startString = P.getPreferences(context).getString("rules_time_start", "0:00") ?: "0:00"
+        val endString = P.getPreferences(context).getString("rules_time_end", "0:00") ?: "0:00"
+        val startCalendar =
+            Calendar.getInstance().apply {
+                set(Calendar.MILLISECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MINUTE, startString.substringAfter(":").toInt())
+                set(Calendar.HOUR_OF_DAY, startString.substringBefore(":").toInt())
+            }
+        val endCalendar =
+            Calendar.getInstance().apply {
+                set(Calendar.MILLISECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MINUTE, endString.substringAfter(":").toInt())
+                set(Calendar.HOUR_OF_DAY, endString.substringBefore(":").toInt())
+            }
+        if (startCalendar.after(endCalendar)) endCalendar.add(Calendar.DATE, 1)
+        start = startCalendar.timeInMillis
+        end = endCalendar.timeInMillis
+    }
+
+    private fun isInTimePeriod(): Boolean =
+        if (start == end) {
+            true
+        } else {
+            System.currentTimeMillis() in start + 1 until end
+        }
+
+    fun millisTillEnd(): Long =
+        if (start == end) {
+            -1
+        } else {
+            end - System.currentTimeMillis()
+        }
+
+    fun canShow(context: Context): Boolean =
+        isAlwaysOnDisplayEnabled(context) &&
+            matchesChargingState(context) &&
+            matchesBatteryPercentage(context) &&
+            isInTimePeriod()
+
     companion object {
         const val BATTERY_FULL: Int = 100
 
@@ -25,7 +69,8 @@ class Rules(context: Context) {
         private fun isCharging(context: Context): Boolean {
             val chargingState: Int =
                 getBatteryStatus(context)
-                    ?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: return true
+                    ?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1)
+                    ?: return true
             return if (chargingState > 0) {
                 P.getPreferences(context).getStringSet(
                     "rules_charger_type",
@@ -58,8 +103,8 @@ class Rules(context: Context) {
 
         fun isAlwaysOnDisplayEnabled(context: Context): Boolean =
             P.getPreferences(context).getBoolean(
-                "always_on",
-                false,
+                P.ALWAYS_ON,
+                P.ALWAYS_ON_DEFAULT,
             )
 
         fun isAmbientMode(context: Context): Boolean =
@@ -76,48 +121,4 @@ class Rules(context: Context) {
                 ) ?: BATTERY_FULL
             ) > P.getPreferences(context).getInt(P.RULES_BATTERY, P.RULES_BATTERY_DEFAULT)
     }
-
-    init {
-        val startString = P.getPreferences(context).getString("rules_time_start", "0:00") ?: "0:00"
-        val endString = P.getPreferences(context).getString("rules_time_end", "0:00") ?: "0:00"
-        val startCalendar =
-            Calendar.getInstance().apply {
-                set(Calendar.MILLISECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MINUTE, startString.substringAfter(":").toInt())
-                set(Calendar.HOUR_OF_DAY, startString.substringBefore(":").toInt())
-            }
-        val endCalendar =
-            Calendar.getInstance().apply {
-                set(Calendar.MILLISECOND, 0)
-                set(Calendar.MILLISECOND, 0)
-                set(Calendar.SECOND, 0)
-                set(Calendar.MINUTE, endString.substringAfter(":").toInt())
-                set(Calendar.HOUR_OF_DAY, endString.substringBefore(":").toInt())
-            }
-        if (startCalendar.after(endCalendar)) endCalendar.add(Calendar.DATE, 1)
-        start = startCalendar.timeInMillis
-        end = endCalendar.timeInMillis
-    }
-
-    private fun isInTimePeriod(): Boolean =
-        if (start == end) {
-            true
-        } else {
-            System.currentTimeMillis() in (start + 1) until end
-        }
-
-    fun millisTillEnd(): Long =
-        if (start == end) {
-            -1
-        } else {
-            end - System.currentTimeMillis()
-        }
-
-    fun canShow(context: Context): Boolean =
-        isAlwaysOnDisplayEnabled(context) &&
-            matchesChargingState(context) &&
-            matchesBatteryPercentage(context) &&
-            isInTimePeriod()
 }

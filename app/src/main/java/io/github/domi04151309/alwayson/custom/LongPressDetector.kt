@@ -12,14 +12,14 @@ class LongPressDetector(
     private var isTouching = false
 
     fun onTouchEvent(ev: MotionEvent) {
-        if ((ev.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_DOWN) {
+        if (ev.action and MotionEvent.ACTION_MASK == MotionEvent.ACTION_DOWN) {
             if (!isTouching) {
                 isTouching = true
                 Handler(Looper.getMainLooper()).postDelayed({
                     if (isTouching) listener()
                 }, timeout)
             }
-        } else if ((ev.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+        } else if (ev.action and MotionEvent.ACTION_MASK == MotionEvent.ACTION_UP) {
             isTouching = false
         }
     }

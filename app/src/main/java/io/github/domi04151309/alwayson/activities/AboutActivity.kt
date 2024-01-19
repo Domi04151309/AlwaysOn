@@ -10,12 +10,6 @@ import io.github.domi04151309.alwayson.BuildConfig
 import io.github.domi04151309.alwayson.R
 
 class AboutActivity : BaseActivity() {
-    companion object {
-        private const val REPOSITORY: String = "Domi04151309/AlwaysOn"
-        private const val BRANCH: String = "master"
-        private const val REPOSITORY_URL: String = "https://github.com/$REPOSITORY"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
@@ -112,5 +106,11 @@ class AboutActivity : BaseActivity() {
                 true
             }
         }
+    }
+
+    companion object {
+        private const val REPOSITORY: String = "Domi04151309/AlwaysOn"
+        private const val BRANCH: String = "master"
+        private const val REPOSITORY_URL: String = "https://github.com/$REPOSITORY"
     }
 }

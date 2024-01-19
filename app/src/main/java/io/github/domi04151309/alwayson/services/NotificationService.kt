@@ -24,19 +24,6 @@ class NotificationService : NotificationListenerService() {
         fun onNotificationsChanged()
     }
 
-    companion object {
-        const val MINIMUM_UPDATE_DELAY: Long = 1000
-        internal var count: Int = 0
-            private set
-        internal var icons: ArrayList<Pair<Icon, Int>> = arrayListOf()
-            private set
-        internal var detailed: Array<StatusBarNotification> = arrayOf()
-            private set
-
-        @JvmField
-        internal val listeners: ArrayList<OnNotificationsChangedListener> = arrayListOf()
-    }
-
     override fun onCreate() {
         super.onCreate()
         updateValues()
@@ -106,8 +93,8 @@ class NotificationService : NotificationListenerService() {
         Handler(Looper.getMainLooper()).postDelayed({ sentRecently = false }, MINIMUM_UPDATE_DELAY)
     }
 
-    private fun isValidNotification(notification: StatusBarNotification): Boolean {
-        return !notification.isOngoing &&
+    private fun isValidNotification(notification: StatusBarNotification): Boolean =
+        !notification.isOngoing &&
             !JSON.contains(
                 JSONArray(
                     PreferenceManager.getDefaultSharedPreferences(this)
@@ -115,5 +102,17 @@ class NotificationService : NotificationListenerService() {
                 ),
                 notification.packageName,
             )
+
+    companion object {
+        const val MINIMUM_UPDATE_DELAY: Long = 1000
+        internal var count: Int = 0
+            private set
+        internal var icons: ArrayList<Pair<Icon, Int>> = arrayListOf()
+            private set
+        internal var detailed: Array<StatusBarNotification> = arrayOf()
+            private set
+
+        @JvmField
+        internal val listeners: ArrayList<OnNotificationsChangedListener> = arrayListOf()
     }
 }

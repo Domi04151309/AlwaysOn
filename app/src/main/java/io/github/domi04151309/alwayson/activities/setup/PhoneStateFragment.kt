@@ -12,7 +12,5 @@ class PhoneStateFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        return inflater.inflate(R.layout.fragment_setup_phone_state, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.fragment_setup_phone_state, container, false)
 }

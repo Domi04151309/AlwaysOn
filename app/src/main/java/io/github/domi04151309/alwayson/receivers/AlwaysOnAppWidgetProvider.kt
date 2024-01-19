@@ -64,14 +64,13 @@ class AlwaysOnAppWidgetProvider : AppWidgetProvider() {
         )
     }
 
-    private fun getPendingSelfIntent(context: Context): PendingIntent {
-        return PendingIntent.getBroadcast(
+    private fun getPendingSelfIntent(context: Context): PendingIntent =
+        PendingIntent.getBroadcast(
             context,
             0,
             Intent(context, AlwaysOnAppWidgetProvider::class.java).setAction(CHANGE_STATE),
             PendingIntent.FLAG_IMMUTABLE,
         )
-    }
 
     companion object {
         private const val CHANGE_STATE = "change_state"

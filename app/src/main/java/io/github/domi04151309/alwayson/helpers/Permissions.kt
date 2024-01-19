@@ -62,8 +62,8 @@ object Permissions {
         return false
     }
 
-    fun isDeviceAdminOrRoot(context: Context): Boolean {
-        return if (
+    fun isDeviceAdminOrRoot(context: Context): Boolean =
+        if (
             P.getPreferences(context).getBoolean("root_mode", false)
         ) {
             true
@@ -71,7 +71,6 @@ object Permissions {
             (context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager)
                 .isAdminActive(ComponentName(context, AdminReceiver::class.java))
         }
-    }
 
     fun needsDeviceAdminOrRoot(context: Context): Boolean {
         val prefs = P.getPreferences(context).all
@@ -83,19 +82,17 @@ object Permissions {
         return false
     }
 
-    fun hasPhoneStatePermission(context: Context): Boolean {
-        return context.applicationContext
+    fun hasPhoneStatePermission(context: Context): Boolean =
+        context.applicationContext
             .checkSelfPermission(Manifest.permission.READ_PHONE_STATE) ==
             PackageManager
                 .PERMISSION_GRANTED
-    }
 
-    fun hasCalendarPermission(context: Context): Boolean {
-        return context.applicationContext
+    fun hasCalendarPermission(context: Context): Boolean =
+        context.applicationContext
             .checkSelfPermission(Manifest.permission.READ_CALENDAR) ==
             PackageManager
                 .PERMISSION_GRANTED
-    }
 
     fun needsCalendarPermission(context: Context): Boolean {
         val prefs = P.getPreferences(context).all

@@ -42,7 +42,8 @@ class LAFWeatherActivity : BaseActivity() {
                     .setView(dialogView)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
                         preferenceManager.sharedPreferences?.edit()
-                            ?.putString(P.WEATHER_FORMAT, editText.text.toString())?.apply()
+                            ?.putString(P.WEATHER_FORMAT, editText.text.toString())
+                            ?.apply()
                     }
                     .setNegativeButton(android.R.string.cancel) { _, _ -> }
                     .setNeutralButton(R.string.pref_ao_date_format_dialog_neutral) { _, _ ->

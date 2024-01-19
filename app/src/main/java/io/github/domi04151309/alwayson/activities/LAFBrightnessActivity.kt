@@ -8,10 +8,6 @@ import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.helpers.P
 
 class LAFBrightnessActivity : BaseActivity() {
-    companion object {
-        private const val FULL_BRIGHTNESS = 100.0
-    }
-
     private lateinit var brightnessSwitch: SwitchCompat
     private lateinit var seekBar: SeekBar
 
@@ -60,5 +56,9 @@ class LAFBrightnessActivity : BaseActivity() {
             .putInt(P.FORCE_BRIGHTNESS_VALUE, seekBar.progress)
             .apply()
         AlwaysOn.finish()
+    }
+
+    companion object {
+        private const val FULL_BRIGHTNESS = 100.0
     }
 }

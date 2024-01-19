@@ -147,10 +147,6 @@ class MainActivity : BaseActivity() {
     }
 
     class GeneralPreferenceFragment : BasePreferenceFragment() {
-        companion object {
-            private const val CLICKS_TIL_TEST = 4
-        }
-
         private var debugClicker = 0
 
         @Suppress("SameReturnValue")
@@ -180,7 +176,7 @@ class MainActivity : BaseActivity() {
             addPreferencesFromResource(R.xml.pref_main)
             checkPermissions()
 
-            findPreference<Preference>("always_on")?.setOnPreferenceClickListener {
+            findPreference<Preference>(P.ALWAYS_ON)?.setOnPreferenceClickListener {
                 onAlwaysOnClicked()
             }
             PreferenceScreenHelper.linkPreferenceToActivity(
@@ -227,6 +223,10 @@ class MainActivity : BaseActivity() {
                 "pref_about",
                 Intent(requireContext(), AboutActivity::class.java),
             )
+        }
+
+        companion object {
+            private const val CLICKS_TIL_TEST = 4
         }
     }
 }

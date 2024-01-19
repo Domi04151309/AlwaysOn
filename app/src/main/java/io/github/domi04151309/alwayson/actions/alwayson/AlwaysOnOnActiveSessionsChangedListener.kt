@@ -11,10 +11,6 @@ import io.github.domi04151309.alwayson.helpers.Global
 class AlwaysOnOnActiveSessionsChangedListener(
     private val view: AlwaysOnCustomView,
 ) : MediaSessionManager.OnActiveSessionsChangedListener {
-    companion object {
-        private const val MAX_STRING_LENGTH = 20
-    }
-
     @JvmField
     internal var controller: MediaController? = null
 
@@ -65,5 +61,9 @@ class AlwaysOnOnActiveSessionsChangedListener(
         } else {
             view.musicVisible = false
         }
+    }
+
+    companion object {
+        private const val MAX_STRING_LENGTH = 20
     }
 }

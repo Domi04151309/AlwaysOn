@@ -15,13 +15,6 @@ import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.IconHelper
 
 class ChargingIOSActivity : OffActivity() {
-    companion object {
-        private const val TINY_DELAY = 10L
-        private const val ANIMATION_DELAY = 3000L
-        private const val ANIMATION_DURATION = 1000L
-        private const val FRACTIONAL_VIEW_POSITION = 8
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_charging_ios)
@@ -57,5 +50,12 @@ class ChargingIOSActivity : OffActivity() {
                 }
             }
         }.start()
+    }
+
+    companion object {
+        private const val TINY_DELAY = 10L
+        private const val ANIMATION_DELAY = 3000L
+        private const val ANIMATION_DURATION = 1000L
+        private const val FRACTIONAL_VIEW_POSITION = 8
     }
 }

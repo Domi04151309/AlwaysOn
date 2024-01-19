@@ -12,7 +12,5 @@ class DrawOverOtherAppsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
-        return inflater.inflate(R.layout.fragment_setup_draw_over_other_apps, container, false)
-    }
+    ): View? = inflater.inflate(R.layout.fragment_setup_draw_over_other_apps, container, false)
 }

@@ -119,6 +119,7 @@ class LAFBackgroundImageActivity :
     override fun onActivityResult(result: ActivityResult) {
         if (result.resultCode == Activity.RESULT_OK) {
             if (result.data == null) return
+            @Suppress("LabeledExpression")
             Thread {
                 val inputStream: InputStream? =
                     contentResolver.openInputStream(
@@ -228,17 +229,14 @@ class LAFBackgroundImageActivity :
         adapter.setSelectedItem(position)
     }
 
-    private fun hasPermission(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            applicationContext.checkSelfPermission(
-                Manifest.permission.READ_MEDIA_IMAGES,
-            ) == PackageManager.PERMISSION_GRANTED
-        } else {
-            applicationContext.checkSelfPermission(
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-            ) == PackageManager.PERMISSION_GRANTED
-        }
-    }
+    private fun hasPermission(): Boolean =
+        applicationContext.checkSelfPermission(
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Manifest.permission.READ_MEDIA_IMAGES
+            } else {
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            },
+        ) == PackageManager.PERMISSION_GRANTED
 
     companion object {
         private const val ITEM_NONE = 0

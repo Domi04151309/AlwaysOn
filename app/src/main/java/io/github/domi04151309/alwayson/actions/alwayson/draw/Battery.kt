@@ -7,6 +7,8 @@ import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.helpers.P
 
 object Battery {
+    private const val PERCENT = "%"
+
     internal fun drawIconAndPercentage(
         canvas: Canvas,
         utils: Utils,
@@ -19,7 +21,7 @@ object Battery {
             batteryIcon,
             (
                 utils.horizontalRelativePoint +
-                    (utils.getPaint(utils.mediumTextSize).measureText("$batteryLevel%")).run {
+                    utils.getPaint(utils.mediumTextSize).measureText(batteryLevel.toString() + PERCENT).run {
                         if (utils.paint.textAlign == Paint.Align.LEFT) {
                             this
                         } else {
@@ -41,7 +43,7 @@ object Battery {
         )
         utils.drawRelativeText(
             canvas,
-            "$batteryLevel%",
+            batteryLevel.toString() + PERCENT,
             utils.padding16,
             utils.padding16,
             utils.getPaint(
@@ -84,7 +86,7 @@ object Battery {
     ) {
         utils.drawRelativeText(
             canvas,
-            "$batteryLevel%",
+            batteryLevel.toString() + PERCENT,
             utils.padding16,
             utils.padding16,
             utils.getPaint(
