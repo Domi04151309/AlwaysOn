@@ -10,17 +10,14 @@ import android.content.pm.ActivityInfo
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.R
-import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.Root
 import io.github.domi04151309.alwayson.receivers.AdminReceiver
-import java.lang.Exception
 
 @SuppressLint("Registered")
 open class OffActivity : Activity() {
@@ -58,13 +55,8 @@ open class OffActivity : Activity() {
 
     override fun onPause() {
         super.onPause()
-        @Suppress("TooGenericExceptionCaught")
-        try {
-            (getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
-                .moveTaskToFront(taskId, 0)
-        } catch (exception: Exception) {
-            Log.w(Global.LOG_TAG, exception.toString())
-        }
+        (getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
+            .moveTaskToFront(taskId, 0)
     }
 
     protected fun turnOnScreen() {

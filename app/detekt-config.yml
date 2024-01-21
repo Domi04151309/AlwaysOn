@@ -93,7 +93,7 @@ comments:
 complexity:
   active: true
   CognitiveComplexMethod:
-    active: false
+    active: true
     threshold: 15
   ComplexCondition:
     active: true

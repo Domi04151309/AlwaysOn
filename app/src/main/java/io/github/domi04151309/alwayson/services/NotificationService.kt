@@ -58,7 +58,6 @@ class NotificationService : NotificationListenerService() {
         if (sentRecently) return
 
         sentRecently = true
-        @Suppress("TooGenericExceptionCaught")
         try {
             val apps = ArrayList<String>(detailed.size)
             detailed = activeNotifications
@@ -81,7 +80,7 @@ class NotificationService : NotificationListenerService() {
                     )
                 }
             }
-        } catch (exception: Exception) {
+        } catch (exception: SecurityException) {
             Log.e(Global.LOG_TAG, exception.toString())
             count = 0
             icons = arrayListOf()

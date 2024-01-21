@@ -34,7 +34,6 @@ import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.actions.OffActivity
 import io.github.domi04151309.alwayson.custom.DoubleTapDetector
 import io.github.domi04151309.alwayson.custom.LongPressDetector
-import io.github.domi04151309.alwayson.helpers.AnimationHelper
 import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.P
 import io.github.domi04151309.alwayson.helpers.Root
@@ -46,9 +45,6 @@ import io.github.domi04151309.alwayson.services.NotificationService
 class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListener {
     @JvmField
     internal var servicesRunning: Boolean = false
-
-    @JvmField
-    internal var screenSize: Float = 0F
 
     private var offsetX: Float = 0f
     internal lateinit var viewHolder: AlwaysOnViewHolder
@@ -361,66 +357,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         }
 
         // Animation
-        val animationHelper = AnimationHelper(offsetX)
-        val animationDelay =
-            prefs.get(
-                "ao_animation_delay",
-                2,
-            ) * MILLISECONDS_PER_MINUTE + ANIMATION_DURATION + MILLISECONDS_PER_SECOND
-        animationThread =
-            object : Thread() {
-                override fun run() {
-                    try {
-                        while (viewHolder.customView.height == 0) sleep(TINY_DELAY)
-                        screenSize = calculateScreenSize()
-                        runOnUiThread {
-                            viewHolder.customView.translationY = screenSize / FRACTIONAL_VIEW_POSITION
-                        }
-                        while (!isInterrupted) {
-                            sleep(animationDelay)
-                            runOnUiThread {
-                                animationHelper.animate(
-                                    viewHolder.customView,
-                                    screenSize / 2,
-                                    ANIMATION_DURATION,
-                                )
-                                if (prefs.get(
-                                        P.SHOW_FINGERPRINT_ICON,
-                                        P.SHOW_FINGERPRINT_ICON_DEFAULT,
-                                    )
-                                ) {
-                                    animationHelper.animate(
-                                        viewHolder.fingerprintIcn,
-                                        FINGERPRINT_ICON_BURN_IN_OFFSET,
-                                        ANIMATION_DURATION,
-                                    )
-                                }
-                            }
-                            sleep(animationDelay)
-                            runOnUiThread {
-                                animationHelper.animate(
-                                    viewHolder.customView,
-                                    screenSize / FRACTIONAL_VIEW_POSITION,
-                                    ANIMATION_DURATION,
-                                )
-                                if (prefs.get(
-                                        P.SHOW_FINGERPRINT_ICON,
-                                        P.SHOW_FINGERPRINT_ICON_DEFAULT,
-                                    )
-                                ) {
-                                    animationHelper.animate(
-                                        viewHolder.fingerprintIcn,
-                                        0f,
-                                        ANIMATION_DURATION,
-                                    )
-                                }
-                            }
-                        }
-                    } catch (exception: InterruptedException) {
-                        Log.w(Global.LOG_TAG, exception.toString())
-                    }
-                }
-            }
+        animationThread = AlwaysOnAnimationThread(this, viewHolder, offsetX)
         animationThread.start()
 
         // DoubleTap
@@ -437,7 +374,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        screenSize = calculateScreenSize()
+        (animationThread as? AlwaysOnAnimationThread)?.updateScreenSize()
     }
 
     @Suppress("LongMethod")
@@ -582,24 +519,11 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         }
     }
 
-    internal fun calculateScreenSize(): Float {
-        val size = Point()
-        (getSystemService(Context.DISPLAY_SERVICE) as DisplayManager)
-            .getDisplay(Display.DEFAULT_DISPLAY)
-            .getSize(size)
-        return (size.y - viewHolder.customView.height).toFloat()
-    }
-
     companion object {
-        private const val TINY_DELAY: Long = 10
         private const val SMALL_DELAY: Long = 300
         private const val MILLISECONDS_PER_SECOND: Long = 1_000
-        private const val MILLISECONDS_PER_MINUTE: Long = 60_000
-        private const val ANIMATION_DURATION: Int = 10_000
         private const val SENSOR_DELAY_SLOW: Int = 1_000_000
         private const val MINIMUM_ANIMATION_DURATION: Int = 100
-        private const val FRACTIONAL_VIEW_POSITION: Int = 4
-        private const val FINGERPRINT_ICON_BURN_IN_OFFSET: Float = 64f
         private const val HALF: Float = 0.5f
         private var instance: AlwaysOn? = null
 

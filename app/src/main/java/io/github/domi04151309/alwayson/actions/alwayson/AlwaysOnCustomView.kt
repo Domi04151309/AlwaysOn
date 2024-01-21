@@ -245,7 +245,7 @@ class AlwaysOnCustomView : View {
     /*
      * On measure
      */
-    @Suppress("LongMethod", "CyclomaticComplexMethod")
+    @Suppress("LongMethod", "CyclomaticComplexMethod", "CognitiveComplexMethod")
     private fun measureHeight(): Int {
         utils.viewHeight = 0f
         utils.viewHeight += paddingTop
