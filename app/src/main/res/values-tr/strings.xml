@@ -1,5 +1,5 @@
 <resources>
-  <string name="device_admin_description">AlwaysOn'un ekranınızı kapatmasına izin verin</string>
+  <string name="device_admin_description">AlwaysOn un ekranınızı kapatmasına izin verin</string>
   <string name="notification_listener_description">Bildirimleri her zaman ekranda göster</string>
   <string name="service_text">AlwaysOn arka planda çalışıyor</string>
   <string name="service_channel">Hizmet kanalı</string>
@@ -37,26 +37,26 @@
   <string name="pref_charging">Şarj animasyonu</string>
   <string name="pref_look_and_feel">Bak ve hisset</string>
   <string name="pref_ao_watch_face">Saat ekranı</string>
-  <string name="pref_ao_watch_face_summary">AOD'nin saat ekranı ile ilgili ayarlar</string>
+  <string name="pref_ao_watch_face_summary">AOD nin saat ekranı ile ilgili ayarlar</string>
   <string name="pref_ao_background">Arka plan</string>
-  <string name="pref_ao_background_summary">AOD'nin arka planı ile ilgili ayarlar</string>
+  <string name="pref_ao_background_summary">AOD nin arka planı ile ilgili ayarlar</string>
   <string name="pref_ao_behavior">Davranış</string>
   <string name="pref_ao_behavior_summary">Uygulamanın davranışıyla ilgili ayarlar</string>
   <string name="pref_ao_other">Diğer ayarlar</string>
   <string name="pref_look_and_feel_hour">12 saatlik saat kullanın</string>
   <string name="pref_look_and_feel_hour_summary_on">Şu anda kullanılan: 12 saatlik saat</string>
   <string name="pref_look_and_feel_hour_summary_off">Şu anda kullanılan: 24 saat</string>
-  <string name="pref_look_and_feel_am_pm">AM / PM'yi göster</string>
-  <string name="pref_look_and_feel_am_pm_summary">12 saatlik saati kullanırken AM / PM'yi göster</string>
+  <string name="pref_look_and_feel_am_pm">AM / PM yi göster</string>
+  <string name="pref_look_and_feel_am_pm_summary">12 saatlik saati kullanırken AM / PM yi göster</string>
   <string name="pref_look_and_feel_ao">Her zaman göz önünde</string>
-  <string name="pref_look_and_feel_ao_summary">Always on display'in görünümünü değiştirir</string>
+  <string name="pref_look_and_feel_ao_summary">Always on display in görünümünü değiştirir</string>
   <string-array name="pref_look_and_feel_ao_array_display">
     <item>G Stili</item>
     <item>O - Stili</item>
     <item>S - Dikey</item>
     <item>S - Sol</item>
     <item>S - Split</item>
-    <item>80 'ler</item>
+    <item>80 ler</item>
     <item>Hızlı</item>
     <item>Çiçek</item>
     <item>Oyun</item>
@@ -102,7 +102,7 @@
   <string name="pref_ao_animation_delay_summary">İçeriğin farklı konumları arasındaki süre\nUyarı: Çok yüksek değerler ekran yanmalarına neden olabilir!</string>
   <string name="pref_ao_smooth_animation">Hareketi canlandır</string>
   <string name="pref_ao_smooth_animation_summary">Konum değişikliklerini canlandırın</string>
-  <string name="pref_ao_force_brightness">AOD'ye belirli bir parlaklığı zorla</string>
+  <string name="pref_ao_force_brightness">AOD ye belirli bir parlaklığı zorla</string>
   <string name="pref_ao_force_brightness_summary">Zorunlu parlaklığı değiştirmek için dokunun</string>
   <string name="pref_ao_force_brightness_title">Parlaklık</string>
   <string name="pref_ao_force_brightness_example">Bu, her zaman açık ekranınızdaki metnin ne kadar parlak görüneceğidir.</string>
@@ -115,16 +115,16 @@
   <string name="pref_ao_double_tap_speed">İki kez dokunma hızı</string>
   <string name="pref_ao_double_tap_speed_summary">İki musluğun birbirinden ayrılabileceği süre (milisaniye cinsinden)</string>
   <string name="pref_ao_double_tap_disabled">Çift dokunmayı devre dışı bırak</string>
-  <string name="pref_ao_double_tap_disabled_summary">AOD'den çıkmak için iki kez dokunmayı devre dışı bırakır (önerilmez)</string>
+  <string name="pref_ao_double_tap_disabled_summary">AOD den çıkmak için iki kez dokunmayı devre dışı bırakır (önerilmez)</string>
   <string name="pref_ao_message">Mesaj</string>
-  <string name="pref_ao_message_summary">AOD'de görüntülenen bir mesaj</string>
+  <string name="pref_ao_message_summary">AOD de görüntülenen bir mesaj</string>
   <string name="pref_ao_date_format">Tarih formatı</string>
-  <string name="pref_ao_date_format_summary">AOD'de kullanılan tarih formatı</string>
+  <string name="pref_ao_date_format_summary">AOD de kullanılan tarih formatı</string>
   <string name="pref_ao_date_format_dialog_text">Belirli bir kalıbı takip etmelisiniz</string>
   <string name="pref_ao_date_format_dialog_neutral">Daha fazla bilgi edinin</string>
   <string name="pref_ao_date_format_illegal">Geçersiz biçim</string>
   <string name="pref_ao_calendar">Etkinlikleri göster</string>
-  <string name="pref_ao_calendar_summary">Önümüzdeki 24 saat içindeki etkinlikleri AOD'nizde gösterin</string>
+  <string name="pref_ao_calendar_summary">Önümüzdeki 24 saat içindeki etkinlikleri AOD nizde gösterin</string>
   <string name="pref_look_and_feel_charging">Şarj animasyonu görünümü</string>
   <string name="pref_look_and_feel_charging_summary">Şarj animasyonunun görünümünü değiştirir</string>
   <string-array name="pref_look_and_feel_charging_array_display" translatable="false">
@@ -133,7 +133,7 @@
     <item>iOS</item>
   </string-array>
   <string name="pref_ao_background_image">Arka plan görüntüsü</string>
-  <string name="pref_ao_background_image_summary">AOD'nin arka plan görüntüsünü değiştirme</string>
+  <string name="pref_ao_background_image_summary">AOD nin arka plan görüntüsünü değiştirme</string>
   <string-array name="pref_ao_background_image_array_display">
     <item>Yok</item>
     <item>Daniel Olah</item>
@@ -158,14 +158,14 @@
   <string name="pref_look_and_feel_heads_up_summary">Uyarı bildirimlerinin gösterilmesini önler (deneysel)</string>
   <string name="pref_look_and_feel_weather">Hava Durumu</string>
   <string name="pref_look_and_feel_weather_info">Hava durumu bilgilerini göster</string>
-  <string name="pref_look_and_feel_weather_info_summary">AOD'nizde hava durumu bilgilerini yapılandırın</string>
-  <string name="pref_look_and_feel_weather_show_summary">Hava durumu bilgilerini AOD'nizde gösterin</string>
+  <string name="pref_look_and_feel_weather_info_summary">AOD nizde hava durumu bilgilerini yapılandırın</string>
+  <string name="pref_look_and_feel_weather_show_summary">Hava durumu bilgilerini AOD nizde gösterin</string>
   <string name="pref_look_and_feel_weather_provider">AlwaysOn, hava durumu verileri için wtrr.in kullanır. Hava durumunu almak, tanımlanabilir verileri aktarabilir.</string>
   <string name="pref_look_and_feel_weather_provider_name" translatable="false">wttr.in</string>
   <string name="pref_look_and_feel_weather_location">Hava durumu konumu</string>
   <string name="pref_look_and_feel_weather_location_summary">Hava durumu raporunun yeri. Otomatik konumlandırma için bunu boş bırakın.</string>
   <string name="pref_look_and_feel_weather_format">Hava durumu formatı</string>
-  <string name="pref_look_and_feel_weather_format_summary">AOD'de kullanılan hava durumu formatı</string>
+  <string name="pref_look_and_feel_weather_format_summary">AOD de kullanılan hava durumu formatı</string>
   <string name="pref_look_and_feel_filter_notifications">Filtre bildirimleri</string>
   <string name="pref_look_and_feel_filter_notifications_summary">Hangi bildirimlerin gösterilmeyeceğini seçin</string>
   <string name="pref_look_and_feel_filter_notifications_explanation">Engellemek veya engelini kaldırmak için girişlere dokunun</string>
@@ -177,9 +177,9 @@
   <string name="pref_look_and_feel_tint_notifications">Renk tonu bildirimleri</string>
   <string name="pref_look_and_feel_tint_notifications_summary">Uygulama renklerinde renk tonu bildirimleri</string>
   <string name="pref_look_and_feel_display_size">Ekran boyutu</string>
-  <string name="pref_look_and_feel_display_size_summary">AOD'nin ekran boyutu %1$d%%</string>
+  <string name="pref_look_and_feel_display_size_summary">AOD nin ekran boyutu %1$d%%</string>
   <string name="pref_look_and_feel_rules">Kurallar</string>
-  <string name="pref_look_and_feel_rules_summary">AOD'nin ne zaman gösterileceğini kontrol edin</string>
+  <string name="pref_look_and_feel_rules_summary">AOD nin ne zaman gösterileceğini kontrol edin</string>
   <string name="pref_look_and_feel_rules_charging_state">Şarj durumu</string>
   <string name="pref_look_and_feel_rules_charger">Şarj tipi</string>
   <string name="pref_look_and_feel_rules_charger_summary">Hangi şarj türlerinin şarj olarak sayılacağını seçin</string>
@@ -215,17 +215,17 @@
   <string name="help_center_delays_button_one">Pil Ayarları</string>
   <string name="help_center_delays_button_two">Üreticiye özel</string>
   <string name="help_center_battery_drain">Batarya boşalmasının kaynağını bulma</string>
-  <string name="help_center_battery_drain_text">Pilin boşalmasının bir nedeni, LCD ekranlı bir telefon kullanmanız olabilir. Bu uygulama, enerji tasarrufu sağlamak için siyah pikselleri kapatabilen OLED ekrana sahip telefonlar için tasarlanmıştır. LCD ekranlar siyah pikselleri kapatamaz, bu da her zaman açık ekran etkinleştirildiğinde ekranın çok daha fazla enerji kullanmasına neden olur. Başka bir neden de, her zaman açık ekran çalışırken diğer uygulamaların arka planda çalışması olabilir. Android, pil tüketimini AlwaysOn'un pil tüketiminin bir parçası olarak görüntüleyecektir.</string>
+  <string name="help_center_battery_drain_text">Pilin boşalmasının bir nedeni, LCD ekranlı bir telefon kullanmanız olabilir. Bu uygulama, enerji tasarrufu sağlamak için siyah pikselleri kapatabilen OLED ekrana sahip telefonlar için tasarlanmıştır. LCD ekranlar siyah pikselleri kapatamaz, bu da her zaman açık ekran etkinleştirildiğinde ekranın çok daha fazla enerji kullanmasına neden olur. Başka bir neden de, her zaman açık ekran çalışırken diğer uygulamaların arka planda çalışması olabilir. Android, pil tüketimini AlwaysOn un pil tüketiminin bir parçası olarak görüntüleyecektir.</string>
   <string name="loading">Yükleniyor</string>
   <string name="missing_permissions">Eksik İzinler</string>
   <string name="permissions_notification_access">Bu özellik için bildirim erişimini açın</string>
-  <string name="permissions_device_admin_or_root">Bu özellik için cihaz yöneticisini veya root'u açın</string>
+  <string name="permissions_device_admin_or_root">Bu özellik için cihaz yöneticisini veya root u açın</string>
   <string name="about">Hakkında</string>
   <string name="about_summary">Uygulama hakkında</string>
   <string name="about_app_version">Uygulama sürümü</string>
   <string name="about_app_version_desc" translatable="false">%1$s (%2$d)</string>
   <string name="about_privacy">Harici İçerik</string>
-  <string name="about_privacy_desc">Harici içerik GitHub'dan yüklenecektir. Daha fazla bilgi için gizlilik politikalarını okuyun.</string>
+  <string name="about_privacy_desc">Harici içerik GitHub dan yüklenecektir. Daha fazla bilgi için gizlilik politikalarını okuyun.</string>
   <string name="about_privacy_policy">Gizlilik Politikası</string>
   <string name="about_contributors">Katkıda bulunanlar</string>
   <string name="about_contributors_desc">Katkıda bulunanların listesi</string>
@@ -234,7 +234,7 @@
   <string name="about_license">Lisans</string>
   <string name="about_license_desc" translatable="false">GPL-3.0</string>
   <string name="about_icons">Simgeler</string>
-  <string name="about_icons_desc">Icons8 ve Google'dan Simgeler</string>
+  <string name="about_icons_desc">Icons8 ve Google dan Simgeler</string>
   <string name="about_libraries">Kütüphaneler</string>
   <string name="about_libraries_desc">Kullanılan tüm kitaplıkların listesi</string>
   <string-array name="about_libraries" translatable="false">
