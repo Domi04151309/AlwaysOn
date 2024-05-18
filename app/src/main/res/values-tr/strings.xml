@@ -20,13 +20,10 @@
     <string name="dialog_device_admin_text">Uygulamayı kaldırmadan önce cihaz yöneticisi ayrıcalıklarını devre dışı bırakmanız gerektiğini lütfen unutmayın! Bunu anladığınızdan emin olmak için lütfen aşağıdaki işlemi gerçekleştirin:\n7 + 12</string>
     <string name="dialog_device_admin_result">Sonuç</string>
     <string name="dialog_device_admin_error">Yanlış sonuç. Tekrar deneyin.</string>
-    <string name="app_name" translatable="false">AlwaysOn</string>
     <string name="app_description">Her zaman açık bir ekran ekleyen Android uygulaması</string>
     <string name="AlwaysOn">Her zaman ekranda</string>
-    <string name="date" translatable="false">Eee, MMMM D</string>
     <string name="percent">%1$d%%</string>
     <string name="charged">%1$d%% Ücretlendirildi</string>
-    <string name="music" translatable="false">%1$s - %2$s</string>
     <string name="shortcut_disabled">Devre dışı</string>
     <!-- Strings related to Settings -->
     <string name="pref_int_failed">Bu değer kullanılamaz</string>
@@ -127,11 +124,6 @@
     <string name="pref_ao_calendar_summary">Önümüzdeki 24 saat içindeki etkinlikleri AOD nizde gösterin</string>
     <string name="pref_look_and_feel_charging">Şarj animasyonu görünümü</string>
     <string name="pref_look_and_feel_charging_summary">Şarj animasyonunun görünümünü değiştirir</string>
-    <string-array name="pref_look_and_feel_charging_array_display" translatable="false">
-      <item>Daire</item>
-      <item>Flaş</item>
-      <item>iOS</item>
-    </string-array>
     <string name="pref_ao_background_image">Arka plan görüntüsü</string>
     <string name="pref_ao_background_image_summary">AOD nin arka plan görüntüsünü değiştirme</string>
     <string-array name="pref_ao_background_image_array_display">
@@ -161,7 +153,6 @@
     <string name="pref_look_and_feel_weather_info_summary">AOD nizde hava durumu bilgilerini yapılandırın</string>
     <string name="pref_look_and_feel_weather_show_summary">Hava durumu bilgilerini AOD nizde gösterin</string>
     <string name="pref_look_and_feel_weather_provider">AlwaysOn, hava durumu verileri için wtrr.in kullanır. Hava durumunu almak, tanımlanabilir verileri aktarabilir.</string>
-    <string name="pref_look_and_feel_weather_provider_name" translatable="false">wttr.in</string>
     <string name="pref_look_and_feel_weather_location">Hava durumu konumu</string>
     <string name="pref_look_and_feel_weather_location_summary">Hava durumu raporunun yeri. Otomatik konumlandırma için bunu boş bırakın.</string>
     <string name="pref_look_and_feel_weather_format">Hava durumu formatı</string>
@@ -223,7 +214,6 @@
     <string name="about">Hakkında</string>
     <string name="about_summary">Uygulama hakkında</string>
     <string name="about_app_version">Uygulama sürümü</string>
-    <string name="about_app_version_desc" translatable="false">%1$s (%2$d)</string>
     <string name="about_privacy">Harici İçerik</string>
     <string name="about_privacy_desc">Harici içerik GitHub dan yüklenecektir. Daha fazla bilgi için gizlilik politikalarını okuyun.</string>
     <string name="about_privacy_policy">Gizlilik Politikası</string>
@@ -232,67 +222,28 @@
     <string name="about_general">Genel</string>
     <string name="about_github">GitHub deposu</string>
     <string name="about_license">Lisans</string>
-    <string name="about_license_desc" translatable="false">GPL-3.0</string>
     <string name="about_icons">Simgeler</string>
     <string name="about_icons_desc">Icons8 ve Google dan Simgeler</string>
     <string name="about_libraries">Kütüphaneler</string>
     <string name="about_libraries_desc">Kullanılan tüm kitaplıkların listesi</string>
-    <string-array name="about_libraries" translatable="false">
-      <item>Android Tercihleri KTX</item>
-      <item>AppCompat</item>
-      <item>ColorPicker</item>
-      <item>Android için Malzeme Bileşenleri</item>
-      <item>Yaylım Ateşi</item>
-    </string-array>
-    <string-array name="about_libraries_licenses" translatable="false">
-      <item>Apache 2.0</item>
-      <item>Apache 2.0</item>
-      <item>Apache 2.0</item>
-      <item>Apache 2.0</item>
-      <item>Apache 2.0</item>
-    </string-array>
     <string-array name="pref_look_and_feel_rules_charging_state_display">
       <item>Herhangi bir şarj durumunda göster</item>
       <item>Yalnızca şarj olurken göster</item>
       <item>Yalnızca boşaltma sırasında göster</item>
-    </string-array>
-    <string-array name="pref_look_and_feel_rules_charging_state_values" translatable="false">
-      <item>her zaman</item>
-      <item>şarj</item>
-      <item>boşaltma</item>
     </string-array>
     <string-array name="pref_look_and_feel_rules_charger_display">
       <item>AC</item>
       <item>USB</item>
       <item>Kablosuz</item>
     </string-array>
-    <string-array name="pref_look_and_feel_rules_charger_values" translatable="false">
-      <item>ac</item>
-      <item>usb</item>
-      <item>kablosuz</item>
-    </string-array>
     <string-array name="pref_look_and_feel_orientation_display">
       <item>Otomatik kilit</item>
       <item>Dikey</item>
       <item>Yatay</item>
     </string-array>
-    <string-array name="pref_look_and_feel_orientation_values" translatable="false">
-      <item>kilitli</item>
-      <item>dikey</item>
-      <item>yatay</item>
-    </string-array>
     <string-array name="pref_ao_glowStyle_display">
       <item>Tüm taraflar</item>
       <item>Sol ve sağ taraflar</item>
       <item>Üst ve alt taraflar</item>
-    </string-array>
-    <string-array name="pref_ao_glowStyle_values" translatable="false">
-      <item>tümü</item>
-      <item>dikey</item>
-      <item>yatay</item>
-    </string-array>
-    <string-array name="about_icons_array" translatable="false">
-      <item>Icons8</item>
-      <item>Google</item>
     </string-array>
 </resources>
