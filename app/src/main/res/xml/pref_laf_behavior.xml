@@ -57,6 +57,12 @@
         android:title="@string/pref_ao_dnd" />
     <SwitchPreference
         android:defaultValue="false"
+        android:icon="@drawable/ic_dnd"
+        android:key="ao_disable_on_dnd"
+        android:summary="@string/pref_ao_disable_on_dnd_summary"
+        android:title="@string/pref_ao_disable_on_dnd" />
+    <SwitchPreference
+        android:defaultValue="false"
         android:icon="@drawable/ic_battery"
         android:key="ao_power_saving"
         android:summary="@string/pref_ao_power_saving_summary"

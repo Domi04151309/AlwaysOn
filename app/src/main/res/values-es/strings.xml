@@ -71,8 +71,10 @@
     <string name="pref_ao_force_brightness_example">Así de brillante será el texto en modo always on display</string>
     <string name="pref_ao_pocket_mode">Modo bolsillo</string>
     <string name="pref_ao_pocket_mode_summary">Inhabilita el always on display en tu bolsillo: ¡El uso del sensor puede causar un aumento en el uso de la batería!</string>
-    <string name="pref_ao_dnd">No molestar</string>
+    <string name="pref_ao_dnd">Activar modo No molestar</string>
     <string name="pref_ao_dnd_summary">Enciende el modo No molestar mientras el modo always on display está funcionando</string>
+    <string name="pref_ao_disable_on_dnd">Desactivar en modo No molestar</string>
+    <string name="pref_ao_disable_on_dnd_summary">Desactiva el always on display cuando el modo No molestar esté activo</string>
     <string name="pref_ao_power_saving">Modo de ahorro de energía (root)</string>
     <string name="pref_ao_power_saving_summary">Enciende el modo de ahorro de energía del sistema cuando la pantalla siempre está encendida.</string>
     <string name="pref_ao_double_tap_disabled">Desactivar el doble toque</string>

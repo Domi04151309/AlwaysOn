@@ -105,8 +105,10 @@
     <string name="pref_ao_force_brightness_example">Bu, her zaman açık ekranınızdaki metnin ne kadar parlak görüneceğidir.</string>
     <string name="pref_ao_pocket_mode">Cep modu</string>
     <string name="pref_ao_pocket_mode_summary">Cebinizde her zaman açık göstergesini devre dışı bırakır\nUyarı: Sensör kullanımı pil kullanımının artmasına neden olabilir!</string>
-    <string name="pref_ao_dnd">Rahatsız etmeyin</string>
-    <string name="pref_ao_dnd_summary">Her zaman açık ekranı çalışırken rahatsız etmeyin modunu açar</string>
+    <string name="pref_ao_dnd">Rahatsız etmeyin modunu etkinleştir</string>
+    <string name="pref_ao_dnd_summary">Her zaman açık ekranı çalışırken Rahatsız etmeyin modunu açar</string>
+    <string name="pref_ao_disable_on_dnd">Rahatsız etmeyin modunda kapat</string>
+    <string name="pref_ao_disable_on_dnd_summary">Rahatsız etmeyin modu etkinken her zaman açık ekranı kapatır</string>
     <string name="pref_ao_power_saving">Güç tasarrufu modu (root)</string>
     <string name="pref_ao_power_saving_summary">Her zaman açık ekran etkinleştirildiğinde sistemin güç tasarrufu modunu açar</string>
     <string name="pref_ao_double_tap_speed">İki kez dokunma hızı</string>
