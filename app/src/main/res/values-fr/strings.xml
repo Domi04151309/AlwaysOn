@@ -1,15 +1,15 @@
 <resources>
-    <string name="device_admin_description">Autorise AlwaysOn a éteindre votre écran</string>
-    <string name="notification_listener_description">Affiche les notifications sur l\’affichage pesistant</string>
+    <string name="device_admin_description">Autorise AlwaysOn à éteindre votre écran</string>
+    <string name="notification_listener_description">Affiche les notifications sur l\’affichage permanent</string>
 
     <string name="service_text">AlwaysOn est lancé en arrière plan</string>
     <string name="service_channel">Chaîne de service</string>
 
-    <string name="setup_root_failed">La requête root a échoué! Merci de réessayer ou de changer de mode!</string>
+    <string name="setup_root_failed">La requête root a échoué ! Merci de réessayer ou de changer de mode!</string>
     <string name="device_admin">Administrateur de l\’appareil</string>
     <string name="device_admin_summary">Vous devez être root (devenir administrateur) ou changer de mode pour que cette application fonctionne.</string>
     <string name="notification_listener_service">Accès aux notifications</string>
-    <string name="notification_listener_service_summary">Vous devez activer l\'accès au notification pour que l\'application affiche vos notifications sur l\'affichage permanent.</string>
+    <string name="notification_listener_service_summary">Vous devez activer l\'accès aux notifications pour que l\'application affiche vos notifications sur l\'affichage permanent.</string>
     <string name="setup_draw_over_other_apps">Afficher sur d\’autres applications</string>
     <string name="setup_draw_over_other_apps_summary">Cette permission est requise pour afficher l\’affichage permanent.</string>
     <string name="setup_phone_state">Lire l\’état du téléphone</string>
@@ -18,9 +18,9 @@
     <string name="setup_calendar_summary">Vous pouvez activer l\'accès au calendrier pour que l\'application puisse afficher vos événements sur l\'affichage permanent.</string>
     <string name="setup_skip">Passer</string>
     <string name="setup_continue">Continuer</string>
-    <string name="setup_error">Quelque chose s\'est mal passé! S\'il vous plaît, réessayez!</string>
+    <string name="setup_error">Quelque chose s\'est mal passé ! S\'il vous plaît, réessayez !</string>
 
-    <string name="dialog_device_admin_text">Veuillez noter que vous devrez désactiver le privilège administrateur de cette application avant de la désinstaller! Pour s\'assurer que vous avez bien compris ceci, résolvez l\'opération suivante:\n7 + 12</string>
+    <string name="dialog_device_admin_text">Veuillez noter que vous devrez désactiver le privilège administrateur de cette application avant de la désinstaller ! Pour s\'assurer que vous avez bien compris ceci, résolvez l\'opération suivante :\n7 + 12</string>
     <string name="dialog_device_admin_result">Résultat</string>
     <string name="dialog_device_admin_error">Mauvais résultat. Réessayez.</string>
 
@@ -34,7 +34,7 @@
     <string name="shortcut_disabled">Désactivé</string>
 
     <!-- Strings related to Settings -->
-    <string name="pref_int_failed">Cette valeur ne peut pas être utilisé</string>
+    <string name="pref_int_failed">Cette valeur ne peut pas être utilisée</string>
 
     <string name="pref_general">Paramètres généraux</string>
     <string name="pref_enabled">Actuellement activé</string>
@@ -53,8 +53,8 @@
     <string name="pref_ao_other">Autres paramètres</string>
 
     <string name="pref_look_and_feel_hour">Utiliser l\’affichage 12 heures</string>
-    <string name="pref_look_and_feel_hour_summary_on">Utilisé en ce moment: 12 heures</string>
-    <string name="pref_look_and_feel_hour_summary_off">Utilisé en ce moment: 24 heures</string>
+    <string name="pref_look_and_feel_hour_summary_on">Utilisé en ce moment : 12 heures</string>
+    <string name="pref_look_and_feel_hour_summary_off">Utilisé en ce moment : 24 heures</string>
     <string name="pref_look_and_feel_am_pm">Afficher AM / PM</string>
     <string name="pref_look_and_feel_am_pm_summary">Afficher AM / PM lors de l\'utilisation de l\'affichage 12 heures</string>
 
@@ -98,7 +98,7 @@
     <string name="pref_ao_fingerprint_margin_summary">Espace sous l\'icône de l\'empreinte digitale</string>
     <string name="pref_ao_edgeGlow">Lueur des coins</string>
     <string name="pref_ao_edgeGlow_summary">Les coins luisent quand une notification est reçue</string>
-    <string name="pref_ao_glowDuration">Durée de la lueure (en millisecondes)</string>
+    <string name="pref_ao_glowDuration">Durée de la lueur (en millisecondes)</string>
     <string name="pref_ao_glowDuration_summary">Durée pendant laquelle les coins luisent</string>
     <string name="pref_ao_glowDelay">Délai de la lueur (en millisecondes)</string>
     <string name="pref_ao_glowDelay_summary">Intervalles entre les lueurs</string>
@@ -109,7 +109,7 @@
     <string name="pref_ao_vibration">Durée de la vibration (en millisecondes)</string>
     <string name="pref_ao_vibration_summary">Durée pendant laquelle le téléphone vibre lors d\'un double appui sur l\'écran</string>
     <string name="pref_ao_animation_delay">Délai du mouvement (en minutes)</string>
-    <string name="pref_ao_animation_delay_summary">Temps entre les différentes positions du contenu.\nAttention: des valeurs trop hautes peuvent causer des brûlures!</string>
+    <string name="pref_ao_animation_delay_summary">Temps entre les différentes positions du contenu.\nAttention : des valeurs trop hautes peuvent causer des brûlures !</string>
     <string name="pref_ao_smooth_animation">Mouvement de l\’animation</string>
     <string name="pref_ao_smooth_animation_summary">Animer le changement de position</string>
     <string name="pref_ao_force_brightness">Force une certaine luminosité sur l\’affichage permanent</string>
@@ -117,17 +117,17 @@
     <string name="pref_ao_force_brightness_title">Luminosité</string>
     <string name="pref_ao_force_brightness_example">Luminosité apparente du texte sur votre affichage permanent.</string>
     <string name="pref_ao_pocket_mode">Mode poche</string>
-    <string name="pref_ao_pocket_mode_summary">Désactives l\’affichage permanent dans votre poche\nAttention: le capteur peut causer une plus grande utilisation de la batterie!</string>
+    <string name="pref_ao_pocket_mode_summary">Désactive l\’affichage permanent dans votre poche\nAttention : le capteur peut causer une plus grande utilisation de la batterie !</string>
     <string name="pref_ao_dnd">Activer Ne pas déranger</string>
     <string name="pref_ao_dnd_summary">Active le mode Ne pas déranger quand l\’affichage permanent est activé</string>
     <string name="pref_ao_disable_on_dnd">Désactiver en mode Ne pas déranger</string>
     <string name="pref_ao_disable_on_dnd_summary">Désactive l\’affichage permanent quand le mode Ne pas déranger" est actif</string>
     <string name="pref_ao_power_saving">Mode économiseur de batterie (root)</string>
-    <string name="pref_ao_power_saving_summary">Actives l\'économiseur de batterie du système quand l\'affichage permanent est activé</string>
+    <string name="pref_ao_power_saving_summary">Active l\'économiseur de batterie du système quand l\'affichage permanent est activé</string>
     <string name="pref_ao_double_tap_speed">Vitesse du double appui</string>
     <string name="pref_ao_double_tap_speed_summary">Le temps maximum entre deux appuis (en millisecondes)</string>
     <string name="pref_ao_double_tap_disabled">Désactiver l\’appui double</string>
-    <string name="pref_ao_double_tap_disabled_summary">Désactives le double appui pour sortie de l\’affichage permanent (non recommandé)</string>
+    <string name="pref_ao_double_tap_disabled_summary">Désactive le double appui pour sortir de l\’affichage permanent (non recommandé)</string>
     <string name="pref_ao_message">Message</string>
     <string name="pref_ao_message_summary">Un message qui est affiché sur l\’affichage permanent</string>
     <string name="pref_ao_date_format">Format de la date</string>
@@ -139,7 +139,7 @@
     <string name="pref_ao_calendar_summary">Affiches les événements des prochaines 24h sur votre affichage permanent</string>
 
     <string name="pref_look_and_feel_charging">Aspect de l\’animation de chargement</string>
-    <string name="pref_look_and_feel_charging_summary">Modifie l\'aspect de l\'animation joué pendant le rechargement</string>
+    <string name="pref_look_and_feel_charging_summary">Modifie l\'aspect de l\'animation jouée pendant le rechargement</string>
 
     <string name="pref_ao_background_image">Image de fond d’écran</string>
     <string name="pref_ao_background_image_summary">Modifie l\'image sur le fond d\'écran de l\'affichage permanent</string>
@@ -163,14 +163,14 @@
     <string name="pref_look_and_feel_hide_display_cutouts_summary">Masques les découpes d\’affichage sur les contenus en plein écran</string>
     <string name="pref_look_and_feel_orientation">Orientation</string>
     <string name="pref_look_and_feel_orientation_summary">Modifie l\'orientation de l\'écran</string>
-    <string name="pref_look_and_feel_heads_up">Caches les notifications d\’alertes (root)</string>
+    <string name="pref_look_and_feel_heads_up">Cache les notifications d\’alertes (root)</string>
     <string name="pref_look_and_feel_heads_up_summary">Empêche les notifications d\'alertes de s\'afficher (expérimental)</string>
 
     <string name="pref_look_and_feel_weather">Météo</string>
     <string name="pref_look_and_feel_weather_info">Affiche les informations météo</string>
     <string name="pref_look_and_feel_weather_info_summary">Configurer les informations météos sur votre affichage permanent</string>
     <string name="pref_look_and_feel_weather_show_summary">Afficher les informations météo sur votre affichage permanent</string>
-    <string name="pref_look_and_feel_weather_provider">AlwaysOn utilises wtrr.in pour les données météo. La récupération de la météo peut transmettre des données identifiables.</string>
+    <string name="pref_look_and_feel_weather_provider">AlwaysOn utilise wtrr.in pour les données météo. La récupération de la météo peut transmettre des données identifiables.</string>
     <string name="pref_look_and_feel_weather_location">Localisation de la météo</string>
     <string name="pref_look_and_feel_weather_location_summary">La localisation du bulletin métérologique. Laissez vide pour une auto-localisation.</string>
     <string name="pref_look_and_feel_weather_format">Format de la météo</string>
@@ -182,11 +182,11 @@
     <string name="pref_look_and_feel_filter_notifications_blocked">Bloquer les notifications de</string>
     <string name="pref_look_and_feel_filter_notifications_shown">Notifications disponibles de</string>
     <string name="pref_look_and_feel_filter_notifications_empty">Pas de notifications disponibles</string>
-    <string name="pref_look_and_feel_filter_notifications_empty_summary">Il semblerai qu\'il n\'y ai rien à afficher</string>
+    <string name="pref_look_and_feel_filter_notifications_empty_summary">Il semblerait qu\'il n\'y ait rien à afficher</string>
     <string name="pref_look_and_feel_filter_notifications_unknown">Application inconnue</string>
 
-    <string name="pref_look_and_feel_tint_notifications">Notifications teinté</string>
-    <string name="pref_look_and_feel_tint_notifications_summary">Teinte les notifications avec la couleur de leur application</string>
+    <string name="pref_look_and_feel_tint_notifications">Colorer les notifications</string>
+    <string name="pref_look_and_feel_tint_notifications_summary">Affiche les notifications avec la couleur de leur application</string>
     <string name="pref_look_and_feel_display_size">Taille de l’affichage</string>
     <string name="pref_look_and_feel_display_size_summary">La taille de l\’affichage permanent est %1$d%%</string>
 
@@ -196,51 +196,51 @@
     <string name="pref_look_and_feel_rules_charger">Type de charge</string>
     <string name="pref_look_and_feel_rules_charger_summary">Choisir quel type de charge est considéré comme une charge</string>
     <string name="pref_look_and_feel_rules_battery_level">Niveau de la batterie</string>
-    <string name="pref_look_and_feel_rules_battery_level_summary">Affiche seulement au dessus de %1$d%%</string>
+    <string name="pref_look_and_feel_rules_battery_level_summary">Affiche seulement au-dessus de %1$d%%</string>
     <string name="pref_look_and_feel_rules_battery_level_summary_zero">Affiche à n\’importe quel niveau de batterie</string>
     <string name="pref_look_and_feel_rules_time">Période de temps</string>
     <string name="pref_look_and_feel_rules_time_summary">Affiche de %1$s à %2$s</string>
     <string name="pref_look_and_feel_rules_timeout">Délai</string>
     <string name="pref_look_and_feel_rules_timeout_summary_zero">Aucun délai n\’a été défini</string>
     <string name="pref_look_and_feel_rules_ambient_mode">Mode ambiance</string>
-    <string name="pref_look_and_feel_rules_ambient_mode_summary">Montre seulement après qu\’une notification a été reçu</string>
+    <string name="pref_look_and_feel_rules_ambient_mode_summary">Montre seulement après qu\’une notification a été reçue</string>
 
     <string name="pref_permissions">Permissions</string>
     <string name="pref_permissions_summary">Paramètres liés aux permissions</string>
     <string name="pref_ignore_battery_optimizations">Ignorer les optimisations de batterie</string>
-    <string name="pref_ignore_battery_optimizations_summary">Empêche les délais causé par le système</string>
+    <string name="pref_ignore_battery_optimizations_summary">Empêche les délais causés par le système</string>
     <string name="pref_notification">Accès aux notifications</string>
     <string name="pref_notification_summary">Active ou désactive l\’accès aux notifications</string>
-    <string name="pref_draw_over_other_apps">Afficher au dessus d\’autres applications</string>
+    <string name="pref_draw_over_other_apps">Afficher au-dessus d\’autres applications</string>
     <string name="pref_draw_over_other_apps_summary">Active ou désactive cette permission</string>
     <string name="pref_admin">Administration de l\’appareil</string>
-    <string name="pref_admin_summary">Actives l\'administration de l\'appareil pour le mode normal\nVeuillez noter que vous devrez désactiver l\'administration de l\'appareil pour désinstaller cette application!</string>
+    <string name="pref_admin_summary">Actives l\'administration de l\'appareil pour le mode normal\nVeuillez noter que vous devrez désactiver l\'administration de l\'appareil pour désinstaller cette application !</string>
     <string name="pref_root_mode">Mode root</string>
-    <string name="pref_root_mode_summary">Actives la fonctionnalité root</string>
+    <string name="pref_root_mode_summary">Active la fonctionnalité root</string>
 
     <string name="help_center">Centre d\’aide</string>
     <string name="help_center_summary">Désinstallation, manque de réactivité, décharge de la batterie</string>
-    <string name="help_center_missing_permissions_text">Quand un paramètre est grisé et vous demande d\'activer quelque chose auparavant, vous n\'avez pas encore activé la permission nécessaire. Pour accorder la permission manquant à l\'application, ouvrez la page “Permissions” sur la page principale et accepter l\'utilisation de cette permission. Vous pouvez maintenant accéder aux paramètres nécessitant ces permissions.</string>
+    <string name="help_center_missing_permissions_text">Quand un paramètre est grisé et vous demande d\'activer quelque chose auparavant, vous n\'avez pas encore activé la permission nécessaire. Pour accorder la permission manquante à l\'application, ouvrez la page “Permissions” sur la page principale et acceptez l\'utilisation de cette permission. Vous pouvez maintenant accéder aux paramètres nécessitant ces permissions.</string>
     <string name="help_center_uninstall">Comment désinstaller</string>
-    <string name="help_center_uninstall_text">Le processus de désinstallation peut échouer à cause d\'une erreur de conception dans le système d\'exploitation Android. Si la permission de l\'administration de l\'appareil n\'a pas été désactivé avant le processus de désinstallation, celle-ci échouera. Vous devez désactiver la permission de l\'administration de l\'appareil avant de désinstaller</string>
+    <string name="help_center_uninstall_text">Le processus de désinstallation peut échouer à cause d\'une erreur de conception dans le système d\'exploitation Android. Si la permission d\'administration de l\'appareil n\'a pas été désactivée avant le processus de désinstallation, celle-ci échouera. Vous devez désactiver la permission d\'administration de l\'appareil avant de désinstaller</string>
     <string name="help_center_uninstall_button">Désinstaller maintenant</string>
     <string name="help_center_delays">Comment régler le problème des délais</string>
-    <string name="help_center_delays_text">Certains constructeurs préfères la durée de vie de la batterie avant les fonctionnalités de l\'application ce qui explique pourquoi cette application peut ne fonctionner qu\'avec des délais ou pas du tout sur certains appareils. Si vous expérimentez des délais, essayez de désactiver les optimisations de batterie pour cette application ou vérifiez d\'autres paramètres spécifiques au constructeur</string>
+    <string name="help_center_delays_text">Certains constructeurs font primer la durée de vie de la batterie sur les fonctionnalités des applications, ce qui explique que cette application puisse ne fonctionner qu\'avec des délais, voire pas du tout sur certains appareils. Si vous constatez des délais, essayez de désactiver les optimisations de batterie pour cette application ou vérifiez d\'autres paramètres spécifiques au constructeur</string>
     <string name="help_center_delays_button_one">Paramètres de batterie</string>
     <string name="help_center_delays_button_two">Spécificité constructeur</string>
     <string name="help_center_battery_drain">Comprendre la source d\’un déchargement de batterie</string>
-    <string name="help_center_battery_drain_text">Une des raisons pour un déchargement de batterie peut être que vous utilisez un téléphone avec un écran LCD. Cette application est conçu pour les téléphones avec un écran OLED pouvant éteindre les pixels noirs de l\'écran pour sauver de l\'énergie. Les écrans LCD ne peuvent pas éteindre les pixels noirs ce qui résulte en une utilisation plus massive de la batterie lorsque l\'affichage est activée. Une autre raison peut être l\'utilisation d\'autres applications en tâche de fond quand l\'affichage permanent fonctionne. Android affichera leur consommation de batterie comme étant une partie de la consommation de AlwaysOn.</string>
+    <string name="help_center_battery_drain_text">Une des raisons d\'un déchargement de batterie peut être que vous utilisez un téléphone avec un écran LCD. Cette application est conçu pour les téléphones avec un écran OLED pouvant éteindre les pixels noirs de l\'écran pour économiser de l\'énergie. Les écrans LCD ne peuvent pas éteindre les pixels noirs ce qui résulte en une utilisation plus massive de la batterie lorsque l\'affichage est activée. Une autre raison peut être l\'utilisation d\'autres applications en tâche de fond quand l\'affichage permanent fonctionne. Android affichera leur consommation de batterie comme faisant partie de la consommation d\'AlwaysOn.</string>
 
     <string name="loading">Chargement</string>
     <string name="missing_permissions">Permissions manquantes</string>
-    <string name="permissions_notification_access">Activer l\’accès aux notifications pour cette fonctionnalité</string>
-    <string name="permissions_device_admin_or_root">Activer l\'administration de l\'appareil ou rootez l\'appareil pour cette fonctionnalité</string>
+    <string name="permissions_notification_access">Activez l\’accès aux notifications pour cette fonctionnalité</string>
+    <string name="permissions_device_admin_or_root">Activez l\'administration de l\'appareil ou rootez l\'appareil pour cette fonctionnalité</string>
 
     <string name="about">À propos</string>
     <string name="about_summary">À propos de l\’application</string>
     <string name="about_app_version">Version de l\’application</string>
     <string name="about_privacy">Contenu externe</string>
-    <string name="about_privacy_desc">Contenu externe est chargés depuis GitHub. Lisez la politique de confidentialité pour plus d\’information.</string>
+    <string name="about_privacy_desc">Du contenu externe est chargé depuis GitHub. Lisez la politique de confidentialité pour plus d\’information.</string>
     <string name="about_privacy_policy">Politique de confidentialité</string>
     <string name="about_contributors">Contributeurs</string>
     <string name="about_contributors_desc">Une liste des contributeurs</string>
@@ -249,13 +249,13 @@
     <string name="about_license">Lisense</string>
     <string name="about_icons">Icônes</string>
     <string name="about_icons_desc">Icônes par Icons8 et Google</string>
-    <string name="about_libraries">Librairies</string>
-    <string name="about_libraries_desc">Une liste de toutes les librairies utilisées</string>
+    <string name="about_libraries">Bibliothèques</string>
+    <string name="about_libraries_desc">Une liste de toutes les bibliothèques utilisées</string>
 
     <string-array name="pref_look_and_feel_rules_charging_state_display">
-        <item>Affiche à n\’importe quel état de charge</item>
-        <item>Affiche seulement au chargement</item>
-        <item>Affiche seulement au déchargement</item>
+        <item>Afficher à n\’importe quel état de charge</item>
+        <item>Afficher seulement au chargement</item>
+        <item>Afficher seulement au déchargement</item>
     </string-array>
 
     <string-array name="pref_look_and_feel_rules_charger_display">
@@ -265,13 +265,13 @@
     </string-array>
 
     <string-array name="pref_look_and_feel_orientation_display">
-        <item>Verouillage automatique</item>
+        <item>Verrouillage automatique</item>
         <item>Portrait</item>
         <item>Paysage</item>
     </string-array>
 
     <string-array name="pref_ao_glowStyle_display">
-        <item>Tout les côtés</item>
+        <item>Tous les côtés</item>
         <item>Côtés gauche et droit</item>
         <item>Côtés haut et bas</item>
     </string-array>
