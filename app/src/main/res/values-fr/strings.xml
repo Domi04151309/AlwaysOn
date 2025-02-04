@@ -118,8 +118,10 @@
     <string name="pref_ao_force_brightness_example">Luminosité apparente du texte sur votre affichage permanent.</string>
     <string name="pref_ao_pocket_mode">Mode poche</string>
     <string name="pref_ao_pocket_mode_summary">Désactives l\’affichage permanent dans votre poche\nAttention: le capteur peut causer une plus grande utilisation de la batterie!</string>
-    <string name="pref_ao_dnd">Ne pas déranger</string>
-    <string name="pref_ao_dnd_summary">Actives le mode ne pas déranger quand l\’affichage permanent est activé</string>
+    <string name="pref_ao_dnd">Activer Ne pas déranger</string>
+    <string name="pref_ao_dnd_summary">Active le mode Ne pas déranger quand l\’affichage permanent est activé</string>
+    <string name="pref_ao_disable_on_dnd">Désactiver en mode Ne pas déranger</string>
+    <string name="pref_ao_disable_on_dnd_summary">Désactive l\’affichage permanent quand le mode Ne pas déranger" est actif</string>
     <string name="pref_ao_power_saving">Mode économiseur de batterie (root)</string>
     <string name="pref_ao_power_saving_summary">Actives l\'économiseur de batterie du système quand l\'affichage permanent est activé</string>
     <string name="pref_ao_double_tap_speed">Vitesse du double appui</string>

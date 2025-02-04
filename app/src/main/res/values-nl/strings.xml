@@ -63,8 +63,10 @@
     <string name="pref_ao_force_brightness_example">Zó helder wordt tekst getoond op het altijdaan-scherm.</string>
     <string name="pref_ao_pocket_mode">Broekzakmodus</string>
     <string name="pref_ao_pocket_mode_summary">Schakelt het altijdaan-scherm uit als je telefoon in je broekzak zit\nWaarschuwing: dit kan het accuverbruik verhogen!</string>
-    <string name="pref_ao_dnd">Niet storen</string>
+    <string name="pref_ao_dnd">Nietstoren inschakelen</string>
     <string name="pref_ao_dnd_summary">Schakel dit in om de nietstoren-modus in te schakelen zolang het altijdaan-scherm wordt getoond</string>
+    <string name="pref_ao_disable_on_dnd">Uitschakelen tijdens nietstoren-modus</string>
+    <string name="pref_ao_disable_on_dnd_summary">Schakelt het altijdaan-scherm uit wanneer de nietstoren-modus actief is</string>
     <string name="pref_ao_power_saving">Energiebesparingsmodus (root)</string>
     <string name="pref_ao_power_saving_summary">Bespaart energie zolang het altijdaan-scherm wordt getoond</string>
     <string name="pref_ao_double_tap_disabled">Dubbelklik uitschakelen</string>

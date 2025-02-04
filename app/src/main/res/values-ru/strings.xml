@@ -62,8 +62,10 @@
     <string name="pref_ao_force_brightness_example">Показывает насколько ярким будет текст на вашем экране</string>
     <string name="pref_ao_pocket_mode">Карманный режим</string>
     <string name="pref_ao_pocket_mode_summary">Выключает AOD в вашем кармане \ Предупреждение: использование датчика может привести к увеличению расхода заряда батареи!</string>
-    <string name="pref_ao_dnd">Не беспокоить</string>
+    <string name="pref_ao_dnd">Включить режим «Не беспокоить»</string>
     <string name="pref_ao_dnd_summary">Включает режим «Не беспокоить», когда работает AOD</string>
+    <string name="pref_ao_disable_on_dnd">Отключать в режиме «Не беспокоить»</string>
+    <string name="pref_ao_disable_on_dnd_summary">Отключает AOD при активном режиме «Не беспокоить»</string>
     <string name="pref_ao_power_saving">Режим энергосбережения (root)</string>
     <string name="pref_ao_power_saving_summary">Экономит заряд, когда работает AOD</string>
     <string name="pref_ao_double_tap_disabled">Отключить пробуждение по двойному нажатию</string>

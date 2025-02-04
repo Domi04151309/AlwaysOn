@@ -121,8 +121,10 @@
     <string name="pref_ao_force_brightness_example">This is how bright the text on your always on display will appear.</string>
     <string name="pref_ao_pocket_mode">Pocket mode</string>
     <string name="pref_ao_pocket_mode_summary">Disables the always on display in your pocket\nWarning: Sensor usage may cause increased battery usage!</string>
-    <string name="pref_ao_dnd">Do not disturb</string>
-    <string name="pref_ao_dnd_summary">Turns on do not disturb mode while the always on display is running</string>
+    <string name="pref_ao_dnd">Turn on Do Not Disturb</string>
+    <string name="pref_ao_dnd_summary">Turns on Do Not Disturb mode while the always on display is running</string>
+    <string name="pref_ao_disable_on_dnd">Disable in Do Not Disturb mode</string>
+    <string name="pref_ao_disable_on_dnd_summary">Disables the always on display when Do Not Disturb mode is active</string>
     <string name="pref_ao_power_saving">Power saving mode (root)</string>
     <string name="pref_ao_power_saving_summary">Turns on the system\’s power saver mode when the always on display is enabled</string>
     <string name="pref_ao_double_tap_speed">Double-tap speed</string>
