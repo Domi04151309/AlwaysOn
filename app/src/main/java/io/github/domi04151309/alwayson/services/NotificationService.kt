@@ -10,6 +10,7 @@ import android.service.notification.StatusBarNotification
 import android.util.Log
 import androidx.preference.PreferenceManager
 import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
+import io.github.domi04151309.alwayson.helpers.ColorHelper
 import io.github.domi04151309.alwayson.helpers.Global
 import io.github.domi04151309.alwayson.helpers.JSON
 import io.github.domi04151309.alwayson.helpers.Rules
@@ -84,7 +85,7 @@ class NotificationService : NotificationListenerService() {
                     icons.add(
                         Pair(
                             notification.notification.smallIcon,
-                            notification.notification.color,
+                            ColorHelper.boostColor(notification.notification.color),
                         ),
                     )
                 }
