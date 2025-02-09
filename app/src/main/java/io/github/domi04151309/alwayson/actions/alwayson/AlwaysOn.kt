@@ -115,7 +115,8 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
                     NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED -> {
                         if (prefs.get("ao_disable_on_dnd", false) &&
-                            notificationManager?.currentInterruptionFilter != NotificationManager.INTERRUPTION_FILTER_ALL
+                            notificationManager?.currentInterruptionFilter !=
+                            NotificationManager.INTERRUPTION_FILTER_ALL
                         ) {
                             finishAndOff()
                         }
