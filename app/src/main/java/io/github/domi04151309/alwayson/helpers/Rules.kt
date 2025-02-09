@@ -1,5 +1,6 @@
 package io.github.domi04151309.alwayson.helpers
 
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -51,6 +52,7 @@ class Rules(context: Context) {
 
     fun canShow(context: Context): Boolean =
         isAlwaysOnDisplayEnabled(context) &&
+            matchesDoNotDisturbState(context) &&
             matchesChargingState(context) &&
             matchesBatteryPercentage(context) &&
             isInTimePeriod()
@@ -87,6 +89,17 @@ class Rules(context: Context) {
             } else {
                 false
             }
+        }
+
+        fun matchesDoNotDisturbState(context: Context): Boolean {
+            val ruleDisableInDoNotDisturb =
+                P.getPreferences(context).getBoolean(
+                    P.RULES_DISABLE_IN_DO_NOT_DISTURB,
+                    P.RULES_DISABLE_IN_DO_NOT_DISTURB_DEFAULT,
+                )
+            if (!ruleDisableInDoNotDisturb) return true
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            return notificationManager.currentInterruptionFilter == NotificationManager.INTERRUPTION_FILTER_ALL
         }
 
         fun matchesChargingState(context: Context): Boolean {

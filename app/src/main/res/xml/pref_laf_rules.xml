@@ -3,6 +3,13 @@
 
     <SwitchPreference
         android:defaultValue="false"
+        android:icon="@drawable/ic_dnd"
+        android:key="rules_disable_in_do_not_disturb"
+        android:summary="@string/pref_ao_disable_on_dnd_summary"
+        android:title="@string/pref_ao_disable_on_dnd" />
+
+    <SwitchPreference
+        android:defaultValue="false"
         android:icon="@drawable/ic_notification"
         android:key="rules_ambient_mode"
         android:summary="@string/pref_look_and_feel_rules_ambient_mode_summary"

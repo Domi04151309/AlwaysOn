@@ -87,6 +87,7 @@ internal class P(private val prefs: SharedPreferences) {
             )
 
     companion object {
+        const val RULES_DISABLE_IN_DO_NOT_DISTURB = "rules_disable_in_do_not_disturb"
         const val RULES_CHARGING_STATE = "rules_charging_state"
         const val RULES_BATTERY = "rules_battery_level"
         const val RULES_TIMEOUT = "rules_timeout_sec"
@@ -181,6 +182,7 @@ internal class P(private val prefs: SharedPreferences) {
         const val EDGE_GLOW_STYLE_VERTICAL = "vertical"
         const val EDGE_GLOW_STYLE_HORIZONTAL = "horizontal"
 
+        const val RULES_DISABLE_IN_DO_NOT_DISTURB_DEFAULT = false
         const val RULES_CHARGING_STATE_DEFAULT = "always"
         const val RULES_BATTERY_DEFAULT = 0
         const val RULES_TIMEOUT_DEFAULT = 0

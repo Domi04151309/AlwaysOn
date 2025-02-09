@@ -114,12 +114,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                     }
 
                     NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED -> {
-                        if (prefs.get("ao_disable_on_dnd", false) &&
-                            notificationManager?.currentInterruptionFilter !=
-                            NotificationManager.INTERRUPTION_FILTER_ALL
-                        ) {
-                            finishAndOff()
-                        }
+                        if (!Rules.matchesDoNotDisturbState(this@AlwaysOn)) finishAndOff()
                     }
                 }
             }
@@ -322,27 +317,17 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         instance = this
 
         prefs = P(getDefaultSharedPreferences(this))
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        // Check DND status on launch
-        if (prefs.get("ao_disable_on_dnd", false) &&
-            notificationManager?.currentInterruptionFilter != NotificationManager.INTERRUPTION_FILTER_ALL
-        ) {
-            finishAndOff()
-            return
-        }
-
         userPowerSaving = (getSystemService(Context.POWER_SERVICE) as PowerManager).isPowerSaveMode
 
         prepareView()
+
+        // Add DND state change listener
+        systemFilter.addAction(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED)
 
         // Battery
         systemFilter.addAction(Intent.ACTION_BATTERY_CHANGED)
         systemFilter.addAction(Intent.ACTION_POWER_CONNECTED)
         systemFilter.addAction(Intent.ACTION_POWER_DISCONNECTED)
-
-        // Add DND state change listener
-        systemFilter.addAction(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED)
 
         // Music Controls
         if (prefs.get(P.SHOW_MUSIC_CONTROLS, P.SHOW_MUSIC_CONTROLS_DEFAULT)) {
