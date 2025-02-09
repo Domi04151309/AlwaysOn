@@ -1,7 +1,6 @@
-package io.github.domi04151309.alwayson.helpers;
+package io.github.domi04151309.alwayson.helpers
 
 import android.graphics.Color
-import kotlin.math.roundToInt
 
 object ColorHelper {
     fun boostColor(color: Int): Int {
@@ -14,11 +13,10 @@ object ColorHelper {
         } else {
             val rgbMax: Int = maxOf(colorRed, colorGreen, colorBlue)
             val rgbFactor: Float = 255 / rgbMax.toFloat()
-            val boostedRed: Int = minOf(255, (colorRed * rgbFactor).roundToInt())
-            val boostedGreen: Int = minOf(255, (colorGreen * rgbFactor).roundToInt())
-            val boostedBlue: Int = minOf(255, (colorBlue * rgbFactor).roundToInt())
+            val boostedRed: Int = minOf(255, (colorRed * rgbFactor).toInt())
+            val boostedGreen: Int = minOf(255, (colorGreen * rgbFactor).toInt())
+            val boostedBlue: Int = minOf(255, (colorBlue * rgbFactor).toInt())
             Color.rgb(boostedRed, boostedGreen, boostedBlue)
         }
     }
 }
-
