@@ -325,7 +325,8 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
         // Check DND status on launch
         if (prefs.get("ao_disable_on_dnd", false) &&
-            notificationManager?.currentInterruptionFilter != NotificationManager.INTERRUPTION_FILTER_ALL) {
+            notificationManager?.currentInterruptionFilter != NotificationManager.INTERRUPTION_FILTER_ALL
+        ) {
             finishAndOff()
             return
         }
