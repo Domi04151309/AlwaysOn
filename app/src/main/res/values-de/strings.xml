@@ -106,7 +106,7 @@
     <string name="pref_ao_dnd">Nicht-stören einschalten</string>
     <string name="pref_ao_dnd_summary">Schaltet den Nicht-stören-Modus ein, während das Always On Display läuft</string>
     <string name="pref_ao_disable_on_dnd">Im Nicht-stören-Modus deaktivieren</string>
-    <string name="pref_ao_disable_on_dnd_summary">Deaktiviert das Always On Display, wenn der Nicht-stören-Modus aktiv ist</string>
+    <string name="pref_ao_disable_on_dnd_summary">Nur anzeigen, wenn der Nicht-stören-Modus inaktiv ist</string>
     <string name="pref_ao_power_saving">Energiesparmodus (root)</string>
     <string name="pref_ao_power_saving_summary">Schaltet den Energiesparmodus ein, während das Always On Display aktiviert ist</string>
     <string name="pref_ao_double_tap_speed">Doppel-Tipp-Geschwindigkeit</string>

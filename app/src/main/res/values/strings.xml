@@ -124,7 +124,7 @@
     <string name="pref_ao_dnd">Turn on Do Not Disturb</string>
     <string name="pref_ao_dnd_summary">Turns on Do Not Disturb mode while the always on display is running</string>
     <string name="pref_ao_disable_on_dnd">Disable in Do Not Disturb mode</string>
-    <string name="pref_ao_disable_on_dnd_summary">Disables the always on display when Do Not Disturb mode is active</string>
+    <string name="pref_ao_disable_on_dnd_summary">Only show when Do Not Disturb mode is inactive</string>
     <string name="pref_ao_power_saving">Power saving mode (root)</string>
     <string name="pref_ao_power_saving_summary">Turns on the system\’s power saver mode when the always on display is enabled</string>
     <string name="pref_ao_double_tap_speed">Double-tap speed</string>
