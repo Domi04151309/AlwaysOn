@@ -340,7 +340,7 @@ naming:
   InvalidPackageDeclaration:
     active: true
     rootPackage: ''
-    requireRootInDeclaration: true
+    requireRootInDeclaration: false
   LambdaParameterNaming:
     active: true
     parameterPattern: '[a-z][A-Za-z0-9]*|_'

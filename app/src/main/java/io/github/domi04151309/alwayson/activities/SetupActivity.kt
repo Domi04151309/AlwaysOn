@@ -102,6 +102,7 @@ class SetupActivity : BaseActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         if (currentFragment > NO_FRAGMENT) currentFragment--
