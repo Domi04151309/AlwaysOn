@@ -17,15 +17,17 @@ object Date {
             utils.viewHeight =
                 tempHeight + utils.getVerticalCenter(utils.getPaint(utils.bigTextSize))
         }
-        utils.drawRelativeText(
-            canvas,
+        val date =
             dateFormat.format(System.currentTimeMillis()).run {
                 if (flags[AlwaysOnCustomView.FLAG_CAPS_DATE]) {
                     this.uppercase()
                 } else {
                     this
                 }
-            },
+            }
+        utils.drawRelativeText(
+            canvas,
+            date,
             utils.padding2,
             utils.padding2,
             utils.getPaint(
@@ -33,9 +35,7 @@ object Date {
                 utils.prefs.get(P.DISPLAY_COLOR_DATE, P.DISPLAY_COLOR_DATE_DEFAULT),
             ),
             if (flags[AlwaysOnCustomView.FLAG_SAMSUNG_3]) {
-                utils.paint.measureText(
-                    dateFormat.format(System.currentTimeMillis()),
-                ).toInt() / 2 + utils.padding16
+                utils.paint.measureText(date).toInt() / 2 + utils.padding16
             } else {
                 0
             },
