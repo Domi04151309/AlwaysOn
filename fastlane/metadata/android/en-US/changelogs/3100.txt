@@ -1,0 +1,7 @@
+This update improves the display of all-day events by removing time indicators.
+A crash that could occur when no events are present has been fixed. A new option
+allows the Always-On Display (AOD) to be hidden during Do Not Disturb mode. AOD
+behavior has been refined, particularly in how it interacts with notifications.
+Translations have been updated, including enhancements to the French language
+support. The update also includes performance and stability improvements, along
+with dependency and code quality updates.
