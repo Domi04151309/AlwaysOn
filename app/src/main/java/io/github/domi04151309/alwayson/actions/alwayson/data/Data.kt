@@ -30,6 +30,9 @@ object Data {
                 null,
                 null,
             )
+
+        if (cursor?.count == 0) return emptyList()
+
         cursor?.moveToFirst()
         val millis = System.currentTimeMillis()
         val eventArray = arrayListOf<Pair<Long, String>>()
