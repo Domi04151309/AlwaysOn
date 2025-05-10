@@ -42,14 +42,13 @@ object Data {
             startTime = (cursor?.getString(1) ?: "0").toLong()
             endTime = (cursor?.getString(2) ?: "0").toLong()
             if (endTime > millis && startTime < millis + MILLISECONDS_PER_DAY) {
-                eventArray.add(
-                    Pair(
-                        startTime,
-                        singleLineClock.format(startTime) + " - " +
-                            singleLineClock.format(endTime) + " | " +
-                            cursor?.getString(0),
-                    ),
-                )
+                val time =
+                    if (startTime + MILLISECONDS_PER_DAY - endTime != 0L) {
+                        singleLineClock.format(startTime) + " - " + singleLineClock.format(endTime) + " | "
+                    } else {
+                        ""
+                    }
+                eventArray.add(Pair(startTime, time + cursor?.getString(0)))
             }
         } while (cursor?.moveToNext() == true)
         cursor?.close()
