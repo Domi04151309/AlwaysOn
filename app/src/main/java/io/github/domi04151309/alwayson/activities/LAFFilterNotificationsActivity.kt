@@ -4,6 +4,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.edit
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
@@ -73,9 +74,9 @@ class LAFFilterNotificationsActivity : BaseActivity() {
 
         override fun onStop() {
             super.onStop()
-            preferenceManager.sharedPreferences?.edit()
-                ?.putString("blocked_notifications", blockedArray.toString())
-                ?.apply()
+            preferenceManager.sharedPreferences?.edit {
+                putString("blocked_notifications", blockedArray.toString())
+            }
             AlwaysOn.finish()
         }
 

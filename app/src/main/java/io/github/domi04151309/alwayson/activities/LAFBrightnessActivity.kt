@@ -3,6 +3,7 @@ package io.github.domi04151309.alwayson.activities
 import android.os.Bundle
 import android.widget.SeekBar
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.edit
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.actions.alwayson.AlwaysOn
 import io.github.domi04151309.alwayson.helpers.P
@@ -51,10 +52,10 @@ class LAFBrightnessActivity : BaseActivity() {
     override fun onStop() {
         super.onStop()
         P.getPreferences(this)
-            .edit()
-            .putBoolean(P.FORCE_BRIGHTNESS, brightnessSwitch.isChecked)
-            .putInt(P.FORCE_BRIGHTNESS_VALUE, seekBar.progress)
-            .apply()
+            .edit {
+                putBoolean(P.FORCE_BRIGHTNESS, brightnessSwitch.isChecked)
+                putInt(P.FORCE_BRIGHTNESS_VALUE, seekBar.progress)
+            }
         AlwaysOn.finish()
     }
 

@@ -3,13 +3,14 @@ package io.github.domi04151309.alwayson.activities
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.content.edit
+import androidx.core.net.toUri
 import androidx.preference.Preference
 import androidx.preference.SeekBarPreference
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -53,9 +54,9 @@ class LAFWatchFaceActivity : BaseActivity() {
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 try {
                     SimpleDateFormat(editText.text.toString(), Locale.getDefault())
-                    preferenceManager.sharedPreferences?.edit()
-                        ?.putString(P.DATE_FORMAT, editText.text.toString())
-                        ?.apply()
+                    preferenceManager.sharedPreferences?.edit {
+                        putString(P.DATE_FORMAT, editText.text.toString())
+                    }
                     dialog.dismiss()
                 } catch (exception: IllegalArgumentException) {
                     Log.w(Global.LOG_TAG, exception.toString())
@@ -70,10 +71,10 @@ class LAFWatchFaceActivity : BaseActivity() {
                 startActivity(
                     Intent(Intent.ACTION_VIEW)
                         .setData(
-                            Uri.parse(
+                            (
                                 "https://developer.android.com/reference/java/text" +
-                                    "/SimpleDateFormat#date-and-time-patterns",
-                            ),
+                                    "/SimpleDateFormat#date-and-time-patterns"
+                            ).toUri(),
                         ),
                 )
             }

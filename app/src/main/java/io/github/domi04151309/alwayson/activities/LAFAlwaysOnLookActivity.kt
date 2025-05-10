@@ -2,6 +2,7 @@ package io.github.domi04151309.alwayson.activities
 
 import android.os.Bundle
 import android.widget.ImageView
+import androidx.core.content.edit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.R
@@ -104,7 +105,7 @@ class LAFAlwaysOnLookActivity : BaseActivity(), LayoutListAdapter.OnItemClickLis
 
     override fun onStop() {
         super.onStop()
-        P.getPreferences(this).edit().putString(P.USER_THEME, value).apply()
+        P.getPreferences(this).edit { putString(P.USER_THEME, value) }
     }
 
     override fun onItemClick(position: Int) {

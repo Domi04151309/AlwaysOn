@@ -1,9 +1,10 @@
 package io.github.domi04151309.alwayson.activities
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.EditText
+import androidx.core.content.edit
+import androidx.core.net.toUri
 import androidx.preference.Preference
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import io.github.domi04151309.alwayson.R
@@ -41,18 +42,16 @@ class LAFWeatherActivity : BaseActivity() {
                     .setTitle(R.string.pref_look_and_feel_weather_format)
                     .setView(dialogView)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
-                        preferenceManager.sharedPreferences?.edit()
-                            ?.putString(P.WEATHER_FORMAT, editText.text.toString())
-                            ?.apply()
+                        preferenceManager.sharedPreferences?.edit {
+                            putString(P.WEATHER_FORMAT, editText.text.toString())
+                        }
                     }
                     .setNegativeButton(android.R.string.cancel) { _, _ -> }
                     .setNeutralButton(R.string.pref_ao_date_format_dialog_neutral) { _, _ ->
                         startActivity(
                             Intent(Intent.ACTION_VIEW)
                                 .setData(
-                                    Uri.parse(
-                                        "https://github.com/chubin/wttr.in#one-line-output",
-                                    ),
+                                    "https://github.com/chubin/wttr.in#one-line-output".toUri(),
                                 ),
                         )
                     }
@@ -71,9 +70,7 @@ class LAFWeatherActivity : BaseActivity() {
                     startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse(
-                                "https://github.com/chubin/wttr.in",
-                            ),
+                            "https://github.com/chubin/wttr.in".toUri(),
                         ),
                     )
                 }

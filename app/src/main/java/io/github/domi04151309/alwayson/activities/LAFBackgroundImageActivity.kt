@@ -17,6 +17,8 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.edit
+import androidx.core.graphics.scale
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.github.domi04151309.alwayson.R
@@ -139,12 +141,7 @@ class LAFBackgroundImageActivity :
                     )
                 if (bitmap.width > MAXIMUM_BACKGROUND_RESOLUTION) {
                     bitmap =
-                        Bitmap.createScaledBitmap(
-                            bitmap,
-                            MAXIMUM_BACKGROUND_RESOLUTION,
-                            MAXIMUM_BACKGROUND_RESOLUTION,
-                            true,
-                        )
+                        bitmap.scale(MAXIMUM_BACKGROUND_RESOLUTION, MAXIMUM_BACKGROUND_RESOLUTION)
                 }
 
                 val os = ByteArrayOutputStream()
@@ -155,8 +152,9 @@ class LAFBackgroundImageActivity :
                         Base64.DEFAULT,
                     )
                 runOnUiThread { preview.setImageBitmap(bitmap) }
-                P.getPreferences(this).edit().putString(P.CUSTOM_BACKGROUND, encoded)
-                    .apply()
+                P.getPreferences(this).edit {
+                    putString(P.CUSTOM_BACKGROUND, encoded)
+                }
             }.start()
         }
     }
@@ -209,7 +207,7 @@ class LAFBackgroundImageActivity :
 
     override fun onStop() {
         super.onStop()
-        P.getPreferences(this).edit().putString(P.BACKGROUND_IMAGE, value).apply()
+        P.getPreferences(this).edit { putString(P.BACKGROUND_IMAGE, value) }
     }
 
     private fun showCustomImage() {

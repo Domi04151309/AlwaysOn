@@ -4,6 +4,7 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.core.content.edit
 import androidx.preference.Preference
 import io.github.domi04151309.alwayson.R
 import io.github.domi04151309.alwayson.custom.BasePreferenceFragment
@@ -57,17 +58,21 @@ class LAFRulesActivity : BaseActivity() {
                 TimePickerDialog(
                     context,
                     { _, selectedStartHour, selectedStartMinute ->
-                        preferenceManager.sharedPreferences?.edit()?.putString(
-                            "rules_time_start",
-                            formatTime(selectedStartHour, selectedStartMinute),
-                        )?.apply()
+                        preferenceManager.sharedPreferences?.edit {
+                            putString(
+                                "rules_time_start",
+                                formatTime(selectedStartHour, selectedStartMinute),
+                            )
+                        }
                         TimePickerDialog(
                             context,
                             { _, selectedEndHour, selectedEndMinute ->
-                                preferenceManager.sharedPreferences?.edit()?.putString(
-                                    "rules_time_end",
-                                    formatTime(selectedEndHour, selectedEndMinute),
-                                )?.apply()
+                                preferenceManager.sharedPreferences?.edit {
+                                    putString(
+                                        "rules_time_end",
+                                        formatTime(selectedEndHour, selectedEndMinute),
+                                    )
+                                }
                             },
                             parseInt(rulesTimeEndValue.substringBefore(":")),
                             parseInt(rulesTimeEndValue.substringAfter(":")),
@@ -102,9 +107,9 @@ class LAFRulesActivity : BaseActivity() {
                 ) ?: P.RULES_TIMEOUT_DEFAULT
 
             if (rulesBatteryLevelValue > Rules.BATTERY_FULL) {
-                preferenceManager.sharedPreferences?.edit()
-                    ?.putInt(P.RULES_BATTERY, P.RULES_BATTERY_DEFAULT)
-                    ?.apply()
+                preferenceManager.sharedPreferences?.edit {
+                    putInt(P.RULES_BATTERY, P.RULES_BATTERY_DEFAULT)
+                }
                 return
             }
 

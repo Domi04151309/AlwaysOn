@@ -12,6 +12,7 @@ import android.util.Base64
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import androidx.core.graphics.scale
 import com.android.volley.Request
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -304,11 +305,9 @@ class AlwaysOnCustomView : View {
         // Scale background
         if (customBackground != null && measuredWidth > 0) {
             customBackground =
-                Bitmap.createScaledBitmap(
-                    customBackground ?: error("Impossible state."),
+                (customBackground ?: error("Impossible state.")).scale(
                     measuredWidth,
                     measuredWidth,
-                    true,
                 )
         }
 

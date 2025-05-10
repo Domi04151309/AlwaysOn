@@ -9,13 +9,13 @@
     <string name="device_admin">Administrateur de l\’appareil</string>
     <string name="device_admin_summary">Vous devez être root (devenir administrateur) ou changer de mode pour que cette application fonctionne.</string>
     <string name="notification_listener_service">Accès aux notifications</string>
-    <string name="notification_listener_service_summary">Vous devez activer l\’accès aux notifications pour que l\’application affiche vos notifications sur l\'affichage permanent.</string>
+    <string name="notification_listener_service_summary">Vous devez activer l\’accès aux notifications pour que l\’application affiche vos notifications sur l\’affichage permanent.</string>
     <string name="setup_draw_over_other_apps">Afficher sur d\’autres applications</string>
     <string name="setup_draw_over_other_apps_summary">Cette permission est requise pour afficher l\’affichage permanent.</string>
     <string name="setup_phone_state">Lire l\’état du téléphone</string>
     <string name="setup_phone_state_summary">Cete permission est requise pour arrêter l\’affichage permanent lors d\’appels entrants.</string>
     <string name="setup_calendar">Lire le calendrier</string>
-    <string name="setup_calendar_summary">Vous pouvez activer l\’accès au calendrier pour que l\’application puisse afficher vos événements sur l\'affichage permanent.</string>
+    <string name="setup_calendar_summary">Vous pouvez activer l\’accès au calendrier pour que l\’application puisse afficher vos événements sur l\’affichage permanent.</string>
     <string name="setup_skip">Passer</string>
     <string name="setup_continue">Continuer</string>
     <string name="setup_error">Quelque chose s\’est mal passé ! S\’il vous plaît, réessayez !</string>
@@ -142,7 +142,7 @@
     <string name="pref_look_and_feel_charging_summary">Modifie l\’aspect de l\’animation jouée pendant le rechargement</string>
 
     <string name="pref_ao_background_image">Image de fond d’écran</string>
-    <string name="pref_ao_background_image_summary">Modifie l\’image sur le fond d\’écran de l\'affichage permanent</string>
+    <string name="pref_ao_background_image_summary">Modifie l\’image sur le fond d\’écran de l\’affichage permanent</string>
     <string-array name="pref_ao_background_image_array_display">
         <item>Aucun</item>
         <item>Daniel Olah</item>
@@ -214,27 +214,27 @@
     <string name="pref_draw_over_other_apps">Afficher au-dessus d\’autres applications</string>
     <string name="pref_draw_over_other_apps_summary">Active ou désactive cette permission</string>
     <string name="pref_admin">Administration de l\’appareil</string>
-    <string name="pref_admin_summary">Actives l\’administration de l\’appareil pour le mode normal\nVeuillez noter que vous devrez désactiver l\'administration de l\'appareil pour désinstaller cette application !</string>
+    <string name="pref_admin_summary">Actives l\’administration de l\’appareil pour le mode normal\nVeuillez noter que vous devrez désactiver l\’administration de l\’appareil pour désinstaller cette application !</string>
     <string name="pref_root_mode">Mode root</string>
     <string name="pref_root_mode_summary">Active la fonctionnalité root</string>
 
     <string name="help_center">Centre d\’aide</string>
     <string name="help_center_summary">Désinstallation, manque de réactivité, décharge de la batterie</string>
-    <string name="help_center_missing_permissions_text">Quand un paramètre est grisé et vous demande d\’activer quelque chose auparavant, vous n\’avez pas encore activé la permission nécessaire. Pour accorder la permission manquante à l\'application, ouvrez la page “Permissions” sur la page principale et acceptez l\'utilisation de cette permission. Vous pouvez maintenant accéder aux paramètres nécessitant ces permissions.</string>
+    <string name="help_center_missing_permissions_text">Quand un paramètre est grisé et vous demande d\’activer quelque chose auparavant, vous n\’avez pas encore activé la permission nécessaire. Pour accorder la permission manquante à l\’application, ouvrez la page “Permissions” sur la page principale et acceptez l\’utilisation de cette permission. Vous pouvez maintenant accéder aux paramètres nécessitant ces permissions.</string>
     <string name="help_center_uninstall">Comment désinstaller</string>
-    <string name="help_center_uninstall_text">Le processus de désinstallation peut échouer à cause d\’une erreur de conception dans le système d\’exploitation Android. Si la permission d\'administration de l\'appareil n\'a pas été désactivée avant le processus de désinstallation, celle-ci échouera. Vous devez désactiver la permission d\'administration de l\'appareil avant de désinstaller</string>
+    <string name="help_center_uninstall_text">Le processus de désinstallation peut échouer à cause d\’une erreur de conception dans le système d\’exploitation Android. Si la permission d\’administration de l\’appareil n\’a pas été désactivée avant le processus de désinstallation, celle-ci échouera. Vous devez désactiver la permission d\’administration de l\’appareil avant de désinstaller</string>
     <string name="help_center_uninstall_button">Désinstaller maintenant</string>
     <string name="help_center_delays">Comment régler le problème des délais</string>
     <string name="help_center_delays_text">Certains constructeurs font primer la durée de vie de la batterie sur les fonctionnalités des applications, ce qui explique que cette application puisse ne fonctionner qu\’avec des délais, voire pas du tout sur certains appareils. Si vous constatez des délais, essayez de désactiver les optimisations de batterie pour cette application ou vérifiez d\’autres paramètres spécifiques au constructeur</string>
     <string name="help_center_delays_button_one">Paramètres de batterie</string>
     <string name="help_center_delays_button_two">Spécificité constructeur</string>
     <string name="help_center_battery_drain">Comprendre la source d\’un déchargement de batterie</string>
-    <string name="help_center_battery_drain_text">Une des raisons d\’un déchargement de batterie peut être que vous utilisez un téléphone avec un écran LCD. Cette application est conçu pour les téléphones avec un écran OLED pouvant éteindre les pixels noirs de l\’écran pour économiser de l\'énergie. Les écrans LCD ne peuvent pas éteindre les pixels noirs ce qui résulte en une utilisation plus massive de la batterie lorsque l\'affichage est activée. Une autre raison peut être l\'utilisation d\'autres applications en tâche de fond quand l\'affichage permanent fonctionne. Android affichera leur consommation de batterie comme faisant partie de la consommation d\'AlwaysOn.</string>
+    <string name="help_center_battery_drain_text">Une des raisons d\’un déchargement de batterie peut être que vous utilisez un téléphone avec un écran LCD. Cette application est conçu pour les téléphones avec un écran OLED pouvant éteindre les pixels noirs de l\’écran pour économiser de l\’énergie. Les écrans LCD ne peuvent pas éteindre les pixels noirs ce qui résulte en une utilisation plus massive de la batterie lorsque l\’affichage est activée. Une autre raison peut être l\’utilisation d\’autres applications en tâche de fond quand l\’affichage permanent fonctionne. Android affichera leur consommation de batterie comme faisant partie de la consommation d\’AlwaysOn.</string>
 
     <string name="loading">Chargement</string>
     <string name="missing_permissions">Permissions manquantes</string>
     <string name="permissions_notification_access">Activez l\’accès aux notifications pour cette fonctionnalité</string>
-    <string name="permissions_device_admin_or_root">Activez l\’administration de l\’appareil ou rootez l\'appareil pour cette fonctionnalité</string>
+    <string name="permissions_device_admin_or_root">Activez l\’administration de l\’appareil ou rootez l\’appareil pour cette fonctionnalité</string>
 
     <string name="about">À propos</string>
     <string name="about_summary">À propos de l\’application</string>

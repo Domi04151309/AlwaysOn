@@ -1,8 +1,8 @@
 package io.github.domi04151309.alwayson.activities
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
+import androidx.core.net.toUri
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -28,13 +28,11 @@ class AboutActivity : BaseActivity() {
                     startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse(
-                                when (which) {
-                                    0 -> "https://icons8.com/"
-                                    1 -> "https://fonts.google.com/icons?selected=Material+Icons"
-                                    else -> "about:blank"
-                                },
-                            ),
+                            when (which) {
+                                0 -> "https://icons8.com/"
+                                1 -> "https://fonts.google.com/icons?selected=Material+Icons"
+                                else -> "about:blank"
+                            }.toUri(),
                         ),
                     )
                 }
@@ -51,7 +49,7 @@ class AboutActivity : BaseActivity() {
                     startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse(link),
+                            link.toUri(),
                         ),
                     )
                 }
@@ -60,9 +58,7 @@ class AboutActivity : BaseActivity() {
                     startActivity(
                         Intent(
                             Intent.ACTION_VIEW,
-                            Uri.parse(
-                                "https://docs.github.com/en/github/site-policy/github-privacy-statement",
-                            ),
+                            "https://docs.github.com/en/github/site-policy/github-privacy-statement".toUri(),
                         ),
                     )
                 }
