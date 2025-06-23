@@ -77,7 +77,12 @@ internal class P(private val prefs: SharedPreferences) {
                     WEATHER_LOCATION_DEFAULT,
                 ),
                 "utf-8",
-            ) + "?T&format=" +
+            ) + if (get(WEATHER_METRIC, WEATHER_METRIC_DEFAULT,)) {
+                    "?m"
+                } else {
+                    "?u"
+                } +
+                "?T&format=" +
             URLEncoder.encode(
                 get(
                     WEATHER_FORMAT,
@@ -122,6 +127,7 @@ internal class P(private val prefs: SharedPreferences) {
         const val SHOW_WEATHER = "ao_weather"
         const val WEATHER_LOCATION = "ao_weather_location"
         const val WEATHER_FORMAT = "ao_weather_format"
+        const val WEATHER_METRIC = "ao_weather_metric"
         const val TINT_NOTIFICATIONS = "ao_tint_notifications"
         const val ANIMATE_MOTION = "ao_smooth_animation"
         const val DISPLAY_COLOR_CLOCK = "display_color_clock"
@@ -215,6 +221,7 @@ internal class P(private val prefs: SharedPreferences) {
         const val SHOW_WEATHER_DEFAULT = false
         const val WEATHER_LOCATION_DEFAULT = ""
         const val WEATHER_FORMAT_DEFAULT = "%t"
+        const val WEATHER_METRIC_DEFAULT = true
         const val TINT_NOTIFICATIONS_DEFAULT = false
         const val ANIMATE_MOTION_DEFAULT = false
         const val DISPLAY_COLOR_CLOCK_DEFAULT = -1
