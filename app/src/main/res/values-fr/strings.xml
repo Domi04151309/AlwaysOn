@@ -175,6 +175,8 @@
     <string name="pref_look_and_feel_weather_location_summary">La localisation du bulletin métérologique. Laissez vide pour une auto-localisation.</string>
     <string name="pref_look_and_feel_weather_format">Format de la météo</string>
     <string name="pref_look_and_feel_weather_format_summary">Le format de la météo utilisé sur l\’affichage permanent</string>
+    <string name="pref_look_and_feel_weather_unit">Utiliser les unités impériales</string>
+    <string name="pref_look_and_feel_weather_unit_summary">Affiche la température en degrés Fahrenheit</string>
 
     <string name="pref_look_and_feel_filter_notifications">Filtrer les notifications</string>
     <string name="pref_look_and_feel_filter_notifications_summary">Choisir les notifications à ne pas afficher</string>
