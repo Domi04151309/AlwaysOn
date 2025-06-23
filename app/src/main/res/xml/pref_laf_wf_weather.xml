@@ -32,5 +32,11 @@
             android:icon="@drawable/ic_short_text"
             android:summary="@string/pref_look_and_feel_weather_format_summary"
             android:title="@string/pref_look_and_feel_weather_format" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="ao_weather_metric"
+            android:icon="@drawable/ic_location"
+            android:summary="@string/pref_look_and_feel_weather_unit_summary"
+            android:title="@string/pref_look_and_feel_weather_unit"/>
     </PreferenceCategory>
 </PreferenceScreen>
