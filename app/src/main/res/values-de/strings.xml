@@ -144,6 +144,8 @@
     <string name="pref_look_and_feel_weather_location_summary">Der Ort für den Wetterbericht. Lassen Sie dies für die automatische Ortung leer.</string>
     <string name="pref_look_and_feel_weather_format">Wetterformat</string>
     <string name="pref_look_and_feel_weather_format_summary">Das auf dem AOD verwendete Wetterformat</string>
+    <string name="pref_look_and_feel_weather_unit">Imperiale Einheiten verwenden</string>
+    <string name="pref_look_and_feel_weather_unit_summary">Die Temperatur in Fahrenheit anzeigen</string>
 
     <string name="pref_look_and_feel_filter_notifications">Benachrichtigungen filtern</string>
     <string name="pref_look_and_feel_filter_notifications_summary">Wähle aus, welche Benachrichtigungen nicht angezeigt werden sollen</string>

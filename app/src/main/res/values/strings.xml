@@ -184,6 +184,8 @@
     <string name="pref_look_and_feel_weather_location_summary">The location for the weather report. Leave this empty for auto-location.</string>
     <string name="pref_look_and_feel_weather_format">Weather format</string>
     <string name="pref_look_and_feel_weather_format_summary">The weather format used on the AOD</string>
+    <string name="pref_look_and_feel_weather_unit">Use imperial units</string>
+    <string name="pref_look_and_feel_weather_unit_summary">Display the temperature in Fahrenheit</string>
 
     <string name="pref_look_and_feel_filter_notifications">Filter notifications</string>
     <string name="pref_look_and_feel_filter_notifications_summary">Choose, which notifications not to show</string>
@@ -262,8 +264,6 @@
     <string name="about_icons_desc">Icons by Icons8 and Google</string>
     <string name="about_libraries">Libraries</string>
     <string name="about_libraries_desc">A list of all used libraries</string>
-    <string name="pref_look_and_feel_weather_unit_summary">Display temperature in metric units. Disable for Fahrenheit.</string>
-    <string name="pref_look_and_feel_weather_unit">Use celsius</string>
 
     <string-array name="about_libraries" translatable="false">
         <item>Android Preferences KTX</item>
