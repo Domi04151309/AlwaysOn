@@ -1,7 +1,6 @@
 package io.github.domi04151309.alwayson.activities
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -119,7 +118,7 @@ class LAFBackgroundImageActivity :
     }
 
     override fun onActivityResult(result: ActivityResult) {
-        if (result.resultCode == Activity.RESULT_OK) {
+        if (result.resultCode == RESULT_OK) {
             if (result.data == null) return
             @Suppress("LabeledExpression")
             Thread {

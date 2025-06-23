@@ -2,7 +2,6 @@ package io.github.domi04151309.alwayson.activities
 
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
@@ -17,7 +16,7 @@ class HelpActivity : BaseActivity() {
         setContentView(R.layout.activity_help)
 
         findViewById<Button>(R.id.uninstall).setOnClickListener {
-            (getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager)
+            (getSystemService(DEVICE_POLICY_SERVICE) as DevicePolicyManager)
                 .removeActiveAdmin(ComponentName(this, AdminReceiver::class.java))
             startActivity(Intent(Intent.ACTION_DELETE).setData("package:$packageName".toUri()))
         }

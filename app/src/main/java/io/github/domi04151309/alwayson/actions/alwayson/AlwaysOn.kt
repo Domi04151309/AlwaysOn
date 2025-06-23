@@ -136,7 +136,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         viewHolder.customView.scaleY = prefs.displayScale()
         if (prefs.get(P.USER_THEME, P.USER_THEME_DEFAULT) == P.USER_THEME_SAMSUNG2) {
             val size = Point()
-            (getSystemService(Context.DISPLAY_SERVICE) as DisplayManager)
+            (getSystemService(DISPLAY_SERVICE) as DisplayManager)
                 .getDisplay(Display.DEFAULT_DISPLAY)
                 .getSize(size)
             offsetX = (size.x - size.x * prefs.displayScale()) * -HALF
@@ -180,7 +180,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
 
     private fun prepareMusicControls() {
         val mediaSessionManager =
-            getSystemService(Context.MEDIA_SESSION_SERVICE) as MediaSessionManager
+            getSystemService(MEDIA_SESSION_SERVICE) as MediaSessionManager
         val notificationListener =
             ComponentName(applicationContext, NotificationService::class.java.name)
         onActiveSessionsChangedListener =
@@ -231,14 +231,14 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
     }
 
     private fun prepareProximity() {
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         sensorEventListener = AlwaysOnSensorEventListener(viewHolder)
     }
 
     private fun prepareDoNotDisturb() {
         notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationAccess = notificationManager?.isNotificationPolicyAccessGranted ?: false
+            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationAccess = notificationManager?.isNotificationPolicyAccessGranted == true
         if (notificationAccess) {
             userDND = notificationManager?.currentInterruptionFilter
                 ?: NotificationManager.INTERRUPTION_FILTER_ALL
@@ -278,7 +278,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
                 val duration = prefs.get(P.VIBRATION_DURATION, P.VIBRATION_DURATION_DEFAULT).toLong()
                 if (duration > 0) {
                     val vibrator =
-                        getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                        getSystemService(VIBRATOR_SERVICE) as Vibrator
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         vibrator.vibrate(
                             VibrationEffect.createOneShot(
@@ -317,7 +317,7 @@ class AlwaysOn : OffActivity(), NotificationService.OnNotificationsChangedListen
         instance = this
 
         prefs = P(getDefaultSharedPreferences(this))
-        userPowerSaving = (getSystemService(Context.POWER_SERVICE) as PowerManager).isPowerSaveMode
+        userPowerSaving = (getSystemService(POWER_SERVICE) as PowerManager).isPowerSaveMode
 
         prepareView()
 

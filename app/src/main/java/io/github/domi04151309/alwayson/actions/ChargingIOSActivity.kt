@@ -1,6 +1,5 @@
 package io.github.domi04151309.alwayson.actions
 
-import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Point
@@ -36,7 +35,7 @@ class ChargingIOSActivity : OffActivity() {
             override fun run() {
                 while (content.height == 0) sleep(TINY_DELAY)
                 val size = Point()
-                (getSystemService(Context.DISPLAY_SERVICE) as DisplayManager)
+                (getSystemService(DISPLAY_SERVICE) as DisplayManager)
                     .getDisplay(Display.DEFAULT_DISPLAY)
                     .getSize(size)
                 runOnUiThread {

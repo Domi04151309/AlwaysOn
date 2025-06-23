@@ -85,7 +85,7 @@ class Rules(context: Context) {
                         BatteryManager.BATTERY_PLUGGED_WIRELESS -> "wireless"
                         else -> ""
                     },
-                ) ?: false
+                ) == true
             } else {
                 false
             }
